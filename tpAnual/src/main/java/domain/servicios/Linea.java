@@ -1,4 +1,4 @@
-package servicios;
+package domain.servicios;
 
 import java.util.List;
 

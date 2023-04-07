@@ -1,4 +1,4 @@
-package servicios;
+package domain.servicios;
 
 public interface Servicio {
     //TODO

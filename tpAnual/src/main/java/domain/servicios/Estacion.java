@@ -1,6 +1,6 @@
-package servicios;
+package domain.servicios;
 
-import compartidos.Ubicacion;
+import domain.compartidos.Ubicacion;
 
 import java.util.List;
 
