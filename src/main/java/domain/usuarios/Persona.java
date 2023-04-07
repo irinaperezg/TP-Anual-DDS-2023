@@ -9,4 +9,10 @@ public class Persona {
     private String contrasenia;
     private List<Comunidad> comunidades;
     //TODO
+
+
+    public Persona(String nombre, String contrasenia) {
+        this.nombre = nombre;
+        this.contrasenia = contrasenia;
+    }
 }
