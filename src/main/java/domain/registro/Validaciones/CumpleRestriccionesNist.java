@@ -3,6 +3,9 @@ package domain.registro.Validaciones;
 import domain.registro.Validacion;
 import lombok.Setter;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class CumpleRestriccionesNist implements Validacion {
     @Setter
     private int cantidadDeCaracteresMaxima = 64;
@@ -37,33 +40,12 @@ public class CumpleRestriccionesNist implements Validacion {
     }
 
     private boolean cumpleComplejidad(String contrasenia) {
-        return tieneNumero(contrasenia) && tieneMayuscula(contrasenia) && tieneMinima(contrasenia) && tieneCaracterEspecial(contrasenia);
-    }
-
-    private boolean tieneNumero(String contrasenia) {
-        return true; //TODO
-    }
-
-    private boolean tieneMinima(String contrasenia) {
-        return true; //TODO
-    }
-
-    private boolean tieneMayuscula(String contrasenia) {
-        return true; //TODO
-    }
-
-    private boolean tieneCaracterEspecial(String contrasenia) {
-        return true; //TODO
-    }
-
-    /* COMPLEJIDAD SACADO DE INTERNET
-    public void validar(String contrasena) throws Exception {
+        //debe contener un numero, una mayuscula, una minuscula y un caracter especial
         Pattern regex = Pattern.compile("^(?=.{8,})(?=.[a-z])(?=.[0-9])(?=.[A-Z])(?=.[@#$%_^&+=]).*$");
-        Matcher matcher = regex.matcher(contrasena);
+        Matcher matcher = regex.matcher(contrasenia);
         if (!matcher.find()){
-            throw new ValidadorContrasenaException("La contrasena debe contener al menos un numero, una mayuscula, una minuscula y un caracter especial");
+            //TODO exception
         }
+        return true;
     }
-     */
-
 }
