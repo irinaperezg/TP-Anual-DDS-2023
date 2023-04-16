@@ -1,5 +1,9 @@
 package domain.servicios;
 
-public interface Servicio {
+public class Servicio {
     //TODO
+    private boolean estaDisponible() {
+        //TODO
+        return true;
+    }
 }

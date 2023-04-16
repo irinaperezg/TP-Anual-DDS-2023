@@ -3,7 +3,7 @@ package domain.usuarios;
 import java.util.List;
 
 public class Comunidad {
-    private List<Persona> miembros;
-    private List<Persona> administradores;
+    private List<Miembro> miembros;
+    private List<Miembro> administradores;
     //TODO
 }

@@ -1,5 +1,6 @@
 package domain.registro;
 
 public interface Validacion {
-    public boolean validarContrasenia(String contrasenia);
+    //TODO agregar throws exception aca abajito
+    public boolean validarContrasenia(String nombre, String contrasenia);
 }
