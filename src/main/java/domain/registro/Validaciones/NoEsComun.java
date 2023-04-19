@@ -1,14 +1,14 @@
 package domain.registro.Validaciones;
 
 import domain.registro.Validacion;
+import domain.excepciones.excepcionesContrasenias.ExcepcionComun;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
+import static config.Config.Archivo10kContrasenias;
 
 public class NoEsComun implements Validacion {
 
@@ -16,39 +16,30 @@ public class NoEsComun implements Validacion {
 
     @Override
     public boolean validarContrasenia(String nombre, String contrasenia) {
-        if (esComun(contrasenia)) {
-            //TODO exception
+        if (contraseniasComunes.contains(contrasenia)) {
+            throw new ExcepcionComun("La contrasenia no debe ser una contrasenia comun");
         }
         return true;
     }
 
-    public NoEsComun() throws Exception {
+    public NoEsComun() {
         this.procesarArchivoDeContrasenasComunes();
     }
 
-    private boolean esComun(String contrasenia) {
-        if(contraseniasComunes.contains(contrasenia)){
-            //throw new Exception("La contrasena no debe ser una contrasena comun");
-        }
-        return true;
-    }
+    public void procesarArchivoDeContrasenasComunes() {
+        try {
+            File file = new File(Archivo10kContrasenias);
+            Scanner myReader = new Scanner(file);
 
-    public void procesarArchivoDeContrasenasComunes() throws Exception {
-        String pathArchivo = "/10k-worst-passwords.txt";
-
-        try{
-            InputStream inputStream = NoEsComun.class.getResourceAsStream(pathArchivo);
-            assert inputStream != null;
-            InputStreamReader streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
-            BufferedReader reader = new BufferedReader(streamReader);
-
-            String contrasena;
-            while((contrasena = reader.readLine()) != null){
-                contraseniasComunes.add(contrasena);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                contraseniasComunes.add(data);
             }
-            reader.close();
-        }catch (IOException e) {
-            throw new Exception("Ocurrio un error al leer el archivo de contrasenas");
+
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("No se pudo encontrar el archivo" + Archivo10kContrasenias);
+            e.printStackTrace();
         }
     }
 }

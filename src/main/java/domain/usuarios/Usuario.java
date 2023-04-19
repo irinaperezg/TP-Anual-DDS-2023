@@ -1,7 +1,6 @@
-package domain.registro;
+package domain.usuarios;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 public class Usuario {

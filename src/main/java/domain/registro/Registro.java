@@ -3,29 +3,31 @@ package domain.registro;
 import domain.registro.Validaciones.CredencialesPorDefecto;
 import domain.registro.Validaciones.CumpleRestriccionesNist;
 import domain.registro.Validaciones.NoEsComun;
+import domain.usuarios.Usuario;
 
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class Registro {
-    private List<Validacion> validaciones;
+    private final List<Validacion> validaciones = new ArrayList<>();
 
-    private void agregarValidaciones() throws Exception {
+    public Registro() {
+        this.agregarValidaciones();
+    }
+
+    private void agregarValidaciones() {
         validaciones.add(new CredencialesPorDefecto());
         validaciones.add(new CumpleRestriccionesNist());
         validaciones.add(new NoEsComun());
     }
 
-    private boolean esSegura (String nombre, String contrasenia) {
-        //TODO agregar excepciones
-        return validaciones.stream().allMatch(validacion -> validacion.validarContrasenia(nombre, contrasenia));
+    public boolean esValido(String nombre, String contrasenia) {
+        return validaciones.stream().allMatch(validacion ->
+            validacion.validarContrasenia(nombre, contrasenia));
     }
 
     private void registrarUsuario (String nombre, String contrasenia ) {
-        if (!esSegura(nombre, contrasenia)) {
-
-        }
-        else {
+        if (esValido(nombre, contrasenia)) {
             Usuario usuario = new Usuario(nombre, contrasenia);
         }
     }

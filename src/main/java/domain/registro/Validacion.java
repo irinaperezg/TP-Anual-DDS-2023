@@ -1,6 +1,7 @@
 package domain.registro;
 
+import domain.excepciones.excepcionesContrasenias.ExcepcionLongitud;
+
 public interface Validacion {
-    //TODO agregar throws exception aca abajito
-    public boolean validarContrasenia(String nombre, String contrasenia);
+    public boolean validarContrasenia(String nombre, String contrasenia) throws ExcepcionLongitud;
 }

@@ -1,50 +1,52 @@
 package domain.registro.Validaciones;
 
 import domain.registro.Validacion;
+import domain.excepciones.excepcionesContrasenias.ExcepcionComplejidad;
+import domain.excepciones.excepcionesContrasenias.ExcepcionLongitud;
+import lombok.Getter;
 import lombok.Setter;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CumpleRestriccionesNist implements Validacion {
-    @Setter
-    private int cantidadDeCaracteresMaxima = 64;
-    @Setter
-    private int cantidadDeCaracteresMinima = 8;
+    @Setter @Getter
+    public int cantidadDeCaracteresMaxima = 64;
+    @Setter @Getter
+    public int cantidadDeCaracteresMinima = 8;
 
     @Override
-    public boolean validarContrasenia(String nombre, String contrasenia) {
+    public boolean validarContrasenia(String nombre, String contrasenia) throws ExcepcionLongitud {
         return cumpleLongitud(contrasenia) && cumpleRotacion() && cumpleComplejidad(contrasenia);
     }
 
-    private boolean cumpleLongitud(String contrasenia) {
+    public boolean cumpleLongitud(String contrasenia) throws ExcepcionLongitud {
         return cumpleCaracteresMinima(contrasenia) && cumpleCaracteresMaxima(contrasenia);
     }
 
-    private boolean cumpleCaracteresMinima(String contrasenia) {
+    public boolean cumpleCaracteresMinima(String contrasenia) throws ExcepcionLongitud {
         if (contrasenia.length() < cantidadDeCaracteresMinima) {
-            //Todo exception
+            throw new ExcepcionLongitud("La contrasenia debe tener al menos " + cantidadDeCaracteresMinima + " caracteres");
         }
         return true;
     }
 
-    private boolean cumpleCaracteresMaxima(String contrasenia) {
+    public boolean cumpleCaracteresMaxima(String contrasenia) throws ExcepcionLongitud {
         if (contrasenia.length() > cantidadDeCaracteresMaxima) {
-            //Todo exception
+            throw new ExcepcionLongitud("La contrasenia debe tener menos de " + cantidadDeCaracteresMaxima + " caracteres");
         }
         return true;
     }
 
-    private boolean cumpleRotacion() {
+    public boolean cumpleRotacion() {
         return true; //TODO
     }
 
-    private boolean cumpleComplejidad(String contrasenia) {
-        //debe contener un numero, una mayuscula, una minuscula y un caracter especial
-        Pattern regex = Pattern.compile("^(?=.{8,})(?=.[a-z])(?=.[0-9])(?=.[A-Z])(?=.[@#$%_^&+=]).*$");
+    public boolean cumpleComplejidad(String contrasenia) {
+        Pattern regex = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!])\\S+$");
         Matcher matcher = regex.matcher(contrasenia);
         if (!matcher.find()){
-            //TODO exception
+            throw new ExcepcionComplejidad("La contrasenia debe contener un numero, una mayuscula, una minuscula y un simbolo");
         }
         return true;
     }

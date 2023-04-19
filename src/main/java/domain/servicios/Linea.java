@@ -7,5 +7,4 @@ public class Linea {
     private Estacion estacionOrigen;
     private Estacion estacionDestino;
     private List<Estacion> recorrido;
-    //TODO
 }
