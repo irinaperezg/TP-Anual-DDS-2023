@@ -1,7 +1,5 @@
 package domain.servicios;
 
-import domain.compartidos.Ubicacion;
-
 import java.util.List;
 
 public class Estacion {

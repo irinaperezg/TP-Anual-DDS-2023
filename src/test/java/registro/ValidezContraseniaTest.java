@@ -1,7 +1,7 @@
-package domain.contrasenias;
+package registro;
 
-import domain.excepciones.excepcionesContrasenias.ExcepcionContraseniaInvalida;
-import domain.registro.Registro;
+import excepciones.contrasenias.ExcepcionContraseniaInvalida;
+import registro.Registro;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -23,7 +23,7 @@ public class ValidezContraseniaTest {
   public void contraseniaValida(){
     contrasenia = "Validisima85$";
 
-    assertTrue(registro.esValido(nombre, contrasenia));
+    assertTrue(registro.verificarValidez(nombre, contrasenia));
   }
 
   @Test
@@ -32,6 +32,6 @@ public class ValidezContraseniaTest {
     contrasenia = "invalida";
 
     assertThrows(ExcepcionContraseniaInvalida.class,
-        () -> registro.esValido(nombre, contrasenia));
+        () -> registro.verificarValidez(nombre, contrasenia));
   }
 }

@@ -1,7 +1,7 @@
-package domain.contrasenias;
+package registro;
 
-import domain.registro.Validaciones.CumpleRestriccionesNist;
-import domain.excepciones.excepcionesContrasenias.ExcepcionLongitud;
+import registro.Validaciones.CumpleRestriccionesNist;
+import excepciones.contrasenias.ExcepcionLongitud;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;

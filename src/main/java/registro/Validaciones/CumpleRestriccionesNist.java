@@ -1,8 +1,9 @@
-package domain.registro.Validaciones;
+package registro.Validaciones;
 
-import domain.registro.Validacion;
-import domain.excepciones.excepcionesContrasenias.ExcepcionComplejidad;
-import domain.excepciones.excepcionesContrasenias.ExcepcionLongitud;
+import excepciones.contrasenias.ExcepcionContraseniaInvalida;
+import registro.Validacion;
+import excepciones.contrasenias.ExcepcionComplejidad;
+import excepciones.contrasenias.ExcepcionLongitud;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,13 +11,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CumpleRestriccionesNist implements Validacion {
-    @Setter @Getter
     public int cantidadDeCaracteresMaxima = 64;
-    @Setter @Getter
     public int cantidadDeCaracteresMinima = 8;
 
     @Override
-    public boolean validarContrasenia(String nombre, String contrasenia) throws ExcepcionLongitud {
+    public boolean validarContrasenia(String nombre, String contrasenia) throws ExcepcionContraseniaInvalida {
         return cumpleLongitud(contrasenia) && cumpleRotacion() && cumpleComplejidad(contrasenia);
     }
 
@@ -42,7 +41,7 @@ public class CumpleRestriccionesNist implements Validacion {
         return true; //TODO
     }
 
-    public boolean cumpleComplejidad(String contrasenia) {
+    public boolean cumpleComplejidad(String contrasenia) throws ExcepcionComplejidad {
         Pattern regex = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!])\\S+$");
         Matcher matcher = regex.matcher(contrasenia);
         if (!matcher.find()){

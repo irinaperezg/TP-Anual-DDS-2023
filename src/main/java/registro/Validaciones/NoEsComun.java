@@ -1,7 +1,8 @@
-package domain.registro.Validaciones;
+package registro.Validaciones;
 
-import domain.registro.Validacion;
-import domain.excepciones.excepcionesContrasenias.ExcepcionComun;
+import shared.GetRutaAbsoluta;
+import registro.Validacion;
+import excepciones.contrasenias.ExcepcionComun;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class NoEsComun implements Validacion {
     private final List<String> contraseniasComunes = new ArrayList<>();
 
     @Override
-    public boolean validarContrasenia(String nombre, String contrasenia) {
+    public boolean validarContrasenia(String nombre, String contrasenia) throws ExcepcionComun {
         if (contraseniasComunes.contains(contrasenia)) {
             throw new ExcepcionComun("La contrasenia no debe ser una contrasenia comun");
         }
@@ -28,7 +29,7 @@ public class NoEsComun implements Validacion {
 
     public void procesarArchivoDeContrasenasComunes() {
         try {
-            File file = new File(Archivo10kContrasenias);
+            File file = new File(GetRutaAbsoluta.getRutaAbsoluta(Archivo10kContrasenias));
             Scanner myReader = new Scanner(file);
 
             while (myReader.hasNextLine()) {

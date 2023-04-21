@@ -1,11 +1,11 @@
-package domain.contrasenias;
+package registro;
 
-import domain.excepciones.excepcionesContrasenias.ExcepcionComplejidad;
+import excepciones.contrasenias.ExcepcionComplejidad;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import static org.junit.jupiter.api.Assertions.*;
-import domain.registro.Validaciones.CumpleRestriccionesNist;
+import registro.Validaciones.CumpleRestriccionesNist;
 
 public class CumpleComplejidadTest {
   private CumpleRestriccionesNist restriccionesNist;

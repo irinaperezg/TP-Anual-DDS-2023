@@ -1,7 +1,7 @@
-package domain.contrasenias;
+package registro;
 
-import domain.excepciones.excepcionesContrasenias.ExcepcionComun;
-import domain.registro.Validaciones.NoEsComun;
+import excepciones.contrasenias.ExcepcionComun;
+import registro.Validaciones.NoEsComun;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;

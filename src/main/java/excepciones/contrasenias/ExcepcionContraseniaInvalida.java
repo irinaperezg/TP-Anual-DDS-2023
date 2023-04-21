@@ -1,4 +1,4 @@
-package domain.excepciones.excepcionesContrasenias;
+package excepciones.contrasenias;
 
 public class ExcepcionContraseniaInvalida extends RuntimeException {
 

@@ -1,4 +1,4 @@
-package domain.compartidos;
+package domain.servicios;
 
 public class Ubicacion {
     private String calle;
