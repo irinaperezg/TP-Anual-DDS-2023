@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import static org.junit.jupiter.api.Assertions.*;
-import registro.Validaciones.CumpleRestriccionesNist;
+import registro.validaciones.CumpleRestriccionesNist;
 
 public class CumpleComplejidadTest {
   private CumpleRestriccionesNist restriccionesNist;

@@ -1,4 +1,4 @@
-package domain.servicios;
+package domain.estaciones;
 
 public class Ubicacion {
     private String calle;

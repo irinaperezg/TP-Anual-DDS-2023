@@ -1,6 +1,6 @@
 package registro;
 
-import registro.Validaciones.CumpleRestriccionesNist;
+import registro.validaciones.CumpleRestriccionesNist;
 import excepciones.contrasenias.ExcepcionLongitud;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

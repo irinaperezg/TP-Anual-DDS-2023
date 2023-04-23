@@ -1,4 +1,4 @@
-package registro.Validaciones;
+package registro.validaciones;
 
 import excepciones.contrasenias.ExcepcionCredencial;
 import registro.Validacion;

@@ -19,4 +19,13 @@ public class EncriptadorTest {
 
     assertEquals(hashCorrecto, miHash);
   }
+
+  @Test
+  @DisplayName("Se comprueba que funciona el algoritmo de encriptamiento")
+  public void contraseniaEncriptadaSHA256() throws NoSuchAlgorithmException {
+    String hashCorrecto = "b221d9dbb083a7f33428d7c2a3c3198ae925614d70210e28716ccaa7cd4ddb79";
+    String miHash = encriptador.encriptarContrasenia("hola","SHA-256");
+
+    assertEquals(hashCorrecto, miHash);
+  }
 }

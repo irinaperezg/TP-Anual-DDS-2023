@@ -1,7 +1,7 @@
 package registro;
 
 import excepciones.contrasenias.ExcepcionComun;
-import registro.Validaciones.NoEsComun;
+import registro.validaciones.NoEsComun;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;

@@ -1,11 +1,9 @@
-package registro.Validaciones;
+package registro.validaciones;
 
 import excepciones.contrasenias.ExcepcionContraseniaInvalida;
 import registro.Validacion;
 import excepciones.contrasenias.ExcepcionComplejidad;
 import excepciones.contrasenias.ExcepcionLongitud;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

@@ -1,4 +1,4 @@
-package domain.servicios;
+package domain.estaciones;
 
 import java.util.List;
 

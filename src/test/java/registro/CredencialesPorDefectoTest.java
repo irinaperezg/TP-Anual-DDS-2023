@@ -1,7 +1,7 @@
 package registro;
 
 import excepciones.contrasenias.ExcepcionCredencial;
-import registro.Validaciones.CredencialesPorDefecto;
+import registro.validaciones.CredencialesPorDefecto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;

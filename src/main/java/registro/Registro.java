@@ -1,9 +1,9 @@
 package registro;
 
 import excepciones.contrasenias.ExcepcionContraseniaInvalida;
-import registro.Validaciones.CredencialesPorDefecto;
-import registro.Validaciones.CumpleRestriccionesNist;
-import registro.Validaciones.NoEsComun;
+import registro.validaciones.CredencialesPorDefecto;
+import registro.validaciones.CumpleRestriccionesNist;
+import registro.validaciones.NoEsComun;
 import domain.usuarios.Usuario;
 import static config.Config.hash;
 

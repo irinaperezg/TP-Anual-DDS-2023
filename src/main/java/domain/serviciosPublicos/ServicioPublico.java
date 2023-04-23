@@ -1,4 +1,4 @@
-package domain.servicios;
+package domain.serviciosPublicos;
 
 public class ServicioPublico {
     private TipoServicio tipo;

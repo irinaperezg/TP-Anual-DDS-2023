@@ -1,7 +1,6 @@
 package registro;
 
 import excepciones.contrasenias.ExcepcionContraseniaInvalida;
-import registro.Registro;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;

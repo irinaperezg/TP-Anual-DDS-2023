@@ -1,6 +1,5 @@
-package registro.Validaciones;
+package registro.validaciones;
 
-import shared.GetRutaAbsoluta;
 import registro.Validacion;
 import excepciones.contrasenias.ExcepcionComun;
 
@@ -29,7 +28,7 @@ public class NoEsComun implements Validacion {
 
     public void procesarArchivoDeContrasenasComunes() {
         try {
-            File file = new File(GetRutaAbsoluta.getRutaAbsoluta(Archivo10kContrasenias));
+            File file = new File(Archivo10kContrasenias);
             Scanner myReader = new Scanner(file);
 
             while (myReader.hasNextLine()) {
