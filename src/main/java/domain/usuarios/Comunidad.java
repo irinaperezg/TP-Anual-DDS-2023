@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Comunidad {
     private List<Miembro> miembros;
-    private List<Miembro> administradores;
+    private List<Administrador> administradores;
 
     public AgrupacionDeServicios agregarAgrupacionDeServicios(Servicio ... servicios) {
         return new AgrupacionDeServicios(servicios);
