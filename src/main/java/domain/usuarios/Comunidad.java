@@ -1,15 +1,15 @@
 package domain.usuarios;
 
-import domain.estaciones.AgrupacionDeServicios;
 import domain.estaciones.Servicio;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Comunidad {
     private List<Miembro> miembros;
     private List<Administrador> administradores;
 
-    public AgrupacionDeServicios agregarAgrupacionDeServicios(Servicio ... servicios) {
-        return new AgrupacionDeServicios(servicios);
+    public List<Servicio> agregarAgrupacionDeServicios(Servicio ... servicios) {
+        return Arrays.stream(servicios).toList();
     }
 }
