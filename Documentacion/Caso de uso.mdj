@@ -3515,7 +3515,7 @@
 							"top": 1152,
 							"width": 673,
 							"height": 33,
-							"text": "* Consideramos que para todas los casos se debe ingresar sesión en el sistema. "
+							"text": "* Consideramos que para todos los casos se debe ingresar sesión en el sistema. "
 						},
 						{
 							"_type": "UMLAssociationView",
