@@ -1,12 +1,10 @@
-package registro;
+package validadorDeContrasenias;
 
-import excepciones.contrasenias.ExcepcionContraseniaInvalida;
-import registro.encriptadores.MD5;
-import registro.encriptadores.SHA256;
-import registro.validaciones.CredencialesPorDefecto;
-import registro.validaciones.CumpleRestriccionesNist;
-import registro.validaciones.NoEsComun;
-import domain.usuarios.Usuario;
+import validadorDeContrasenias.excepciones.ExcepcionContraseniaInvalida;
+import validadorDeContrasenias.validaciones.CredencialesPorDefecto;
+import validadorDeContrasenias.validaciones.restriccionesNist.CumpleRestriccionesNist;
+import validadorDeContrasenias.validaciones.NoEsComun;
+
 import static config.Config.hash;
 
 import java.lang.reflect.InvocationTargetException;
@@ -14,22 +12,16 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Registro {
+public class ValidadorDeContrasenia {
     private final List<Validacion> validaciones = new ArrayList<>();
-    public Registro() {
+    public ValidadorDeContrasenia() {
         this.agregarValidaciones();
     }
 
-    private void agregarValidaciones() {
+    public void agregarValidaciones() {
         validaciones.add(new CredencialesPorDefecto());
         validaciones.add(new CumpleRestriccionesNist());
         validaciones.add(new NoEsComun());
-    }
-
-    public void registrarUsuario(String nombre, String contrasenia) throws ExcepcionContraseniaInvalida, NoSuchAlgorithmException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        verificarValidez(nombre, contrasenia);
-        Usuario usuario = new Usuario(nombre, encriptarContrasenia(contrasenia));
-        //TODO persistir usuario en base de datos
     }
 
     public boolean verificarValidez(String nombre, String contrasenia) throws ExcepcionContraseniaInvalida {
@@ -37,7 +29,7 @@ public class Registro {
             validacion.validarContrasenia(nombre, contrasenia));
     }
 
-    private String encriptarContrasenia(String contrasenia) throws NoSuchAlgorithmException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public String encriptarContrasenia(String contrasenia) throws NoSuchAlgorithmException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         // Obtener la clase correspondiente al nombre del algoritmo de hash
         Class<? extends Encriptador> clazz = Class.forName(hash).asSubclass(Encriptador.class);
         // Crear una instancia de la clase

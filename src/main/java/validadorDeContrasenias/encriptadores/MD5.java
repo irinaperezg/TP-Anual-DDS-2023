@@ -1,6 +1,6 @@
-package registro.encriptadores;
+package validadorDeContrasenias.encriptadores;
 
-import registro.Encriptador;
+import validadorDeContrasenias.Encriptador;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

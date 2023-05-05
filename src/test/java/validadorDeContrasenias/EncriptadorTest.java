@@ -1,10 +1,9 @@
-package registro;
+package validadorDeContrasenias;
 
-import registro.Encriptador;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import registro.encriptadores.MD5;
-import registro.encriptadores.SHA256;
+import validadorDeContrasenias.encriptadores.MD5;
+import validadorDeContrasenias.encriptadores.SHA256;
 
 import java.security.NoSuchAlgorithmException;
 

@@ -1,19 +1,19 @@
-package registro;
+package validadorDeContrasenias;
 
-import excepciones.contrasenias.ExcepcionContraseniaInvalida;
+import validadorDeContrasenias.excepciones.ExcepcionContraseniaInvalida;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ValidezContraseniaTest {
-  private Registro registro;
+  private ValidadorDeContrasenia registro;
   private String nombre;
   private String contrasenia;
 
   @BeforeEach
   public void init() {
-    this.registro = new Registro();
+    this.registro = new ValidadorDeContrasenia();
     this.nombre = "PepeArgento";
   }
 

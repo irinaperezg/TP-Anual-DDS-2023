@@ -1,19 +1,20 @@
-package registro;
+package validadorDeContrasenias;
 
-import excepciones.contrasenias.ExcepcionComplejidad;
+import validadorDeContrasenias.excepciones.ExcepcionComplejidad;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import static org.junit.jupiter.api.Assertions.*;
-import registro.validaciones.CumpleRestriccionesNist;
+
+import validadorDeContrasenias.validaciones.restriccionesNist.CumpleComplejidad;
 
 public class CumpleComplejidadTest {
-  private CumpleRestriccionesNist restriccionesNist;
+  private CumpleComplejidad restriccionComplejidad;
   private String contrasenia;
 
   @BeforeEach
   public void init() {
-    this.restriccionesNist = new CumpleRestriccionesNist();
+    this.restriccionComplejidad = new CumpleComplejidad();
   }
 
   @Test
@@ -21,7 +22,7 @@ public class CumpleComplejidadTest {
   public void contraseniaCompleja(){
     contrasenia = "Prueba123$";
 
-    assertTrue(restriccionesNist.cumpleComplejidad(contrasenia));
+    assertTrue(restriccionComplejidad.cumpleRestriccion(contrasenia));
   }
 
   @Test
@@ -30,7 +31,7 @@ public class CumpleComplejidadTest {
     contrasenia = "pruebA$";
 
     assertThrows(ExcepcionComplejidad.class,
-        () -> restriccionesNist.cumpleComplejidad(contrasenia));
+        () -> restriccionComplejidad.cumpleRestriccion(contrasenia));
   }
 
   @Test
@@ -39,7 +40,7 @@ public class CumpleComplejidadTest {
     contrasenia = "prueba1$";
 
     assertThrows(ExcepcionComplejidad.class,
-        () -> restriccionesNist.cumpleComplejidad(contrasenia));
+        () -> restriccionComplejidad.cumpleRestriccion(contrasenia));
     }
 
   @Test
@@ -48,7 +49,7 @@ public class CumpleComplejidadTest {
     contrasenia = "PRUEBA1$";
 
     assertThrows(ExcepcionComplejidad.class,
-        () -> restriccionesNist.cumpleComplejidad(contrasenia));
+        () -> restriccionComplejidad.cumpleRestriccion(contrasenia));
   }
 
   @Test
@@ -57,6 +58,6 @@ public class CumpleComplejidadTest {
     contrasenia = "pruebA123";
 
     assertThrows(ExcepcionComplejidad.class,
-        () -> restriccionesNist.cumpleComplejidad(contrasenia));
+        () -> restriccionComplejidad.cumpleRestriccion(contrasenia));
   }
 }

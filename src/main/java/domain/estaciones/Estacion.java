@@ -5,6 +5,6 @@ import java.util.List;
 public class Estacion {
     private String nombre;
     private Ubicacion ubicacion;
-    private List<Servicio> servicios;
+    private List<PrestacionDeServicio> servicios;
     //TODO
 }

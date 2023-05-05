@@ -1,19 +1,19 @@
-package registro;
+package validadorDeContrasenias;
 
-import registro.validaciones.CumpleRestriccionesNist;
-import excepciones.contrasenias.ExcepcionLongitud;
+import validadorDeContrasenias.validaciones.restriccionesNist.CumpleLongitud;
+import validadorDeContrasenias.excepciones.ExcepcionLongitud;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CumpleLongitudTest {
-  private CumpleRestriccionesNist restriccionesNist;
+  private CumpleLongitud restriccionLongitud;
   private String contrasenia;
 
   @BeforeEach
   public void init() {
-    this.restriccionesNist = new CumpleRestriccionesNist();
+    this.restriccionLongitud = new CumpleLongitud();
   }
 
   @Test
@@ -21,7 +21,7 @@ public class CumpleLongitudTest {
   public void contraseniaDeLongitudAdecuada() throws ExcepcionLongitud {
     contrasenia = "12345678910";
 
-    assertTrue(restriccionesNist.cumpleLongitud(contrasenia));
+    assertTrue(restriccionLongitud.cumpleRestriccion(contrasenia));
   }
 
   @Test
@@ -30,7 +30,7 @@ public class CumpleLongitudTest {
     contrasenia = "12345";
 
     assertThrows(ExcepcionLongitud.class,
-        () -> restriccionesNist.cumpleCaracteresMinima(contrasenia));
+        () -> restriccionLongitud.cumpleCaracteresMinima(contrasenia));
   }
 
   @Test
@@ -39,6 +39,6 @@ public class CumpleLongitudTest {
     contrasenia = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 
     assertThrows(ExcepcionLongitud.class,
-        () -> restriccionesNist.cumpleCaracteresMaxima(contrasenia));
+        () -> restriccionLongitud.cumpleCaracteresMaxima(contrasenia));
   }
 }

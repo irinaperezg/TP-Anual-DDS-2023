@@ -1,4 +1,4 @@
-package excepciones.contrasenias;
+package validadorDeContrasenias.excepciones;
 
 public class ExcepcionContraseniaInvalida extends RuntimeException {
 

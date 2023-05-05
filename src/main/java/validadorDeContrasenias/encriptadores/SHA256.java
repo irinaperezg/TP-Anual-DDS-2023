@@ -1,8 +1,7 @@
-package registro.encriptadores;
+package validadorDeContrasenias.encriptadores;
 
 import com.google.common.hash.Hashing;
-import registro.Encriptador;
-import registro.Validacion;
+import validadorDeContrasenias.Encriptador;
 
 import java.nio.charset.StandardCharsets;
 
