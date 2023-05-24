@@ -2,9 +2,10 @@ package validadorDeContrasenias.validaciones.restriccionesNist;
 
 import validadorDeContrasenias.excepciones.ExcepcionLongitud;
 
-public class CumpleLongitud implements RestriccionNist{
+public class CumpleLongitud implements RestriccionNist {
   public int cantidadDeCaracteresMaxima = 64;
   public int cantidadDeCaracteresMinima = 8;
+
   public boolean cumpleRestriccion(String contrasenia) throws ExcepcionLongitud {
     return cumpleCaracteresMinima(contrasenia) && cumpleCaracteresMaxima(contrasenia);
   }

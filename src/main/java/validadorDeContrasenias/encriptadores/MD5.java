@@ -1,7 +1,5 @@
 package validadorDeContrasenias.encriptadores;
 
-import validadorDeContrasenias.Encriptador;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 

@@ -1,4 +1,4 @@
-package validadorDeContrasenias;
+package validadorDeContrasenias.encriptadores;
 
 import java.security.NoSuchAlgorithmException;
 

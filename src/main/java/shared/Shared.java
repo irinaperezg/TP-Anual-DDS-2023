@@ -5,9 +5,9 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class Shared {
+  private static final Properties prop = new Properties();
 
   public String obtenerDelConfig(String key) {
-    Properties prop = new Properties();
     try (InputStream input = Shared.class.getResourceAsStream("/config.properties")) {
       prop.load(input);
       return prop.getProperty(key);
@@ -16,5 +16,4 @@ public class Shared {
       return null;
     }
   }
-
 }

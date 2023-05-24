@@ -1,8 +1,6 @@
 package validadorDeContrasenias.encriptadores;
 
 import com.google.common.hash.Hashing;
-import validadorDeContrasenias.Encriptador;
-
 import java.nio.charset.StandardCharsets;
 
 public class SHA256 implements Encriptador {
