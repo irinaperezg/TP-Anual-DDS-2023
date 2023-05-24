@@ -1,4 +1,4 @@
-package validadorDeContrasenias.validaciones.restriccionesNist;
+package validadorDeContrasenias.validaciones;
 
 import validadorDeContrasenias.excepciones.ExcepcionContraseniaInvalida;
 import validadorDeContrasenias.Validacion;
@@ -6,6 +6,10 @@ import validadorDeContrasenias.excepciones.ExcepcionComplejidad;
 import validadorDeContrasenias.excepciones.ExcepcionLongitud;
 import validadorDeContrasenias.validaciones.CredencialesPorDefecto;
 import validadorDeContrasenias.validaciones.NoEsComun;
+import validadorDeContrasenias.validaciones.restriccionesNist.CumpleComplejidad;
+import validadorDeContrasenias.validaciones.restriccionesNist.CumpleLongitud;
+import validadorDeContrasenias.validaciones.restriccionesNist.CumpleRotacion;
+import validadorDeContrasenias.validaciones.restriccionesNist.RestriccionNist;
 
 import java.util.ArrayList;
 import java.util.List;

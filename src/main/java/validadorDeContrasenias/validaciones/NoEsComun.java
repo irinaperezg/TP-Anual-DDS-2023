@@ -1,5 +1,6 @@
 package validadorDeContrasenias.validaciones;
 
+import shared.Shared;
 import validadorDeContrasenias.Validacion;
 import validadorDeContrasenias.excepciones.ExcepcionComun;
 
@@ -7,8 +8,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import static config.Config.Archivo10kContrasenias;
 
 public class NoEsComun implements Validacion {
 
@@ -27,9 +26,12 @@ public class NoEsComun implements Validacion {
 
     public void procesarArchivoDeContrasenasComunes() {
         if (contraseniasComunes.isEmpty()) {
+
+            String archivo10kContrasenias = new Shared().obtenerDelConfig("Archivo10kContrasenias");
+
             try {
 
-                File file = new File(Archivo10kContrasenias);
+                File file = new File(archivo10kContrasenias);
                 Scanner myReader = new Scanner(file);
 
                 while (myReader.hasNextLine()) {
@@ -39,7 +41,7 @@ public class NoEsComun implements Validacion {
 
                 myReader.close();
             } catch (FileNotFoundException e) {
-                System.out.println("No se pudo encontrar el archivo" + Archivo10kContrasenias);
+                System.out.println("No se pudo encontrar el archivo" + archivo10kContrasenias);
                 e.printStackTrace();
             }
         }
