@@ -8,4 +8,8 @@ public class PrestacionDeServicio {
 
     return true;
   }
+
+  public boolean tieneServicio(Servicio servicioConsultado) {
+    return servicioConsultado.equals(servicio);
+  }
 }

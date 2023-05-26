@@ -1,7 +1,13 @@
 package domain.usuarios;
 
-import domain.localizacion.Localizacion;
 import java.util.List;
+
+import domain.entidades.Entidad;
+import domain.establecimientos.Localizacion;
+import domain.establecimientos.Servicio;
+import domain.services.georef.entities.Departamento;
+import domain.services.georef.entities.Municipio;
+import domain.services.georef.entities.Provincia;
 import lombok.Getter;
 
 
@@ -10,7 +16,8 @@ public class Usuario {
   private String nombre;
   private String contraseniaEncriptada;
   private String email;
-  private List<Interes> intereses;
+  private List<Servicio> servicios;
+  private List<Entidad> entidades;
   private Localizacion localizacion;
 
 
@@ -18,4 +25,9 @@ public class Usuario {
     this.nombre = nombre;
     this.contraseniaEncriptada = contraseniaEncriptada;
   }
+
+  public boolean leInteresaUna(Entidad entidad) {
+    return entidad.tuvoIncidente(servicios) || entidad.estaCerca(localizacion);
+  }
+
 }
