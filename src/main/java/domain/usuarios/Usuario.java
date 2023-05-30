@@ -13,6 +13,7 @@ import lombok.Getter;
 
 @Getter
 public class Usuario {
+  private int id;
   private String nombre;
   private String contraseniaEncriptada;
   private String email;

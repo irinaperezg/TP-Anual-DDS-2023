@@ -1,6 +1,8 @@
 package domain.services.georef.entities;
 
-public class Departamento {
+import domain.establecimientos.Localizacion;
+
+public class Departamento extends Localizacion {
   public int id;
   public String nombre;
 }

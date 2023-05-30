@@ -13,13 +13,12 @@ public class Entidad {
   private String nombre;
   private TipoEntidad tipo;
   private List<Establecimiento> establecimientos;
-  private Localizacion localizacion;
 
   public boolean tuvoIncidente (List<Servicio> servicios){
     return establecimientos.stream().anyMatch(establecimiento -> establecimiento.tuvoIncidente(servicios));
   }
 
   public boolean estaCerca(Localizacion localizacionConsultada) {
-    return localizacionConsultada.equals(localizacion) || establecimientos.stream().anyMatch(establecimiento -> establecimiento.estaCerca(localizacionConsultada));
+      return establecimientos.stream().anyMatch(establecimiento -> establecimiento.estaCerca(localizacionConsultada));
   }
 }
