@@ -1,4 +1,5 @@
 package domain.services.georef;
+import domain.services.georef.adapters.GeorefAdapter;
 import domain.services.georef.entities.ListadoDeDepartamentos;
 import domain.services.georef.entities.ListadoDeMunicipios;
 import domain.services.georef.entities.ListadoDeProvincias;
@@ -11,6 +12,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import java.io.IOException;
 public class ServicioGeoref {
   private static ServicioGeoref instancia = null;
+
+  private GeorefAdapter adapter;
   private static int maximaCantidadRegistrosDefault = 200;
   private static final String urlApi = "https://apis.datos.gob.ar/georef/api/";
   private Retrofit retrofit;
@@ -21,6 +24,11 @@ public class ServicioGeoref {
         .addConverterFactory(GsonConverterFactory.create())
         .build();
   }
+
+  public void setAdapter(GeorefAdapter adapter) {
+    this.adapter = adapter;
+  }
+
   public static ServicioGeoref instancia(){
     if(instancia== null){
       instancia = new ServicioGeoref();

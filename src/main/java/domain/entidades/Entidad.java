@@ -6,12 +6,13 @@ import domain.establecimientos.Servicio;
 import domain.services.georef.entities.Departamento;
 import domain.services.georef.entities.Municipio;
 import domain.services.georef.entities.Provincia;
+import domain.usuarios.Delegado;
+import domain.usuarios.Usuario;
 
 import java.util.List;
 
 public class Entidad {
-  private String nombre;
-  private TipoEntidad tipo;
+  private String denominacion;
   private List<Establecimiento> establecimientos;
 
   public boolean tuvoIncidente (List<Servicio> servicios){
