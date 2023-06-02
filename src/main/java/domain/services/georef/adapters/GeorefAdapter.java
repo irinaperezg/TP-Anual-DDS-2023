@@ -13,7 +13,6 @@ import java.io.IOException;
 public interface GeorefAdapter {
 
     public ListadoDeProvincias listadoDeProvincias() throws IOException;
-
-    public ListadoDeMunicipios listadoDeMunicipiosDeProvincia(Provincia provincia);
-    public ListadoDeDepartamentos listadoDeDepartamentosDeProvincia(Provincia provincia);
+    public ListadoDeMunicipios listadoDeMunicipiosDeProvincia(int idProvincia) throws IOException;
+    public ListadoDeDepartamentos listadoDeDepartamentosDeProvincia(int idProvincia) throws IOException;
 }

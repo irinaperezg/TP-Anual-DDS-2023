@@ -9,6 +9,10 @@ public class ListadoDeDepartamentos {
   public ListadoDeDepartamentos.Parametro parametros;
   public List<Departamento> departamentos;
 
+  public List<Departamento> getDepartamentos() {
+    return departamentos;
+  }
+
   private class Parametro {
     public List<String> campos;
     public int max;

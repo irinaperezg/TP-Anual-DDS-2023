@@ -1,6 +1,8 @@
 package shared;
 
 import domain.entidades.Entidad;
+import domain.entidades.EntidadPrestadora;
+import domain.entidades.OrganismoDeControl;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
