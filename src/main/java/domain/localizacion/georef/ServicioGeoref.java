@@ -1,13 +1,8 @@
-package domain.services.georef;
-import domain.services.georef.adapters.GeorefAdapter;
-import domain.services.georef.entities.ListadoDeDepartamentos;
-import domain.services.georef.entities.ListadoDeMunicipios;
-import domain.services.georef.entities.ListadoDeProvincias;
-import domain.services.georef.entities.Provincia;
-import retrofit2.Call;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+package domain.localizacion.georef;
+import domain.localizacion.georef.adapters.GeorefAdapter;
+import domain.localizacion.georef.entities.entities.ListadoDeDepartamentos;
+import domain.localizacion.georef.entities.entities.ListadoDeMunicipios;
+import domain.localizacion.georef.entities.entities.ListadoDeProvincias;
 
 import java.io.IOException;
 public class ServicioGeoref {

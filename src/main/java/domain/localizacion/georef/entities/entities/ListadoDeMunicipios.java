@@ -1,4 +1,6 @@
-package domain.services.georef.entities;
+package domain.localizacion.georef.entities.entities;
+import domain.localizacion.Municipio;
+
 import java.util.List;
 public class ListadoDeMunicipios {
   public int cantidad;

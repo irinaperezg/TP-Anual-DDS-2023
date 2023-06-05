@@ -1,7 +1,6 @@
 package domain.entidades;
 
-import domain.establecimientos.Localizacion;
-import domain.establecimientos.Servicio;
+import domain.localizacion.Localizacion;
 import domain.usuarios.Delegado;
 import lombok.Getter;
 

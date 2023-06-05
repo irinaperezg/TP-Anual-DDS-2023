@@ -1,4 +1,6 @@
-package domain.services.georef.entities;
+package domain.localizacion.georef.entities.entities;
+
+import domain.localizacion.Departamento;
 
 import java.util.List;
 

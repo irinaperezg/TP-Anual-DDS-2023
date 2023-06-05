@@ -1,10 +1,8 @@
-package domain.services.georef.entities;
+package domain.localizacion;
 
-import domain.establecimientos.Localizacion;
+import domain.localizacion.Localizacion;
 
 public class Municipio extends Localizacion {
-  public int id;
-  public String nombre;
 
   public Municipio(int id, String nombre) {
     this.id = id;

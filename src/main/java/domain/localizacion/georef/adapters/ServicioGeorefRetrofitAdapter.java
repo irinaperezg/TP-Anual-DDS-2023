@@ -1,10 +1,9 @@
-package domain.services.georef.adapters;
+package domain.localizacion.georef.adapters;
 
-import domain.services.georef.GeorefService;
-import domain.services.georef.entities.ListadoDeDepartamentos;
-import domain.services.georef.entities.ListadoDeMunicipios;
-import domain.services.georef.entities.ListadoDeProvincias;
-import domain.services.georef.entities.Provincia;
+import domain.localizacion.georef.entities.entities.ListadoDeDepartamentos;
+import domain.localizacion.georef.entities.entities.ListadoDeMunicipios;
+import domain.localizacion.georef.entities.entities.ListadoDeProvincias;
+import domain.localizacion.georef.GeorefService;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
