@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class InteresesTest {
   private Usuario usuario;
+  private Miembro miembro;
   private Entidad entidad;
   private Establecimiento establecimiento;
   private Municipio municipioCerca;
@@ -28,16 +29,17 @@ public class InteresesTest {
   @BeforeEach
   public void init() {
     this.usuario = new Usuario("pepe", "argento","pepeargento@racing");
+    this.miembro = new Miembro(usuario);
     this.entidad = new Entidad("Banco Nacion");
     this.establecimiento = new Establecimiento("Banco Nacion Sucursal");
     this.municipioCerca = new Municipio(1,"La Matanza");
     this.municipioLejos = new Municipio(2,"Pilar");
     localizacion1 = new Localizacion();
     localizacion1.setMunicipio(municipioCerca);
-    usuario.setLocalizacion(localizacion1);
+    miembro.setLocalizacion(localizacion1);
     Servicio servicio1 = new Servicio("Escalera Mecanica");
     Servicio servicio2 = new Servicio("Ascensor");
-    usuario.agregarServicios(servicio1);
+    miembro.agregarServicios(servicio1);
     this.prestacion1 = new PrestacionDeServicio(servicio1);
     prestacion1.setDisponible(false);
     this.prestacion2 = new PrestacionDeServicio(servicio2);
@@ -52,7 +54,7 @@ public class InteresesTest {
     establecimiento.setLocalizacion(localizacion1);
     entidad.agregarEstablecimientos(establecimiento);
 
-    assertTrue(usuario.leInteresaUna(entidad));
+    assertTrue(miembro.leInteresaUna(entidad));
   }
 
   @Test
@@ -63,7 +65,7 @@ public class InteresesTest {
     establecimiento.setLocalizacion(localizacion1);
     entidad.agregarEstablecimientos(establecimiento);
 
-    assertFalse(usuario.leInteresaUna(entidad));
+    assertFalse(miembro.leInteresaUna(entidad));
   }
 
   @Test
@@ -72,7 +74,7 @@ public class InteresesTest {
     establecimiento.agregarPrestacionDeServicios(prestacion1);
     entidad.agregarEstablecimientos(establecimiento);
 
-    assertTrue(usuario.leInteresaUna(entidad));
+    assertTrue(miembro.leInteresaUna(entidad));
   }
 
   @Test
@@ -83,7 +85,7 @@ public class InteresesTest {
     establecimiento.agregarPrestacionDeServicios(prestacion2);
     entidad.agregarEstablecimientos(establecimiento);
 
-    assertFalse(usuario.leInteresaUna(entidad));
+    assertFalse(miembro.leInteresaUna(entidad));
   }
 
   @Test
@@ -95,6 +97,6 @@ public class InteresesTest {
     establecimiento.agregarPrestacionDeServicios(prestacion1);
     entidad.agregarEstablecimientos(establecimiento);
 
-    assertFalse(usuario.leInteresaUna(entidad));
+    assertFalse(miembro.leInteresaUna(entidad));
   }
 }

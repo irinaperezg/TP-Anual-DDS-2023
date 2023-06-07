@@ -8,12 +8,13 @@ import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import config.Config;
 
 import java.io.IOException;
 
 public class ServicioGeorefRetrofitAdapter implements GeorefAdapter{
     private static int maximaCantidadRegistrosDefault = 200;
-    private static final String urlApi = "https://apis.datos.gob.ar/georef/api/";
+    private static final String urlApi = new Config().obtenerDelConfig("apiGeoref");
     private Retrofit retrofit;
     public ServicioGeorefRetrofitAdapter() {
         this.retrofit = new Retrofit.Builder()

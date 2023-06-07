@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-import shared.Shared;
+import config.Config;
 import validadorDeContrasenias.encriptadores.Encriptador;
 import validadorDeContrasenias.excepciones.ExcepcionContraseniaInvalida;
 import validadorDeContrasenias.validaciones.Validacion;
@@ -17,7 +17,7 @@ public class ValidadorDeContrasenia {
   }
 
   public void agregarValidaciones() {
-    String[] validacionesPorAgregar = new Shared().obtenerDelConfig("validaciones").split(",");
+    String[] validacionesPorAgregar = new Config().obtenerDelConfig("validaciones").split(",");
 
     for (String validacion : validacionesPorAgregar) {
       try {
@@ -38,7 +38,7 @@ public class ValidadorDeContrasenia {
   }
 
   public String encriptarContrasenia(String contrasenia) throws NoSuchAlgorithmException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-    String hash = new Shared().obtenerDelConfig("hash");
+    String hash = new Config().obtenerDelConfig("hash");
 
     // Obtener la clase correspondiente al nombre del algoritmo de hash
     Class<? extends Encriptador> clazz = Class.forName("validadorDeContrasenias.encriptadores." + hash).asSubclass(Encriptador.class);

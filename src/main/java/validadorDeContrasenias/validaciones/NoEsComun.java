@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import shared.Shared;
+import config.Config;
 import validadorDeContrasenias.excepciones.ExcepcionComun;
 
 public class NoEsComun implements Validacion {
@@ -26,7 +26,7 @@ public class NoEsComun implements Validacion {
   public void procesarArchivoDeContrasenasComunes() {
     if (contraseniasComunes.isEmpty()) {
 
-      String archivo10kContrasenias = new Shared().obtenerDelConfig("archivo10kContrasenias");
+      String archivo10kContrasenias = new Config().obtenerDelConfig("archivo10kContrasenias");
 
       try {
 

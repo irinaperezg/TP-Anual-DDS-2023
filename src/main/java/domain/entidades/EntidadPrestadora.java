@@ -1,7 +1,6 @@
 package domain.entidades;
 
 import domain.localizacion.Localizacion;
-import domain.usuarios.Delegado;
 import lombok.Getter;
 
 import java.util.ArrayList;
