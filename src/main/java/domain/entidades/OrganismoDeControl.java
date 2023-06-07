@@ -15,4 +15,8 @@ public class OrganismoDeControl {
         this.denominacion = denominacion;
         this.delegado = delegado;
     }
+
+    public void notificarProblematicasDelegado() {
+        //TODO
+    }
 }

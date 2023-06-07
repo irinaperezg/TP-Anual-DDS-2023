@@ -25,4 +25,8 @@ public class EntidadPrestadora {
     public boolean estaCerca(Localizacion localizacionConsultada) {
         return entidadesHijas.stream().anyMatch(entidad -> entidad.estaCerca(localizacionConsultada));
     }
+
+    public void notificarProblematicasDelegado() {
+        //TODO
+    }
 }

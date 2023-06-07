@@ -30,6 +30,6 @@ public class Establecimiento {
   }
 
   public boolean estaCerca(Localizacion localizacionConsultada) {
-    return localizacionConsultada.equals(localizacion);
+    return localizacionConsultada.estaCerca(localizacion);
   }
 }
