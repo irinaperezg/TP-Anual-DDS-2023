@@ -1,6 +1,7 @@
 package domain.main;
 
 import domain.localizacion.Localizacion;
+import domain.main.entidades.Entidad;
 import domain.usuarios.Miembro;
 import domain.usuarios.Notificador;
 import lombok.Setter;
@@ -20,6 +21,6 @@ public class Establecimiento {
 
   public void notificarInteresados(Servicio servicio, boolean esIncidente) {
     List<Miembro> interesados = new ArrayList<>(this.entidad.buscarInteresados(this.localizacion, servicio));
-    new Notificador().notificarIncidenteOArreglo(esIncidente,interesados,servicio.getDescripcion(),this.entidad.getDenominacion(),this.denominacion);
+    new Notificador().notificarIncidenteOArreglo(esIncidente,interesados,servicio.getDescripcion(),this.entidad.getDenominacion(),this.denominacion,this.entidad.getTipo());
   }
 }

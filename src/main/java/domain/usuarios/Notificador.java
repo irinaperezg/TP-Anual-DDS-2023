@@ -1,14 +1,17 @@
 package domain.usuarios;
 
+import domain.main.entidades.TipoEntidad;
+
 import java.util.List;
 
 public class Notificador {
-  public void notificarIncidenteOArreglo(boolean esIncidente, List<Miembro> miembros, String servicio, String entidad, String establecimiento) {
+  public void notificarIncidenteOArreglo(boolean esIncidente, List<Miembro> miembros, String servicio, String entidad, String establecimiento, TipoEntidad tipoEntidad) {
     String inicioMensaje;
     if (esIncidente) {
       inicioMensaje = "Hubo un incidente en ";
     } else inicioMensaje = "Se arreglo ";
-    String mensaje = inicioMensaje + "el servicio " + servicio + " en " + entidad + " " + establecimiento;
+    String mensaje = inicioMensaje + "el servicio " + servicio + " en " + tipoEntidad.getTipoEntidad() + " " + entidad + " " + tipoEntidad.getTipoEstablecimiento() + " " + establecimiento;
+
     for (Miembro miembro : miembros) {
       mandarNotificacion(miembro.getEmail(), miembro.getNombre(), mensaje);
     }

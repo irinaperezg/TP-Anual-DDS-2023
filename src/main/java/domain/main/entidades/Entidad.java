@@ -1,6 +1,8 @@
-package domain.main;
+package domain.main.entidades;
 
 import domain.localizacion.Localizacion;
+import domain.main.EntidadPrestadora;
+import domain.main.Servicio;
 import domain.usuarios.Miembro;
 import lombok.Getter;
 
@@ -9,11 +11,14 @@ import java.util.List;
 
 public class Entidad {
   @Getter
+  private TipoEntidad tipo;
+  @Getter
   private String denominacion;
   private EntidadPrestadora entidadPrestadora;
   private List<Miembro> miembros = new ArrayList<>();
 
-  public Entidad(String denominacion) {
+  public Entidad(TipoEntidad tipo, String denominacion) {
+    this.tipo = tipo;
     this.denominacion = denominacion;
   }
 
