@@ -1,7 +1,7 @@
 package csv;
 
-import domain.entidades.EntidadPrestadora;
-import domain.entidades.OrganismoDeControl;
+import domain.main.EntidadPrestadora;
+import domain.main.OrganismoDeControl;
 
 import java.util.ArrayList;
 import java.util.List;

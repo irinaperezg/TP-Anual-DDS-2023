@@ -1,10 +1,8 @@
 package csv;
 
-import config.Config;
-import domain.entidades.EntidadPrestadora;
-import domain.entidades.OrganismoDeControl;
+import domain.main.EntidadPrestadora;
+import domain.main.OrganismoDeControl;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

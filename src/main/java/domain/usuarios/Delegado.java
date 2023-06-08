@@ -1,5 +1,8 @@
-package domain.entidades;
+package domain.usuarios;
 
+import lombok.Getter;
+
+@Getter
 public class Delegado {
     private String nombre;
     private String email;

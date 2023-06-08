@@ -1,6 +1,6 @@
 package domain.usuarios;
 
-import domain.entidades.Servicio;
+import domain.main.Servicio;
 import java.util.Arrays;
 import java.util.List;
 

@@ -1,14 +1,14 @@
-package domain.entidades;
+package domain.main;
 
+import domain.usuarios.Delegado;
+import domain.usuarios.Notificador;
 import lombok.Getter;
-
 import java.util.List;
 
 public class OrganismoDeControl {
     @Getter
     private String denominacion;
     private Delegado delegado;
-    private List<EntidadPrestadora> entidadPrestadorasControladas;
     private List<Servicio> serviciosControlados;
 
     public OrganismoDeControl(String denominacion, Delegado delegado) {
@@ -17,6 +17,6 @@ public class OrganismoDeControl {
     }
 
     public void notificarProblematicasDelegado() {
-        //TODO
+        new Notificador().notificarProblematicas(delegado);
     }
 }

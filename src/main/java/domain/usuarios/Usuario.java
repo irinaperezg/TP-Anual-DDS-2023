@@ -2,7 +2,6 @@ package domain.usuarios;
 
 import lombok.Getter;
 
-
 @Getter
 public class Usuario {
   private String nombre;

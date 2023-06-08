@@ -1,8 +1,8 @@
 package csv;
 
-import domain.entidades.Delegado;
-import domain.entidades.EntidadPrestadora;
-import domain.entidades.OrganismoDeControl;
+import domain.usuarios.Delegado;
+import domain.main.EntidadPrestadora;
+import domain.main.OrganismoDeControl;
 
 public class ParserCSV {
 

@@ -1,31 +1,25 @@
 package domain.usuarios;
 
-import domain.entidades.Entidad;
-import domain.entidades.Servicio;
 import domain.localizacion.Localizacion;
+import lombok.Getter;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Miembro {
   private Usuario usuario;
   private List<Comunidad> comunidades;
-  private List<Servicio> servicios = new ArrayList();
-  private List<Entidad> entidades = new ArrayList();
-  @Setter
+  @Getter @Setter
   private Localizacion localizacion = null;
 
   public Miembro(Usuario usuario) {
     this.usuario = usuario;
   }
 
-  public void agregarServicios(Servicio ... unosServicios) {
-    servicios.addAll(Arrays.stream(unosServicios).toList());
+  public String getNombre() {
+    return this.usuario.getNombre();
   }
 
-  public boolean leInteresaUna(Entidad entidad) {
-    return entidad.tuvoIncidente(servicios) || entidad.estaCerca(localizacion);
+  public String getEmail() {
+    return this.usuario.getEmail();
   }
 }
