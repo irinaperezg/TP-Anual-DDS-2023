@@ -1,6 +1,6 @@
 package domain.main;
 
-import domain.localizacion.Localizacion;
+import domain.localizacion.main.Localizacion;
 import domain.main.entidades.Entidad;
 import domain.usuarios.Miembro;
 import domain.usuarios.Notificador;

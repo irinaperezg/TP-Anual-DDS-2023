@@ -1,8 +1,8 @@
 package domain.localizacion.georef;
 import domain.localizacion.georef.adapters.GeorefAdapter;
-import domain.localizacion.georef.entities.entities.ListadoDeDepartamentos;
-import domain.localizacion.georef.entities.entities.ListadoDeMunicipios;
-import domain.localizacion.georef.entities.entities.ListadoDeProvincias;
+import domain.localizacion.georef.entities.ListadoDeDepartamentos;
+import domain.localizacion.georef.entities.ListadoDeMunicipios;
+import domain.localizacion.georef.entities.ListadoDeProvincias;
 
 import java.io.IOException;
 public class ServicioGeoref {

@@ -1,6 +1,6 @@
 package domain.usuarios;
 
-import domain.localizacion.Localizacion;
+import domain.localizacion.main.Localizacion;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.List;

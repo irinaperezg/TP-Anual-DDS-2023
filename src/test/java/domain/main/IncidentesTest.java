@@ -1,6 +1,7 @@
 package domain.main;
 
-import domain.localizacion.Localizacion;
+import domain.localizacion.main.Provincia;
+import domain.localizacion.main.localizaciones.Departamento;
 import domain.main.entidades.Entidad;
 import domain.main.entidades.tipos.Banco;
 import domain.main.entidades.tipos.Linea;
@@ -11,6 +12,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class IncidentesTest {
+  private static Entidad entidad1;
+  private static Provincia provincia;
+  private static Servicio servicio1;
   private static PrestacionDeServicio prestacion1;
   private static PrestacionDeServicio prestacion2;
   private static PrestacionDeServicio prestacion3;
@@ -19,15 +23,16 @@ public class IncidentesTest {
   public static void init() {
     Usuario usuario = new Usuario("pepe", "argento", "pepeargento@racing.com");
     Miembro miembro = new Miembro(usuario);
-    Entidad entidad1 = new Entidad(new Banco(),"Nacion");
+    entidad1 = new Entidad(new Banco(),"Nacion");
     Establecimiento establecimiento1 = new Establecimiento(entidad1, "Belgrano");
     Entidad entidad2 = new Entidad(new Linea(), "Mitre");
     Establecimiento establecimiento2 = new Establecimiento(entidad2, "Retiro");
-    Localizacion localizacion = new Localizacion();
-    miembro.setLocalizacion(localizacion);
-    establecimiento1.setLocalizacion(localizacion);
-    establecimiento2.setLocalizacion(localizacion);
-    Servicio servicio1 = new Servicio("Escalera Mecanica");
+    provincia = new Provincia(1,"CABA");
+    Departamento departamento1 = new Departamento(2,"Depto1", provincia);
+    miembro.setLocalizacion(departamento1);
+    establecimiento1.setLocalizacion(departamento1);
+    establecimiento2.setLocalizacion(departamento1);
+    servicio1 = new Servicio("Escalera Mecanica");
     Servicio servicio2 = new Servicio("Ascensor");
     entidad1.agregarMiembros(miembro);
     entidad2.agregarMiembros(miembro);
@@ -62,6 +67,18 @@ public class IncidentesTest {
   @DisplayName("no le llega notificacion a ningun usuario")
   public void NotificarArregloServicioDeNoInteres(){
     prestacion2.seArregloElServicio();
+    //TODO (por ahora esta con println)
+  }
+
+  @Test
+  @DisplayName("no le llega notificacion a ningun usuario")
+  public void NotificarIncidenteServicioDeNoInteresPorLocalizacion(){
+    Establecimiento establecimiento3 = new Establecimiento(entidad1, "Belgrano");
+    Departamento departamento2 = new Departamento(3,"Depto2",provincia);
+    establecimiento3.setLocalizacion(departamento2);
+    PrestacionDeServicio prestacion4 = new PrestacionDeServicio(establecimiento3, servicio1);
+
+    prestacion4.ocurrioUnIncidente();
     //TODO (por ahora esta con println)
   }
 

@@ -1,8 +1,8 @@
 package domain.localizacion.georef.adapters;
 
-import domain.localizacion.georef.entities.entities.ListadoDeDepartamentos;
-import domain.localizacion.georef.entities.entities.ListadoDeMunicipios;
-import domain.localizacion.georef.entities.entities.ListadoDeProvincias;
+import domain.localizacion.georef.entities.ListadoDeDepartamentos;
+import domain.localizacion.georef.entities.ListadoDeMunicipios;
+import domain.localizacion.georef.entities.ListadoDeProvincias;
 import domain.localizacion.georef.GeorefService;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -13,9 +13,9 @@ import config.Config;
 import java.io.IOException;
 
 public class ServicioGeorefRetrofitAdapter implements GeorefAdapter{
-    private static int maximaCantidadRegistrosDefault = 200;
     private static final String urlApi = new Config().obtenerDelConfig("apiGeoref");
-    private Retrofit retrofit;
+    private final Retrofit retrofit;
+
     public ServicioGeorefRetrofitAdapter() {
         this.retrofit = new Retrofit.Builder()
                 .baseUrl(urlApi)
@@ -25,20 +25,20 @@ public class ServicioGeorefRetrofitAdapter implements GeorefAdapter{
 
     public ListadoDeProvincias listadoDeProvincias() throws IOException {
         GeorefService georefService = this.retrofit.create(GeorefService.class);
-        Call<ListadoDeProvincias> requestProvinciasArgentinas = georefService.provincias();
+        Call<ListadoDeProvincias> requestProvinciasArgentinas = georefService.provincias("id,nombre");
         Response<ListadoDeProvincias> responseProvinciasArgentinas = requestProvinciasArgentinas.execute();
         return responseProvinciasArgentinas.body();
     }
 
     public ListadoDeMunicipios listadoDeMunicipiosDeProvincia(int idProvincia) throws IOException {
         GeorefService georefService = this.retrofit.create(GeorefService.class);
-        Call<ListadoDeMunicipios> requestListadoDeMunicipios = georefService.municipios(idProvincia, "id, nombre", maximaCantidadRegistrosDefault);
+        Call<ListadoDeMunicipios> requestListadoDeMunicipios = georefService.municipios(idProvincia, "id,nombre");
         Response<ListadoDeMunicipios> responseListadoDeMunicipios = requestListadoDeMunicipios.execute();
         return responseListadoDeMunicipios.body();
     }
     public ListadoDeDepartamentos listadoDeDepartamentosDeProvincia(int idProvincia) throws IOException {
         GeorefService georefService = this.retrofit.create(GeorefService.class);
-        Call<ListadoDeDepartamentos> requestListadoDeDepartamentos = georefService.departamentos(idProvincia, "id, nombre", maximaCantidadRegistrosDefault);
+        Call<ListadoDeDepartamentos> requestListadoDeDepartamentos = georefService.departamentos(idProvincia, "id,nombre");
         Response<ListadoDeDepartamentos> responseListadoDeDepartamentos = requestListadoDeDepartamentos.execute();
         return responseListadoDeDepartamentos.body();
     }

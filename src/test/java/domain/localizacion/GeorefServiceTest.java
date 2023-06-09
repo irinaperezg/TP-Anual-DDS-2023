@@ -2,10 +2,10 @@ package domain.localizacion;
 
 import domain.localizacion.georef.ServicioGeoref;
 import domain.localizacion.georef.adapters.GeorefAdapter;
-import domain.localizacion.georef.entities.entities.ListadoDeMunicipios;
-import domain.localizacion.georef.entities.entities.ListadoDeProvincias;
-import domain.localizacion.Municipio;
-import domain.localizacion.Provincia;
+import domain.localizacion.georef.entities.ListadoDeMunicipios;
+import domain.localizacion.georef.entities.ListadoDeProvincias;
+import domain.localizacion.main.localizaciones.Municipio;
+import domain.localizacion.main.Provincia;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,10 +30,10 @@ public class GeorefServiceTest {
     @Test
     public void ServicioGeorefProveeListadoDeProvinciasTest() throws IOException {
         ListadoDeProvincias listadoDeProvinciasMock = mock(ListadoDeProvincias.class);
-        List<Provincia> provincias = this.provinciasMock();
+        List<Provincia> provinciasMock = this.provinciasMock();
 
 
-        when(listadoDeProvinciasMock.getProvincias()).thenReturn(provincias);
+        when(listadoDeProvinciasMock.getProvincias()).thenReturn(provinciasMock);
         when(this.adapterMock.listadoDeProvincias()).thenReturn(listadoDeProvinciasMock);
 
         Assertions.assertEquals(2, this.servicioGeoref.listadoDeProvincias().getProvincias().size());
@@ -49,20 +49,22 @@ public class GeorefServiceTest {
     @Test
     public void ServicioGeorefProveeMunicipiosDeBuenosAiresTest() throws IOException {
         Provincia buenosAires = new Provincia(1, "Buenos Aires");
-        List<Municipio> municipiosMock = this.municipiosMock();
+
         ListadoDeMunicipios listadoDeMunicipiosMock = mock(ListadoDeMunicipios.class);
+        List<Municipio> municipiosMock = this.municipiosMock();
+
 
         when(listadoDeMunicipiosMock.getMunicipios()).thenReturn(municipiosMock);
-        when(this.adapterMock.listadoDeMunicipiosDeProvincia(buenosAires.id)).thenReturn(listadoDeMunicipiosMock);
+        when(this.adapterMock.listadoDeMunicipiosDeProvincia(buenosAires.getId())).thenReturn(listadoDeMunicipiosMock);
 
-        Assertions.assertEquals(3, this.servicioGeoref.listadoDeMunicipiosDeProvincia(buenosAires.id).getMunicipios().size());
+        Assertions.assertEquals(3, this.servicioGeoref.listadoDeMunicipiosDeProvincia(buenosAires.getId()).getMunicipios().size());
     }
 
     private List<Municipio> municipiosMock() {
         List<Municipio> municipios = new ArrayList<>();
-        municipios.add(new Municipio(1, "Pilar"));
-        municipios.add(new Municipio(2, "Bahia Blanca"));
-        municipios.add(new Municipio(2, "Ezeiza"));
+        municipios.add(new Municipio(2, "Pilar", new Provincia(1, "Buenos Aires")));
+        municipios.add(new Municipio(3, "Bahia Blanca", new Provincia(1, "Buenos Aires")));
+        municipios.add(new Municipio(4, "Ezeiza", new Provincia(1, "Buenos Aires")));
         return municipios;
     }
 
