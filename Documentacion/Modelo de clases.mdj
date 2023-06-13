@@ -7236,7 +7236,7 @@
 											"top": 517,
 											"width": 322.67041015625,
 											"height": 13,
-											"text": "+estaCerca(Localizacion localizacion): Boolean",
+											"text": "+esIgualA(Localizacion localizacion): Boolean",
 											"horizontalAlignment": 0
 										}
 									],
@@ -22439,7 +22439,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGIeLIO59pTJ8M="
 							},
-							"name": "estaCerca",
+							"name": "esIgualA",
 							"parameters": [
 								{
 									"_type": "UMLParameter",
@@ -22447,8 +22447,7 @@
 									"_parent": {
 										"$ref": "AAAAAAGIkzSbKOAQCl4="
 									},
-									"name": "Localizacion localizacion",
-									"type": ""
+									"name": "Localizacion localizacion"
 								},
 								{
 									"_type": "UMLParameter",
