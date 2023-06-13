@@ -1,5 +1,6 @@
 package domain.main;
 
+import domain.localizacion.main.Localidad;
 import domain.localizacion.main.Localizacion;
 import domain.main.entidades.Entidad;
 import domain.usuarios.Miembro;
@@ -12,7 +13,7 @@ public class Establecimiento {
   private final String denominacion;
   private final Entidad entidad;
   @Setter
-  private Localizacion localizacion = null;
+  private Localidad localidad = null;
 
   public Establecimiento(Entidad entidad, String denominacion) {
     this.entidad = entidad;
@@ -20,7 +21,7 @@ public class Establecimiento {
   }
 
   public void notificarInteresados(Servicio servicio, boolean esIncidente) {
-    List<Miembro> interesados = new ArrayList<>(this.entidad.buscarInteresados(this.localizacion, servicio));
+    List<Miembro> interesados = new ArrayList<>(this.entidad.buscarInteresados(this.localidad, servicio));
     new Notificador().notificarIncidenteOArreglo(esIncidente,interesados,servicio.getDescripcion(),this.entidad.getDenominacion(),this.denominacion,this.entidad.getTipo());
   }
 }

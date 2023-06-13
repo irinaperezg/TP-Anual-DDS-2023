@@ -1,12 +1,17 @@
 package domain.localizacion.main;
 
+import domain.localizacion.main.localizaciones.TipoLocalizacion;
 import lombok.Getter;
 
-@Getter
-public abstract class Localizacion {
-  private Integer id;
-  private String nombre;
-  private Provincia provincia;
+public interface Localizacion {
 
-  public abstract boolean esIgualA(Localizacion localizacion);
+  boolean esIgualA(Localizacion localizacion);
+
+  Integer getId();
+
+  String getNombre();
+
+  Provincia getProvincia();
+
+  TipoLocalizacion getTipoLocalizacion();
 }

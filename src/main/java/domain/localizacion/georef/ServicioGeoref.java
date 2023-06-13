@@ -1,8 +1,10 @@
 package domain.localizacion.georef;
 import domain.localizacion.georef.adapters.GeorefAdapter;
 import domain.localizacion.georef.entities.ListadoDeDepartamentos;
+import domain.localizacion.georef.entities.ListadoDeLocalidades;
 import domain.localizacion.georef.entities.ListadoDeMunicipios;
 import domain.localizacion.georef.entities.ListadoDeProvincias;
+import domain.localizacion.main.localizaciones.TipoLocalizacion;
 
 import java.io.IOException;
 public class ServicioGeoref {
@@ -29,5 +31,9 @@ public class ServicioGeoref {
   }
   public ListadoDeDepartamentos listadoDeDepartamentosDeProvincia(int idProvincia) throws IOException {
     return this.adapter.listadoDeDepartamentosDeProvincia(idProvincia);
+  }
+
+  public ListadoDeLocalidades listadoDeLocalidades(int idLocalizacion, TipoLocalizacion tipoLocalizacion) throws IOException {
+    return this.adapter.listadoDeLocalidades(idLocalizacion, tipoLocalizacion);
   }
 }

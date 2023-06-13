@@ -9,6 +9,6 @@ public abstract class TipoEntidad {
   }
 
   public String getTipoEstablecimiento() {
-    return tipoEntidad;
+    return tipoEstablecimiento;
   }
 }

@@ -1,5 +1,6 @@
 package domain.main;
 
+import domain.localizacion.main.Localidad;
 import domain.localizacion.main.Provincia;
 import domain.localizacion.main.localizaciones.Departamento;
 import domain.main.entidades.Entidad;
@@ -29,9 +30,10 @@ public class IncidentesTest {
     Establecimiento establecimiento2 = new Establecimiento(entidad2, "Retiro");
     provincia = new Provincia(1,"CABA");
     Departamento departamento1 = new Departamento(2,"Depto1", provincia);
-    miembro.setLocalizacion(departamento1);
-    establecimiento1.setLocalizacion(departamento1);
-    establecimiento2.setLocalizacion(departamento1);
+    Localidad localidad = new Localidad(3, "Localidad1", departamento1);
+    miembro.setLocalidad(localidad);
+    establecimiento1.setLocalidad(localidad);
+    establecimiento2.setLocalidad(localidad);
     servicio1 = new Servicio("Escalera Mecanica");
     Servicio servicio2 = new Servicio("Ascensor");
     entidad1.agregarMiembros(miembro);
@@ -74,8 +76,9 @@ public class IncidentesTest {
   @DisplayName("no le llega notificacion a ningun usuario")
   public void NotificarIncidenteServicioDeNoInteresPorLocalizacion(){
     Establecimiento establecimiento3 = new Establecimiento(entidad1, "Belgrano");
-    Departamento departamento2 = new Departamento(3,"Depto2",provincia);
-    establecimiento3.setLocalizacion(departamento2);
+    Departamento departamento2 = new Departamento(4,"Depto2",provincia);
+    Localidad localidad2 = new Localidad(5, "Localidad2",departamento2);
+    establecimiento3.setLocalidad(localidad2);
     PrestacionDeServicio prestacion4 = new PrestacionDeServicio(establecimiento3, servicio1);
 
     prestacion4.ocurrioUnIncidente();

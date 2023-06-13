@@ -1,5 +1,6 @@
 package domain.usuarios;
 
+import domain.localizacion.main.Localidad;
 import domain.localizacion.main.Localizacion;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +10,7 @@ public class Miembro {
   private Usuario usuario;
   private List<Comunidad> comunidades;
   @Getter @Setter
-  private Localizacion localizacion = null;
+  private Localidad localidad = null;
 
   public Miembro(Usuario usuario) {
     this.usuario = usuario;

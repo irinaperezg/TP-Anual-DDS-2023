@@ -1,5 +1,6 @@
 package domain.main.entidades;
 
+import domain.localizacion.main.Localidad;
 import domain.localizacion.main.Localizacion;
 import domain.main.EntidadPrestadora;
 import domain.main.Servicio;
@@ -22,10 +23,10 @@ public class Entidad {
     this.denominacion = denominacion;
   }
 
-  public List<Miembro> buscarInteresados(Localizacion localizacion, Servicio servicio) {
+  public List<Miembro> buscarInteresados(Localidad localidad, Servicio servicio) {
     List<Miembro> interesados = new ArrayList<>();
     for(Miembro miembro : miembros) {
-      if (miembro.getLocalizacion().esIgualA(localizacion) && servicio.esDeInteresPara(miembro)) {
+      if (miembro.getLocalidad().esIgualA(localidad) && servicio.esDeInteresPara(miembro)) {
         interesados.add(miembro);
       }
     }

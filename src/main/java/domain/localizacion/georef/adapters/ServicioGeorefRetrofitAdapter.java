@@ -1,9 +1,12 @@
 package domain.localizacion.georef.adapters;
 
 import domain.localizacion.georef.entities.ListadoDeDepartamentos;
+import domain.localizacion.georef.entities.ListadoDeLocalidades;
 import domain.localizacion.georef.entities.ListadoDeMunicipios;
 import domain.localizacion.georef.entities.ListadoDeProvincias;
 import domain.localizacion.georef.GeorefService;
+import domain.localizacion.main.localizaciones.Departamento;
+import domain.localizacion.main.localizaciones.TipoLocalizacion;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -41,5 +44,21 @@ public class ServicioGeorefRetrofitAdapter implements GeorefAdapter{
         Call<ListadoDeDepartamentos> requestListadoDeDepartamentos = georefService.departamentos(idProvincia, "id,nombre");
         Response<ListadoDeDepartamentos> responseListadoDeDepartamentos = requestListadoDeDepartamentos.execute();
         return responseListadoDeDepartamentos.body();
+    }
+
+    public ListadoDeLocalidades listadoDeLocalidades(int idLocalizacion, TipoLocalizacion tipoLocalizacion) throws IOException {
+        GeorefService georefService = this.retrofit.create(GeorefService.class);
+        Call<ListadoDeLocalidades> requestListadoDeLocalidades = null;
+
+        if(tipoLocalizacion.equals(TipoLocalizacion.Departamento)) {
+            requestListadoDeLocalidades = georefService.localidadesDepartamento(idLocalizacion, "id,nombre");
+        } else if(tipoLocalizacion.equals(TipoLocalizacion.Municipio)) {
+            requestListadoDeLocalidades = georefService.localidadesMunicipio(idLocalizacion, "id,nombre");
+        } else {
+            System.out.println("Error al traer el listado de localidades");
+        }
+
+        Response<ListadoDeLocalidades> responseListadoDeLocalidades = requestListadoDeLocalidades.execute();
+        return responseListadoDeLocalidades.body();
     }
 }
