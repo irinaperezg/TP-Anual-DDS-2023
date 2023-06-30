@@ -1,14 +1,29 @@
 package domain.usuarios;
 
 import domain.main.Servicio;
+import domain.main.incidentes.Incidente;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Comunidad {
-  private List<Miembro> miembros;
-  private List<Miembro> administradores;
+  private String descripcion;
+  private List<Miembro> observadores = new ArrayList<>();
+  private List<Miembro> afectados= new ArrayList<>();
+  private List<Miembro> administradores= new ArrayList<>();
+  private List<Incidente> incidentesActivos= new ArrayList<>();
+  private List<Servicio> serviciosDeInteres= new ArrayList<>();
 
-  public List<Servicio> agregarAgrupacionDeServicios(Servicio ... servicios) {
-    return Arrays.stream(servicios).toList();
+  public void agregarServicioDeInteres(Servicio servicio) {
+    serviciosDeInteres.add(servicio);
+  }
+
+  public boolean estaServicioDeInteres(Servicio servicio) {
+    return serviciosDeInteres.contains(servicio);
+  }
+
+  public void agregarIncidente(Incidente incidente) {
+    incidentesActivos.add(incidente);
   }
 }

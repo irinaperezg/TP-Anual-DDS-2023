@@ -4,8 +4,6 @@ import domain.localizacion.main.Localidad;
 import domain.localizacion.main.Provincia;
 import domain.localizacion.main.localizaciones.Departamento;
 import domain.main.entidades.Entidad;
-import domain.main.entidades.tipos.Banco;
-import domain.main.entidades.tipos.Linea;
 import domain.usuarios.Miembro;
 import domain.usuarios.Usuario;
 import org.junit.jupiter.api.BeforeAll;

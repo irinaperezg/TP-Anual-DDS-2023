@@ -23,4 +23,8 @@ public class Miembro {
   public String getEmail() {
     return this.usuario.getEmail();
   }
+
+  public List<Comunidad> getComunidades() {
+    return comunidades;
+  }
 }

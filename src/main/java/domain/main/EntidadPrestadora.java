@@ -1,5 +1,6 @@
 package domain.main;
 
+import domain.main.entidades.Entidad;
 import domain.usuarios.Delegado;
 import domain.usuarios.Notificador;
 import lombok.Getter;
@@ -12,6 +13,7 @@ public class EntidadPrestadora {
     private String denominacion;
     private OrganismoDeControl organismoDeControl;
     private Delegado delegado;
+    private List<Entidad> entidades;
 
     public EntidadPrestadora(String denominacion, Delegado delegado) {
         this.denominacion = denominacion;
@@ -20,5 +22,9 @@ public class EntidadPrestadora {
 
     public void notificarProblematicasDelegado() {
         new Notificador().notificarProblematicas(delegado);
+    }
+
+    public void obtenerInformeSemanal(){
+        //TODO
     }
 }

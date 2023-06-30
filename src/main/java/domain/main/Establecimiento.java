@@ -14,6 +14,7 @@ public class Establecimiento {
   private final Entidad entidad;
   @Setter
   private Localidad localidad = null;
+  private final List<PrestacionDeServicio> prestaciones = new ArrayList<>();
 
   public Establecimiento(Entidad entidad, String denominacion) {
     this.entidad = entidad;
