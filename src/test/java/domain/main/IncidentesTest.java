@@ -4,6 +4,7 @@ import domain.localizacion.main.Localidad;
 import domain.localizacion.main.Provincia;
 import domain.localizacion.main.localizaciones.Departamento;
 import domain.main.entidades.Entidad;
+import domain.main.servicio.Servicio;
 import domain.usuarios.Miembro;
 import domain.usuarios.Usuario;
 import org.junit.jupiter.api.BeforeAll;

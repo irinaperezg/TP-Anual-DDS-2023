@@ -1,11 +1,10 @@
 package domain.main.entidades;
 
 import domain.localizacion.main.Localidad;
-import domain.localizacion.main.Localizacion;
 import domain.main.EntidadPrestadora;
 import domain.main.Establecimiento;
-import domain.main.Servicio;
-import domain.usuarios.Miembro;
+import domain.main.servicio.Servicio;
+import domain.usuarios.Persona;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ public class Entidad {
   @Getter
   private String denominacion;
   private EntidadPrestadora entidadPrestadora;
-  private final List<Miembro> asociados = new ArrayList<>();
+  private final List<Persona> asociados = new ArrayList<>();
   private final List<Establecimiento> establecimientos = new ArrayList<>();
 
   public Entidad(TipoEntidad tipo, String denominacion) {
@@ -25,17 +24,17 @@ public class Entidad {
     this.denominacion = denominacion;
   }
 
-  public List<Miembro> buscarInteresados(Localidad localidad, Servicio servicio) {
-    List<Miembro> interesados = new ArrayList<>();
-    for(Miembro miembro : asociados) {
-      if (miembro.getLocalidad().esIgualA(localidad) && servicio.esDeInteresPara(miembro)) {
-        interesados.add(miembro);
+  public List<Persona> buscarInteresados(Localidad localidad, Servicio servicio) {
+    List<Persona> interesados = new ArrayList<>();
+    for(Persona persona : asociados) {
+      if (persona.getLocalidad().esIgualA(localidad) && servicio.esDeInteresPara(persona)) {
+        interesados.add(persona);
       }
     }
     return interesados;
   }
 
-  public void agregarAsociados(Miembro ... nuevosAsociados) {
+  public void agregarAsociados(Persona ... nuevosAsociados) {
     asociados.addAll(List.of(nuevosAsociados));
   }
 }

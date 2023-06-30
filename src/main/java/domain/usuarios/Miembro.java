@@ -1,30 +1,22 @@
 package domain.usuarios;
 
 import domain.localizacion.main.Localidad;
-import domain.localizacion.main.Localizacion;
 import lombok.Getter;
 import lombok.Setter;
-import java.util.List;
+
+import static domain.usuarios.TipoMiembro.AFECTADO;
+import static domain.usuarios.TipoMiembro.OBSERVADOR;
 
 public class Miembro {
-  private Usuario usuario;
-  private List<Comunidad> comunidades;
+  @Getter
+  private Persona persona;
   @Getter @Setter
-  private Localidad localidad = null;
+  private TipoMiembro tipo;
+  @Getter
+  private Comunidad comunidad;
 
-  public Miembro(Usuario usuario) {
-    this.usuario = usuario;
-  }
-
-  public String getNombre() {
-    return this.usuario.getNombre();
-  }
-
-  public String getEmail() {
-    return this.usuario.getEmail();
-  }
-
-  public List<Comunidad> getComunidades() {
-    return comunidades;
+  public void modificarTipoMiembro () {
+    if(tipo == OBSERVADOR) setTipo(AFECTADO);
+    else setTipo(OBSERVADOR);
   }
 }

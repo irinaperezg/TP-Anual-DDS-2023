@@ -1,12 +1,11 @@
 package domain.main;
 
 import domain.main.incidentes.Incidente;
-import domain.usuarios.Comunidad;
-import domain.usuarios.Miembro;
+import domain.main.servicio.Servicio;
+import domain.usuarios.*;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class PrestacionDeServicio {
   private final Establecimiento establecimiento;
@@ -18,28 +17,35 @@ public class PrestacionDeServicio {
     this.servicio = servicio;
   }
 
-  public void ocurrioUnIncidente(Miembro informante, String descripcion) {
-    for(Comunidad comunidad : informante.getComunidades()) {
-        crearIncidente(descripcion, comunidad, informante);
-        //avisar a los miembros de la comunidad
-    }
 
-    //avisar a los miembros individuales interesados
-    //this.establecimiento.notificarInteresados(this.servicio, true);
+  public void ocurrioUnIncidente(Persona informante, String descripcion) {
+    List<Persona> listadoPersonasInteresadas = new ArrayList<>();
+    for(Comunidad comunidad : informante.getComunidades()) {
+      crearIncidente(descripcion, comunidad);
+      listadoPersonasInteresadas.addAll(comunidad.getMiembros().stream().map(Miembro::getPersona).toList());
+    }
+    listadoPersonasInteresadas.addAll(buscarInteresados());
+    listadoPersonasInteresadas.stream().collect(Collectors.toSet()).stream().toList();
+    new Notificador().notificarIncidente(listadoPersonasInteresadas);
+
   }
 
-  private void crearIncidente(String descripcion, Comunidad comunidad, Miembro informante) {
-    LocalDateTime fechaHoraActual = LocalDateTime.now();
-    Incidente incidente = new Incidente(fechaHoraActual, descripcion, comunidad, this, informante);
-    incidentes.add(incidente);
+  private List<Persona> buscarInteresados() {
+    return establecimiento.buscarInteresados(this.servicio);
+  }
 
+  private void crearIncidente(String observaciones, Comunidad comunidad) {
+    Incidente incidente = new Incidente(observaciones, comunidad, this);
+    incidentes.add(incidente);
     comunidad.agregarIncidente(incidente);
   }
 
-  public void cerrarUnIncidente(Miembro informante, Incidente incidente) {
-    //cerrar incidente
-
-    this.establecimiento.notificarInteresados(this.servicio, false);
+  public void cerrarUnIncidente(Incidente incidente) {
+    incidente.cerrar();
+    List<Persona> listadoPersonasInteresadas = new ArrayList<>(incidente.getComunidad().getMiembros().stream().map(miembro -> miembro.getPersona()).toList());
+    listadoPersonasInteresadas.addAll(buscarInteresados());
+    listadoPersonasInteresadas.stream().collect(Collectors.toSet()).stream().toList();
+    new Notificador().notificarCierreIncidente(listadoPersonasInteresadas);
   }
 
   public boolean disponibleParaComunidad(Comunidad comunidad) {

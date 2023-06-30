@@ -5,6 +5,14 @@ import domain.main.entidades.TipoEntidad;
 import java.util.List;
 
 public class Notificador {
+  public void notificarIncidente (List<Persona> personas) {
+    //TODO
+  }
+
+  public void notificarCierreIncidente(List<Persona> listadoPersonasInteresadas) {
+    //TODO
+  }
+  /*
   public void notificarIncidenteOArreglo(boolean esIncidente, List<Miembro> miembros, String servicio, String entidad, String establecimiento, TipoEntidad tipoEntidad) {
     String inicioMensaje;
     if (esIncidente) {
@@ -28,4 +36,6 @@ public class Notificador {
     //TODO
     System.out.println("Nombre: " + nombre + " --- Mensaje: " + mensaje);
   }
+  */
+
 }

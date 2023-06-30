@@ -1,8 +1,8 @@
 package domain.main;
 
 import domain.main.entidades.Entidad;
+import domain.main.servicio.Servicio;
 import domain.usuarios.Delegado;
-import domain.usuarios.Notificador;
 import lombok.Getter;
 import java.util.List;
 
@@ -18,7 +18,5 @@ public class OrganismoDeControl {
         this.delegado = delegado;
     }
 
-    public void notificarProblematicasDelegado() {
-        new Notificador().notificarProblematicas(delegado);
-    }
+    //public void notificarProblematicasDelegado() = new Notificador().notificarProblematicas(delegado);
 }

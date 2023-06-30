@@ -1,29 +1,24 @@
 package domain.usuarios;
 
-import domain.main.Servicio;
 import domain.main.incidentes.Incidente;
+import domain.main.servicio.Servicio;
+import domain.main.servicio.ServicioCompuesto;
+import lombok.Getter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Comunidad {
   private String descripcion;
-  private List<Miembro> observadores = new ArrayList<>();
-  private List<Miembro> afectados= new ArrayList<>();
+  @Getter
+  private List<Miembro> miembros = new ArrayList<>();
   private List<Miembro> administradores= new ArrayList<>();
-  private List<Incidente> incidentesActivos= new ArrayList<>();
-  private List<Servicio> serviciosDeInteres= new ArrayList<>();
-
-  public void agregarServicioDeInteres(Servicio servicio) {
-    serviciosDeInteres.add(servicio);
-  }
-
-  public boolean estaServicioDeInteres(Servicio servicio) {
-    return serviciosDeInteres.contains(servicio);
-  }
+  private List<Incidente> incidentes= new ArrayList<>();
 
   public void agregarIncidente(Incidente incidente) {
-    incidentesActivos.add(incidente);
+    incidentes.add(incidente);
+  }
+  public ServicioCompuesto crearServicioCompuesto(String descripcion, Servicio... otrosServicios){
+    return new ServicioCompuesto(descripcion, otrosServicios);
   }
 }
