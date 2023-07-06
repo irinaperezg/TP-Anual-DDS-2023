@@ -35,4 +35,18 @@ public class Incidente {
     setFechaCierre(LocalDateTime.now());
     setAbierto(false);
   }
+
+  public String getObservaciones() {
+    return observaciones;
+  }
+
+  public LocalDateTime getFechaApertura() {
+    return fechaApertura;
+  }
+
+  public LocalDateTime getFechaCierre() {
+    return fechaCierre;
+  }
+
+
 }

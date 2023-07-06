@@ -1,6 +1,7 @@
 package domain.main;
 
 import domain.main.incidentes.Incidente;
+import domain.main.notificaciones.Notificador;
 import domain.main.servicio.Servicio;
 import domain.usuarios.*;
 
@@ -18,26 +19,22 @@ public class PrestacionDeServicio {
   }
 
 
-  public void ocurrioUnIncidente(Persona informante, String descripcion) {
+  public void ocurrioUnIncidente(Miembro miembro, String descripcion) {
     List<Persona> listadoPersonasInteresadas = new ArrayList<>();
-    for(Comunidad comunidad : informante.getComunidades()) {
-      crearIncidente(descripcion, comunidad);
-      listadoPersonasInteresadas.addAll(comunidad.getMiembros().stream().map(Miembro::getPersona).toList());
-    }
+    Comunidad comunidadMiembro = miembro.getComunidad();
+    Incidente incidente = new Incidente(descripcion, comunidadMiembro, this);
+    incidentes.add(incidente);
+    comunidadMiembro.agregarIncidente(incidente);
+
+    listadoPersonasInteresadas.addAll(comunidadMiembro.getMiembros().stream().map(Miembro::getPersona).toList());
     listadoPersonasInteresadas.addAll(buscarInteresados());
     listadoPersonasInteresadas.stream().collect(Collectors.toSet()).stream().toList();
-    new Notificador().notificarIncidente(listadoPersonasInteresadas);
 
+    new Notificador().notificarAperturaIncidente(listadoPersonasInteresadas, incidente);
   }
 
   private List<Persona> buscarInteresados() {
     return establecimiento.buscarInteresados(this.servicio);
-  }
-
-  private void crearIncidente(String observaciones, Comunidad comunidad) {
-    Incidente incidente = new Incidente(observaciones, comunidad, this);
-    incidentes.add(incidente);
-    comunidad.agregarIncidente(incidente);
   }
 
   public void cerrarUnIncidente(Incidente incidente) {
@@ -45,7 +42,7 @@ public class PrestacionDeServicio {
     List<Persona> listadoPersonasInteresadas = new ArrayList<>(incidente.getComunidad().getMiembros().stream().map(miembro -> miembro.getPersona()).toList());
     listadoPersonasInteresadas.addAll(buscarInteresados());
     listadoPersonasInteresadas.stream().collect(Collectors.toSet()).stream().toList();
-    new Notificador().notificarCierreIncidente(listadoPersonasInteresadas);
+    new Notificador().notificarCierreIncidente(listadoPersonasInteresadas, incidente);
   }
 
   public boolean disponibleParaComunidad(Comunidad comunidad) {

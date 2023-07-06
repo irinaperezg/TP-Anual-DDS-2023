@@ -21,7 +21,7 @@ public class IncidentesTest {
 
   @BeforeAll
   public static void init() {
-    Usuario usuario = new Usuario("pepe", "argento", "pepeargento@racing.com");
+    Usuario usuario = new Usuario("pepe", "argento");
     Miembro miembro = new Miembro(usuario);
     entidad1 = new Entidad(new Banco(),"Nacion");
     Establecimiento establecimiento1 = new Establecimiento(entidad1, "Belgrano");

@@ -2,10 +2,9 @@ package domain.main;
 
 import domain.main.entidades.Entidad;
 import domain.usuarios.Delegado;
-import domain.usuarios.Notificador;
+import domain.main.notificaciones.Notificador;
 import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EntidadPrestadora {
