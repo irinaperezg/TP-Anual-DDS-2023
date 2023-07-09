@@ -11,7 +11,11 @@ import java.util.stream.Collectors;
 public class PrestacionDeServicio {
   private final Establecimiento establecimiento;
   private final Servicio servicio;
+
   private final List<Incidente> incidentes = new ArrayList<>();
+  public List<Incidente> getIncidentes() {
+    return incidentes;
+  }
 
   public PrestacionDeServicio(Establecimiento establecimiento, Servicio servicio) {
     this.establecimiento = establecimiento;

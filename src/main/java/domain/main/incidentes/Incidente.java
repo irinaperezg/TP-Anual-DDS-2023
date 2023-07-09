@@ -8,8 +8,12 @@ import domain.usuarios.Usuario;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.WeekFields;
 import java.util.Date;
+import java.util.Locale;
 
 public class Incidente {
   private String observaciones;
@@ -47,6 +51,27 @@ public class Incidente {
   public LocalDateTime getFechaCierre() {
     return fechaCierre;
   }
+
+  public Duration calcularTiempoCierre() {
+    LocalDateTime fechaApertura = this.getFechaApertura();
+    LocalDateTime fechaCierre = this.getFechaCierre();
+    return Duration.between(fechaApertura, fechaCierre);
+  }
+
+  public boolean perteneceSemanaActual(LocalDateTime fecha) {
+    // Obtener la fecha y hora actual
+    LocalDateTime fechaHoraActual = LocalDateTime.now();
+
+    // Obtener la fecha de inicio de la semana actual
+    LocalDate inicioSemanaActual = fechaHoraActual.toLocalDate()
+        .with(WeekFields.of(Locale.getDefault()).dayOfWeek(), 1);
+
+    // Obtener la fecha de fin de la semana actual
+    LocalDate finSemanaActual = inicioSemanaActual.plusDays(6);
+
+    // Verificar si la fecha proporcionada está dentro de la semana actual
+    return !fecha.isBefore(inicioSemanaActual.atStartOfDay()) && !fecha.isAfter(finSemanaActual.atTime(23,59,59));
+}
 
 
 }

@@ -3,12 +3,14 @@ package domain.main.entidades;
 import domain.localizacion.main.Localidad;
 import domain.main.EntidadPrestadora;
 import domain.main.Establecimiento;
+import domain.main.incidentes.Incidente;
 import domain.main.servicio.Servicio;
 import domain.usuarios.Persona;
 import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Entidad {
   @Getter
@@ -32,6 +34,19 @@ public class Entidad {
       }
     }
     return interesados;
+  }
+
+  public List<Incidente> obtenerIncidentesTotales() {
+    return establecimientos.stream()
+        .flatMap(establecimiento -> establecimiento.obtenerIncidentesTotales().stream())
+        .collect(Collectors.toList());
+  }
+
+  public long obtenerPromedioCierreIncidentes() {
+    List<Incidente> incidentes = obtenerIncidentesTotales();
+    long totalSegundos = incidentes.stream().mapToLong(incidente -> incidente.calcularTiempoCierre().toSeconds()).sum();
+    long cantidadIncidentes = incidentes.size();
+    return totalSegundos / cantidadIncidentes;
   }
 
   public void agregarAsociados(Persona ... nuevosAsociados) {
