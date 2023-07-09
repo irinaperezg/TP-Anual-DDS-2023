@@ -44,11 +44,12 @@ public class Entidad {
   }
 
   public List<Incidente> obtenerIncidentesSemanales() {
-    return obtenerIncidentesTotales().stream().filter(incidente -> incidente.perteneceSemanaActual(LocalDateTime.now())).toList();
+    List<Incidente> incidentesSemanales = this.obtenerIncidentesTotales().stream().filter(incidente -> incidente.perteneceSemanaActual(LocalDateTime.now())).toList();
+    return incidentesSemanales;
   }
 
   public long obtenerPromedioCierreIncidentes() {
-    List<Incidente> incidentes = obtenerIncidentesSemanales();
+    List<Incidente> incidentes = this.obtenerIncidentesSemanales();
     long totalSegundos = incidentes.stream().mapToLong(incidente -> incidente.calcularTiempoCierre().toSeconds()).sum();
     long cantidadIncidentes = incidentes.size();
     return totalSegundos / cantidadIncidentes;

@@ -11,20 +11,23 @@ import java.util.stream.Collectors;
 public class Rankeador {
   public List<Entidad> elaborarRankingPromedioCierre(List<Entidad> entidades){
     List<Entidad> ranking = entidades.stream()
-        .sorted(Comparator.comparingLong(Entidad::obtenerPromedioCierreIncidentes).reversed())
+            .sorted(Comparator.comparingLong(Entidad::obtenerPromedioCierreIncidentes).reversed())
         .collect(Collectors.toList());
     return ranking;
   }
 
-// ME TIRA ERROR Y NO SE POR QUE
   public List<Entidad> elaborarRankingCantidadIncidentesReportados(List<Entidad> entidades){
-      List<Entidad> ranking = entidades.stream()
-          .sorted(Comparator.comparingInt(entidad -> entidad.obtenerIncidentesSemanales().size()).reversed())
-          .collect(Collectors.toList());
+    List<Entidad> ranking = entidades.stream()
+        .sorted(Comparator.comparingInt((Entidad entidad) -> entidad.obtenerIncidentesSemanales()
+            .stream().filter(incidente -> !incidente.esReciente())
+            .toList().size()).reversed()).collect(Collectors.toList());
     return ranking;
   }
-  public List<Entidad> elaborarRankingGradoImpactoProblematicas(List<Incidente> entidades){
-  // TODO
+  public List<Incidente> elaborarRankingGradoImpactoProblematicas(List<Incidente> incidentes){
+  List<Incidente> ranking = incidentes.stream().sorted(Comparator.
+      comparingInt((Incidente incidente) -> incidente.calcularImpactoSobreComunidad())
+      .reversed()).collect(Collectors.toList());
+  return ranking;
   }
 
 
