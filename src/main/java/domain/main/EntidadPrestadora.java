@@ -25,5 +25,7 @@ public class EntidadPrestadora {
 
     public void obtenerInformeSemanal(){
         //TODO
+        // tiene que llamar al generador de informes?
+
     }
 }

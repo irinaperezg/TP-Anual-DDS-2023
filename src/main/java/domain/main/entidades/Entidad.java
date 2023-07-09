@@ -8,6 +8,7 @@ import domain.main.servicio.Servicio;
 import domain.usuarios.Persona;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,8 +43,12 @@ public class Entidad {
         .collect(Collectors.toList());
   }
 
+  public List<Incidente> obtenerIncidentesSemanales() {
+    return obtenerIncidentesTotales().stream().filter(incidente -> incidente.perteneceSemanaActual(LocalDateTime.now())).toList();
+  }
+
   public long obtenerPromedioCierreIncidentes() {
-    List<Incidente> incidentes = obtenerIncidentesTotales();
+    List<Incidente> incidentes = obtenerIncidentesSemanales();
     long totalSegundos = incidentes.stream().mapToLong(incidente -> incidente.calcularTiempoCierre().toSeconds()).sum();
     long cantidadIncidentes = incidentes.size();
     return totalSegundos / cantidadIncidentes;

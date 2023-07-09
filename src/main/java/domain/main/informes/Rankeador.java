@@ -18,12 +18,10 @@ public class Rankeador {
 
 // ME TIRA ERROR Y NO SE POR QUE
   public List<Entidad> elaborarRankingCantidadIncidentesReportados(List<Entidad> entidades){
-    List<Entidad> ranking = entidades.stream()
-          .sorted(Comparator.comparingInt(entidad -> entidad.obtenerIncidentesTotales().size()).reversed())
+      List<Entidad> ranking = entidades.stream()
+          .sorted(Comparator.comparingInt(entidad -> entidad.obtenerIncidentesSemanales().size()).reversed())
           .collect(Collectors.toList());
     return ranking;
-    }
-
   }
   public List<Entidad> elaborarRankingGradoImpactoProblematicas(List<Incidente> entidades){
   // TODO
