@@ -1,33 +1,32 @@
 package domain.main.notificaciones.frecuenciasNotificacion;
 
 import domain.main.incidentes.Incidente;
+import domain.main.notificaciones.Notificador;
 import domain.usuarios.Persona;
-
+import org.apache.commons.lang3.tuple.Pair;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotificacionSinApuros {
-  private List<Incidente> incidentesANotificar = new ArrayList<>();
+public class NotificacionSinApuros implements FrecuenciaNotificacion {
+  List<Pair<Incidente, Persona>> listaPares = new ArrayList<>();
 
-  //TODO: INTENTAR UNIFICAR ESTOS DOS METODOS DE ACA ABAJO
-  public void gestionarApertura(Persona persona, Incidente incidente) {
-    incidentesANotificar.add(incidente);
+  @Override
+  public void gestionarInicidente(Persona persona, Incidente incidente) {
+    Pair<Incidente, Persona> par = Pair.of(incidente, persona);
+    listaPares.add(par);
   }
 
-  public void gestionarCierre(Persona persona, Incidente incidente) {
-    incidentesANotificar.add(incidente);
-  }
+  public void notificarIncidentes() { // nadie sabe cuando se llama porque, por ahora, no lo atacamos ;)
+    for (Pair<Incidente, Persona> par : listaPares) {
+      Incidente incidente = par.getLeft();
+      Persona persona = par.getRight();
 
-  //TODO: CONTROLADOR DE TIEMPO(? QUE LLAME A ESTA FUNCION SEGUN SI SE ESTA EN EL HORARIO QUE ESTE ELIGIO
-  public void notificarIncidente(Persona persona) {
-    String mensaje = "";
-    List<Incidente> incidentesRecientes = new ArrayList<>();
-    incidentesRecientes = incidentesANotificar.stream().filter(incidente -> dentroDeLasUltimas24Horas(incidente)).toList();
-
-    //for each incidente reciente --> crear un mensaje, notificarle todos a la persona
-
-    persona.getPreferenciaMedioNotificacion().notificar(persona, mensaje);
+      if (dentroDeLasUltimas24Horas(incidente)){
+        String mensaje = incidente.generarMensaje();
+        Notificador.obtenerInstancia().enviarNotificacion(persona, mensaje); // porque es un Singleton
+      }
+    }
   }
 
   private Boolean dentroDeLasUltimas24Horas(Incidente incidente) {

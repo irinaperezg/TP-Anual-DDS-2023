@@ -1,6 +1,8 @@
 package domain.main.incidentes;
 
+import domain.main.Establecimiento;
 import domain.main.PrestacionDeServicio;
+import domain.main.servicio.Servicio;
 import domain.usuarios.Comunidad;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,16 +13,13 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.WeekFields;
 import java.util.Locale;
-
+@Setter @Getter
 public class Incidente {
   private String observaciones;
   private PrestacionDeServicio prestacion;
   private LocalDateTime fechaApertura;
-  @Setter
   private LocalDateTime fechaCierre;
-  @Getter
   private Comunidad comunidad;
-  @Setter @Getter
   private boolean abierto;
 
   public Incidente(String observaciones, Comunidad comunidad, PrestacionDeServicio prestacion) {
@@ -35,18 +34,6 @@ public class Incidente {
   public void cerrar(){
     setFechaCierre(LocalDateTime.now());
     setAbierto(false);
-  }
-
-  public String getObservaciones() {
-    return observaciones;
-  }
-
-  public LocalDateTime getFechaApertura() {
-    return fechaApertura;
-  }
-
-  public LocalDateTime getFechaCierre() {
-    return fechaCierre;
   }
 
   public Duration calcularTiempoCierre() {
@@ -95,4 +82,15 @@ public class Incidente {
     return impacto;
   }
 
+  public String generarMensaje() {
+    Establecimiento establecimiento = this.prestacion.getEstablecimiento();
+    Servicio servicio = this.prestacion.getServicio();
+    if (this.isAbierto()) {
+      return "Nuevo incidente en " + establecimiento.getDenominacion() + " en el servicio " + servicio.getDescripcion()
+          + " abierto a las " + this.fechaApertura.toString();
+    } else {
+      return "Cierre de incidente en " + establecimiento.getDenominacion() + " en el servicio " + servicio.getDescripcion()
+          + " cerrado a las " + this.fechaCierre.toString();
+    }
+  }
 }

@@ -18,28 +18,11 @@ public class Persona {
   private FrecuenciaNotificacion frecuenciaNotification;
   private PreferenciaMedioNotificacion preferenciaMedioNotificacion;
 
-  public String getNombre() {
-    return this.usuario.getNombre();
-  }
-
   public List<Comunidad> getComunidades() {
     return miembros.stream().map(miembro -> miembro.getComunidad()).toList();
   }
-
   public Persona(String nombre, String contraseniaEncriptada, String email, String telefono) {
     this.email = email;
     this.telefono = telefono;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public String getTelefono() {
-    return telefono;
-  }
-
-  public FrecuenciaNotificacion getFrecuenciaNotificacion() {
-    return frecuenciaNotification;
   }
 }

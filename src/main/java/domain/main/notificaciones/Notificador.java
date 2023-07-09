@@ -1,62 +1,47 @@
 package domain.main.notificaciones;
 
-import domain.main.PrestacionDeServicio;
-import domain.main.incidentes.Incidente;
-import domain.main.notificaciones.frecuenciasNotificacion.FrecuenciaNotificacion;
-import domain.usuarios.Delegado;
+import domain.main.notificaciones.mediosNotificacion.Email.EmailAdapter;
+import domain.main.notificaciones.mediosNotificacion.Whatsapp.WhatsappAdapter;
 import domain.usuarios.Persona;
 
-import java.util.List;
-
 public class Notificador {
+  private static Notificador instancia;
+  private static WhatsappAdapter whatsappAdapter;
+  private static EmailAdapter emailAdapter;
 
-  //TODO: INTENTAR UNIFICAR ESTOS DOS METODOS DE ACA ABAJO
-  public void notificarAperturaIncidente(List<Persona> personas, Incidente incidente) {
-    for(Persona persona:personas) {
-      FrecuenciaNotificacion frecuenciaNotificationPersona = persona.getFrecuenciaNotificacion();
-      PrestacionDeServicio prestacion;
-      //TODO QUE LE QUEREMOS PASAR A LA PERSONA
-
-      frecuenciaNotificationPersona.gestionarApertura(persona, incidente);
-    }
+  private Notificador() {
   }
 
-  public void notificarCierreIncidente(List<Persona> personas, Incidente incidente) {
-    for(Persona persona:personas) {
-      FrecuenciaNotificacion frecuenciaNotificationPersona = persona.getFrecuenciaNotificacion();
-      PrestacionDeServicio prestacion;
-      //TODO QUE LE QUEREMOS PASAR A LA PERSONA
-
-      frecuenciaNotificationPersona.gestionarCierre(persona, incidente);
+  public static Notificador obtenerInstancia() { // Singleton
+    if (instancia == null){
+      instancia = new Notificador();
     }
+    return instancia;
   }
+
+  public void enviarNotificacion(Persona persona, String mensaje) {
+    switch (persona.getPreferenciaMedioNotificacion()){
+      case WHATSAPP :
+        whatsappAdapter.mandar(mensaje, persona.getTelefono());
+        break;
+
+      case EMAIL:
+        emailAdapter.mandar(mensaje, persona.getEmail());
+        break;
+
+      default:
+        //TODO excepcion
+        break;
+    }
+
+  }
+
   /*
-  public void notificarIncidenteOArreglo(boolean esIncidente, List<Miembro> miembros, String servicio, String entidad, String establecimiento, TipoEntidad tipoEntidad) {
-    String inicioMensaje;
-    if (esIncidente) {
-      inicioMensaje = "Hubo un incidente en ";
-    } else inicioMensaje = "Se arreglo ";
-    String mensaje = inicioMensaje + "el servicio " + servicio + " en " + tipoEntidad.getTipoEntidad() + " " + entidad + " " + tipoEntidad.getTipoEstablecimiento() + " " + establecimiento;
-
-    for (Miembro miembro : miembros) {
-      mandarNotificacion(miembro.getEmail(), miembro.getNombre(), mensaje);
-    }
-  }*/
-
-
-
-
   public void notificarProblematicas(Delegado delegado) {
     String mensaje = "PROBLEMATICAS"; //TODO
     String email = delegado.getEmail();
     String nombre = delegado.getNombre();
     mandarNotificacion(email, nombre, mensaje);
-  }
-
-
-  private void mandarNotificacion(String email, String nombre, String mensaje) {
-    //TODO
-    System.out.println("Nombre: " + nombre + " --- Mensaje: " + mensaje);
-  }
+  }*/
 
 }

@@ -1,16 +1,17 @@
 package domain.main.notificaciones.frecuenciasNotificacion;
 
+import domain.main.Establecimiento;
 import domain.main.incidentes.Incidente;
-import domain.main.notificaciones.mediosNotificacion.PreferenciaMedioNotificacion;
+import domain.main.notificaciones.Notificador;
+import domain.main.servicio.Servicio;
 import domain.usuarios.Persona;
 
 public class NotificacionCuandoSucedeIncidente implements FrecuenciaNotificacion {
-  public void gestionarApertura(Persona persona, Incidente incidente) {
-    String mensaje = "";
-    persona.getPreferenciaMedioNotificacion().notificar(persona, mensaje);
+
+  @Override
+  public void gestionarInicidente(Persona persona, Incidente incidente) {
+    String mensaje = incidente.generarMensaje();
+    Notificador.obtenerInstancia().enviarNotificacion(persona, mensaje); // porque es un Singleton
   }
 
-  public void gestionarCierre(Persona persona, Incidente incidente) {
-
-  }
 }

@@ -5,12 +5,14 @@ import domain.main.entidades.Entidad;
 import domain.main.incidentes.Incidente;
 import domain.main.servicio.Servicio;
 import domain.usuarios.Persona;
+import lombok.Getter;
 import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Establecimiento {
+  @Getter
   private final String denominacion;
   private final Entidad entidad;
   @Setter
