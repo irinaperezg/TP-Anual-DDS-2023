@@ -21,7 +21,7 @@ public class Persona {
   private String telefono;
   private FrecuenciaNotificacion frecuenciaNotification;
   private PreferenciaMedioNotificacion preferenciaMedioNotificacion;
-  private List<LocalDateTime> horariosDeNotificaciones = new ArrayList<>();
+  private List<LocalDateTime> horariosDeNotificaciones;
 
   public Persona(Usuario usuario, String email, String telefono, FrecuenciaNotificacion frecuenciaNotification, PreferenciaMedioNotificacion preferenciaMedioNotificacion, List<LocalDateTime> horariosDeNotificaciones) throws SchedulerException {
     this.usuario = usuario;

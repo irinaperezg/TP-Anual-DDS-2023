@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.WeekFields;
 import java.util.Locale;
+
 @Setter @Getter
 public class Incidente {
   private String observaciones;
@@ -32,7 +33,7 @@ public class Incidente {
     this.prestacion = prestacion;
   }
 
-  public void cerrar(){
+  public void cerrar() {
     setFechaCierre(LocalDateTime.now());
     setAbierto(false);
   }
@@ -56,11 +57,11 @@ public class Incidente {
     return !fechaApertura.isBefore(inicioSemanaActualDateTime) && !fechaApertura.isAfter(finSemanaActualDateTime);
 }
 
-  public boolean esReciente() {
+  public boolean esRecienteYAbierto() {
     LocalDateTime fechaHoraActual = LocalDateTime.now();
     LocalDateTime fechaHoraApertura = this.getFechaApertura();
     long horasDiferencia = ChronoUnit.HOURS.between(fechaHoraApertura, fechaHoraActual);
-    return horasDiferencia <= 24;
+    return horasDiferencia <= 24 && this.abierto;
   }
 
   public int calcularImpactoSobreComunidad()

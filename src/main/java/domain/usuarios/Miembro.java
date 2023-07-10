@@ -1,6 +1,5 @@
 package domain.usuarios;
 
-import domain.localizacion.main.Localidad;
 import lombok.Getter;
 import lombok.Setter;
 

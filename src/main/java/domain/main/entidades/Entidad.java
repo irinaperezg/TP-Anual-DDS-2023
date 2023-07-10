@@ -7,6 +7,7 @@ import domain.main.incidentes.Incidente;
 import domain.main.servicio.Servicio;
 import domain.usuarios.Persona;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class Entidad {
   private String denominacion;
   private EntidadPrestadora entidadPrestadora;
   private final List<Persona> asociados = new ArrayList<>();
+  @Getter @Setter
   private final List<Establecimiento> establecimientos = new ArrayList<>();
 
   public Entidad(TipoEntidad tipo, String denominacion) {

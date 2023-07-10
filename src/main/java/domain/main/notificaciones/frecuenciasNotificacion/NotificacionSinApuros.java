@@ -35,7 +35,6 @@ public class NotificacionSinApuros implements FrecuenciaNotificacion, Job {
   }
 
   public void notificarIncidentes(Persona personaANotificar) {
-
     List<Pair<Incidente, Persona>> paresDeIncidentes = listaPares.stream().filter(par -> par.getRight().equals(personaANotificar)).toList();
     listaPares.removeAll(paresDeIncidentes);
     List<Incidente> incidentes = paresDeIncidentes.stream().map(par -> par.getLeft()).toList();
