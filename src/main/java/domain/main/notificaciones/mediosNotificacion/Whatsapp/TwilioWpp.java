@@ -9,13 +9,13 @@ public class TwilioWpp implements WhatsappAdapter {
   public static final String AUTH_TOKEN = "gabyGenioCrackSetsi2002";
 
   public void mandar (String mensaje, String telefono) {
-    Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+    /*Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
     Message message = Message.creator(
         new com.twilio.type.PhoneNumber("whatsapp:+5491134099892"),
         new com.twilio.type.PhoneNumber("whatsapp:+14155238886"),
         mensaje).create();
 
-    System.out.println(message.getSid());
+    System.out.println(message.getSid());*/
   }
 
 }

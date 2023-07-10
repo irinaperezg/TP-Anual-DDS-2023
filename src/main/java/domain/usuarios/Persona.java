@@ -12,17 +12,22 @@ import java.util.List;
 public class Persona {
   private Usuario usuario;
   private List<Miembro> miembros;
+  @Setter
   private Localidad localidad = null;
   private String email;
   private String telefono;
   private FrecuenciaNotificacion frecuenciaNotification;
   private PreferenciaMedioNotificacion preferenciaMedioNotificacion;
 
-  public List<Comunidad> getComunidades() {
-    return miembros.stream().map(miembro -> miembro.getComunidad()).toList();
-  }
-  public Persona(String nombre, String contraseniaEncriptada, String email, String telefono) {
+  public Persona(Usuario usuario, String email, String telefono, FrecuenciaNotificacion frecuenciaNotification, PreferenciaMedioNotificacion preferenciaMedioNotificacion) {
+    this.usuario = usuario;
     this.email = email;
     this.telefono = telefono;
+    this.frecuenciaNotification = frecuenciaNotification;
+    this.preferenciaMedioNotificacion = preferenciaMedioNotificacion;
+  }
+
+  public List<Comunidad> getComunidades() {
+    return miembros.stream().map(miembro -> miembro.getComunidad()).toList();
   }
 }

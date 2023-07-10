@@ -20,7 +20,7 @@ public abstract class Servicio {
     return asociados.contains(persona);
   }
 
-  public void agregarMiembros(Persona ... nuevasPersonas) {
-    asociados.addAll(List.of(nuevasPersonas));
+  public void agregarAsociado(Persona persona) {
+    asociados.add(persona);
   }
 }

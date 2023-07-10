@@ -37,13 +37,17 @@ public class Entidad {
     return interesados;
   }
 
+  public void agregarAsociado(Persona persona) {
+    asociados.add(persona);
+  }
+
   public List<Incidente> obtenerIncidentesTotales() {
     return establecimientos.stream()
         .flatMap(establecimiento -> establecimiento.obtenerIncidentesTotales().stream())
         .collect(Collectors.toList());
   }
 
-  public List<Incidente> obtenerIncidentesSemanales() {
+  /*public List<Incidente> obtenerIncidentesSemanales() {
     List<Incidente> incidentesSemanales = this.obtenerIncidentesTotales().stream().filter(incidente -> incidente.perteneceSemanaActual(LocalDateTime.now())).toList();
     return incidentesSemanales;
   }
@@ -57,5 +61,5 @@ public class Entidad {
 
   public void agregarAsociados(Persona ... nuevosAsociados) {
     asociados.addAll(List.of(nuevosAsociados));
-  }
+  }*/
 }

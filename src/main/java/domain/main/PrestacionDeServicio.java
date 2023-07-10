@@ -25,14 +25,12 @@ public class PrestacionDeServicio {
     this.servicio = servicio;
   }
 
-
-
   private List<Persona> buscarInteresados() {
     return establecimiento.buscarInteresados(this.servicio);
   }
 
   public void notificarInteresados (Incidente incidente) {
-    List<Persona> listadoPersonasInteresadas = new ArrayList<>(incidente.getComunidad().getMiembros().stream().map(miembro -> miembro.getPersona()).toList());
+    List<Persona> listadoPersonasInteresadas = new ArrayList<>(incidente.getComunidad().getMiembros().stream().map(Miembro::getPersona).toList());
     listadoPersonasInteresadas.addAll(buscarInteresados());
     listadoPersonasInteresadas.stream().collect(Collectors.toSet()).stream().toList();
     for (Persona persona : listadoPersonasInteresadas){

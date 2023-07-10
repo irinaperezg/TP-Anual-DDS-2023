@@ -21,4 +21,8 @@ public class Comunidad {
   public ServicioCompuesto crearServicioCompuesto(String descripcion, Servicio... otrosServicios){
     return new ServicioCompuesto(descripcion, otrosServicios);
   }
+
+  public void agregarMiembro(Miembro miembro) {
+    miembros.add(miembro);
+  }
 }

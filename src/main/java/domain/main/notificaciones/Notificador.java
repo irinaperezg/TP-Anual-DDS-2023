@@ -1,6 +1,8 @@
 package domain.main.notificaciones;
 
 import domain.main.notificaciones.mediosNotificacion.Email.EmailAdapter;
+import domain.main.notificaciones.mediosNotificacion.Email.JavaxMail;
+import domain.main.notificaciones.mediosNotificacion.Whatsapp.TwilioWpp;
 import domain.main.notificaciones.mediosNotificacion.Whatsapp.WhatsappAdapter;
 import domain.usuarios.Persona;
 
@@ -15,6 +17,8 @@ public class Notificador {
   public static Notificador obtenerInstancia() { // Singleton
     if (instancia == null){
       instancia = new Notificador();
+      whatsappAdapter = new TwilioWpp();
+      emailAdapter = new JavaxMail();
     }
     return instancia;
   }

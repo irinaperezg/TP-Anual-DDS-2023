@@ -15,6 +15,11 @@ public class Miembro {
   @Getter
   private Comunidad comunidad;
 
+  public Miembro(Persona persona, Comunidad comunidad) {
+    this.persona = persona;
+    this.comunidad = comunidad;
+  }
+
   public void modificarTipoMiembro () {
     if(tipo == OBSERVADOR) setTipo(AFECTADO);
     else setTipo(OBSERVADOR);

@@ -10,6 +10,7 @@ import lombok.Setter;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.WeekFields;
 import java.util.Locale;
@@ -87,10 +88,10 @@ public class Incidente {
     Servicio servicio = this.prestacion.getServicio();
     if (this.isAbierto()) {
       return "Nuevo incidente en " + establecimiento.getDenominacion() + " en el servicio " + servicio.getDescripcion()
-          + " abierto a las " + this.fechaApertura.toString();
+          + " abierto a las " + this.fechaApertura.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
     } else {
       return "Cierre de incidente en " + establecimiento.getDenominacion() + " en el servicio " + servicio.getDescripcion()
-          + " cerrado a las " + this.fechaCierre.toString();
+          + " cerrado a las " + this.fechaCierre.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
     }
   }
 }
