@@ -5,9 +5,13 @@ import domain.main.notificaciones.mediosNotificacion.Email.JavaxMail;
 import domain.main.notificaciones.mediosNotificacion.Whatsapp.TwilioWpp;
 import domain.main.notificaciones.mediosNotificacion.Whatsapp.WhatsappAdapter;
 import domain.usuarios.Persona;
+import lombok.Getter;
+import lombok.Setter;
+
 
 public class Notificador {
   private static Notificador instancia;
+  @Getter @Setter
   private static WhatsappAdapter whatsappAdapter;
   private static EmailAdapter emailAdapter;
 

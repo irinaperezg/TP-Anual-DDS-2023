@@ -14,4 +14,9 @@ public class NotificacionCuandoSucedeIncidente implements FrecuenciaNotificacion
     Notificador.obtenerInstancia().enviarNotificacion(persona, mensaje); // porque es un Singleton
   }
 
+  @Override
+  public void notificarIncidentes(Persona personaANotificar) {
+
+  }
+
 }
