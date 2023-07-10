@@ -76,7 +76,7 @@ public class IncidentesTest {
 
     doNothing().when(Notificador.getWhatsappAdapter()).mandar(anyString(), anyString());
 
-    //prestacion.ocurrioUnIncidente(miembro1, "Se rompio el baño sin genero");
+    prestacion.ocurrioUnIncidente(miembro1, "Se rompio el baño sin genero", "Rotura de baño");
     //prestacion.cerrarUnIncidente(prestacion.getIncidentes().get(0));
 
     verify(Notificador.getWhatsappAdapter(), times(2)).mandar(anyString(), anyString());

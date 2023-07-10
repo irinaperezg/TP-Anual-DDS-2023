@@ -18,14 +18,16 @@ import java.util.Locale;
 @Setter @Getter
 public class Incidente {
   private String observaciones;
+  private String denominacion;
   private PrestacionDeServicio prestacion;
   private LocalDateTime fechaApertura;
   private LocalDateTime fechaCierre;
   private Comunidad comunidad;
   private boolean abierto;
 
-  public Incidente(String observaciones, Comunidad comunidad, PrestacionDeServicio prestacion) {
+  public Incidente(String observaciones, String denominacion, Comunidad comunidad, PrestacionDeServicio prestacion) {
     this.fechaApertura = LocalDateTime.now();
+    this.denominacion = denominacion;
     this.observaciones = observaciones;
     this.comunidad = comunidad;
     this.fechaCierre = null;

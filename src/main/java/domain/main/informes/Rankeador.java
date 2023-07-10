@@ -42,11 +42,9 @@ public class Rankeador {
             .toList().size()).reversed()).toList().stream().map(Entidad::getDenominacion).toList();
   }
 
-  public List<String> elaborarRankingGradoImpactoProblematicas(List<Incidente> incidentes){
-    //TODO
-    /*return incidentes.stream().sorted(Comparator.
-        comparingInt(Incidente::calcularImpactoSobreComunidad)
-        .reversed()).collect(Collectors.toList());*/
-    return new ArrayList<>();
+  public List<String> elaborarRankingGradoImpactoProblematicas(List<Entidad> entidades){
+    return entidades.stream().flatMap(entidad -> entidad.obtenerIncidentesSemanales().stream())
+        .collect(Collectors.toList()).stream().sorted(Comparator.comparingInt(Incidente::calcularImpactoSobreComunidad)
+            .reversed()).collect(Collectors.toList()).stream().map(Incidente::getDenominacion).toList();
   }
 }

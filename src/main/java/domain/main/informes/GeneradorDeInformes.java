@@ -13,8 +13,8 @@ public class GeneradorDeInformes {
   private Rankeador rankeador;
   public static void main(List<Entidad> entidades) {
     List<String> rankingPromedioCierre = Rankeador.obtenerInstancia().elaborarRankingPromedioCierre(entidades);
-    List<String> rankingCantidadIncidentes = Rankeador.obtenerInstancia().elaborarRankingPromedioCierre(entidades);
-    // List<String> rankingMayorImpacto = Rankeador.obtenerInstancia().elaborarRankingPromedioCierre(entidades);
+    List<String> rankingCantidadIncidentes = Rankeador.obtenerInstancia().elaborarRankingCantidadIncidentesReportados(entidades);
+    List<String> rankingMayorImpacto = Rankeador.obtenerInstancia().elaborarRankingGradoImpactoProblematicas(entidades);
 
     try {
       Document documento = new Document();
@@ -40,7 +40,6 @@ public class GeneradorDeInformes {
       }
 
       // RANKING 3
-      /*
       Paragraph title3 = new Paragraph("Comunidades con mayor grado de impacto de problemáticas: ");
       documento.add(title3);
 
@@ -48,7 +47,6 @@ public class GeneradorDeInformes {
         Paragraph paragraph = new Paragraph(entidad);
         documento.add(paragraph);
       }
-      */
 
       documento.close();
     } catch (Exception e) {
