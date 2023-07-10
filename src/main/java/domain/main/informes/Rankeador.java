@@ -38,7 +38,7 @@ public class Rankeador {
   public List<String> elaborarRankingCantidadIncidentesReportados(List<Entidad> entidades){
     return entidades.stream()
         .sorted(Comparator.comparingInt((Entidad entidad) -> entidad.obtenerIncidentesSemanales()
-            .stream().filter(incidente -> !incidente.esRecienteYAbierto())
+            .stream().filter(incidente -> (!incidente.esReciente() && !incidente.isAbierto()))
             .toList().size()).reversed()).toList().stream().map(Entidad::getDenominacion).toList();
   }
 

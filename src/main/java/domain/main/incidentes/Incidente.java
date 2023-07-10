@@ -59,11 +59,11 @@ public class Incidente {
     return !fechaApertura.isBefore(inicioSemanaActualDateTime) && !fechaApertura.isAfter(finSemanaActualDateTime);
 }
 
-  public boolean esRecienteYAbierto() {
+  public boolean esReciente(){
     LocalDateTime fechaHoraActual = LocalDateTime.now();
     LocalDateTime fechaHoraApertura = this.getFechaApertura();
     long horasDiferencia = ChronoUnit.HOURS.between(fechaHoraApertura, fechaHoraActual);
-    return horasDiferencia <= 24 && this.abierto;
+    return horasDiferencia <= 24;
   }
 
   public int calcularImpactoSobreComunidad()
