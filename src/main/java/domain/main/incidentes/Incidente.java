@@ -44,36 +44,22 @@ public class Incidente {
   }
 
   public boolean perteneceSemanaActual() {
-    // Obtener la fecha y hora actual
     LocalDateTime fechaHoraActual = LocalDateTime.now();
-
-    // Obtener la fecha de inicio de la semana actual
     LocalDate inicioSemanaActual = fechaHoraActual.toLocalDate()
         .with(WeekFields.of(Locale.getDefault()).dayOfWeek(), 1);
 
     LocalDateTime inicioSemanaActualDateTime = inicioSemanaActual.atStartOfDay();
 
-    // Obtener la fecha de fin de la semana actual
     LocalDateTime finSemanaActualDateTime = inicioSemanaActualDateTime.plusDays(6)
         .withHour(23).withMinute(59).withSecond(59);
 
-    LocalDateTime fecha = this.getFechaApertura();
-
-    // Verificar si la fecha de apertura del incidente está dentro de la semana actual
     return !fechaApertura.isBefore(inicioSemanaActualDateTime) && !fechaApertura.isAfter(finSemanaActualDateTime);
 }
 
   public boolean esReciente() {
-    // Obtener la fecha y hora actual
     LocalDateTime fechaHoraActual = LocalDateTime.now();
-
-    // Obtener la fecha y hora de creación del incidente
     LocalDateTime fechaHoraApertura = this.getFechaApertura();
-
-    // Obtener la diferencia en horas entre la fecha de creación y la fecha actual
     long horasDiferencia = ChronoUnit.HOURS.between(fechaHoraApertura, fechaHoraActual);
-
-    // Verificar si la diferencia está dentro de las últimas 24 horas
     return horasDiferencia <= 24;
   }
 

@@ -47,9 +47,8 @@ public class Entidad {
         .collect(Collectors.toList());
   }
 
-  /*public List<Incidente> obtenerIncidentesSemanales() {
-    List<Incidente> incidentesSemanales = this.obtenerIncidentesTotales().stream().filter(incidente -> incidente.perteneceSemanaActual(LocalDateTime.now())).toList();
-    return incidentesSemanales;
+  public List<Incidente> obtenerIncidentesSemanales() {
+    return this.obtenerIncidentesTotales().stream().filter(Incidente::perteneceSemanaActual).toList();
   }
 
   public long obtenerPromedioCierreIncidentes() {
@@ -61,5 +60,5 @@ public class Entidad {
 
   public void agregarAsociados(Persona ... nuevosAsociados) {
     asociados.addAll(List.of(nuevosAsociados));
-  }*/
+  }
 }

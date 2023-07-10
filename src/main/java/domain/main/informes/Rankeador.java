@@ -9,13 +9,10 @@ import java.util.stream.Collectors;
 
 
 public class Rankeador {
-  /*public List<Entidad> elaborarRankingPromedioCierre(List<Entidad> entidades){
-    List<Entidad> ranking = entidades.stream()
+  public List<Entidad> elaborarRankingPromedioCierre(List<Entidad> entidades){
+    return entidades.stream()
             .sorted(Comparator.comparingLong(Entidad::obtenerPromedioCierreIncidentes).reversed())
-        .collect(Collectors.toList());
-    return ranking;
-  }
-
+        .collect(Collectors.toList())
   public List<Entidad> elaborarRankingCantidadIncidentesReportados(List<Entidad> entidades){
     List<Entidad> ranking = entidades.stream()
         .sorted(Comparator.comparingInt((Entidad entidad) -> entidad.obtenerIncidentesSemanales()
@@ -30,6 +27,5 @@ public class Rankeador {
   return ranking;
   }
 
-*/
 
 }
