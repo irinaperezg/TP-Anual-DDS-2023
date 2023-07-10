@@ -54,9 +54,14 @@ public class Entidad {
   }
 
   public long obtenerPromedioCierreIncidentes() {
-    List<Incidente> incidentes = this.obtenerIncidentesSemanales();
+    List<Incidente> incidentes = this.obtenerIncidentesSemanales().stream().
+        filter(incidente -> !incidente.isAbierto()).collect(Collectors.toList());
     long totalSegundos = incidentes.stream().mapToLong(incidente -> incidente.calcularTiempoCierre().toSeconds()).sum();
     long cantidadIncidentes = incidentes.size();
+    if (cantidadIncidentes == 0)
+    {
+      return 0;
+    }
     return totalSegundos / cantidadIncidentes;
   }
 

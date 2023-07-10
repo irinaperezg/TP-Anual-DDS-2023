@@ -19,11 +19,4 @@ public class EntidadPrestadora {
         this.delegado = delegado;
     }
 
-    //public void notificarProblematicasDelegado() {
-    //    Notificador.obtenerInstancia().notificarProblematicas(delegado);
-    //}
-
-    public void obtenerInformeSemanal(){
-        //TODO
-    }
 }

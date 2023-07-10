@@ -44,7 +44,7 @@ public class Rankeador {
 
   public List<String> elaborarRankingGradoImpactoProblematicas(List<Entidad> entidades){
     return entidades.stream().flatMap(entidad -> entidad.obtenerIncidentesSemanales().stream())
-        .collect(Collectors.toList()).stream().sorted(Comparator.comparingInt(Incidente::calcularImpactoSobreComunidad)
-            .reversed()).collect(Collectors.toList()).stream().map(Incidente::getDenominacion).toList();
+        .toList().stream().sorted(Comparator.comparingInt(Incidente::calcularImpactoSobreComunidad)
+            .reversed()).toList().stream().map(Incidente::getDenominacion).toList();
   }
 }

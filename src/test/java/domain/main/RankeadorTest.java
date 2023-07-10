@@ -55,8 +55,8 @@ public class RankeadorTest {
     entidad2.getEstablecimientos().add(establecimiento2);
     comunidad1 = new Comunidad();
 
-    incidente1 = new Incidente("observaciones 1", comunidad1, prestacion1);
-    incidente2 = new Incidente("observaciones 2", comunidad1, prestacion2);
+    incidente1 = new Incidente("observaciones 1", "incidente 1", comunidad1, prestacion1);
+    incidente2 = new Incidente("observaciones 2", "incidente 2", comunidad1, prestacion2);
 
     prestacion1.getIncidentes().add(incidente1);
     prestacion2.getIncidentes().add(incidente2);
@@ -83,7 +83,7 @@ public class RankeadorTest {
   @DisplayName("Ranking: Entidades con mayor cantidad de incidentes reportados en la semana")
   public void ranking2() throws SchedulerException, InterruptedException {
 
-    Incidente incidente3 = new Incidente("observaciones 3", comunidad1, prestacion1);
+    Incidente incidente3 = new Incidente("observaciones 3", "incidente 3", comunidad1, prestacion1);
 
     prestacion1.getIncidentes().add(incidente3);
 
@@ -100,6 +100,7 @@ public class RankeadorTest {
     ranking2.add(entidad2.getDenominacion());
 
     Assertions.assertEquals(ranking2, Rankeador.obtenerInstancia().elaborarRankingCantidadIncidentesReportados(entidades));
+    prestacion1.getIncidentes().remove(incidente3);
   }
   @Test
   @DisplayName("Ranking: Mayor grado de impacto de las problemáticas")
@@ -115,6 +116,17 @@ public class RankeadorTest {
     Persona persona3 = new Persona(usuario, "yolo@gmail.com", "1234", new NotificacionCuandoSucedeIncidente(), PreferenciaMedioNotificacion.EMAIL, new ArrayList<>());
     Miembro miembro3 = new Miembro(persona3, comunidad2);
 
-    //TODO
+    incidente1.cerrar();
+    incidente2.cerrar();
+
+    List<Entidad> entidades = new ArrayList<>();
+    entidades.add(entidad1);
+    entidades.add(entidad2);
+
+    List<String> ranking3 = new ArrayList<>();
+    ranking3.add(incidente1.getDenominacion());
+    ranking3.add(incidente2.getDenominacion());
+    Assertions.assertEquals(ranking3, Rankeador.obtenerInstancia().elaborarRankingGradoImpactoProblematicas(entidades));
+
   }
 }

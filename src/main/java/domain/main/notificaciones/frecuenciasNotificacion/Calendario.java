@@ -11,16 +11,6 @@ import java.time.LocalDateTime;
 
 public class Calendario {
   public Calendario(Persona persona) throws SchedulerException {
-    Runnable task = new Runnable() {
-      @Override
-      public void run() {
-        // The code to be executed at the specified interval
-        if (persona.getFrecuenciaNotification().getClass() == NotificacionSinApuros.class) {
-          persona.getFrecuenciaNotification().notificarIncidentes(persona);
-        }
-      }
-    };
-
     Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
     scheduler.start();
 
