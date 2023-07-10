@@ -38,7 +38,8 @@ public class NotificacionSinApuros implements FrecuenciaNotificacion, Job {
   }
 
   public void notificarIncidentes(Persona personaANotificar) {
-    List<Pair<Incidente, Persona>> paresDeIncidentes = listaPares.stream().filter(par -> par.getRight().getEmail().equals(personaANotificar.getEmail())).toList();
+    List<Pair<Incidente, Persona>> paresDeIncidentes = listaPares.stream().filter(par ->
+        par.getRight().getEmail().equals(personaANotificar.getEmail())).toList();
     List<Incidente> incidentes = paresDeIncidentes.stream().map(Pair::getLeft).toList();
     incidentes.forEach(incidente -> {
       if (dentroDeLasUltimas24Horas(incidente)) {
