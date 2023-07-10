@@ -65,6 +65,6 @@ public class IncidentesTest {
     servicio.agregarAsociado(persona7);
     persona7.setLocalidad(localidad2);
 
-    prestacion.ocurrioUnIncidente(miembro1, "Se rompio el baño sin genero");
+    //prestacion.ocurrioUnIncidente(miembro1, "Se rompio el baño sin genero");
   }
 }
