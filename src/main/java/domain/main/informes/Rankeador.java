@@ -1,5 +1,6 @@
 package domain.main.informes;
 
+import config.Config;
 import domain.main.entidades.Entidad;
 import domain.main.incidentes.Incidente;
 import domain.main.notificaciones.Notificador;
@@ -9,6 +10,7 @@ import domain.main.notificaciones.mediosNotificacion.Whatsapp.TwilioWpp;
 import domain.main.notificaciones.mediosNotificacion.Whatsapp.WhatsappAdapter;
 import lombok.Getter;
 import lombok.Setter;
+import validadorDeContrasenias.validaciones.Validacion;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -18,6 +20,7 @@ import java.util.stream.Collectors;
 public class Rankeador {
 
   private static Rankeador instancia;
+  private static final List<Ranking> rankings = new ArrayList<>();
 
   private Rankeador() {
   }
@@ -25,26 +28,24 @@ public class Rankeador {
   public static Rankeador obtenerInstancia() { // Singleton
     if (instancia == null){
       instancia = new Rankeador();
+      instancia.agregarRankings();
     }
     return instancia;
   }
 
-  public List<String> elaborarRankingPromedioCierre(List<Entidad> entidades) {
-    return entidades.stream()
-        .sorted(Comparator.comparingLong(Entidad::obtenerPromedioCierreIncidentes).reversed())
-        .toList().stream().map(Entidad::getDenominacion).toList();
-  }
+  public void agregarRankings() {
+    String[] rankingsPorAgregar = Config.obtenerInstancia().obtenerDelConfig("rankings").split(",");
 
-  public List<String> elaborarRankingCantidadIncidentesReportados(List<Entidad> entidades){
-    return entidades.stream()
-        .sorted(Comparator.comparingInt((Entidad entidad) -> entidad.obtenerIncidentesSemanales()
-            .stream().filter(incidente -> (!incidente.esReciente() && !incidente.isAbierto()))
-            .toList().size()).reversed()).toList().stream().map(Entidad::getDenominacion).toList();
-  }
-
-  public List<String> elaborarRankingGradoImpactoProblematicas(List<Entidad> entidades){
-    return entidades.stream().flatMap(entidad -> entidad.obtenerIncidentesSemanales().stream())
-        .toList().stream().sorted(Comparator.comparingInt(Incidente::calcularImpactoSobreComunidad)
-            .reversed()).toList().stream().map(Incidente::getDenominacion).toList();
+    for (String ranking : rankingsPorAgregar) {
+      try {
+        Class<? extends Ranking> clazz = Class.forName("rankeador.rankings." + ranking).asSubclass(Ranking.class);
+        Ranking instancia = clazz.getDeclaredConstructor().newInstance();
+        rankings.add(instancia);
+      } catch (ClassNotFoundException | IllegalAccessException
+               | InstantiationException | NoSuchMethodException
+               | java.lang.reflect.InvocationTargetException e) {
+        e.printStackTrace();
+      }
+    }
   }
 }

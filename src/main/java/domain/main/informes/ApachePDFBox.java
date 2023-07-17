@@ -9,7 +9,7 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import java.io.IOException;
 import java.util.List;
 
-public class ApachePDFBox implements PDFAdapter{
+public class ApachePDFBox implements PDFAdapter {
   public PDDocument generarInforme(String denominacionEntidadPrestadora, List<String> rankingPromedioCierre, List<String> rankingCantidadIncidentes, List<String> rankingMayorImpacto) {
     int i = 1;
     try {

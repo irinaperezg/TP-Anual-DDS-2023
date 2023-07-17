@@ -34,9 +34,19 @@ public class RankeadorTest {
   private static Entidad entidad2;
   private static Comunidad comunidad1;
   private static PrestacionDeServicio prestacion1;
+  private static Miembro miembro1;
+  private static Persona persona1;
+  private static Usuario usuario;
 
   @BeforeAll
   public static void init() throws SchedulerException {
+    comunidad1 = new Comunidad();
+
+    usuario = new Usuario("pepe", "argento");
+    persona1 = new Persona(usuario, "panchito@gmail.com", "1234", new NotificacionCuandoSucedeIncidente(), PreferenciaMedioNotificacion.EMAIL, new ArrayList<>());
+
+    miembro1 = new Miembro(persona1,comunidad1);
+
     Servicio servicio = new ServicioBase("baño sin genero");
     TipoEntidad tipoEntidad = new TipoEntidad();
 
@@ -53,10 +63,9 @@ public class RankeadorTest {
 
     entidad1.getEstablecimientos().add(establecimiento1);
     entidad2.getEstablecimientos().add(establecimiento2);
-    comunidad1 = new Comunidad();
 
-    incidente1 = new Incidente("observaciones 1", "incidente 1", comunidad1, prestacion1);
-    incidente2 = new Incidente("observaciones 2", "incidente 2", comunidad1, prestacion2);
+    incidente1 = new Incidente("observaciones 1", "incidente 1", comunidad1, prestacion1, miembro1);
+    incidente2 = new Incidente("observaciones 2", "incidente 2", comunidad1, prestacion2, miembro1);
 
     prestacion1.getIncidentes().add(incidente1);
     prestacion2.getIncidentes().add(incidente2);
@@ -83,7 +92,7 @@ public class RankeadorTest {
   @DisplayName("Ranking: Entidades con mayor cantidad de incidentes reportados en la semana")
   public void ranking2() throws SchedulerException, InterruptedException {
 
-    Incidente incidente3 = new Incidente("observaciones 3", "incidente 3", comunidad1, prestacion1);
+    Incidente incidente3 = new Incidente("observaciones 3", "incidente 3", comunidad1, prestacion1, miembro1);
 
     prestacion1.getIncidentes().add(incidente3);
 
@@ -106,8 +115,7 @@ public class RankeadorTest {
   @DisplayName("Ranking: Mayor grado de impacto de las problemáticas")
   public void ranking3() throws SchedulerException, InterruptedException {
     Comunidad comunidad2 = new Comunidad();
-    Usuario usuario = new Usuario("pepe", "argento");
-    Persona persona1 = new Persona(usuario, "panchito@gmail.com", "1234", new NotificacionCuandoSucedeIncidente(), PreferenciaMedioNotificacion.EMAIL, new ArrayList<>());
+
     Miembro miembro1 = new Miembro(persona1, comunidad1);
 
     Persona persona2 = new Persona(usuario, "vivaLaPepa@gmail.com", "1234", new NotificacionCuandoSucedeIncidente(), PreferenciaMedioNotificacion.EMAIL, new ArrayList<>());

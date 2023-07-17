@@ -1,6 +1,6 @@
 package domain.main.notificaciones.mediosNotificacion.Email;
 
-
+import config.Config;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
@@ -9,10 +9,10 @@ import java.util.Properties;
 
 public class JavaxMail implements EmailAdapter{
   public void mandar(String mensaje, String email) {
-    String host = "sandbox.smtp.mailtrap.io"; // Host del servidor de correo
-    int port = 2525; // Puerto del servidor de correo
-    String username = "f3258c1802f6f0"; // Nombre de usuario del correo
-    String password = "860559ef0fabec"; // Contraseña del correo
+    String host = Config.obtenerInstancia().obtenerDelConfig("host_javax"); // Host del servidor de correo
+    int port = Integer.parseInt(Config.obtenerInstancia().obtenerDelConfig("puerto_javax")); // Puerto del servidor de correo
+    String username = Config.obtenerInstancia().obtenerDelConfig("usuario_javax"); // Nombre de usuario del correo
+    String password = Config.obtenerInstancia().obtenerDelConfig("contrasenia_javax"); // Contraseña del correo
     String from = "jcarriquirycastro@frba.utn.edu.ar"; // remitente
     String subject = "Sistema de Apoyo a Comunidades con Movilidad Reducida";
 

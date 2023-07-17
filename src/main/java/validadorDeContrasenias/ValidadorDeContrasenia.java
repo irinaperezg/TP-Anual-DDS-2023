@@ -17,7 +17,7 @@ public class ValidadorDeContrasenia {
   }
 
   public void agregarValidaciones() {
-    String[] validacionesPorAgregar = new Config().obtenerDelConfig("validaciones").split(",");
+    String[] validacionesPorAgregar = Config.obtenerInstancia().obtenerDelConfig("validaciones").split(",");
 
     for (String validacion : validacionesPorAgregar) {
       try {
@@ -38,7 +38,7 @@ public class ValidadorDeContrasenia {
   }
 
   public String encriptarContrasenia(String contrasenia) throws NoSuchAlgorithmException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-    String hash = new Config().obtenerDelConfig("hash");
+    String hash = Config.obtenerInstancia().obtenerDelConfig("hash");
 
     // Obtener la clase correspondiente al nombre del algoritmo de hash
     Class<? extends Encriptador> clazz = Class.forName("validadorDeContrasenias.encriptadores." + hash).asSubclass(Encriptador.class);

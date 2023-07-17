@@ -4,6 +4,8 @@ import domain.main.Establecimiento;
 import domain.main.PrestacionDeServicio;
 import domain.main.servicio.Servicio;
 import domain.usuarios.Comunidad;
+import domain.usuarios.Miembro;
+import domain.usuarios.Persona;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,8 +26,9 @@ public class Incidente {
   private LocalDateTime fechaCierre;
   private Comunidad comunidad;
   private boolean abierto;
+  private Miembro creador;
 
-  public Incidente(String observaciones, String denominacion, Comunidad comunidad, PrestacionDeServicio prestacion) {
+  public Incidente(String observaciones, String denominacion, Comunidad comunidad, PrestacionDeServicio prestacion, Miembro creador) {
     this.fechaApertura = LocalDateTime.now();
     this.denominacion = denominacion;
     this.observaciones = observaciones;
@@ -33,6 +36,7 @@ public class Incidente {
     this.fechaCierre = null;
     this.abierto = true;
     this.prestacion = prestacion;
+    this.creador = creador;
   }
 
   public void cerrar() {
@@ -70,17 +74,5 @@ public class Incidente {
   {
     int impacto = this.getComunidad().getMiembros().size();
     return impacto;
-  }
-
-  public String generarMensaje() {
-    Establecimiento establecimiento = this.prestacion.getEstablecimiento();
-    Servicio servicio = this.prestacion.getServicio();
-    if (this.isAbierto()) {
-      return "Nuevo incidente en " + establecimiento.getDenominacion() + " en el servicio " + servicio.getDescripcion()
-          + " abierto a las " + this.fechaApertura.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-    } else {
-      return "Cierre de incidente en " + establecimiento.getDenominacion() + " en el servicio " + servicio.getDescripcion()
-          + " cerrado a las " + this.fechaCierre.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-    }
   }
 }

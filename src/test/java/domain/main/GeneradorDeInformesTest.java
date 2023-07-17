@@ -6,10 +6,12 @@ import domain.main.incidentes.Incidente;
 import domain.main.informes.ApachePDFBox;
 import domain.main.informes.GeneradorDeInformes;
 import domain.main.informes.Rankeador;
+import domain.main.notificaciones.frecuenciasNotificacion.NotificacionCuandoSucedeIncidente;
+import domain.main.notificaciones.frecuenciasNotificacion.NotificacionSinApuros;
+import domain.main.notificaciones.mediosNotificacion.PreferenciaMedioNotificacion;
 import domain.main.servicio.Servicio;
 import domain.main.servicio.ServicioBase;
-import domain.usuarios.Comunidad;
-import domain.usuarios.Delegado;
+import domain.usuarios.*;
 import io.jsonwebtoken.lang.Assert;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.jupiter.api.Assertions;
@@ -18,29 +20,30 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.quartz.SchedulerException;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class GeneradorDeInformesTest {
-  private static Incidente incidente1;
-  private static Incidente incidente2;
-  private static Entidad entidad1;
-  private static Entidad entidad2;
-  private static Comunidad comunidad1;
-  private static PrestacionDeServicio prestacion1;
   private static EntidadPrestadora entidadPrestadora;
 
   @BeforeAll
-  public static void init() {
+  public static void init() throws SchedulerException {
     Servicio servicio = new ServicioBase("baño sin genero");
     TipoEntidad tipoEntidad = new TipoEntidad();
 
-    entidad1 = new Entidad(tipoEntidad, "entidad1");
-    entidad2 = new Entidad(tipoEntidad, "entidad2");
+    List<LocalDateTime> listaHorarios = new ArrayList<>();
+    NotificacionSinApuros notificacionSinApuros = new NotificacionSinApuros();
+
+    Usuario usuario = new Usuario("pepe", "argento");
+    Persona persona1 = new Persona(usuario, "ej1@gmail.com", "1234", notificacionSinApuros, PreferenciaMedioNotificacion.EMAIL, listaHorarios);
+
+    Entidad entidad1 = new Entidad(tipoEntidad, "entidad1");
+    Entidad entidad2 = new Entidad(tipoEntidad, "entidad2");
 
     Establecimiento establecimiento1 = new Establecimiento(entidad1, "Banco Nacion");
-    prestacion1 = new PrestacionDeServicio(establecimiento1, servicio);
+    PrestacionDeServicio prestacion1 = new PrestacionDeServicio(establecimiento1, servicio);
     Establecimiento establecimiento2 = new Establecimiento(entidad2, "Banco Provincia");
     PrestacionDeServicio prestacion2 = new PrestacionDeServicio(establecimiento2, servicio);
 
@@ -49,10 +52,12 @@ public class GeneradorDeInformesTest {
 
     entidad1.getEstablecimientos().add(establecimiento1);
     entidad2.getEstablecimientos().add(establecimiento2);
-    comunidad1 = new Comunidad();
+    Comunidad comunidad1 = new Comunidad();
 
-    incidente1 = new Incidente("observaciones 1", "incidente 1", comunidad1, prestacion1);
-    incidente2 = new Incidente("observaciones 2", "incidente 2", comunidad1, prestacion2);
+    Miembro miembro1 = new Miembro(persona1, comunidad1);
+
+    Incidente incidente1 = new Incidente("observaciones 1", "incidente 1", comunidad1, prestacion1, miembro1);
+    Incidente incidente2 = new Incidente("observaciones 2", "incidente 2", comunidad1, prestacion2, miembro1);
 
     prestacion1.getIncidentes().add(incidente1);
     prestacion2.getIncidentes().add(incidente2);
@@ -62,7 +67,6 @@ public class GeneradorDeInformesTest {
     entidadPrestadora = new EntidadPrestadora("Santander Rio", delegado);
 
     entidadPrestadora.setEntidades(Arrays.asList(entidad1, entidad2));
-
   }
 
   @Test

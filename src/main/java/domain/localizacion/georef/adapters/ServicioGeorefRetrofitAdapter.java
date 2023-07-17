@@ -16,7 +16,7 @@ import config.Config;
 import java.io.IOException;
 
 public class ServicioGeorefRetrofitAdapter implements GeorefAdapter{
-    private static final String urlApi = new Config().obtenerDelConfig("apiGeoref");
+    private static final String urlApi = Config.obtenerInstancia().obtenerDelConfig("apiGeoref");
     private final Retrofit retrofit;
 
     public ServicioGeorefRetrofitAdapter() {

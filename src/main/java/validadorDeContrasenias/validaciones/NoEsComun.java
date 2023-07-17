@@ -26,7 +26,7 @@ public class NoEsComun implements Validacion {
   public void procesarArchivoDeContrasenasComunes() {
     if (contraseniasComunes.isEmpty()) {
 
-      String archivo10kContrasenias = new Config().obtenerDelConfig("archivo10kContrasenias");
+      String archivo10kContrasenias = Config.obtenerInstancia().obtenerDelConfig("archivo10kContrasenias");
 
       try {
 

@@ -16,7 +16,7 @@ public class NotificacionCuandoSucedeIncidente implements FrecuenciaNotificacion
 
   @Override
   public void notificarIncidentes(Persona personaANotificar) {
-
+    //NADA
   }
 
 }

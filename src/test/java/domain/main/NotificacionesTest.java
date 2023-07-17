@@ -10,6 +10,7 @@ import domain.main.notificaciones.mediosNotificacion.Whatsapp.WhatsappAdapter;
 import domain.main.servicio.Servicio;
 import domain.main.servicio.ServicioBase;
 import domain.usuarios.Comunidad;
+import domain.usuarios.Miembro;
 import domain.usuarios.Persona;
 import domain.usuarios.Usuario;
 import org.apache.commons.lang3.tuple.Pair;
@@ -52,16 +53,18 @@ class NotificacionesTest {
     Establecimiento establecimiento1 = new Establecimiento(entidad, "Banco Nacion");
     PrestacionDeServicio prestacion = new PrestacionDeServicio(establecimiento1, servicio);
 
+    Miembro miembro1 = new Miembro(persona1, comunidad);
+
     LocalDateTime now = LocalDateTime.now();
     String observaciones = "";
     String denominacion = " ";
-    Incidente incidente1 = new Incidente(observaciones, denominacion, comunidad, prestacion);
+    Incidente incidente1 = new Incidente(observaciones, denominacion, comunidad, prestacion, miembro1);
     incidente1.setFechaApertura(now.minusHours(23)); // menos de 24 hs
 
-    Incidente incidente2 = new Incidente(observaciones, denominacion, comunidad, prestacion);
+    Incidente incidente2 = new Incidente(observaciones, denominacion, comunidad, prestacion, miembro1);
     incidente2.setFechaApertura(now.minusHours(23)); // mas de 24 hs
 
-    Incidente incidente3 = new Incidente(observaciones, denominacion, comunidad, prestacion);
+    Incidente incidente3 = new Incidente(observaciones, denominacion, comunidad, prestacion, miembro1);
     incidente3.setFechaApertura(now.minusHours(25)); // entre las 24 hs
 
     notificacionSinApuros.gestionarInicidente(persona1, incidente1);

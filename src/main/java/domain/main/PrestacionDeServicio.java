@@ -40,7 +40,7 @@ public class PrestacionDeServicio {
 
   public void ocurrioUnIncidente(Miembro miembro, String descripcion, String denominacion) {
     Comunidad comunidadMiembro = miembro.getComunidad();
-    Incidente incidente = new Incidente(descripcion, denominacion, comunidadMiembro, this);
+    Incidente incidente = new Incidente(descripcion, denominacion, comunidadMiembro, this, miembro);
     incidentes.add(incidente);
     comunidadMiembro.agregarIncidente(incidente);
     notificarInteresados(incidente);

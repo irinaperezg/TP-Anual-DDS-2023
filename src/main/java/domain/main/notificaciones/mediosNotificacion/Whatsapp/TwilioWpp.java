@@ -2,11 +2,12 @@ package domain.main.notificaciones.mediosNotificacion.Whatsapp;
 
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
+import config.Config;
 
 public class TwilioWpp implements WhatsappAdapter {
 
-  public static final String ACCOUNT_SID = "gabyhaetino@gmail.com";
-  public static final String AUTH_TOKEN = "gabyGenioCrackSetsi2002";
+  public static final String ACCOUNT_SID = Config.obtenerInstancia().obtenerDelConfig("account_sid");
+  public static final String AUTH_TOKEN = Config.obtenerInstancia().obtenerDelConfig("auth_token");
 
   public void mandar (String mensaje, String telefono) {
     Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
@@ -17,5 +18,4 @@ public class TwilioWpp implements WhatsappAdapter {
 
     System.out.println(message.getSid());
   }
-
 }
