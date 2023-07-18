@@ -17,7 +17,7 @@ public class Establecimiento {
   private final Entidad entidad;
   @Setter
   private Localidad localidad = null;
-  @Getter @Setter
+  @Getter
   private final List<PrestacionDeServicio> prestaciones = new ArrayList<>();
 
   public List<Incidente> obtenerIncidentesTotales() {

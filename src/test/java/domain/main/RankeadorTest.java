@@ -1,12 +1,9 @@
 package domain.main;
 
-import domain.localizacion.main.Localidad;
-import domain.localizacion.main.Provincia;
-import domain.localizacion.main.localizaciones.Municipio;
 import domain.main.entidades.Entidad;
 import domain.main.entidades.TipoEntidad;
 import domain.main.incidentes.Incidente;
-import domain.main.informes.Rankeador;
+import domain.main.informes.rankings.*;
 import domain.main.notificaciones.frecuenciasNotificacion.NotificacionCuandoSucedeIncidente;
 import domain.main.notificaciones.mediosNotificacion.PreferenciaMedioNotificacion;
 import domain.main.servicio.Servicio;
@@ -15,17 +12,15 @@ import domain.usuarios.Comunidad;
 import domain.usuarios.Miembro;
 import domain.usuarios.Persona;
 import domain.usuarios.Usuario;
-import io.jsonwebtoken.lang.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.quartz.SchedulerException;
-import validadorDeContrasenias.validaciones.restriccionesNist.CumpleComplejidad;
 
-import java.awt.desktop.SystemEventListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class RankeadorTest {
   private static Incidente incidente1;
@@ -38,9 +33,18 @@ public class RankeadorTest {
   private static Persona persona1;
   private static Usuario usuario;
 
+  private static CantidadIncidentesReportados cantidadIncidentes;
+  private static GradoImpactoProblematicas gradoImpacto;
+  private static PromedioCierre promedioCierre;
+
+
   @BeforeAll
   public static void init() throws SchedulerException {
     comunidad1 = new Comunidad();
+
+    promedioCierre = new PromedioCierre();
+    gradoImpacto = new GradoImpactoProblematicas();
+    cantidadIncidentes = new CantidadIncidentesReportados();
 
     usuario = new Usuario("pepe", "argento");
     persona1 = new Persona(usuario, "panchito@gmail.com", "1234", new NotificacionCuandoSucedeIncidente(), PreferenciaMedioNotificacion.EMAIL, new ArrayList<>());
@@ -73,7 +77,7 @@ public class RankeadorTest {
 
   @Test
   @DisplayName("Ranking: Entidades con mayor promedio de tiempo de cierre de incidentes")
-  public void ranking1() throws SchedulerException, InterruptedException {
+  public void rankingPromedioCierre() throws SchedulerException, InterruptedException {
     incidente1.cerrar();
     Thread.sleep(1000);
     incidente2.cerrar();
@@ -85,12 +89,17 @@ public class RankeadorTest {
     ranking1.add(entidad2.getDenominacion());
     ranking1.add(entidad1.getDenominacion());
 
-    Assertions.assertEquals(ranking1, Rankeador.obtenerInstancia().elaborarRankingPromedioCierre(entidades));
+    Optional <Ranking> resultado = Rankeador.obtenerInstancia().getRankings().stream().
+        filter(ranking -> ranking.getDenominacion().equals("Promedio de cierre de incidente")).findFirst();
+
+    Ranking rankingPromedioCierre = resultado.get();
+
+    Assertions.assertEquals(ranking1, rankingPromedioCierre.elaborarRanking(entidades));
   }
 
   @Test
   @DisplayName("Ranking: Entidades con mayor cantidad de incidentes reportados en la semana")
-  public void ranking2() throws SchedulerException, InterruptedException {
+  public void rankingCantidadIncidentes() throws SchedulerException, InterruptedException {
 
     Incidente incidente3 = new Incidente("observaciones 3", "incidente 3", comunidad1, prestacion1, miembro1);
 
@@ -108,12 +117,18 @@ public class RankeadorTest {
     ranking2.add(entidad1.getDenominacion());
     ranking2.add(entidad2.getDenominacion());
 
-    Assertions.assertEquals(ranking2, Rankeador.obtenerInstancia().elaborarRankingCantidadIncidentesReportados(entidades));
+    Optional <Ranking> resultado = Rankeador.obtenerInstancia().getRankings().stream().
+        filter(ranking -> ranking.getDenominacion().equals("Cantidad de incidentes reportados")).findFirst();
+
+    Ranking rankingCantidadIncidentes = resultado.get();
+
+    Assertions.assertEquals(ranking2, rankingCantidadIncidentes.elaborarRanking(entidades));
     prestacion1.getIncidentes().remove(incidente3);
+
   }
   @Test
   @DisplayName("Ranking: Mayor grado de impacto de las problemáticas")
-  public void ranking3() throws SchedulerException, InterruptedException {
+  public void rankingGradoImpacto() throws SchedulerException, InterruptedException {
     Comunidad comunidad2 = new Comunidad();
 
     Miembro miembro1 = new Miembro(persona1, comunidad1);
@@ -134,7 +149,14 @@ public class RankeadorTest {
     List<String> ranking3 = new ArrayList<>();
     ranking3.add(incidente1.getDenominacion());
     ranking3.add(incidente2.getDenominacion());
-    Assertions.assertEquals(ranking3, Rankeador.obtenerInstancia().elaborarRankingGradoImpactoProblematicas(entidades));
+
+    Optional <Ranking> resultado = Rankeador.obtenerInstancia().getRankings().stream().
+        filter(ranking -> ranking.getDenominacion().equals("Grado de impacto de las problematicas")).findFirst();
+
+    Ranking rankingGradoImpacto = resultado.get();
+
+    Assertions.assertEquals(ranking3, rankingGradoImpacto.elaborarRanking(entidades));
+
 
   }
 }

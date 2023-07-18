@@ -2,6 +2,7 @@ package domain.main.incidentes;
 
 import domain.main.Establecimiento;
 import domain.main.PrestacionDeServicio;
+import domain.main.entidades.Entidad;
 import domain.main.servicio.Servicio;
 import domain.usuarios.Comunidad;
 import domain.usuarios.Miembro;
@@ -16,6 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.WeekFields;
 import java.util.Locale;
+import java.util.Objects;
 
 @Setter @Getter
 public class Incidente {
@@ -75,4 +77,22 @@ public class Incidente {
     int impacto = this.getComunidad().getMiembros().size();
     return impacto;
   }
+
+  // MÉTODOS PARA PODER COMPARAR INCIDENTES:
+  // Dos incidentes son iguales si tienen misma denominación y si pertenecen a la misma comunidad.
+  // Si hace falta más cosas para que sean iguales diganme y lo agrego.
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Incidente incidente = (Incidente) o;
+    return Objects.equals(denominacion, incidente.getDenominacion()) &&
+        Objects.equals(comunidad, incidente.getComunidad());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(denominacion, comunidad);
+  }
+
 }

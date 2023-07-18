@@ -15,7 +15,7 @@ public class Notificacion {
   public Notificacion (Persona destinatario, Incidente incidente) {
     this.destinatario = destinatario;
     this.mensaje = this.generarMensaje(incidente);
-    estado =
+    //estado = TODO
   }
 
   public String generarMensaje(Incidente incidente) {

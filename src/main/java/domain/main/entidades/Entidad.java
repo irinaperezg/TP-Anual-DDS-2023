@@ -21,7 +21,7 @@ public class Entidad {
   private String denominacion;
   private EntidadPrestadora entidadPrestadora;
   private final List<Persona> asociados = new ArrayList<>();
-  @Getter @Setter
+  @Getter
   private final List<Establecimiento> establecimientos = new ArrayList<>();
 
   public Entidad(TipoEntidad tipo, String denominacion) {

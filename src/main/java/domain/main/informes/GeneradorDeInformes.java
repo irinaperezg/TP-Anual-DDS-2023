@@ -2,7 +2,11 @@ package domain.main.informes;
 
 import domain.main.EntidadPrestadora;
 import domain.main.entidades.Entidad;
+import domain.main.informes.rankings.Rankeador;
+import domain.main.informes.rankings.Ranking;
+
 import java.util.List;
+import java.util.Optional;
 
 public class GeneradorDeInformes {
   private Rankeador rankeador;
@@ -26,9 +30,22 @@ public class GeneradorDeInformes {
   public void generarInforme(EntidadPrestadora entidadPrestadora) {
 
     List <Entidad> entidades = entidadPrestadora.getEntidades();
-    List<String> rankingPromedioCierre = Rankeador.obtenerInstancia().elaborarRankingPromedioCierre(entidades);
-    List<String> rankingCantidadIncidentes = Rankeador.obtenerInstancia().elaborarRankingCantidadIncidentesReportados(entidades);
-    List<String> rankingMayorImpacto = Rankeador.obtenerInstancia().elaborarRankingGradoImpactoProblematicas(entidades);
+
+    Optional<Ranking> resultado = Rankeador.obtenerInstancia().getRankings().stream().
+        filter(ranking -> ranking.getDenominacion().equals("Promedio de cierre de incidente")).findFirst();
+    Ranking promedioCierre = resultado.get();
+
+    resultado = Rankeador.obtenerInstancia().getRankings().stream().
+        filter(ranking -> ranking.getDenominacion().equals("Cantidad de incidentes reportados")).findFirst();
+    Ranking cantidadIncidentes = resultado.get();
+
+    resultado = Rankeador.obtenerInstancia().getRankings().stream().
+        filter(ranking -> ranking.getDenominacion().equals("Grado de impacto de las problematicas")).findFirst();
+    Ranking gradoImpacto = resultado.get();
+
+    List<String> rankingPromedioCierre = promedioCierre.elaborarRanking(entidades);
+    List<String> rankingCantidadIncidentes = cantidadIncidentes.elaborarRanking(entidades);
+    List<String> rankingMayorImpacto = gradoImpacto.elaborarRanking(entidades);
 
     this.adapter.generarInforme(entidadPrestadora.getDenominacion(), rankingPromedioCierre, rankingCantidadIncidentes, rankingMayorImpacto);
   }

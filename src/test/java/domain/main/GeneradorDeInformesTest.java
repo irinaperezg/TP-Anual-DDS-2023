@@ -4,15 +4,13 @@ import domain.main.entidades.Entidad;
 import domain.main.entidades.TipoEntidad;
 import domain.main.incidentes.Incidente;
 import domain.main.informes.ApachePDFBox;
-import domain.main.informes.GeneradorDeInformes;
-import domain.main.informes.Rankeador;
-import domain.main.notificaciones.frecuenciasNotificacion.NotificacionCuandoSucedeIncidente;
+import domain.main.informes.rankings.Rankeador;
+import domain.main.informes.rankings.Ranking;
 import domain.main.notificaciones.frecuenciasNotificacion.NotificacionSinApuros;
 import domain.main.notificaciones.mediosNotificacion.PreferenciaMedioNotificacion;
 import domain.main.servicio.Servicio;
 import domain.main.servicio.ServicioBase;
 import domain.usuarios.*;
-import io.jsonwebtoken.lang.Assert;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -24,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class GeneradorDeInformesTest {
   private static EntidadPrestadora entidadPrestadora;
@@ -75,9 +74,22 @@ public class GeneradorDeInformesTest {
     ApachePDFBox apachePDFBox = new ApachePDFBox();
 
     List<Entidad> entidades = entidadPrestadora.getEntidades();
-    List<String> rankingPromedioCierre = Rankeador.obtenerInstancia().elaborarRankingPromedioCierre(entidades);
-    List<String> rankingCantidadIncidentes = Rankeador.obtenerInstancia().elaborarRankingCantidadIncidentesReportados(entidades);
-    List<String> rankingMayorImpacto = Rankeador.obtenerInstancia().elaborarRankingGradoImpactoProblematicas(entidades);
+
+    Optional<Ranking> resultado = Rankeador.obtenerInstancia().getRankings().stream().
+        filter(ranking -> ranking.getDenominacion().equals("Promedio de cierre de incidente")).findFirst();
+    Ranking promedioCierre = resultado.get();
+
+    resultado = Rankeador.obtenerInstancia().getRankings().stream().
+        filter(ranking -> ranking.getDenominacion().equals("Cantidad de incidentes reportados")).findFirst();
+    Ranking cantidadIncidentes = resultado.get();
+
+    resultado = Rankeador.obtenerInstancia().getRankings().stream().
+        filter(ranking -> ranking.getDenominacion().equals("Grado de impacto de las problematicas")).findFirst();
+    Ranking gradoImpacto = resultado.get();
+
+    List<String> rankingPromedioCierre = promedioCierre.elaborarRanking(entidades);
+    List<String> rankingCantidadIncidentes = cantidadIncidentes.elaborarRanking(entidades);
+    List<String> rankingMayorImpacto = gradoImpacto.elaborarRanking(entidades);
 
     PDDocument informe = apachePDFBox.generarInforme(entidadPrestadora.getDenominacion(), rankingPromedioCierre, rankingCantidadIncidentes, rankingMayorImpacto);
     Assertions.assertNotNull(informe);

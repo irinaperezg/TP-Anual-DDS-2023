@@ -43,8 +43,8 @@ public class NotificacionSinApuros implements FrecuenciaNotificacion, Job {
     List<Incidente> incidentes = paresDeIncidentes.stream().map(Pair::getLeft).toList();
     incidentes.forEach(incidente -> {
       if (dentroDeLasUltimas24Horas(incidente)) {
-        String mensaje = incidente.generarMensaje();
-        Notificador.obtenerInstancia().enviarNotificacion(personaANotificar, mensaje); // porque es un Singleton
+        //String mensaje = incidente.generarMensaje(); TODO --> COMENTO XQ TIRA ERROR
+       // Notificador.obtenerInstancia().enviarNotificacion(personaANotificar, mensaje); // porque es un Singleton TODO
       }
     });
     listaPares.removeAll(paresDeIncidentes);
