@@ -1,6 +1,6 @@
 package domain.main.notificaciones.frecuenciasNotificacion;
 
 public enum EstadoNotificacion {
-  VISTO,
+  PENDIENTE_A_ENVIAR,
   ENVIADO
 }

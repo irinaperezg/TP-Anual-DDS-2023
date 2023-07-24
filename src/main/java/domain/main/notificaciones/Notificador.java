@@ -1,5 +1,6 @@
 package domain.main.notificaciones;
 
+import domain.main.notificaciones.frecuenciasNotificacion.Notificacion;
 import domain.main.notificaciones.mediosNotificacion.Email.EmailAdapter;
 import domain.main.notificaciones.mediosNotificacion.Email.JavaxMail;
 import domain.main.notificaciones.mediosNotificacion.Whatsapp.TwilioWpp;
@@ -27,14 +28,14 @@ public class Notificador {
     return instancia;
   }
 
-  public void enviarNotificacion(Persona persona, String mensaje) {
-    switch (persona.getPreferenciaMedioNotificacion()){
+  public void enviarNotificacion(Notificacion notificacion) {
+    switch (notificacion.getDestinatario().getPreferenciaMedioNotificacion()){
       case WHATSAPP :
-        whatsappAdapter.mandar(mensaje, persona.getTelefono());
+        whatsappAdapter.mandar(notificacion);
         break;
 
       case EMAIL:
-        emailAdapter.mandar(mensaje, persona.getEmail());
+        emailAdapter.mandar(notificacion);
         break;
 
       default:

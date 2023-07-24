@@ -1,7 +1,8 @@
 package domain.main.notificaciones.mediosNotificacion.Email;
 
-import domain.usuarios.Persona;
+import domain.main.notificaciones.frecuenciasNotificacion.Notificacion;
+
 
 public interface EmailAdapter {
-  void mandar(String mensaje, String email);
+  void mandar(Notificacion notificacion);
 }

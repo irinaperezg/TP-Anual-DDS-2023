@@ -2,6 +2,7 @@ package domain.main;
 
 import domain.main.incidentes.Incidente;
 import domain.main.notificaciones.Notificador;
+import domain.main.notificaciones.frecuenciasNotificacion.Notificacion;
 import domain.main.servicio.Servicio;
 import domain.usuarios.*;
 import lombok.Getter;
@@ -51,9 +52,10 @@ public class PrestacionDeServicio {
     notificarInteresados(incidente);
   }
 
-  public void solicitarRevisionDeIncidenteA(Persona persona) {
-    String mensaje = "Por favor, revise el estado del servicio " + servicio.getDescripcion() + " en " + establecimiento.getDenominacion();
-    Notificador.obtenerInstancia().enviarNotificacion(persona, mensaje);
+  public void solicitarRevisionDeIncidenteA(Persona persona, Incidente incidente) {
+    Notificacion notificacion = new Notificacion(persona, incidente);
+    notificacion.setMensaje("Por favor, revise el estado del servicio " + servicio.getDescripcion() + " en " + establecimiento.getDenominacion());
+    Notificador.obtenerInstancia().enviarNotificacion(notificacion);
   }
 
   public boolean disponibleParaComunidad(Comunidad comunidad) {

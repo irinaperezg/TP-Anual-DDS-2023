@@ -74,11 +74,11 @@ public class IncidentesTest {
     Notificador.obtenerInstancia(); //para que despues no sobreescriba el mock
     Notificador.setWhatsappAdapter(mock(WhatsappAdapter.class));
 
-    doNothing().when(Notificador.getWhatsappAdapter()).mandar(anyString(), anyString());
+    doNothing().when(Notificador.getWhatsappAdapter()).mandar(any());
 
-    //prestacion.ocurrioUnIncidente(miembro1, "Se rompio el baño sin genero", "Rotura de baño");
-    //prestacion.cerrarUnIncidente(prestacion.getIncidentes().get(0));
+    prestacion.ocurrioUnIncidente(miembro1, "Se rompio el baño sin genero", "Rotura de baño");
+    prestacion.cerrarUnIncidente(prestacion.getIncidentes().get(0));
 
-    verify(Notificador.getWhatsappAdapter(), times(2)).mandar(anyString(), anyString());
+    verify(Notificador.getWhatsappAdapter(), times(2)).mandar(any());
   }
 }

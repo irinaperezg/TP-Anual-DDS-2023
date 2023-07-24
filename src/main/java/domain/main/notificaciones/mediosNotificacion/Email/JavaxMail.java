@@ -1,6 +1,7 @@
 package domain.main.notificaciones.mediosNotificacion.Email;
 
 import config.Config;
+import domain.main.notificaciones.frecuenciasNotificacion.Notificacion;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
@@ -8,7 +9,7 @@ import jakarta.mail.internet.MimeMessage;
 import java.util.Properties;
 
 public class JavaxMail implements EmailAdapter{
-  public void mandar(String mensaje, String email) {
+  public void mandar(Notificacion notificacion) {
     String host = Config.obtenerInstancia().obtenerDelConfig("host_javax"); // Host del servidor de correo
     int port = Integer.parseInt(Config.obtenerInstancia().obtenerDelConfig("puerto_javax")); // Puerto del servidor de correo
     String username = Config.obtenerInstancia().obtenerDelConfig("usuario_javax"); // Nombre de usuario del correo
@@ -33,12 +34,13 @@ public class JavaxMail implements EmailAdapter{
     try {
       MimeMessage message = new MimeMessage(session);
       message.setFrom(new InternetAddress(from));
-      message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+      message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(notificacion.getDestinatario().getEmail()));
       message.setSubject(subject);
-      message.setText(mensaje);
+      message.setText(notificacion.getMensaje());
 
       Transport.send(message);
       System.out.println("Se mando el email exitosamente.");
+      notificacion.cambiarEstadoAEnviado();
     } catch (MessagingException e) {
       e.printStackTrace();
     }

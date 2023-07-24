@@ -10,8 +10,8 @@ public class NotificacionCuandoSucedeIncidente implements FrecuenciaNotificacion
 
   @Override
   public void gestionarInicidente(Persona persona, Incidente incidente) {
-    //String mensaje = incidente.generarMensaje(); TODO
-   // Notificador.obtenerInstancia().enviarNotificacion(persona, mensaje); // porque es un  TODO
+    Notificacion notificacion = new Notificacion(persona, incidente);
+    Notificador.obtenerInstancia().enviarNotificacion(notificacion);
   }
 
   @Override

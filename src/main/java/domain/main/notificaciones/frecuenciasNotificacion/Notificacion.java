@@ -4,18 +4,26 @@ import domain.main.Establecimiento;
 import domain.main.incidentes.Incidente;
 import domain.main.servicio.Servicio;
 import domain.usuarios.Persona;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
+@Getter
 public class Notificacion {
   private Persona destinatario;
+  @Setter
   private String mensaje;
   private EstadoNotificacion estado;
+  private LocalDateTime fechaAperturaIncidente;
+  private LocalDateTime fechaCierreIncidente;
 
   public Notificacion (Persona destinatario, Incidente incidente) {
     this.destinatario = destinatario;
     this.mensaje = this.generarMensaje(incidente);
-    //estado = TODO
+    estado = EstadoNotificacion.PENDIENTE_A_ENVIAR;
+    fechaAperturaIncidente = incidente.getFechaApertura();
+    fechaCierreIncidente = incidente.getFechaCierre();
   }
 
   public String generarMensaje(Incidente incidente) {
@@ -30,4 +38,7 @@ public class Notificacion {
     }
   }
 
+  public void cambiarEstadoAEnviado() {
+    estado = EstadoNotificacion.ENVIADO;
+  }
 }

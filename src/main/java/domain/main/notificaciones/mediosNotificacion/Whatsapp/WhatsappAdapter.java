@@ -1,6 +1,8 @@
 package domain.main.notificaciones.mediosNotificacion.Whatsapp;
 
+import domain.main.notificaciones.frecuenciasNotificacion.Notificacion;
+
 public interface WhatsappAdapter {
 
-  void mandar (String mensaje, String telefono);
+  void mandar (Notificacion notificacion);
 }
