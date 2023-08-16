@@ -30,7 +30,6 @@ public class Persona {
     this.frecuenciaNotification = frecuenciaNotification;
     this.preferenciaMedioNotificacion = preferenciaMedioNotificacion;
     this.horariosDeNotificaciones = horariosDeNotificaciones;
-    new Calendario(this);
   }
 
   public List<Comunidad> getComunidades() {

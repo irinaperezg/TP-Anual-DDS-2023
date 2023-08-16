@@ -15,8 +15,6 @@ import java.util.List;
 public class NotificacionSinApuros implements FrecuenciaNotificacion, Job {
   @Getter @Setter
   static List<Notificacion> notificaciones = new ArrayList<>();
-
-  @Override
   public void gestionarInicidente(Persona persona, Incidente incidente) {
     Notificacion notificacion = new Notificacion(persona, incidente);
     notificaciones.add(notificacion);

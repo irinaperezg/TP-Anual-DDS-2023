@@ -5,5 +5,4 @@ import domain.usuarios.Persona;
 
 public interface FrecuenciaNotificacion {
   void gestionarInicidente (Persona persona, Incidente incidente);
-  void notificarIncidentes(Persona personaANotificar);
 }
