@@ -24,6 +24,7 @@ public class Establecimiento {
     return prestaciones.stream()
         .flatMap(prestacion -> prestacion.getIncidentes().stream())
         .collect(Collectors.toList());
+
   }
 
   public Establecimiento(Entidad entidad, String denominacion) {
