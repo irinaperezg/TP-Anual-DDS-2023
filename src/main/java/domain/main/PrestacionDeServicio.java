@@ -7,10 +7,19 @@ import domain.main.servicio.Servicio;
 import domain.usuarios.*;
 import lombok.Getter;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Entity
+@Table(name = "prestacionDeServicio")
 public class PrestacionDeServicio {
+  @Id
+  @GeneratedValue
+  private Long id;
   @Getter
   private final Establecimiento establecimiento;
   @Getter

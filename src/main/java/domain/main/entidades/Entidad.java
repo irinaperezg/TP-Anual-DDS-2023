@@ -9,12 +9,21 @@ import domain.usuarios.Persona;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Entity
+@Table(name = "entidad")
 public class Entidad {
+  @Id
+  @GeneratedValue
+  private Long id;
   @Getter
   private TipoEntidad tipo;
   @Getter

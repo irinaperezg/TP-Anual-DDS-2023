@@ -10,6 +10,10 @@ import domain.usuarios.Persona;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,8 +23,13 @@ import java.time.temporal.WeekFields;
 import java.util.Locale;
 import java.util.Objects;
 
+@Entity
+@Table(name = "incidente")
 @Setter @Getter
 public class Incidente {
+  @Id
+  @GeneratedValue
+  private Long id;
   private String observaciones;
   private String denominacion;
   private PrestacionDeServicio prestacion;
