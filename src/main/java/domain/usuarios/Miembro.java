@@ -10,15 +10,16 @@ import static domain.usuarios.TipoMiembro.AFECTADO;
 import static domain.usuarios.TipoMiembro.OBSERVADOR;
 
 @Entity
-@Table(name="miembro")
+@Getter @Setter
+@Table(name = "miembro")
 public class Miembro extends Persistente {
-  @Getter @Setter
+
   @OneToOne
   private Persona persona;
-  @Getter @Setter
+
   @Enumerated
   private TipoMiembro tipo;
-  @Setter
+
   @OneToOne
   private Comunidad comunidad;
 
