@@ -1,22 +1,30 @@
 package domain.usuarios;
 
+import domain.Persistente;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.persistence.*;
 
 import static domain.usuarios.TipoMiembro.AFECTADO;
 import static domain.usuarios.TipoMiembro.OBSERVADOR;
 
-public class Miembro {
-  @Getter
+@Entity
+@Table(name="miembro")
+public class Miembro extends Persistente {
+  @Getter @Setter
+  @OneToOne
   private Persona persona;
   @Getter @Setter
+  @Enumerated
   private TipoMiembro tipo;
-  @Getter
+  @Setter
+  @OneToOne
   private Comunidad comunidad;
 
   public Miembro(Persona persona, Comunidad comunidad) {
-    this.persona = persona;
-    this.comunidad = comunidad;
+    this.setPersona(persona);
+    this.setComunidad(comunidad);
   }
 
   public void modificarTipoMiembro () {
