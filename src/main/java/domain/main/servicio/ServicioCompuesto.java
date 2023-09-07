@@ -1,13 +1,25 @@
 package domain.main.servicio;
 import domain.usuarios.Persona;
+
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.Arrays;
 import java.util.List;
 
+@Entity
+@DiscriminatorColumn(name = "tipo")
 public class ServicioCompuesto extends Servicio{
+
+  @OneToMany
   private List<Servicio> servicios;
   public ServicioCompuesto(String descripcion, Servicio ... otrosServicios) {
     super(descripcion);
     agregarServicios(otrosServicios);
+  }
+
+  public ServicioCompuesto() {
+
   }
   public void agregarServicios(Servicio ... serviciosNuevos){
     servicios.addAll(Arrays.stream(serviciosNuevos).toList());

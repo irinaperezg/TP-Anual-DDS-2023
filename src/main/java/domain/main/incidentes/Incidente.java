@@ -1,5 +1,6 @@
 package domain.main.incidentes;
 
+import domain.Persistente;
 import domain.main.Establecimiento;
 import domain.main.PrestacionDeServicio;
 import domain.main.entidades.Entidad;
@@ -10,6 +11,7 @@ import domain.usuarios.Persona;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,14 +22,26 @@ import java.util.Locale;
 import java.util.Objects;
 
 @Setter @Getter
-public class Incidente {
+@Entity
+@Table(name="incidente")
+public class Incidente extends Persistente {
+  @Column(name="observaciones", columnDefinition = "TEXT")
   private String observaciones;
+  @Column(name="denominacion", columnDefinition = "TEXT")
   private String denominacion;
+  @ManyToOne
+  @JoinColumn(name = "prestacion_de_servicio_id", referencedColumnName = "id")
   private PrestacionDeServicio prestacion;
+  //TODO: LocalDateTime CONVERTER
+  @Column(name="fechaApertura", columnDefinition = "DATE")
   private LocalDateTime fechaApertura;
+  @Column(name="fechaCierre", columnDefinition = "DATE")
   private LocalDateTime fechaCierre;
+  @OneToOne
   private Comunidad comunidad;
+  @Column(name="abierto", columnDefinition = "BOOLEAN")
   private boolean abierto;
+  @OneToOne
   private Miembro creador;
 
   public Incidente(String observaciones, String denominacion, Comunidad comunidad, PrestacionDeServicio prestacion, Miembro creador) {
@@ -39,6 +53,10 @@ public class Incidente {
     this.abierto = true;
     this.prestacion = prestacion;
     this.creador = creador;
+  }
+
+  public Incidente() {
+
   }
 
   public void cerrar() {

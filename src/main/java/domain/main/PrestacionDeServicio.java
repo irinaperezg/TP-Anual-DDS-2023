@@ -7,16 +7,36 @@ import domain.main.servicio.Servicio;
 import domain.usuarios.*;
 import lombok.Getter;
 
+import javax.persistence.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Entity
+@Table(name="prestacionDeServicio")
 public class PrestacionDeServicio {
+
+  @Id
+  @GeneratedValue
+  private Long id;
+
   @Getter
+  @ManyToOne
+  @JoinColumn(name = "establecimiento_id", referencedColumnName = "id")
   private final Establecimiento establecimiento;
+
   @Getter
+  @ManyToOne
+  @JoinColumn(name = "servicio_id", referencedColumnName = "id")
   private final Servicio servicio;
 
+  @OneToMany
   private final List<Incidente> incidentes = new ArrayList<>();
+
+  public PrestacionDeServicio() {
+    this.establecimiento = null;
+    this.servicio = null;
+  }
+
   public List<Incidente> getIncidentes() {
     return incidentes;
   }

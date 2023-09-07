@@ -11,10 +11,15 @@ import org.quartz.JobExecutionContext;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.*;
 
-public class NotificacionSinApuros implements FrecuenciaNotificacion, Job {
+@Entity
+@DiscriminatorValue("SIN_APUROS")
+public class NotificacionSinApuros extends FrecuenciaNotificacionBase implements Job {
+
   @Getter @Setter
   static List<Notificacion> notificaciones = new ArrayList<>();
+
   public void gestionarInicidente(Persona persona, Incidente incidente) {
     Notificacion notificacion = new Notificacion(persona, incidente);
     notificaciones.add(notificacion);
@@ -45,4 +50,5 @@ public class NotificacionSinApuros implements FrecuenciaNotificacion, Job {
     Persona persona = (Persona) jobDataMap.get("persona");
     this.notificarIncidentes(persona);
   }
+
 }

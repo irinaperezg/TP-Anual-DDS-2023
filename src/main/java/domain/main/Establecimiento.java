@@ -7,18 +7,39 @@ import domain.main.servicio.Servicio;
 import domain.usuarios.Persona;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Entity
+@Table(name="establecimiento")
 public class Establecimiento {
+
+  @Id
+  @GeneratedValue
+  private Long id;
+
   @Getter
+  @Column(name="denominacion", columnDefinition = "TEXT")
   private final String denominacion;
+  @OneToOne
+  @JoinColumn(name = "entidad_id", referencedColumnName = "id")
   private final Entidad entidad;
+
   @Setter
+  @Embedded
   private Localidad localidad = null;
+
   @Getter
+  @OneToMany
   private final List<PrestacionDeServicio> prestaciones = new ArrayList<>();
+
+  public Establecimiento() {
+    this.denominacion = null;
+    this.entidad = null;
+  }
 
   public List<Incidente> obtenerIncidentesTotales() {
     return prestaciones.stream()

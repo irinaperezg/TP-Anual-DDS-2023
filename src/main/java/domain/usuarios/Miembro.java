@@ -12,7 +12,11 @@ import static domain.usuarios.TipoMiembro.OBSERVADOR;
 @Entity
 @Getter @Setter
 @Table(name = "miembro")
-public class Miembro extends Persistente {
+public class Miembro {
+
+  @Id
+  @GeneratedValue
+  private Long id;
 
   @OneToOne
   private Persona persona;
@@ -20,12 +24,17 @@ public class Miembro extends Persistente {
   @Enumerated
   private TipoMiembro tipo;
 
-  @OneToOne
+  @ManyToOne
+  @JoinColumn(name = "comunidad_id", referencedColumnName = "id")
   private Comunidad comunidad;
 
   public Miembro(Persona persona, Comunidad comunidad) {
     this.setPersona(persona);
     this.setComunidad(comunidad);
+  }
+
+  public Miembro() {
+
   }
 
   public void modificarTipoMiembro () {
