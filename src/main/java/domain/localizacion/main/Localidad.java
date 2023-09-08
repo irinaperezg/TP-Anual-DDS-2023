@@ -5,8 +5,8 @@ import lombok.Getter;
 import javax.persistence.*;
 import javax.persistence.Embeddable;
 @Getter
-@Entity
-@Table(name = "localidad")
+//@Entity
+//@Table(name = "localidad")
 public class Localidad {
   @Id
   private Integer id;

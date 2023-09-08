@@ -8,8 +8,8 @@ import lombok.Getter;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
-@Table(name="organismoDeControl")
+//@Entity
+//@Table(name="organismoDeControl")
 public class OrganismoDeControl {
 
     @Id

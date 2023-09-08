@@ -8,7 +8,7 @@ import javax.persistence.*;
 import javax.persistence.Embedded;
 
 @Getter
-@Embeddable
+//@Embeddable
 public class Departamento implements Localizacion {
   @Transient
   private Integer id;

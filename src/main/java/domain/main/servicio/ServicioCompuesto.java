@@ -8,8 +8,8 @@ import javax.persistence.OneToMany;
 import java.util.Arrays;
 import java.util.List;
 
-@Entity
-@DiscriminatorValue("Servicio Compuesto")
+//@Entity
+//@DiscriminatorValue("Servicio Compuesto")
 public class ServicioCompuesto extends Servicio{
   @OneToMany
   private List<Servicio> servicios;

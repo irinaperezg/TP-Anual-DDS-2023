@@ -15,9 +15,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter @Setter
+
 @Entity
 @Table(name="persona")
-@Getter @Setter
 public class Persona {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

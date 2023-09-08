@@ -50,7 +50,9 @@ public class PrestacionDeServicio {
   }
 
   public void notificarInteresados (Incidente incidente) {
-    List<Persona> listadoPersonasInteresadas = new ArrayList<>(incidente.getComunidad().getMiembros().stream().map(Miembro::getPersona).toList());
+    //TODO: ARREGLAR ESTO
+    //List<Persona> listadoPersonasInteresadas = new ArrayList<>(incidente.getComunidad().getMiembros().stream().map(Miembro::getPersona).toList());
+    List<Persona> listadoPersonasInteresadas = new ArrayList<>();
     listadoPersonasInteresadas.addAll(buscarInteresados());
     listadoPersonasInteresadas.stream().collect(Collectors.toSet()).stream().toList();
     for (Persona persona : listadoPersonasInteresadas){

@@ -9,9 +9,9 @@ import javax.persistence.*;
 import static domain.usuarios.TipoMiembro.AFECTADO;
 import static domain.usuarios.TipoMiembro.OBSERVADOR;
 
-@Entity
 @Getter @Setter
-@Table(name = "miembro")
+//@Entity
+//@Table(name = "miembro")
 public class Miembro {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 
-@MappedSuperclass
+//@MappedSuperclass
 @Getter @Setter
 public class Persistente {
     @Id

@@ -5,7 +5,7 @@ import lombok.Getter;
 import javax.persistence.Embeddable;
 
 @Getter
-@Embeddable
+//@Embeddable
 public class TipoEntidad {
 
 

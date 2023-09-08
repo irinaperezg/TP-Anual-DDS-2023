@@ -22,8 +22,8 @@ import java.util.Locale;
 import java.util.Objects;
 
 @Setter @Getter
-@Entity
-@Table(name="incidente")
+//@Entity
+//@Table(name="incidente")
 public class Incidente extends Persistente {
   @Column(name="observaciones", columnDefinition = "TEXT")
   private String observaciones;
@@ -92,7 +92,9 @@ public class Incidente extends Persistente {
 
   public int calcularImpactoSobreComunidad()
   {
-    int impacto = this.getComunidad().getMiembros().size();
+    //TODO: ARREGLAR ESTO
+    int impacto = 0;
+    //int impacto = this.getComunidad().getMiembros().size();
     return impacto;
   }
 

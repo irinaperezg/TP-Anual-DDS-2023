@@ -7,7 +7,7 @@ import lombok.Getter;
 import javax.persistence.*;
 
 @Getter
-@Embeddable
+//@Embeddable
 public class Municipio implements Localizacion {
   @Transient
   private Integer id;

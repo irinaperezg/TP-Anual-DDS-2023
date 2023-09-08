@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Getter
-@Embeddable
+//@Embeddable
 public class Provincia {
   @Column
   private final Integer id;

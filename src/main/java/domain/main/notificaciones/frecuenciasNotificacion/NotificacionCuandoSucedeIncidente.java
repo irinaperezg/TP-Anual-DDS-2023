@@ -8,8 +8,8 @@ import domain.usuarios.Persona;
 
 import javax.persistence.*;
 
-@Entity
-@DiscriminatorValue("CUANDO_SUCEDE_INCIDENTE")
+//@Entity
+//@DiscriminatorValue("CUANDO_SUCEDE_INCIDENTE")
 public class NotificacionCuandoSucedeIncidente extends FrecuenciaNotificacionBase {
 
   public void gestionarInicidente(Persona persona, Incidente incidente) {

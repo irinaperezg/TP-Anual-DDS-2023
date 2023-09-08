@@ -20,12 +20,15 @@ public class Comunidad {
   @Column(name="descripcion")
   private String descripcion;
 
-  @Getter
-  @OneToMany
+  @Transient
+  //@Getter
+  //@OneToMany
   private List<Miembro> miembros = new ArrayList<>();
-  @OneToMany
+  @Transient
+  //@OneToMany
   private List<Miembro> administradores= new ArrayList<>();
-  @OneToMany
+  @Transient
+  //@OneToMany
   private List<Incidente> incidentes= new ArrayList<>();
 
   public void agregarIncidente(Incidente incidente) {
