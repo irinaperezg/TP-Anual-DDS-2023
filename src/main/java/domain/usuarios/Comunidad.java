@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name="comunidad")
 public class Comunidad {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(name="descripcion")

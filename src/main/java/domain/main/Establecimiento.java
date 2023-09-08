@@ -18,15 +18,15 @@ import java.util.stream.Collectors;
 public class Establecimiento {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Getter
   @Column(name="denominacion", columnDefinition = "TEXT")
-  private final String denominacion;
-  @OneToOne
-  @JoinColumn(name = "entidad_id", referencedColumnName = "id")
-  private final Entidad entidad;
+  private String denominacion;
+  //@OneToOne
+  //@JoinColumn(name = "entidad_id", referencedColumnName = "id")
+  private Entidad entidad;
 
   @Setter
   @Embedded

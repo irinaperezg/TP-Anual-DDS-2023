@@ -14,7 +14,7 @@ import static domain.usuarios.TipoMiembro.OBSERVADOR;
 @Table(name = "miembro")
 public class Miembro {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @OneToOne

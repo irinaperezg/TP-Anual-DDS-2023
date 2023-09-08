@@ -15,18 +15,18 @@ import java.util.List;
 public class EntidadPrestadora {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name="denominacion", columnDefinition = "TEXT")
     private String denominacion;
 
     @Setter
-    @OneToMany
+    //@OneToMany
     private List<Entidad> entidades;
 
-    @OneToOne
-    @JoinColumn(name = "organismo_de_control_id", referencedColumnName = "id")
+    //@OneToOne
+    //@JoinColumn(name = "organismo_de_control_id", referencedColumnName = "id")
     private OrganismoDeControl organismoDeControl;
 
     @ManyToOne

@@ -9,11 +9,11 @@ import javax.persistence.Embeddable;
 @Table(name = "localidad")
 public class Localidad {
   @Id
-  private final Integer id;
+  private Integer id;
   @Column(name = "nombre")
-  private final String nombre;
+  private String nombre;
   @Embedded
-  private final Localizacion localizacion;
+  private Localizacion localizacion;
 
   public Localidad(Integer id, String nombre, Localizacion localizacion) {
     this.id = id;

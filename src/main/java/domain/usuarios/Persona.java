@@ -8,6 +8,7 @@ import domain.main.notificaciones.mediosNotificacion.PreferenciaMedioNotificacio
 import lombok.Getter;
 import lombok.Setter;
 import org.quartz.SchedulerException;
+import org.w3c.dom.Text;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -19,36 +20,39 @@ import java.util.List;
 @Getter @Setter
 public class Persona {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Embedded
   private Usuario usuario;
 
-  @OneToMany
+  @Transient
   private List<Miembro> miembros;
 
-  @ManyToOne
-  @JoinColumn(name = "localidad_id", referencedColumnName = "id")
+  @Transient
+  //@ManyToOne
+  //@JoinColumn(name = "localidad_id", referencedColumnName = "id")
   private Localidad localidad = null;
 
-  @Column(name="email")
+  @Column(name="email", columnDefinition = "TEXT")
   private String email;
 
-  @Column(name="telefono")
+  @Column(name="telefono", columnDefinition = "TEXT")
   private String telefono;
 
-  @OneToOne
-  @JoinColumn(name = "frecuencia_id", referencedColumnName = "id")
+  @Transient
+  // @OneToOne
+ // @JoinColumn(name = "frecuencia_id", referencedColumnName = "id")
   private FrecuenciaNotificacionBase frecuenciaNotification;
 
   @Enumerated(EnumType.STRING)
-  @Column(name="medio de notificacion")
+  @Column(name="medio_de_notificacion")
   private PreferenciaMedioNotificacion preferenciaMedioNotificacion;
 
-  @ElementCollection
-  @CollectionTable(name="horariosDeNotificacion", joinColumns = @JoinColumn(name="persona_id"))
-  @Column(name="horarios")
+  @Transient
+  //@ElementCollection
+  //@CollectionTable(name="horariosDeNotificacion", joinColumns = @JoinColumn(name="persona_id"))
+  //@Column(name="horarios")
   private List<LocalDateTime> horariosDeNotificaciones;
 
 

@@ -16,21 +16,20 @@ import java.util.stream.Collectors;
 public class PrestacionDeServicio {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Getter
   @ManyToOne
   @JoinColumn(name = "establecimiento_id", referencedColumnName = "id")
-  private final Establecimiento establecimiento;
+  private Establecimiento establecimiento;
 
   @Getter
-  @ManyToOne
-  @JoinColumn(name = "servicio_id", referencedColumnName = "id")
-  private final Servicio servicio;
+  //@ManyToOne
+  //@JoinColumn(name = "servicio_id", referencedColumnName = "id")
+  private Servicio servicio;
 
-  @OneToMany
-  private final List<Incidente> incidentes = new ArrayList<>();
+  private List<Incidente> incidentes = new ArrayList<>();
 
   public PrestacionDeServicio() {
     this.establecimiento = null;

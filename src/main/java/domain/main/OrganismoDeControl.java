@@ -13,7 +13,7 @@ import java.util.List;
 public class OrganismoDeControl {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Getter
@@ -24,10 +24,10 @@ public class OrganismoDeControl {
     @JoinColumn(name = "delegado_id", referencedColumnName = "id")
     private Delegado delegado;
 
-    @OneToMany
+    //@OneToMany
     private List<Servicio> serviciosControlados;
 
-    @OneToMany
+    //@OneToMany
     private List<Entidad> entidades;
 
     public OrganismoDeControl(String denominacion, Delegado delegado) {
