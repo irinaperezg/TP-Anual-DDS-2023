@@ -13,15 +13,15 @@ import static domain.usuarios.TipoMiembro.OBSERVADOR;
 @Getter @Setter
 @Table(name = "miembro")
 public class Miembro {
-
   @Id
   @GeneratedValue
   private Long id;
 
   @OneToOne
+  @JoinColumn(name = "persona_id", referencedColumnName = "id")
   private Persona persona;
 
-  @Enumerated
+  @Enumerated(EnumType.STRING)
   private TipoMiembro tipo;
 
   @ManyToOne

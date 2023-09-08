@@ -5,13 +5,14 @@ import lombok.Getter;
 import javax.persistence.*;
 import javax.persistence.Embeddable;
 @Getter
-@Embeddable
+@Entity
+@Table(name = "localidad")
 public class Localidad {
-  @Column
+  @Id
   private final Integer id;
-  @Column
+  @Column(name = "nombre")
   private final String nombre;
-  @Transient
+  @Embedded
   private final Localizacion localizacion;
 
   public Localidad(Integer id, String nombre, Localizacion localizacion) {

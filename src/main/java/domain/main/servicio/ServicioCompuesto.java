@@ -2,15 +2,15 @@ package domain.main.servicio;
 import domain.usuarios.Persona;
 
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.Arrays;
 import java.util.List;
 
 @Entity
-@DiscriminatorColumn(name = "tipo")
+@DiscriminatorValue("Servicio Compuesto")
 public class ServicioCompuesto extends Servicio{
-
   @OneToMany
   private List<Servicio> servicios;
   public ServicioCompuesto(String descripcion, Servicio ... otrosServicios) {

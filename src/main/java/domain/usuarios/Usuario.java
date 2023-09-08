@@ -6,14 +6,8 @@ import lombok.Getter;
 import javax.persistence.*;
 
 @Getter
-@Entity
-@Table(name="usuario")
+@Embeddable
 public class Usuario {
-
-  @Id
-  @GeneratedValue
-  private Long id;
-
   @Column(name="nombre", columnDefinition = "TEXT")
   private String nombre;
 
@@ -24,7 +18,6 @@ public class Usuario {
     this.nombre = nombre;
     this.contraseniaEncriptada = contraseniaEncriptada;
   }
-
   public Usuario() {
 
   }

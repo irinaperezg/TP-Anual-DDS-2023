@@ -12,8 +12,11 @@ import java.util.List;
 
 @Entity
 @Table(name="comunidad")
+public class Comunidad {
+  @Id
+  @GeneratedValue
+  private Long id;
 
-public class Comunidad extends Persistente {
   @Column(name="descripcion")
   private String descripcion;
 

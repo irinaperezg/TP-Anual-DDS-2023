@@ -18,19 +18,18 @@ import java.util.List;
 @Table(name="persona")
 @Getter @Setter
 public class Persona {
-
   @Id
   @GeneratedValue
   private Long id;
 
-  @OneToOne
-  @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+  @Embedded
   private Usuario usuario;
 
   @OneToMany
   private List<Miembro> miembros;
 
-  @Embedded
+  @ManyToOne
+  @JoinColumn(name = "localidad_id", referencedColumnName = "id")
   private Localidad localidad = null;
 
   @Column(name="email")
@@ -43,7 +42,8 @@ public class Persona {
   @JoinColumn(name = "frecuencia_id", referencedColumnName = "id")
   private FrecuenciaNotificacionBase frecuenciaNotification;
 
-  @Enumerated
+  @Enumerated(EnumType.STRING)
+  @Column(name="medio de notificacion")
   private PreferenciaMedioNotificacion preferenciaMedioNotificacion;
 
   @ElementCollection

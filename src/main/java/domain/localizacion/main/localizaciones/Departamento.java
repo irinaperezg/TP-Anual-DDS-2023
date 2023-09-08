@@ -4,17 +4,29 @@ import domain.localizacion.main.Localizacion;
 import domain.localizacion.main.Provincia;
 import lombok.Getter;
 
+import javax.persistence.*;
+import javax.persistence.Embedded;
+
 @Getter
+@Embeddable
 public class Departamento implements Localizacion {
-  private final Integer id;
-  private final String nombre;
-  private final Provincia provincia;
+  @Transient
+  private Integer id;
+  private String nombre;
+  @Embedded
+  private Provincia provincia;
+
+  @Enumerated(EnumType.STRING)
   private final TipoLocalizacion tipoLocalizacion = TipoLocalizacion.Departamento;
 
   public Departamento(Integer id, String nombre, Provincia provincia) {
     this.id = id;
     this.nombre = nombre;
     this.provincia = provincia;
+  }
+
+  public Departamento() {
+
   }
 
   public boolean esIgualA(Localizacion localizacion) {
