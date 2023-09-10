@@ -8,8 +8,8 @@ import lombok.Getter;
 import javax.persistence.*;
 import java.util.List;
 
-//@Entity
-//@Table(name="organismoDeControl")
+@Entity
+@Table(name="organismoDeControl")
 public class OrganismoDeControl {
 
     @Id
@@ -24,11 +24,12 @@ public class OrganismoDeControl {
     @JoinColumn(name = "delegado_id", referencedColumnName = "id")
     private Delegado delegado;
 
-    //@OneToMany
-    private List<Servicio> serviciosControlados;
+    @ManyToMany(mappedBy = "organismosDeControl")
+    private List<Entidad> entidades;
 
     //@OneToMany
-    private List<Entidad> entidades;
+    @Transient
+    private List<Servicio> serviciosControlados;
 
     public OrganismoDeControl(String denominacion, Delegado delegado) {
         this.denominacion = denominacion;

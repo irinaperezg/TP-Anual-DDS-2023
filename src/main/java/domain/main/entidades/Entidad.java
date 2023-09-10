@@ -4,8 +4,10 @@ import domain.Persistente;
 import domain.localizacion.main.Localidad;
 import domain.main.EntidadPrestadora;
 import domain.main.Establecimiento;
+import domain.main.OrganismoDeControl;
 import domain.main.incidentes.Incidente;
 import domain.main.servicio.Servicio;
+import domain.usuarios.Miembro;
 import domain.usuarios.Persona;
 import lombok.Generated;
 import lombok.Getter;
@@ -22,7 +24,7 @@ import java.util.stream.Collectors;
 public class Entidad {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Getter
@@ -37,12 +39,26 @@ public class Entidad {
   @JoinColumn(name = "entidad_prestadora_id", referencedColumnName = "id")
   private EntidadPrestadora entidadPrestadora;
 
-  @OneToMany
+  @Getter
+  @OneToMany(mappedBy = "entidad", cascade = CascadeType.ALL, orphanRemoval = true)
+  private final List<Establecimiento> establecimientos = new ArrayList<>();
+
+  @ManyToMany(cascade = { CascadeType.ALL })
+  @JoinTable(
+          name = "Entidades_X_Organismo",
+          joinColumns = { @JoinColumn(name = "entidad_id") },
+          inverseJoinColumns = { @JoinColumn(name = "organismo_de_control_id") }
+  )
+  private final List<OrganismoDeControl> organismosDeControl = new ArrayList<>();
+
+  @ManyToMany(cascade = { CascadeType.ALL })
+  @JoinTable(
+          name = "Asociados",
+          joinColumns = { @JoinColumn(name = "entidad_id") },
+          inverseJoinColumns = { @JoinColumn(name = "persona_id") }
+  )
   private final List<Persona> asociados = new ArrayList<>();
 
-  @Getter
-  @OneToMany
-  private final List<Establecimiento> establecimientos = new ArrayList<>();
 
   public Entidad(TipoEntidad tipo, String denominacion) {
     this.tipo = tipo;

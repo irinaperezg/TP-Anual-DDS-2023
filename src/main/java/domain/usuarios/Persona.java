@@ -1,6 +1,7 @@
 package domain.usuarios;
 
 import domain.localizacion.main.Localidad;
+import domain.main.entidades.Entidad;
 import domain.main.notificaciones.frecuenciasNotificacion.Calendario;
 import domain.main.notificaciones.frecuenciasNotificacion.FrecuenciaNotificacionBase;
 import domain.main.notificaciones.frecuenciasNotificacion.FrecuenciaNotificacion;
@@ -27,12 +28,12 @@ public class Persona {
   @Embedded
   private Usuario usuario;
 
-  @Transient
+  @OneToMany(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Miembro> miembros;
 
+  @ManyToOne
+  @JoinColumn(name = "localidad_id", referencedColumnName = "id")
   @Transient
-  //@ManyToOne
-  //@JoinColumn(name = "localidad_id", referencedColumnName = "id")
   private Localidad localidad = null;
 
   @Column(name="email", columnDefinition = "TEXT")
@@ -55,6 +56,9 @@ public class Persona {
   //@CollectionTable(name="horariosDeNotificacion", joinColumns = @JoinColumn(name="persona_id"))
   //@Column(name="horarios")
   private List<LocalDateTime> horariosDeNotificaciones;
+
+  @ManyToMany(mappedBy = "asociados")
+  private List<Entidad> entidades = new ArrayList<>();
 
 
   public Persona(Usuario usuario, String email, String telefono, FrecuenciaNotificacionBase frecuenciaNotification, PreferenciaMedioNotificacion preferenciaMedioNotificacion, List<LocalDateTime> horariosDeNotificaciones) throws SchedulerException {

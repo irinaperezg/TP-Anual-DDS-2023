@@ -24,16 +24,18 @@ public class Establecimiento {
   @Getter
   @Column(name="denominacion", columnDefinition = "TEXT")
   private String denominacion;
-  //@OneToOne
-  //@JoinColumn(name = "entidad_id", referencedColumnName = "id")
+
+  @ManyToOne
+  @JoinColumn(name = "entidad_id", referencedColumnName = "id")
   private Entidad entidad;
 
   @Setter
-  @Embedded
+  //@Embedded
+  @Transient
   private Localidad localidad = null;
 
   @Getter
-  @OneToMany
+  @OneToMany(mappedBy = "establecimiento", cascade = CascadeType.ALL, orphanRemoval = true)
   private final List<PrestacionDeServicio> prestaciones = new ArrayList<>();
 
   public Establecimiento() {

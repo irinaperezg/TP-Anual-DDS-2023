@@ -11,7 +11,7 @@ import java.util.List;
 
 @Getter
 @Entity
-@Table(name="entidadPrestadora")
+@Table(name="entidad_prestadora")
 public class EntidadPrestadora {
 
     @Id
@@ -22,11 +22,11 @@ public class EntidadPrestadora {
     private String denominacion;
 
     @Setter
-    //@OneToMany
+    @OneToMany(mappedBy = "entidadPrestadora", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Entidad> entidades;
 
-    //@OneToOne
-    //@JoinColumn(name = "organismo_de_control_id", referencedColumnName = "id")
+    @OneToOne
+    @JoinColumn(name = "organismo_de_control_id", referencedColumnName = "id")
     private OrganismoDeControl organismoDeControl;
 
     @ManyToOne

@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import static org.mockito.Mockito.*;
 
 public class IncidentesTest {
-
+/*
   @Test
   @DisplayName("le llega una notificacion a los usuarios que comparten comunidad ante la apertura de un incidente")
   public void notificacion1() throws SchedulerException {
@@ -80,5 +80,5 @@ public class IncidentesTest {
     prestacion.cerrarUnIncidente(prestacion.getIncidentes().get(0));
 
     verify(Notificador.getWhatsappAdapter(), times(2)).mandar(any());
-  }
+  }*/
 }

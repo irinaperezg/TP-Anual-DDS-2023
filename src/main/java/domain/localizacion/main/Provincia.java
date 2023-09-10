@@ -4,14 +4,15 @@ import lombok.Getter;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Transient;
 
 @Getter
-//@Embeddable
+@Embeddable
 public class Provincia {
-  @Column
-  private final Integer id;
-  @Column
-  private final String nombre;
+  @Column(name = "id_provincia")
+  private Integer id;
+  @Column(name = "nombre_provincia")
+  private String nombre;
 
   public Provincia(Integer id, String nombre) {
     this.id = id;

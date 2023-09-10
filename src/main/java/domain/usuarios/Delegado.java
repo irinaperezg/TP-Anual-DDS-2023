@@ -8,8 +8,6 @@ import javax.persistence.*;
 @Entity
 @Table(name="delegado")
 public class Delegado {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

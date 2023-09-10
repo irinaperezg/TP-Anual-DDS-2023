@@ -22,26 +22,42 @@ import java.util.Locale;
 import java.util.Objects;
 
 @Setter @Getter
-//@Entity
-//@Table(name="incidente")
-public class Incidente extends Persistente {
+@Entity
+@Table(name="incidente")
+public class Incidente {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+
   @Column(name="observaciones", columnDefinition = "TEXT")
   private String observaciones;
+
   @Column(name="denominacion", columnDefinition = "TEXT")
   private String denominacion;
+
   @ManyToOne
   @JoinColumn(name = "prestacion_de_servicio_id", referencedColumnName = "id")
   private PrestacionDeServicio prestacion;
+
   //TODO: LocalDateTime CONVERTER
-  @Column(name="fechaApertura", columnDefinition = "DATE")
+  @Transient
+  //@Column(name="fechaApertura", columnDefinition = "DATE")
   private LocalDateTime fechaApertura;
-  @Column(name="fechaCierre", columnDefinition = "DATE")
+
+  @Transient
+  //@Column(name="fechaCierre", columnDefinition = "DATE")
   private LocalDateTime fechaCierre;
-  @OneToOne
+
+  @ManyToOne
+  @JoinColumn(name = "comunidad_id", referencedColumnName = "id")
   private Comunidad comunidad;
+
   @Column(name="abierto", columnDefinition = "BOOLEAN")
   private boolean abierto;
+
   @OneToOne
+  @JoinColumn(name = "creador_id", referencedColumnName = "id")
   private Miembro creador;
 
   public Incidente(String observaciones, String denominacion, Comunidad comunidad, PrestacionDeServicio prestacion, Miembro creador) {

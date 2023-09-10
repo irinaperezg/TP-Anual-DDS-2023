@@ -20,16 +20,28 @@ public class Comunidad {
   @Column(name="descripcion")
   private String descripcion;
 
-  @Transient
-  //@Getter
-  //@OneToMany
+  @Getter
+  @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Miembro> miembros = new ArrayList<>();
+  public List<Miembro> getAdministradores() {
+    return miembros.stream()
+            .filter(Miembro::getEsAdministrador)
+            .toList();
+  }
+  public List<Miembro> getMiembrosRegulares() {
+    return miembros.stream()
+            .filter(miembro -> !miembro.getEsAdministrador())
+            .toList();
+  }
+  /*@Getter
+  @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Miembro> miembros = new ArrayList<>();
+
+  @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Miembro> administradores= new ArrayList<>();*/
   @Transient
-  //@OneToMany
-  private List<Miembro> administradores= new ArrayList<>();
-  @Transient
-  //@OneToMany
-  private List<Incidente> incidentes= new ArrayList<>();
+  @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Incidente> incidentes = new ArrayList<>();
 
   public void agregarIncidente(Incidente incidente) {
     incidentes.add(incidente);
