@@ -39,7 +39,7 @@ public class Comunidad {
 
   @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Miembro> administradores= new ArrayList<>();*/
-  @Transient
+
   @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Incidente> incidentes = new ArrayList<>();
 

@@ -27,8 +27,7 @@ public class OrganismoDeControl {
     @ManyToMany(mappedBy = "organismosDeControl")
     private List<Entidad> entidades;
 
-    //@OneToMany
-    @Transient
+    @OneToMany(mappedBy = "organismoDeControl", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Servicio> serviciosControlados;
 
     public OrganismoDeControl(String denominacion, Delegado delegado) {

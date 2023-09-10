@@ -25,9 +25,8 @@ public class PrestacionDeServicio {
   private Establecimiento establecimiento;
 
   @Getter
-  @Transient
-  //@ManyToOne
-  //@JoinColumn(name = "servicio_id", referencedColumnName = "id")
+  @ManyToOne
+  @JoinColumn(name = "servicio_id", referencedColumnName = "id")
   private Servicio servicio;
 
   @OneToMany(mappedBy = "prestacion", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -6,6 +6,7 @@ import domain.main.notificaciones.frecuenciasNotificacion.Calendario;
 import domain.main.notificaciones.frecuenciasNotificacion.FrecuenciaNotificacionBase;
 import domain.main.notificaciones.frecuenciasNotificacion.FrecuenciaNotificacion;
 import domain.main.notificaciones.mediosNotificacion.PreferenciaMedioNotificacion;
+import domain.main.servicio.Servicio;
 import lombok.Getter;
 import lombok.Setter;
 import org.quartz.SchedulerException;
@@ -59,6 +60,9 @@ public class Persona {
 
   @ManyToMany(mappedBy = "asociados")
   private List<Entidad> entidades = new ArrayList<>();
+
+  @ManyToMany(mappedBy = "asociados")
+  private List<Servicio> servicios = new ArrayList<>();
 
 
   public Persona(Usuario usuario, String email, String telefono, FrecuenciaNotificacionBase frecuenciaNotification, PreferenciaMedioNotificacion preferenciaMedioNotificacion, List<LocalDateTime> horariosDeNotificaciones) throws SchedulerException {

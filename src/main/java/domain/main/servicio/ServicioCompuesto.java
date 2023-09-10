@@ -1,18 +1,20 @@
 package domain.main.servicio;
 import domain.usuarios.Persona;
 
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-//@Entity
-//@DiscriminatorValue("Servicio Compuesto")
-public class ServicioCompuesto extends Servicio{
-  @OneToMany
-  private List<Servicio> servicios;
+@Entity
+@DiscriminatorValue("Compuesto")
+public class ServicioCompuesto extends Servicio {
+  @ManyToMany
+  @JoinTable(
+          name = "servicio_compuesto",
+          joinColumns = @JoinColumn(name = "servicio_compuesto_id"),
+          inverseJoinColumns = @JoinColumn(name = "servicio_id"))
+  private List<Servicio> servicios = new ArrayList<>();
   public ServicioCompuesto(String descripcion, Servicio ... otrosServicios) {
     super(descripcion);
     agregarServicios(otrosServicios);

@@ -53,7 +53,7 @@ public class Entidad {
 
   @ManyToMany(cascade = { CascadeType.ALL })
   @JoinTable(
-          name = "Asociados",
+          name = "Asociados_Entidad_Persona",
           joinColumns = { @JoinColumn(name = "entidad_id") },
           inverseJoinColumns = { @JoinColumn(name = "persona_id") }
   )
