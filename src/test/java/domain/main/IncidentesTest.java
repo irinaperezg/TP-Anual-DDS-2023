@@ -1,28 +1,5 @@
 package domain.main;
 
-import domain.localizacion.main.Localidad;
-import domain.localizacion.main.Provincia;
-import domain.localizacion.main.localizaciones.Municipio;
-import domain.main.entidades.Entidad;
-import domain.main.entidades.TipoEntidad;
-import domain.main.notificaciones.Notificador;
-import domain.main.notificaciones.frecuenciasNotificacion.NotificacionCuandoSucedeIncidente;
-import domain.main.notificaciones.mediosNotificacion.PreferenciaMedioNotificacion;
-import domain.main.notificaciones.mediosNotificacion.Whatsapp.WhatsappAdapter;
-import domain.main.servicio.Servicio;
-import domain.main.servicio.ServicioBase;
-import domain.usuarios.Comunidad;
-import domain.usuarios.Miembro;
-import domain.usuarios.Persona;
-import domain.usuarios.Usuario;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.quartz.SchedulerException;
-
-import java.util.ArrayList;
-
-import static org.mockito.Mockito.*;
-
 public class IncidentesTest {
 /*
   @Test

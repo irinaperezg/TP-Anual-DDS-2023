@@ -4,7 +4,7 @@ import domain.localizacion.georef.entities.ListadoDeDepartamentos;
 import domain.localizacion.georef.entities.ListadoDeLocalidades;
 import domain.localizacion.georef.entities.ListadoDeMunicipios;
 import domain.localizacion.georef.entities.ListadoDeProvincias;
-import domain.localizacion.main.localizaciones.TipoLocalizacion;
+import domain.localizacion.main.TipoLocalizacion;
 
 import java.io.IOException;
 

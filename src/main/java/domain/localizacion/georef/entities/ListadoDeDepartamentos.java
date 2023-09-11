@@ -1,11 +1,11 @@
 package domain.localizacion.georef.entities;
 
-import domain.localizacion.main.localizaciones.Departamento;
+import domain.localizacion.main.Localizacion;
 import lombok.Getter;
 
 import java.util.List;
 
 public class ListadoDeDepartamentos {
   @Getter
-  public List<Departamento> departamentos;
+  public List<Localizacion> departamentos;
 }

@@ -4,8 +4,9 @@ import domain.localizacion.georef.ServicioGeoref;
 import domain.localizacion.georef.adapters.GeorefAdapter;
 import domain.localizacion.georef.entities.ListadoDeMunicipios;
 import domain.localizacion.georef.entities.ListadoDeProvincias;
-import domain.localizacion.main.localizaciones.Municipio;
+import domain.localizacion.main.Localizacion;
 import domain.localizacion.main.Provincia;
+import domain.localizacion.main.TipoLocalizacion;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,7 +52,7 @@ public class GeorefServiceTest {
         Provincia buenosAires = new Provincia(1, "Buenos Aires");
 
         ListadoDeMunicipios listadoDeMunicipiosMock = mock(ListadoDeMunicipios.class);
-        List<Municipio> municipiosMock = this.municipiosMock();
+        List<Localizacion> municipiosMock = this.municipiosMock();
 
 
         when(listadoDeMunicipiosMock.getMunicipios()).thenReturn(municipiosMock);
@@ -60,11 +61,12 @@ public class GeorefServiceTest {
         Assertions.assertEquals(3, this.servicioGeoref.listadoDeMunicipiosDeProvincia(buenosAires.getId()).getMunicipios().size());
     }
 
-    private List<Municipio> municipiosMock() {
-        List<Municipio> municipios = new ArrayList<>();
-        municipios.add(new Municipio(2, "Pilar", new Provincia(1, "Buenos Aires")));
-        municipios.add(new Municipio(3, "Bahia Blanca", new Provincia(1, "Buenos Aires")));
-        municipios.add(new Municipio(4, "Ezeiza", new Provincia(1, "Buenos Aires")));
+    private List<Localizacion> municipiosMock() {
+        List<Localizacion> municipios = new ArrayList<>();
+        Provincia buenosAires = new Provincia(1, "Buenos Aires");
+        municipios.add(new Localizacion(2L, "Pilar", buenosAires , TipoLocalizacion.Municipio));
+        municipios.add(new Localizacion(3L, "Bahia Blanca", buenosAires, TipoLocalizacion.Municipio));
+        municipios.add(new Localizacion(4L, "Ezeiza", buenosAires, TipoLocalizacion.Municipio));
         return municipios;
     }
 

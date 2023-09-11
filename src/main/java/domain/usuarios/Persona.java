@@ -4,15 +4,12 @@ import domain.converter.FrecuenciaDeNotificacionAttributeConverter;
 import domain.converter.LocalDateAttributeConverter;
 import domain.localizacion.main.Localidad;
 import domain.main.entidades.Entidad;
-import domain.main.notificaciones.frecuenciasNotificacion.Calendario;
-import domain.main.notificaciones.frecuenciasNotificacion.FrecuenciaNotificacionBase;
 import domain.main.notificaciones.frecuenciasNotificacion.FrecuenciaNotificacion;
 import domain.main.notificaciones.mediosNotificacion.PreferenciaMedioNotificacion;
 import domain.main.servicio.Servicio;
 import lombok.Getter;
 import lombok.Setter;
 import org.quartz.SchedulerException;
-import org.w3c.dom.Text;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -45,10 +42,9 @@ public class Persona {
   @Column(name="telefono", columnDefinition = "TEXT")
   private String telefono;
 
-  @OneToOne
+  @Column(name="frecuencia_notificacion")
   @Convert(converter = FrecuenciaDeNotificacionAttributeConverter.class)
-  @JoinColumn(name = "frecuencia_id", referencedColumnName = "id")
-  private FrecuenciaNotificacionBase frecuenciaNotification;
+  private FrecuenciaNotificacion frecuenciaNotification;
 
   @Enumerated(EnumType.STRING)
   @Column(name="medio_de_notificacion")
@@ -67,7 +63,7 @@ public class Persona {
   private List<Servicio> servicios = new ArrayList<>();
 
 
-  public Persona(Usuario usuario, String email, String telefono, FrecuenciaNotificacionBase frecuenciaNotification, PreferenciaMedioNotificacion preferenciaMedioNotificacion, List<LocalDateTime> horariosDeNotificaciones) throws SchedulerException {
+  public Persona(Usuario usuario, String email, String telefono, FrecuenciaNotificacion frecuenciaNotification, PreferenciaMedioNotificacion preferenciaMedioNotificacion, List<LocalDateTime> horariosDeNotificaciones) throws SchedulerException {
     this.usuario = usuario;
     this.email = email;
     this.telefono = telefono;

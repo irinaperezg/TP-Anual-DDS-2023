@@ -1,9 +1,8 @@
 package domain.localizacion.main;
-
 import lombok.Getter;
 
 import javax.persistence.*;
-import javax.persistence.Embeddable;
+
 @Getter
 @Entity
 @Table(name = "localidad")

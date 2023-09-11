@@ -1,17 +1,44 @@
 package domain.localizacion.main;
 
-import domain.localizacion.main.localizaciones.TipoLocalizacion;
 import lombok.Getter;
+import lombok.Setter;
 
-public interface Localizacion {
+import javax.persistence.*;
+@Getter
+@Setter
+@Entity
+public class Localizacion {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-  boolean esIgualA(Localizacion localizacion);
+  @Column(name="nombre")
+  private String nombre;
 
-  Integer getId();
+  @ManyToOne
+  @JoinColumn(name="provincia_id", referencedColumnName = "id")
+  private Provincia provincia;
 
-  String getNombre();
+  @Enumerated(EnumType.STRING)
+  @Column(name = "tipo_localizacion")
+  private TipoLocalizacion tipoLocalizacion;
 
-  Provincia getProvincia();
+  public Localizacion(Long id, String nombre, Provincia provincia, TipoLocalizacion tipo) {
+    this.id = id;
+    this.nombre = nombre;
+    this.provincia = provincia;
+    this.tipoLocalizacion = tipo;
+  }
 
-  TipoLocalizacion getTipoLocalizacion();
+  public Localizacion() {
+    this.id = null;
+    this.nombre = null;
+    this.provincia = null;
+    this.tipoLocalizacion = null;
+  }
+
+  public boolean esIgualA(Localizacion localizacion) {
+    return this.id.equals(localizacion.getId()) && this.nombre.equals(localizacion.getNombre()) && this.provincia.esIgualA(localizacion.getProvincia());
+  }
 }
+

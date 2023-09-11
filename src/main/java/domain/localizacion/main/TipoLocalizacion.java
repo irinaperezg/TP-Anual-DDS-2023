@@ -1,4 +1,4 @@
-package domain.localizacion.main.localizaciones;
+package domain.localizacion.main;
 
 public enum TipoLocalizacion {
   Departamento,

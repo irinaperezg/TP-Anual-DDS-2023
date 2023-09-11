@@ -11,9 +11,8 @@ import org.quartz.JobExecutionContext;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.*;
 
-public class NotificacionSinApuros extends FrecuenciaNotificacionBase implements Job {
+public class NotificacionSinApuros implements Job, FrecuenciaNotificacion {
 
   @Getter @Setter
   static List<Notificacion> notificaciones = new ArrayList<>();
