@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
 @Table(name="comunidad")
 public class Comunidad {
   @Id
@@ -20,7 +21,6 @@ public class Comunidad {
   @Column(name="descripcion")
   private String descripcion;
 
-  @Getter
   @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Miembro> miembros = new ArrayList<>();
   public List<Miembro> getAdministradores() {
@@ -33,12 +33,6 @@ public class Comunidad {
             .filter(miembro -> !miembro.getEsAdministrador())
             .toList();
   }
-  /*@Getter
-  @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, orphanRemoval = true)
-  private List<Miembro> miembros = new ArrayList<>();
-
-  @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, orphanRemoval = true)
-  private List<Miembro> administradores= new ArrayList<>();*/
 
   @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Incidente> incidentes = new ArrayList<>();
