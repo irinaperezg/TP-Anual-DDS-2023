@@ -1,5 +1,7 @@
 package domain.usuarios;
 
+import domain.converter.FrecuenciaDeNotificacionAttributeConverter;
+import domain.converter.LocalDateAttributeConverter;
 import domain.localizacion.main.Localidad;
 import domain.main.entidades.Entidad;
 import domain.main.notificaciones.frecuenciasNotificacion.Calendario;
@@ -43,19 +45,19 @@ public class Persona {
   @Column(name="telefono", columnDefinition = "TEXT")
   private String telefono;
 
-  @Transient
-  // @OneToOne
- // @JoinColumn(name = "frecuencia_id", referencedColumnName = "id")
+  @OneToOne
+  @Convert(converter = FrecuenciaDeNotificacionAttributeConverter.class)
+  @JoinColumn(name = "frecuencia_id", referencedColumnName = "id")
   private FrecuenciaNotificacionBase frecuenciaNotification;
 
   @Enumerated(EnumType.STRING)
   @Column(name="medio_de_notificacion")
   private PreferenciaMedioNotificacion preferenciaMedioNotificacion;
 
-  @Transient
-  //@ElementCollection
-  //@CollectionTable(name="horariosDeNotificacion", joinColumns = @JoinColumn(name="persona_id"))
-  //@Column(name="horarios")
+  @ElementCollection
+  @CollectionTable(name="horariosDeNotificacion", joinColumns = @JoinColumn(name="persona_id"))
+  @Convert(converter = LocalDateAttributeConverter.class)
+  @Column(name="horarios")
   private List<LocalDateTime> horariosDeNotificaciones;
 
   @ManyToMany(mappedBy = "asociados")

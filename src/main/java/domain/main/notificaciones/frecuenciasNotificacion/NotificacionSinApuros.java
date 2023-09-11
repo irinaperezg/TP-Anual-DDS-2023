@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
-//@Entity
-//@DiscriminatorValue("SIN_APUROS")
 public class NotificacionSinApuros extends FrecuenciaNotificacionBase implements Job {
 
   @Getter @Setter

@@ -1,13 +1,9 @@
 package domain.main.incidentes;
 
-import domain.Persistente;
-import domain.main.Establecimiento;
+import domain.converter.LocalDateAttributeConverter;
 import domain.main.PrestacionDeServicio;
-import domain.main.entidades.Entidad;
-import domain.main.servicio.Servicio;
 import domain.usuarios.Comunidad;
 import domain.usuarios.Miembro;
-import domain.usuarios.Persona;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +11,6 @@ import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.WeekFields;
 import java.util.Locale;
@@ -40,13 +35,12 @@ public class Incidente {
   @JoinColumn(name = "prestacion_de_servicio_id", referencedColumnName = "id")
   private PrestacionDeServicio prestacion;
 
-  //TODO: LocalDateTime CONVERTER
-  @Transient
-  //@Column(name="fechaApertura", columnDefinition = "DATE")
+  @Convert(converter = LocalDateAttributeConverter.class)
+  @Column(name="fechaApertura", columnDefinition = "DATE")
   private LocalDateTime fechaApertura;
 
-  @Transient
-  //@Column(name="fechaCierre", columnDefinition = "DATE")
+  @Convert(converter = LocalDateAttributeConverter.class)
+  @Column(name="fechaCierre", columnDefinition = "DATE")
   private LocalDateTime fechaCierre;
 
   @ManyToOne

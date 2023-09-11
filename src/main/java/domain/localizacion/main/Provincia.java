@@ -2,16 +2,15 @@ package domain.localizacion.main;
 
 import lombok.Getter;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @Getter
-@Embeddable
+@Entity
+@Table(name="provincia")
 public class Provincia {
-  @Column(name = "id_provincia")
+  @Id
   private Integer id;
-  @Column(name = "nombre_provincia")
+  @Column(name = "nombre")
   private String nombre;
 
   public Provincia(Integer id, String nombre) {

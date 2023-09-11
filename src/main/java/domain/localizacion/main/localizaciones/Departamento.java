@@ -10,9 +10,9 @@ import javax.persistence.*;
 import javax.persistence.Embedded;
 
 @Getter
-//@Entity
-//@DiscriminatorValue("Departamento")
-public class Departamento extends LocalizacionAbstracta {
+@Entity
+@DiscriminatorValue("Departamento")
+public class Departamento implements Localizacion {
   /*@Transient
   private Integer id;
   @Column

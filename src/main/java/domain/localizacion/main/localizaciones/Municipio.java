@@ -7,9 +7,9 @@ import lombok.Getter;
 
 import javax.persistence.*;
 
-//@Entity
-//@DiscriminatorValue("Municipio")
-public class Municipio extends LocalizacionAbstracta {
+@Entity
+@DiscriminatorValue("Municipio")
+public class Municipio implements Localizacion {
   /*@Transient
   private Integer id;
   @Column

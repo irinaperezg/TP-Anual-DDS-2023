@@ -14,9 +14,8 @@ public class Localidad {
   @Column(name = "nombre_localidad")
   private String nombre;
 
-  /*@ManyToOne
-  @JoinColumn(name = "localizacion_id")*/
-  @Transient
+  @ManyToOne
+  @JoinColumn(name = "localizacion_id")
   private Localizacion localizacion;
 
   public Localidad(Integer id, String nombre, Localizacion localizacion) {
