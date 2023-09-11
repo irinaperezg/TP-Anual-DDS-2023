@@ -8,6 +8,7 @@ import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import java.util.List;
 
 public class LocalizacionRepository implements WithSimplePersistenceUnit {
+
   public void registrar(Localizacion localizacion)
   {
     entityManager().persist(localizacion);
@@ -19,11 +20,11 @@ public class LocalizacionRepository implements WithSimplePersistenceUnit {
         .getResultList();
   }
 
-  public Localizacion localizacionPorId(Long id) {
+  public Localizacion buscarPorID(Long id) {
     return entityManager().find(Localizacion.class, id);
   }
 
-  public List<Localizacion> localizacionPorTipo(TipoLocalizacion tipoLocalizacion) {
+  public List<Localizacion> buscarPorTipo(TipoLocalizacion tipoLocalizacion) {
     String jpql = "SELECT l FROM Localizacion l WHERE l.tipoLocalizacion = :tipo";
     return entityManager()
         .createQuery(jpql, Localizacion.class)

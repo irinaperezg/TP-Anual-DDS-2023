@@ -1,7 +1,7 @@
 package domain.usuarios;
 
 import domain.converter.FrecuenciaDeNotificacionAttributeConverter;
-import domain.converter.LocalDateAttributeConverter;
+import domain.converter.LocalDateTimeAttributeConverter;
 import domain.localizacion.main.Localidad;
 import domain.main.entidades.Entidad;
 import domain.main.notificaciones.frecuenciasNotificacion.FrecuenciaNotificacion;
@@ -50,9 +50,9 @@ public class Persona {
   private PreferenciaMedioNotificacion preferenciaMedioNotificacion;
 
   @ElementCollection
-  @CollectionTable(name="horariosDeNotificacion", joinColumns = @JoinColumn(name="persona_id"))
-  @Convert(converter = LocalDateAttributeConverter.class)
-  @Column(name="horarios")
+  @CollectionTable(name="horarioDeNotificacion", joinColumns = @JoinColumn(name="persona_id"))
+  @Convert(converter = LocalDateTimeAttributeConverter.class)
+  @Column(name="horario")
   private List<LocalDateTime> horariosDeNotificaciones;
 
   @ManyToMany(mappedBy = "asociados")

@@ -6,18 +6,19 @@ import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import java.util.List;
 
 public class ComunidadRepository implements WithSimplePersistenceUnit {
+
   public void registrar(Comunidad comunidad)
   {
     entityManager().persist(comunidad);
   }
 
-  public List<Comunidad> todas() {
+  public List<Comunidad> todos() {
     return entityManager()
         .createQuery("from Comunidad")
         .getResultList();
   }
 
-  public Comunidad comunidadPorID(Long id) {
+  public Comunidad buscarPorID(Long id) {
     return entityManager().find(Comunidad.class, id);
   }
 }

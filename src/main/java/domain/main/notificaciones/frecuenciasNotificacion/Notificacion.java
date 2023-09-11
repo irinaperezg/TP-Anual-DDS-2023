@@ -1,6 +1,6 @@
 package domain.main.notificaciones.frecuenciasNotificacion;
 
-import domain.converter.LocalDateAttributeConverter;
+import domain.converter.LocalDateTimeAttributeConverter;
 import domain.main.Establecimiento;
 import domain.main.incidentes.Incidente;
 import domain.main.servicio.Servicio;
@@ -30,10 +30,10 @@ public class Notificacion {
   @Enumerated(EnumType.STRING)
   private EstadoNotificacion estado;
 
-  @Convert(converter = LocalDateAttributeConverter.class)
+  @Convert(converter = LocalDateTimeAttributeConverter.class)
   @Column(name="fechaAperturaIncidente")
   private LocalDateTime fechaAperturaIncidente;
-  @Convert(converter = LocalDateAttributeConverter.class)
+  @Convert(converter = LocalDateTimeAttributeConverter.class)
   @Column(name="fechaCierreIncidente")
   private LocalDateTime fechaCierreIncidente;
 

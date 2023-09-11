@@ -1,6 +1,6 @@
 package domain.main.incidentes;
 
-import domain.converter.LocalDateAttributeConverter;
+import domain.converter.LocalDateTimeAttributeConverter;
 import domain.main.PrestacionDeServicio;
 import domain.usuarios.Comunidad;
 import domain.usuarios.Miembro;
@@ -35,12 +35,12 @@ public class Incidente {
   @JoinColumn(name = "prestacion_de_servicio_id", referencedColumnName = "id")
   private PrestacionDeServicio prestacion;
 
-  @Convert(converter = LocalDateAttributeConverter.class)
-  @Column(name="fechaApertura", columnDefinition = "DATE")
+  @Convert(converter = LocalDateTimeAttributeConverter.class)
+  @Column(name="fechaApertura")
   private LocalDateTime fechaApertura;
 
-  @Convert(converter = LocalDateAttributeConverter.class)
-  @Column(name="fechaCierre", columnDefinition = "DATE")
+  @Convert(converter = LocalDateTimeAttributeConverter.class)
+  @Column(name="fechaCierre")
   private LocalDateTime fechaCierre;
 
   @ManyToOne

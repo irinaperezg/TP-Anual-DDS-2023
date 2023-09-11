@@ -1,11 +1,12 @@
 package repositorios;
 
-    import domain.main.incidentes.Incidente;
-    import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
+import domain.main.incidentes.Incidente;
+import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
     import java.util.List;
 
 public class IncidenteRepository implements WithSimplePersistenceUnit {
+
   public void registrar(Incidente incidente)
   {
     entityManager().persist(incidente);
@@ -17,7 +18,7 @@ public class IncidenteRepository implements WithSimplePersistenceUnit {
         .getResultList();
   }
 
-  public Incidente incidentePorId(Long id) {
+  public Incidente buscarPorID(Long id) {
     return entityManager().find(Incidente.class, id);
   }
 }
