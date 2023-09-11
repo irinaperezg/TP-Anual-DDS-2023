@@ -30,8 +30,8 @@ public class Establecimiento {
   private Entidad entidad;
 
   @Setter
-  //@Embedded
-  @Transient
+  @ManyToOne
+  @JoinColumn(name = "localidad_id", referencedColumnName = "id")
   private Localidad localidad = null;
 
   @Getter

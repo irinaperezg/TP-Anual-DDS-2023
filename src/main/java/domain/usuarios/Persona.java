@@ -33,7 +33,6 @@ public class Persona {
 
   @ManyToOne
   @JoinColumn(name = "localidad_id", referencedColumnName = "id")
-  @Transient
   private Localidad localidad = null;
 
   @Column(name="email", columnDefinition = "TEXT")
