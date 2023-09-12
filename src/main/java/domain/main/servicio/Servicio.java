@@ -26,9 +26,6 @@ public abstract class Servicio {
   @OneToMany(mappedBy = "servicio", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<PrestacionDeServicio> prestacionesDeServicio = new ArrayList<>();
 
-  @ManyToMany(mappedBy = "servicios")
-  private List<ServicioCompuesto> servicioCompuesto = new ArrayList<>();
-
   @ManyToOne
   @JoinColumn(name = "organismo_de_control_id", referencedColumnName = "id")
   private OrganismoDeControl organismoDeControl;

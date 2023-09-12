@@ -9,7 +9,9 @@ import javax.persistence.Converter;
 import java.util.Objects;
 
 @Converter(autoApply = true)
-public class FrecuenciaDeNotificacionAttributeConverter implements AttributeConverter<FrecuenciaNotificacion, String> {
+public class FrecuenciaDeNotificacionAttributeConverter implements
+    AttributeConverter<FrecuenciaNotificacion, String>
+{
   @Override
   public String convertToDatabaseColumn(FrecuenciaNotificacion frecuenciaNotificacion) {
     String frecuencia = "";

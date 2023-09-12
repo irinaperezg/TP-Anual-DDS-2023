@@ -25,7 +25,8 @@ public class Persona {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Embedded
+  @OneToOne
+  @JoinColumn(name = "usuario_id", referencedColumnName = "id")
   private Usuario usuario;
 
   @OneToMany(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true)

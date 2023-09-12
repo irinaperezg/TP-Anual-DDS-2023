@@ -6,8 +6,13 @@ import lombok.Getter;
 import javax.persistence.*;
 
 @Getter
-@Embeddable
+@Entity
+@Table(name="usuario")
 public class Usuario {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+
   @Column(name="nombre", columnDefinition = "TEXT")
   private String nombre;
 
