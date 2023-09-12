@@ -8955,7 +8955,7 @@
 											"top": 763,
 											"width": 116.34619140625,
 											"height": 13,
-											"text": "Departamento",
+											"text": "DEPARTAMENTO",
 											"horizontalAlignment": 0
 										},
 										{
@@ -8972,7 +8972,7 @@
 											"top": 778,
 											"width": 116.34619140625,
 											"height": 13,
-											"text": "Municipio",
+											"text": "MUNICIPIO",
 											"horizontalAlignment": 0
 										}
 									],
@@ -29525,7 +29525,8 @@
 									"_parent": {
 										"$ref": "AAAAAAGItlBV1rrsrS8="
 									},
-									"name": "Persona persona"
+									"name": "Persona persona",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -34954,7 +34955,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGItjDmQzC49Yc="
 							},
-							"name": "Departamento"
+							"name": "DEPARTAMENTO"
 						},
 						{
 							"_type": "UMLEnumerationLiteral",
@@ -34962,7 +34963,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGItjDmQzC49Yc="
 							},
-							"name": "Municipio"
+							"name": "MUNICIPIO"
 						}
 					]
 				},
