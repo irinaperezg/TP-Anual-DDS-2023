@@ -2,40 +2,38 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/estiloChatty.css">
     <meta charset="utf-8">
     <title>Carga masiva</title>
   </head>
-  <body>
+  
+  <body class="bodyInterno">
 
-    <!-- HEADER -->
-    <header>
-      <div>
-        <img src="img/logo.png" alt="logo-header">
-        <nav class="main-nav">
-          <ul>
-            <li>Configuración</li>
-            <li>Incidentes</li>
-            <li>Comunidades</li>
-            <li>Ranking</li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+     <!-- HEADER -->
+      <header>
+            <div class="menu-container">
+              <ul class="menu">
+                <li class="paginaActual"> <a href="#"> Configuración </a></li>
+                <li><a href="#">Incidentes</a></li>
+                <li><a href="#">Comunidades</a></li>
+                <li><a href="#">Ranking</a></li>
+              </ul>
+              <img src="img/logo.png" alt="logo-header">
+            </div>
+      </header>
 
-    <div>
       <div>
-        <h1>Añadir entidades prestadoras y organismos de control</h1>
+        <h1 class="titulosMedianos">Añadir entidades prestadoras y organismos de control</h1>
       </div>
 
       <div>
         <h2>Selecciona un archivo con formato CSV para la carga de datos</h2>
-        <!-- <img src="img/logo.png" alt="logo-header"> ACA VA EL LOGO --> 
+        <img src="img/cargaCSV.png" alt="logo-carga">
+        <form action="#" method="POST" action = "">
+          <button type="submit" class="boton">Cargar Datos</button>
+        </form>
       </div>
 
-      <div>
-        <button type="submit" class="btn btn-info .btn-lg">Cargar Datos</button>
-      </div>
     </div>
 
 
