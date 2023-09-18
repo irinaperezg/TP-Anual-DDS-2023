@@ -1,58 +1,40 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
-    <meta charset="utf-8">
-    <title>Crear usuario</title>
-  </head>
+    <link rel="stylesheet" href="css/estiloChatty.css">
+    <script src="js/inicioSesion.js"></script>
+    <title>Registro</title>
+</head>
 
-  <body>
+<body>
 
     <!-- HEADER -->
-    <header>
-      <div>
+    <header class="logoIniciarSesion">
         <img src="img/logo.png" alt="logo-header">
-      </div>
     </header>
 
-    <!-- CONTENEDOR FORMULARIO INICIO SESIÓN -->
     <div>
-        <h1>Crear Usuario</h1>
+        <h2 class = "titulosGrandes">Crear usuario</h2>
+        <form action="#" method="POST" action = "">
+            <input type="text" id="nombre" value="Usuario" class="miniheader" required>
+            <input type="text" id="contrasenia" value="Contraseña" class="miniheader" required>
 
-        <form class="" action="index.html" method="post">
+            <div class="seleccionTipo">
+                <button id="botonCorreo" class="botonTipo activo" onclick="seleccionarTipo('correo')">Correo Electrónico</button>
+                <button id="botonTelefono" class="botonTipo" onclick="seleccionarTipo('telefono')">Teléfono</button>
+            </div>
 
-          <div>
-            <input type="text" name="" value="Nombre"  class="">
-          </div>
+            <div class="container">
+                <input type="text" id="campoCorreo" placeholder="Email" class="miniheader">
+                <input type="text" id="campoTelefono" placeholder="Teléfono" class="miniheader" style="display:none;">
+            </div>
 
-          <div>
-            <input type="text" name="" value="Contraseña" class="">
-          </div>
-
-          <div class="">
-            <input type="submit" name="" value="Email" class="">
-          </div>
-
-          <div class="">
-            <input type="submit" name="" value="Telefono" class="">
-          </div>
-
-          <div>
-            <input type="text" name="" value="Email" class="">
-          </div>
-
-          <div>
-            <input type="text" name="" value="Telefono" class="">
-          </div>
-
-          <div class="">
-            <button type="submit" class="btn btn-info .btn-lg">Crear</button>
-          </div>
-
+            <button type="submit" class="boton posicionBotonIniciarSesion">Crear</button>
         </form>
 
-      </div>
+    </div>
 
-  </body>
+</body>
 </html>

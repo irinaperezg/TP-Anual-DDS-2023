@@ -1,43 +1,30 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/estilos.css">
-    <meta charset="utf-8">
-    <title>Iniciar sesión</title>
-  </head>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/estiloChatty.css">
+    <title>Registro</title>
+</head>
 
-  <body>
+<body>
 
     <!-- HEADER -->
-    <header>
-      <div>
+    <header class="logoIniciarSesion">
         <img src="img/logo.png" alt="logo-header">
-      </div>
     </header>
 
-    <!-- CONTENEDOR FORMULARIO INICIO SESIÓN -->
     <div>
-        <h1>Iniciar Sesión</h1>
+        <h2 class = "titulosGrandes">Inicia Sesión</h2>
+        <form action="#" method="POST" action = "">
+            <input type="text" id="nombre" value="Usuario" class="miniheader" required>
+            <input type="text" id="contrasenia" value="Contraseña" class="miniheader" required>
 
-        <form class="" action="index.html" method="post">
-
-          <div>
-            <input type="text" name="" value="Usuario"  class="">
-          </div>
-
-          <div>
-            <input type="text" name="" value="Contraseña" class="">
-          </div>
-
-          <div class="">
-            <button type="submit" class="btn btn-info .btn-lg">Iniciar Sesión</button>
-          </div>
-
+            <button type="submit" class="boton posicionBotonIniciarSesion">Iniciar Sesión</button>
         </form>
-        <a href="PONERURLDECREARUSUARIO ACA">Crear usuario</a>
-      </div>
 
-  </body>
+        <a href="PONERURLDECREARUSUARIO ACA" class="crearUsuario">* Crear usuario</a>
+    </div>
+
+</body>
 </html>
