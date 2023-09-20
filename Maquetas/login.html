@@ -3,28 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/estiloChatty.css">
+    <link rel="stylesheet" href="styles/login.css">
     <title>Registro</title>
 </head>
 
 <body>
-
-    <!-- HEADER -->
-    <header class="logoIniciarSesion">
-        <img src="img/logo.png" alt="logo-header">
-    </header>
-
-    <div>
-        <h2 class = "titulosGrandes">Inicia Sesión</h2>
-        <form action="#" method="POST" action = "">
-            <input type="text" id="nombre" value="Usuario" class="miniheader" required>
-            <input type="text" id="contrasenia" value="Contraseña" class="miniheader" required>
-
-            <button type="submit" class="boton posicionBotonIniciarSesion">Iniciar Sesión</button>
+    <div class="logo_container">
+        <img class="logo" src="img/logo.png" alt="logo-header">
+    </div>
+    <div class="login_container">
+        <h2>Iniciar Sesión</h2>
+        <form method="POST">
+            <div class="input_container">
+                <input type="text" placeholder="Usuario" required>
+            </div>
+            <div class="input_container">
+                <input type="password" placeholder="Contraseña" required>
+            </div>
+            
+            <button type="submit">Iniciar Sesión</button>
         </form>
 
-        <a href="PONERURLDECREARUSUARIO ACA" class="crearUsuario">* Crear usuario</a>
+        <a href="singup.html">Crear usuario</a>
     </div>
-
 </body>
 </html>

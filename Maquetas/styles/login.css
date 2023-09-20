@@ -1,0 +1,103 @@
+/* Fuentes */
+@font-face {
+    font-family: 'ABeeZee';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../fonts/ABeeZee/ABeeZee-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Cabin';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../fonts/Cabin/Cabin-VariableFont_wdth,wght.ttf');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    background-color: #f4f4f4;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo_container {
+    width: 400px;
+    height: 200px;
+}
+
+.logo_container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.login_container h2 {
+    color: #7E7B7B;
+    font-family: 'Cabin';
+    font-size: 6rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: center;
+}
+
+.login_container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input_container {
+    border-bottom: 2px solid #BEBEBE;
+    margin-top: 2rem;
+}
+
+.input_container input {
+    width: 27rem;
+    padding: .2rem;
+    font-family: 'Cabin';
+    color: black;
+    font-size: 16px;
+    background: none;
+    border: none;
+    outline: none;
+}
+
+.login_container button {
+    align-items: flex-start;
+    background-color: #0CC0DF;
+    border: none;
+    border-radius: 100px;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    font-family: 'Cabin';
+    font-size: 20px;
+    font-weight: 500;
+    gap: 10px;
+    padding: 10px 239px;
+    backdrop-filter: blur(2px);
+    margin-top: 5rem;
+}
+
+.login_container a {
+    display: block;
+    margin-top: 1rem;
+    margin-left: .5rem;
+    color: #0CC0DF;
+    font-family: 'Cabin';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration-line: underline;
+}
