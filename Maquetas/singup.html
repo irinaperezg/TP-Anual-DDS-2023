@@ -1,40 +1,42 @@
 <!DOCTYPE html>
 <html lang="es">
+
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/estiloChatty.css">
+    <link rel="stylesheet" href="styles/login.css">
     <script src="js/inicioSesion.js"></script>
     <title>Registro</title>
 </head>
 
 <body>
+    <div class="logo_container">
+        <img class="logo" src="img/logo.png" alt="logo-header">
+    </div>
 
-    <!-- HEADER -->
-    <header class="logoIniciarSesion">
-        <img src="img/logo.png" alt="logo-header">
-    </header>
-
-    <div>
-        <h2 class = "titulosGrandes">Crear usuario</h2>
-        <form action="#" method="POST" action = "">
-            <input type="text" id="nombre" value="Usuario" class="miniheader" required>
-            <input type="text" id="contrasenia" value="Contraseña" class="miniheader" required>
-
+    <div class="login_container">
+        <h2>Crear Usuario</h2>
+        <form method="POST">
+            <div class="input_container">
+                <input type="text" placeholder="Nombre de usuario" required>
+            </div>
+            <div class="input_container">
+                <input type="password" placeholder="Contraseña" required>
+            </div>
             <div class="seleccionTipo">
-                <button id="botonCorreo" class="botonTipo activo" onclick="seleccionarTipo('correo')">Correo Electrónico</button>
-                <button id="botonTelefono" class="botonTipo" onclick="seleccionarTipo('telefono')">Teléfono</button>
+                <button id="botonCorreo" class="botonTelefonoYMail"  onclick="seleccionarTipo('correo')">Email</button>
+                <button id="botonTelefono" class="botonTelefonoYMail" onclick="seleccionarTipo('telefono')" style="background: #BEBEBE;">Teléfono</button>
             </div>
 
-            <div class="container">
-                <input type="text" id="campoCorreo" placeholder="Email" class="miniheader">
-                <input type="text" id="campoTelefono" placeholder="Teléfono" class="miniheader" style="display:none;">
+            <div class="input_container">
+                <input type="text" id="campoCorreo" placeholder="Correo electrónico" class="miniheader">
+                <input type="text" id="campoTelefono" placeholder="Número de teléfono" class="miniheader" style="display:none;">
             </div>
-
             <button type="submit" class="boton posicionBotonIniciarSesion">Crear</button>
         </form>
 
     </div>
-
+    
 </body>
 </html>

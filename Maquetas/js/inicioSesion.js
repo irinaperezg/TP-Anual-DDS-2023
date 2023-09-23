@@ -1,4 +1,3 @@
-
 function seleccionarTipo(tipo) {
   const botonCorreo = document.getElementById("botonCorreo");
   const botonTelefono = document.getElementById("botonTelefono");
@@ -17,16 +16,22 @@ function seleccionarTipo(tipo) {
     campoCorreo.required = true;
     campoTelefono.required = false;
 
+    botonTelefono.style.backgroundColor = '#BEBEBE';
+    botonCorreo.style.backgroundColor = '#0CC0DF';
+
     // Realiza acciones específicas para el registro por correo
 
   } else if (tipo === 'telefono') {
     botonTelefono.classList.add("activo");
     campoCorreo.style.display = 'none';
     campoTelefono.style.display = 'block';
-      campoCorreo.required = false;
-      campoTelefono.required = true;
+    campoCorreo.required = false;
+    campoTelefono.required = true;
+
+    botonCorreo.style.backgroundColor = '#BEBEBE';
+    botonTelefono.style.backgroundColor = '#0CC0DF';
+    
 
     // Realiza acciones específicas para el registro por teléfono
-    
   }
 }
