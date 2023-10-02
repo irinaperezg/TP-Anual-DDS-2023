@@ -1,35 +1,26 @@
 package domain.main;
-import domain.main.entidades.Entidad;
-import domain.main.entidades.TipoEntidad;
-import domain.main.incidentes.Incidente;
-import domain.main.notificaciones.Notificador;
-import domain.main.notificaciones.frecuenciasNotificacion.Calendario;
-import domain.main.notificaciones.frecuenciasNotificacion.NotificacionSinApuros;
-import domain.main.notificaciones.mediosNotificacion.PreferenciaMedioNotificacion;
-import domain.main.notificaciones.mediosNotificacion.Whatsapp.WhatsappAdapter;
-import domain.main.servicio.Servicio;
-import domain.main.servicio.ServicioBase;
-import domain.usuarios.Comunidad;
-import domain.usuarios.Miembro;
-import domain.usuarios.Persona;
-import domain.usuarios.Usuario;
-import org.apache.commons.lang3.tuple.Pair;
+import models.domain.main.Establecimiento;
+import models.domain.main.PrestacionDeServicio;
+import models.domain.main.entidades.Entidad;
+import models.domain.main.entidades.TipoEntidad;
+import models.domain.main.incidentes.Incidente;
+import models.domain.main.notificaciones.Notificador;
+import models.domain.main.notificaciones.frecuenciasNotificacion.NotificacionSinApuros;
+import models.domain.main.notificaciones.mediosNotificacion.PreferenciaMedioNotificacion;
+import models.domain.main.servicio.Servicio;
+import models.domain.main.servicio.ServicioBase;
+import models.domain.usuarios.Comunidad;
+import models.domain.usuarios.Miembro;
+import models.domain.usuarios.Persona;
+import models.domain.usuarios.Usuario;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.quartz.*;
 
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.doNothing;
 class NotificacionesTest {
   Notificador notificador = Notificador.obtenerInstancia();
 

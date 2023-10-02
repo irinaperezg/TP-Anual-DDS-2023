@@ -1,7 +1,7 @@
 package validadorDeContrasenias;
 
-import validadorDeContrasenias.excepciones.ExcepcionComun;
-import validadorDeContrasenias.validaciones.NoEsComun;
+import models.validadorDeContrasenias.excepciones.ExcepcionComun;
+import models.validadorDeContrasenias.validaciones.NoEsComun;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;

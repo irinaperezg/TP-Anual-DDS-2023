@@ -1,7 +1,7 @@
 package validadorDeContrasenias;
 
-import validadorDeContrasenias.validaciones.restriccionesNist.CumpleLongitud;
-import validadorDeContrasenias.excepciones.ExcepcionLongitud;
+import models.validadorDeContrasenias.validaciones.restriccionesNist.CumpleLongitud;
+import models.validadorDeContrasenias.excepciones.ExcepcionLongitud;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;

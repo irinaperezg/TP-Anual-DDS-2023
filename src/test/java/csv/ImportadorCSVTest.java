@@ -1,7 +1,8 @@
 package csv;
 
-import domain.main.EntidadPrestadora;
-import domain.main.OrganismoDeControl;
+import models.csv.ImportadorCSV;
+import models.domain.main.EntidadPrestadora;
+import models.domain.main.OrganismoDeControl;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

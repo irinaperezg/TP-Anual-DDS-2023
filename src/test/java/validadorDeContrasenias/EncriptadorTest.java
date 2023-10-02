@@ -2,9 +2,9 @@ package validadorDeContrasenias;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import validadorDeContrasenias.encriptadores.Encriptador;
-import validadorDeContrasenias.encriptadores.MD5;
-import validadorDeContrasenias.encriptadores.SHA256;
+import models.validadorDeContrasenias.encriptadores.Encriptador;
+import models.validadorDeContrasenias.encriptadores.MD5;
+import models.validadorDeContrasenias.encriptadores.SHA256;
 
 import java.security.NoSuchAlgorithmException;
 

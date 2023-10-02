@@ -1,6 +1,7 @@
 package validadorDeContrasenias;
 
-import validadorDeContrasenias.excepciones.ExcepcionContraseniaInvalida;
+import models.validadorDeContrasenias.ValidadorDeContrasenia;
+import models.validadorDeContrasenias.excepciones.ExcepcionContraseniaInvalida;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;

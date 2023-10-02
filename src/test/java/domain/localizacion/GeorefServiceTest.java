@@ -1,12 +1,12 @@
 package domain.localizacion;
 
-import domain.localizacion.georef.ServicioGeoref;
-import domain.localizacion.georef.adapters.GeorefAdapter;
-import domain.localizacion.georef.entities.ListadoDeMunicipios;
-import domain.localizacion.georef.entities.ListadoDeProvincias;
-import domain.localizacion.main.Localizacion;
-import domain.localizacion.main.Provincia;
-import domain.localizacion.main.TipoLocalizacion;
+import models.domain.localizacion.georef.ServicioGeoref;
+import models.domain.localizacion.georef.adapters.GeorefAdapter;
+import models.domain.localizacion.georef.entities.ListadoDeMunicipios;
+import models.domain.localizacion.georef.entities.ListadoDeProvincias;
+import models.domain.localizacion.main.Localizacion;
+import models.domain.localizacion.main.Provincia;
+import models.domain.localizacion.main.TipoLocalizacion;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

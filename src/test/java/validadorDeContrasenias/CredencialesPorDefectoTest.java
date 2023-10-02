@@ -1,7 +1,7 @@
 package validadorDeContrasenias;
 
-import validadorDeContrasenias.excepciones.ExcepcionCredencial;
-import validadorDeContrasenias.validaciones.CredencialesPorDefecto;
+import models.validadorDeContrasenias.excepciones.ExcepcionCredencial;
+import models.validadorDeContrasenias.validaciones.CredencialesPorDefecto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;

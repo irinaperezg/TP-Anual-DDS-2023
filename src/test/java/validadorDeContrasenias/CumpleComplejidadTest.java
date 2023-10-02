@@ -1,12 +1,12 @@
 package validadorDeContrasenias;
 
-import validadorDeContrasenias.excepciones.ExcepcionComplejidad;
+import models.validadorDeContrasenias.excepciones.ExcepcionComplejidad;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import static org.junit.jupiter.api.Assertions.*;
 
-import validadorDeContrasenias.validaciones.restriccionesNist.CumpleComplejidad;
+import models.validadorDeContrasenias.validaciones.restriccionesNist.CumpleComplejidad;
 
 public class CumpleComplejidadTest {
   private CumpleComplejidad restriccionComplejidad;
