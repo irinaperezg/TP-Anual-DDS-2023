@@ -15,6 +15,7 @@ public class FactoryController {
       case "Personas": controller = new PersonasController(new PersonaRepository()); break;
       case "OrganismoDeControl": controller = new OrganismoDeControlController(new OrganismoDeControlRepository()); break;
       case "EntidadPrestadora": controller = new EntidadPrestadoraController(new EntidadPrestadoraRepository()); break;
+      case "Rankings": controller = new RankingsController(); break;
 
     }
     return controller;

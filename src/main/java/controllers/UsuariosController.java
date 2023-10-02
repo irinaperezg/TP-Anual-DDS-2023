@@ -1,7 +1,5 @@
 package controllers;
 
-import models.repositorios.ComunidadRepository;
-import models.repositorios.IncidenteRepository;
 import io.javalin.http.Context;
 import models.repositorios.UsuarioRepository;
 import server.utils.ICrudViewsHandler;

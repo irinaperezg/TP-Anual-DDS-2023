@@ -1,16 +1,17 @@
 package controllers;
 
 import io.javalin.http.Context;
+import models.repositorios.IncidenteRepository;
 import models.repositorios.PersonaRepository;
 import server.utils.ICrudViewsHandler;
 
 public class PersonasController implements ICrudViewsHandler {
-
   private PersonaRepository personaRepository;
 
   public PersonasController(PersonaRepository personaRepository) {
     this.personaRepository = personaRepository;
   }
+
   @Override
   public void index(Context context) {
     //TODO
@@ -44,5 +45,4 @@ public class PersonasController implements ICrudViewsHandler {
   public void delete(Context context) {
     //TODO
   }
-
 }

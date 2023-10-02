@@ -28,15 +28,19 @@ public class Router {
       get("comunidades/crear", ((ComunidadesController) FactoryController.controller("Comunidades"))::create);
       post("comunidades/crear", ((ComunidadesController) FactoryController.controller("Comunidades"))::save);
 
-      // UNIRSE A COMUNIDAD
-      // asumo q deberiamos crear una nueva comunidad y un nuevo tipo miembro
-      //TODO
-
       // VER COMUNIDAD PUNTUAL
-      //TODO
+      get("comunidades/{id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::show);
+
+      // UNIRSE A COMUNIDAD
+      post("comunidades/{id}", ((MiembrosController) FactoryController.controller("Miembros"))::create);
+      // EDITAR EL TIPO DE MIEMBRO --> creo q el nombre de la ruta está mal, parece que fuese editar una comunidad pero
+      // mi idea es q el miembro elija si es afectado u observador
+      get("comunidades/{id}/editar", ((MiembrosController) FactoryController.controller("Miembros"))::edit);
+      post("comunidades/{id}/editar", ((MiembrosController) FactoryController.controller("Miembros"))::update);
 
       // LISTAR INCIDENTES
       get("incidentes", ((IncidentesController) FactoryController.controller("Incidentes"))::index);
+
       // LISTAR INCIDENTES POR ESTADO
       //TODO
       //get("incidentes/{estado}", ((IncidentesController) FactoryController.controller("Incidentes"))::);
