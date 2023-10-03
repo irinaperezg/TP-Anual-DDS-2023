@@ -1,0 +1,71 @@
+
+/* Encabezado */
+header {
+    background-color: #FFF;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    height: 22%;
+}
+
+header img {
+    display: inline;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    width: 16%;
+}
+
+/* Pantallas pequeñas */
+@media screen and (max-width: 630px) {
+    header img {
+        width: 45%; 
+    }
+
+    header {
+        height: 26%;
+    }
+}
+
+@media screen and (min-width: 620px) and (max-width: 1023px) {
+    header img {
+        width: 24%;
+    }
+}
+
+/* Menú */
+.menu {
+    color: #767676;
+    display: inline;
+    font-family: 'Cabin';
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.menu-container {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+}
+
+.menu li {
+    display: inline;
+    margin-right: 90px;
+    padding: 0;
+}
+
+.menu li a:hover {
+    text-decoration: underline;
+}
+
+
+/* Miniheader */
+.miniheader {
+    color: hsl(0, 2%, 61%);
+    font-family: 'Cabin';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}

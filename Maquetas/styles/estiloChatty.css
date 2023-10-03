@@ -54,6 +54,9 @@ body {
     gap: 10px;
     padding: 10px 239px;
     backdrop-filter: blur(2px);
+    flex-direction: row; /* Establecer la dirección de flex a "row" */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
 }
 
 .botonTipo {
@@ -96,22 +99,6 @@ button:hover {
     text-decoration-line: underline;
 }
 
-/* Encabezado */
-header {
-    background-color: #FFF;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    height: 22%;
-}
-
-header img {
-    display: inline;
-    height: auto;
-    margin: 0;
-    padding: 0;
-    width: 16%;
-}
 
 /* Etiquetas e Inputs */
 h2 {
@@ -130,43 +117,6 @@ label,
 input {
     display: block;
     margin-bottom: 10px;
-}
-
-/* Menú */
-.menu {
-    color: #767676;
-    display: inline;
-    font-family: 'Cabin';
-    font-size: 24px;
-    font-weight: 400;
-}
-
-.menu-container {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    margin: 0;
-}
-
-.menu li {
-    display: inline;
-    margin-right: 90px;
-    padding: 0;
-}
-
-.menu li a:hover {
-    text-decoration: underline;
-}
-
-
-/* Miniheader */
-.miniheader {
-    color: hsl(0, 2%, 61%);
-    font-family: 'Cabin';
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
 }
 
 /* Página Actual */
@@ -189,8 +139,70 @@ input {
 .titulosMedianos {
     color: #7E7B7B;
     font-family: 'Cabin';
-    font-size: 70px;
+    font-size: 60px;
+    text-align: center;
     font-style: normal;
     font-weight: 700;
-    line-height
+}
+
+.cargaMasiva {
+    color: #767676;
+    text-align: center;
+    font-family: 'Cabin';
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.formatoCargaMasiva {
+    border-radius: 30px;
+    margin-top: 2%;
+    background: #D9D9D9;
+    color: #767676;
+    text-align: center;
+    font-family: ABeeZee;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    width: 40%;
+    position: relative;
+    left: 30%;
+}
+
+.centrado {
+    justify-content: center;
+    align-items: center;
+}
+
+.cargarDatos {
+    text-align: center;
+    width: 50%;
+    position: relative;
+    left: 25%;
+    right: 25%;
+}
+
+.fotoCargaMasiva {
+    width: 14%;
+    padding: 1%;
+    margin-left: 2%;
+    margin-top: 2.3%;
+    float: left;
+}
+.idk {
+    color: #767676;
+    margin-top:2%;
+}
+.cargaMasivaDiv {
+    border: 2px solid #BEBEBE;
+    background: #FFF;
+    width: 20%;
+    margin-bottom: 2%;
+    position: relative;
+    text-align: center;
+    overflow: hidden; 
+    color: #767676;
+    left: 40%;
 }

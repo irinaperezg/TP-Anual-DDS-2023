@@ -2,12 +2,13 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/estiloChatty.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/estiloChatty.css">
     <meta charset="utf-8">
     <title>Carga masiva</title>
   </head>
   
-  <body class="bodyInterno">
+  <body class="bodyInterno centrado">
 
      <!-- HEADER -->
       <header>
@@ -22,22 +23,29 @@
             </div>
       </header>
       
-      
-
       <div>
         <h1 class="titulosMedianos">Añadir entidades prestadoras y organismos de control</h1>
       </div>
 
       <div>
-        <h2>Selecciona un archivo con formato CSV para la carga de datos</h2>
-        <img src="img/cargaCSV.png" alt="logo-carga">
-        <form action="#" method="POST" action = "">
-          <button type="submit" class="boton">Cargar Datos</button>
-        </form>
+        <h2 class="cargaMasiva">Selecciona un archivo con formato CSV para la carga de datos</h2>
+        <div class = "cargaMasivaDiv">
+          <img class="fotoCargaMasiva" src="img/cargaCSV.png" alt="logo-carga">
+          <h3>entidad_y_organismos.csv</h2>
+        </div>
       </div>
 
-    </div>
+      <form action="#" method="POST" action = "">
+        <button type="submit" class="boton cargarDatos">Cargar Datos</button>
+      </form>
 
+      <h2 class ="idk">Cada línea del archivo debe tener los siguientes datos separados por coma:</h2>
+      <div class="formatoCargaMasiva">
+        <h3>Denominacion</h3>
+        <h3>Tipo (Entidad prestadora/Organismo de control)</h3>
+        <h3>Nombre del delegado</h3>
+        <h3>Email del delegado</h3>
+      </div>
 
   </body>
 </html>

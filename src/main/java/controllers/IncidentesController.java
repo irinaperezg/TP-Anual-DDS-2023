@@ -17,6 +17,11 @@ public class IncidentesController implements ICrudViewsHandler {
     //TODO
   }
 
+  public void listarPorEstado(Context context) {
+    //TODO
+  }
+
+
   @Override
   public void show(Context context) {
     //TODO
