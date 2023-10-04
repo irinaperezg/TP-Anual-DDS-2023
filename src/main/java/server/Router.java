@@ -61,14 +61,14 @@ public class Router {
       //TODO
 
       // LISTAR ENTIDADES PRESTADORAS
-      get("entidadesPrestadoras", ((EntidadPrestadoraController) FactoryController.controller("EntidadPrestadora"))::index);
+      get("entidades-prestadoras", ((EntidadPrestadoraController) FactoryController.controller("EntidadPrestadora"))::index);
 
       // LISTAR ORGANISMOS DE CONTROL
-      get("organismosDeControl", ((OrganismoDeControlController) FactoryController.controller("OrganismoDeControl"))::index);
+      get("organismos-de-control", ((OrganismoDeControlController) FactoryController.controller("OrganismoDeControl"))::index);
 
       // CARGA MASIVA
-      get("cargaMasiva", ((CargaMasivaController) FactoryController.controller("CargaMasiva"))::index);
-      post("cargaMasiva", ((CargaMasivaController) FactoryController.controller("CargaMasiva"))::save);
+      get("carga-masiva", ((CargaMasivaController) FactoryController.controller("CargaMasiva"))::index);
+      post("carga-masiva", ((CargaMasivaController) FactoryController.controller("CargaMasiva"))::save);
 
     });
   }
