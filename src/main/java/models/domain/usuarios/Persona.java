@@ -63,13 +63,13 @@ public class Persona {
   private List<Servicio> servicios = new ArrayList<>();
 
 
-  public Persona(Usuario usuario, String email, String telefono, FrecuenciaNotificacion frecuenciaNotification, PreferenciaMedioNotificacion preferenciaMedioNotificacion, List<LocalDateTime> horariosDeNotificaciones) throws SchedulerException {
+  public Persona(Usuario usuario, String email, String telefono){
     this.usuario = usuario;
     this.email = email;
     this.telefono = telefono;
-    this.frecuenciaNotification = frecuenciaNotification;
-    this.preferenciaMedioNotificacion = preferenciaMedioNotificacion;
-    this.horariosDeNotificaciones = horariosDeNotificaciones;
+    this.frecuenciaNotification = null;
+    this.preferenciaMedioNotificacion = null;
+    this.horariosDeNotificaciones = null;
   }
 
   public Persona() {
