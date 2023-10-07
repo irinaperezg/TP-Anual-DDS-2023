@@ -13,6 +13,14 @@
     src: url('../fonts/Cabin/Cabin-VariableFont_wdth,wght.ttf');
 }
 
+body {
+    background-color: #f4f4f4;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .comunidad {
     background: #D9D9D9;
     position: relative;
@@ -51,4 +59,7 @@
     font-family: Cabin;
     padding: 0%;
     font-size: 70px;
+    align-items: center;
 }
+
+

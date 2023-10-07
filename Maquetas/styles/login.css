@@ -89,18 +89,7 @@ body {
     margin-top: 5rem;
 }
 
-.login_container a {
-    display: block;
-    margin-top: 1rem;
-    margin-left: .5rem;
-    color: #0CC0DF;
-    font-family: 'Cabin';
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    text-decoration-line: underline;
-}
+
 
 .login_container .botonTelefonoYMail {
    
@@ -125,6 +114,26 @@ body {
 
     backdrop-filter: blur(2px);
     transition: background-color 0.3s ease;
+    
+}
+
+
+.login_container .textoBotonCrear{
+    
+    color: #fff;
+    cursor: pointer;
+    font-family: 'Cabin';
+    font-size: 18px;
+    text-decoration: none;
+    
+}
+
+.texto2 {
+    color: #0CC0DF;
+    font-family: Cabin;
+    padding: 0%;
+    font-size: 18px;
+    font-weight: 100;   
 }
 
 
