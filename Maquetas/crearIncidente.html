@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/estiloChatty.css">
+    <link rel="stylesheet" href="styles/crearIncidente.css">
+    
+        <meta charset="utf-8">
+    <title>Nuevo Incidente</title>
+    </head>
+<body class="bodyInterno centrado">
+
+    <!-- HEADER -->
+    <header>
+        <div class="menu-container">
+            <ul class="menu">
+            <li> <a href="#"> Configuración </a></li>
+            <li class="paginaActual"><a href="#">Incidentes</a></li>
+            <li><a href="#">Comunidades</a></li>
+            <li><a href="rankings.html">Ranking</a></li>
+            </ul>
+            <img src="img/logo.png" alt="logo-header">
+        </div>
+    </header>
+
+    <main>
+        <section class="seccion-selectores">
+            <select class="servicio-selector">
+                <option value="abierto">Servicio1</option>
+                <option value="cerrado">Servicio2</option>
+            </select>
+
+            <h2>Comunidad X</h2>
+
+            <div class="comunidad-selector-container">
+                <select class="comunidad-selector">
+                    <option value="Comunidad X"></option>
+                    <option value="Comunidad Y"></option>
+                    <option value="Comunidad Z"></option>
+                </select>
+                <div class="uno linea-blanca"></div>
+                <div class="dos linea-blanca"></div>
+            </div>
+        </section>
+            
+        <div class="separador"></div>
+
+        <div class="seccion-nuevo-incidente">
+            <form>
+                <h3>Nuevo incidente</h3>
+                <input type="text" id="prestacion" placeholder="Prestación">
+                
+                <input type="text" id="denominacion" placeholder="Denominación">
+                
+                <label for="observaciones">Observaciones</label>
+                <textarea id="observaciones"></textarea>
+                
+                <button>Publicar Incidente</button>
+            </form>>
+        </div>
+    </main>
+</body>
+</html>
