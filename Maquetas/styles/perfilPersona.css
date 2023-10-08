@@ -1,0 +1,67 @@
+.sostenedor_de_campos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    text-align: center;
+    font-family: 'Cabin';
+    font-size: 16px;
+    font-weight: 400;
+    color: #767676;
+}
+
+.campo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+    justify-content: center;
+    text-align: left;
+}
+
+.label-container {
+    display: flex;
+    align-items: center;
+}
+
+label {
+    font-weight: bold;
+    margin-right: 20px;
+    min-width: 120px;
+}
+
+.campo-editable {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+.input-text {
+    padding: 0;
+    border: none;
+    outline: none;
+    background: none;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    width: 100%;
+}
+
+.edit-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    margin-left: 10px;
+}
+
+/* Estilo para resaltar el campo cuando está en modo edición */
+.edit-mode .input-text {
+    background: none;
+    border: none;
+    outline: auto;
+}
+
+
