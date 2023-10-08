@@ -6,9 +6,17 @@ body {
 }
 
 .seccion-selectores {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.servicio-selector-container {
+    flex-basis: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 .servicio-selector {
@@ -16,12 +24,19 @@ body {
     padding-left: 2rem;
     padding-right: 2rem;
     color: white;
+    border: white;
     font-size: 1rem;
     background-color: #0CC0DF;
-    margin-right: auto;
+}
+
+.comunidad-selector-container {
+    flex-basis: 70%;
+    display: flex;
+    align-items: center;
 }
 
 .seccion-selectores h2 {
+    margin-left: 7rem;
     color: #7E7B7B;
     font-family: 'Cabin';
     font-size: 3rem;
@@ -31,28 +46,31 @@ body {
     text-align: center;
 }
 
-.comunidad-selector-container {
-    width: 4rem;
+.comunidad-select-container {
+    margin-left: 2rem;
+    width: 3rem;
     height: 2rem;
     position: relative;
-    margin-left: auto;
+    background-color: #0CC0DF;
+    border-radius: 30%;
+    border: white;
 }
 
 .comunidad-selector {
     width: 100%;
     height: 100%;
     background-color: #0CC0DF;
-    border-radius: 5px;
+    opacity: 0;
     color: white;
     position: absolute;
 }
 
 .comunidad-selector-container .linea-blanca {
     height: 1%;
-    width: 30%;
-    border: 1px solid white;
+    width: 50%;
+    background-color: white;
     position: absolute;
-    left: 20%;
+    left: 25%;
 }
 
 .comunidad-selector-container .uno {
@@ -66,7 +84,7 @@ body {
 .separador {
     height: 1px;
     background-color: grey;
-    margin: 50px 0px 50px 0px;
+    margin: 0px 0px 50px 0px;
 }
 
 /**/
