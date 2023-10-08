@@ -41,7 +41,7 @@ body {
 
 /* Botones */
 .boton {
-    align-items: flex-start;
+    margin: 16px;
     background-color: #0CC0DF;
     border: none;
     border-radius: 100px;
@@ -58,6 +58,7 @@ body {
     justify-content: center; /* Centrar horizontalmente */
     align-items: center; /* Centrar verticalmente */
 }
+
 
 .botonTipo {
     background-color: #f4f4f4;
@@ -80,13 +81,7 @@ button:hover {
     background-color: #06697a;
 }
 
-/* Contenedor */
-.container {
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-}
+
 
 /* Crear Usuario */
 .crearUsuario {
@@ -134,75 +129,16 @@ input {
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+    text-align: center;
+
 }
 
 .titulosMedianos {
     color: #7E7B7B;
     font-family: 'Cabin';
-    font-size: 60px;
+    font-size: 40px;
     text-align: center;
     font-style: normal;
     font-weight: 700;
 }
 
-.cargaMasiva {
-    color: #767676;
-    text-align: center;
-    font-family: 'Cabin';
-    font-size: 40px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
-
-.formatoCargaMasiva {
-    border-radius: 30px;
-    margin-top: 2%;
-    background: #D9D9D9;
-    color: #767676;
-    text-align: center;
-    font-family: ABeeZee;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    width: 40%;
-    position: relative;
-    left: 30%;
-}
-
-.centrado {
-    justify-content: center;
-    align-items: center;
-}
-
-.cargarDatos {
-    text-align: center;
-    width: 50%;
-    position: relative;
-    left: 25%;
-    right: 25%;
-}
-
-.fotoCargaMasiva {
-    width: 14%;
-    padding: 1%;
-    margin-left: 2%;
-    margin-top: 2.3%;
-    float: left;
-}
-.idk {
-    color: #767676;
-    margin-top:2%;
-}
-.cargaMasivaDiv {
-    border: 2px solid #BEBEBE;
-    background: #FFF;
-    width: 20%;
-    margin-bottom: 2%;
-    position: relative;
-    text-align: center;
-    overflow: hidden; 
-    color: #767676;
-    left: 40%;
-}

@@ -2,6 +2,8 @@ package controllers;
 
 
 import models.repositorios.*;
+import models.validadorDeContrasenias.ValidadorDeContrasenia;
+import models.validadorDeContrasenias.encriptadores.MD5;
 
 public class FactoryController {
 
@@ -10,7 +12,7 @@ public class FactoryController {
     switch (nombre) {
       case "Incidentes": controller = new IncidentesController(new IncidenteRepository()); break;
       case "Comunidades": controller = new ComunidadesController(new ComunidadRepository()); break;
-      case "Usuarios": controller = new UsuariosController(new UsuarioRepository()); break;
+      case "Usuarios": controller = new UsuariosController(new UsuarioRepository(), new PersonaRepository(), new ValidadorDeContrasenia()); break;
       case "Miembros": controller = new MiembrosController(new MiembroRepository()); break;
       case "Personas": controller = new PersonasController(new PersonaRepository()); break;
       case "OrganismoDeControl": controller = new OrganismoDeControlController(new OrganismoDeControlRepository()); break;

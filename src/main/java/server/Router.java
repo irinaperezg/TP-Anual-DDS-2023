@@ -10,17 +10,23 @@ public class Router {
     Server.app().routes(() -> {
       // LOGIN
       get("login", ((UsuariosController) FactoryController.controller("Usuarios"))::index);
+      post("login", ((UsuariosController) FactoryController.controller("Usuarios"))::validar);
 
       // SIGN UP
       get("singup", ((UsuariosController) FactoryController.controller("Usuarios"))::create);
       post("singup", ((UsuariosController) FactoryController.controller("Usuarios"))::save);
 
       // TODO PERMISOS!!!!!!
-      // PERFIL (en figma se llama configuración)
-      // VER PERFIL
+
+      // PERFIL
+      // TODO MAQUETA
+      // VER PERFIL DE ALGUIEN
       get("perfil/{id}", ((PersonasController) FactoryController.controller("Personas"))::show);
-      // EDITAR PERFIL
-      get("perfil/{id}/editar", ((PersonasController) FactoryController.controller("Personas"))::edit);
+
+
+      // EDITAR MI PERFIL (en figma se llama configuración)
+      get("perfil/editar", ((PersonasController) FactoryController.controller("Personas"))::edit);
+      post("perfil/editar", ((PersonasController) FactoryController.controller("Personas"))::update);
 
       // LISTAR COMUNIDADES
       get("comunidades", ((ComunidadesController) FactoryController.controller("Comunidades"))::index);
