@@ -1,35 +1,37 @@
-
 /* Encabezado */
 header {
     background-color: #FFF;
     margin: 0;
-    padding: 0;
+    padding: 5px 0; 
     text-align: center;
-    height: 22%;
+    height: auto; 
 }
 
+
+
 header img {
-    display: inline;
-    height: auto;
-    margin: 0;
+    margin: auto 0;
     padding: 0;
-    width: 16%;
+    display: inline-block; 
+    vertical-align: middle; 
+    width: 22%;
 }
+
 
 /* Pantallas pequeñas */
 @media screen and (max-width: 630px) {
     header img {
-        width: 45%; 
+        width: 40%;  /* Reducido un poco */
     }
 
     header {
-        height: 26%;
+        height: auto;  /* Cambiado a auto para permitir que el contenido dicte la altura */
     }
 }
 
 @media screen and (min-width: 620px) and (max-width: 1023px) {
     header img {
-        width: 24%;
+        width: 20%;  /* Reducido un poco */
     }
 }
 
@@ -38,7 +40,7 @@ header img {
     color: #767676;
     display: inline;
     font-family: 'Cabin';
-    font-size: 24px;
+    font-size: 20px;  /* Reducido el tamaño de fuente */
     font-weight: 400;
 }
 
@@ -47,18 +49,18 @@ header img {
     display: flex;
     justify-content: space-between;
     margin: 0;
+    padding: 0; /* Asegúrate de que no haya relleno adicional */
 }
 
 .menu li {
     display: inline;
-    margin-right: 90px;
+    margin-right: 50px;  /* Reducido el margen derecho */
     padding: 0;
 }
 
 .menu li a:hover {
     text-decoration: underline;
 }
-
 
 /* Miniheader */
 .miniheader {
