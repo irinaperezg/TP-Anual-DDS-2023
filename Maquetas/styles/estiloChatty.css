@@ -57,6 +57,7 @@ body {
     flex-direction: row; /* Establecer la dirección de flex a "row" */
     justify-content: center; /* Centrar horizontalmente */
     align-items: center; /* Centrar verticalmente */
+    width: 30vw;
 }
 
 
@@ -125,7 +126,7 @@ input {
 .titulosGrandes {
     color: #7E7B7B;
     font-family: 'Cabin';
-    font-size: 96px;
+    font-size: 7vw;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -142,3 +143,24 @@ input {
     font-weight: 700;
 }
 
+
+
+@media (min-width: 768px) {
+    
+
+    .titulosGrandes {
+        flex-direction: row;
+        align-items: center;
+        width: auto;
+
+    }
+
+    
+
+}
+
+.submit {
+    padding: 10px 20px; /* Añade un relleno al botón */
+    font-size: 16px; /* Tamaño de fuente base */
+    width: 10vw; 
+}

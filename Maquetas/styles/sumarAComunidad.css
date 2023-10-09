@@ -147,3 +147,14 @@ h2 {
   button:hover {
     background-color: #06697a;
   }
+
+
+  @media (max-width: 767px) {
+
+    .botonOyA {
+        width: 100%;
+        padding: 10px;
+    }
+
+    
+}
