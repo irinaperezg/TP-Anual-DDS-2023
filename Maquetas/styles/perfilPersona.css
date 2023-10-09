@@ -141,7 +141,17 @@ label {
 
 /*horarios*/
 
-
+.eliminar-horario {
+    background: none;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    top: 0;
+    right: 0;
+    padding: 2px 5px;
+}
 .edit-button {
     background-color: transparent;
     border: none;
@@ -239,9 +249,7 @@ button:hover {
 
 /*Intentando que sea responsive*/
 
-body {
-    padding: 10px;
-}
+
 
 .sostenedor_de_campos, .sostenedor_de_botones {
     width: 100%;

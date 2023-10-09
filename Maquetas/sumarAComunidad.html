@@ -11,11 +11,11 @@
   <body class="bodyInterno centrado">
 
     <!-- HEADER -->
-  <header>
-      <div class="menu-container">
-        <ul class="menu">
-          <li> <a href="#"> Configuración </a></li>
-          <li><a href="#">Incidentes</a></li>
+  <header >
+      <div class="menu-container" >
+        <ul class="menu" >
+          <li> <a href="perfilPersona.html"> Configuración </a></li>
+          <li><a href="listarIncidentes.html">Incidentes</a></li>
           <li class="paginaActual"><a href="listarComunidades.html">Comunidades</a></li>
           <li><a href="rankings.html">Ranking</a></li>
         </ul>
@@ -67,8 +67,10 @@
         <button id="botonObservador" class="botonOyA"  onclick="seleccionarTipo('observador')">Observador</button>
         <button id="botonAfectado" class="botonOyA" onclick="seleccionarTipo('afectado')" style="background: #BEBEBE;">Afectado</button>
     </div> 
-    <button type="submit" class="boton posicionBotonIniciarSesion" >Unirse</button>
-
+    
+    <button type="submit" class="boton posicionBotonIniciarSesion">
+      <a href="listarComunidades.html">Unirse</a>
+    </button>
     </div>
     
     <script src="js/sumarAComunidad.js"></script>

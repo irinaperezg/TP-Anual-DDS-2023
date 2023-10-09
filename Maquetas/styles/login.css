@@ -13,6 +13,39 @@
     src: url('../fonts/Cabin/Cabin-VariableFont_wdth,wght.ttf');
 }
 
+/*intentando hacerlo responsive*/
+
+
+@media (max-width: 767px) {
+    .logo_container {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .logo_container img {
+        width: 80%;
+        max-width: 300px;
+    }
+
+    .input_container,
+    .seleccionTipo {
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    .input_container input,
+    .login_container button,
+    .botonTelefonoYMail {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .login_container h2 {
+        font-size: 3rem;
+    }
+}
+/*intentando hacerlo responsive*/
+
 * {
     margin: 0;
     padding: 0;
@@ -135,8 +168,6 @@ body {
     font-size: 18px;
     font-weight: 100;   
 }
-
-
 
 
 /* Botones */

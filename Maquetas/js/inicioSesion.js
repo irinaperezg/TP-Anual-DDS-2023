@@ -1,3 +1,6 @@
+document.querySelector("#grupo .botonTelefonoYMail:nth-child(1)").click();
+
+
 function seleccionarTipo(tipo) {
   const botonCorreo = document.getElementById("botonCorreo");
   const botonTelefono = document.getElementById("botonTelefono");

@@ -81,7 +81,6 @@ document.querySelector("#grupo1 .boton_seleccionador:nth-child(1)").click();
 document.querySelector("#grupo2 .boton_seleccionador:nth-child(1)").click();
 
 // horarios
-
 function toggleDropdown() {
     const dropdown = document.querySelector(".dropdown-content");
     dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
@@ -96,7 +95,8 @@ document.addEventListener("DOMContentLoaded", function() {
             
             const etiqueta = document.createElement('span');
             etiqueta.classList.add('etiqueta-horario');
-            etiqueta.textContent = horario;
+            etiqueta.innerHTML = `${horario} <button class="eliminar-horario" onclick="eliminarHorario(this)">x</button>`;
+            // Agrega una "x" para eliminar el horario
             
             const container = document.querySelector('.horarios-seleccionados');
             container.appendChild(etiqueta);
@@ -104,8 +104,11 @@ document.addEventListener("DOMContentLoaded", function() {
             toggleDropdown();
         });
     });
+
+    // Agrega un evento para eliminar los horarios seleccionados cuando se hace clic en la "x"
+    document.querySelector('.horarios-seleccionados').addEventListener('click', function(event) {
+        if (event.target.classList.contains('eliminar-horario')) {
+            event.target.parentElement.remove();
+        }
+    });
 });
-
-
-
-

@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/login.css">
-    <script src="js/inicioSesion.js"></script>
     <title>Registro</title>
 </head>
 
@@ -24,9 +23,9 @@
             <div class="input_container">
                 <input type="password" placeholder="Contraseña" required>
             </div>
-            <div class="seleccionTipo">
-                <button id="botonCorreo" class="botonTelefonoYMail"  onclick="seleccionarTipo('correo')">Email</button>
-                <button id="botonTelefono" class="botonTelefonoYMail" onclick="seleccionarTipo('telefono')" style="background: #BEBEBE;">Teléfono</button>
+            <div class="seleccionTipo" id="grupo">
+                <button id="botonCorreo" class="botonTelefonoYMail"   onclick="seleccionarTipo('correo')">Email</button>
+                <button id="botonTelefono" class="botonTelefonoYMail" onclick="seleccionarTipo('telefono')">Teléfono</button>
             </div>
 
             <div class="input_container">
@@ -40,6 +39,6 @@
         </form>
 
     </div>
-    
+    <script src="js/inicioSesion.js"></script>
 </body>
 </html>
