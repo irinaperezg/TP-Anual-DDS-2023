@@ -45,10 +45,10 @@ public class Comunidad {
   private List<Incidente> incidentes = new ArrayList<>();
 
   // TODO AGREGAR AL LUCID
-  @ManyToMany(mappedBy = "comunidades")
+  @ManyToMany(mappedBy = "comunidadesAsociadas")
   private List<Servicio> serviciosObservados = new ArrayList<>();
 
-  @ManyToMany(mappedBy = "comunidades")
+  @ManyToMany(mappedBy = "comunidadesAsociadas")
   private List<Establecimiento> establecimientosObservados = new ArrayList<>();
 
   public void agregarIncidente(Incidente incidente) {

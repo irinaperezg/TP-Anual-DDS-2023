@@ -36,8 +36,8 @@ class NotificacionesTest {
 
     listaHorarios.add(horarioEspecifico1);
     listaHorarios.add(horarioEspecifico2);
-    Persona persona1 = new Persona(usuario, "ej1@gmail.com", "1234", notificacionSinApuros, PreferenciaMedioNotificacion.EMAIL, listaHorarios);
-    Persona persona2 = new Persona(usuario, "ej2@gmail.com", "1234", notificacionSinApuros, PreferenciaMedioNotificacion.EMAIL, listaHorarios);
+    Persona persona1 = new Persona(usuario, "ej1@gmail.com", "1234");
+    Persona persona2 = new Persona(usuario, "ej2@gmail.com", "1234");
     Servicio servicio = new ServicioBase("baño sin genero");
     TipoEntidad tipoEntidad = new TipoEntidad();
     Entidad entidad = new Entidad(tipoEntidad, "entidad");

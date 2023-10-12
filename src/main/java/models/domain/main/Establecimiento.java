@@ -40,8 +40,12 @@ public class Establecimiento {
   @OneToMany(mappedBy = "establecimiento", cascade = CascadeType.ALL, orphanRemoval = true)
   private final List<PrestacionDeServicio> prestaciones = new ArrayList<>();
 
-  //TODO mapear a base de datos
-  @Transient
+  @ManyToMany(cascade = { CascadeType.ALL })
+  @JoinTable(
+      name = "Asociados_Establecimientos_Comunidad",
+      joinColumns = { @JoinColumn(name = "establecimiento_id") },
+      inverseJoinColumns = { @JoinColumn(name = "comunidad_id") }
+  )
   private List<Comunidad> comunidadesAsociadas = new ArrayList<>();
 
   public Establecimiento() {

@@ -43,8 +43,8 @@ public class PersonasController implements ICrudViewsHandler {
 
   @Override
   public void update(Context context) {
-    private FrecuenciaNotificacion frecuenciaNotification;
-    private PreferenciaMedioNotificacion preferenciaMedioNotificacion;
+    FrecuenciaNotificacion frecuenciaNotification;
+    PreferenciaMedioNotificacion preferenciaMedioNotificacion;
     Long id = context.sessionAttribute("id");
     Persona persona = this.personaRepository.buscarPorID(id);
 
@@ -61,6 +61,21 @@ public class PersonasController implements ICrudViewsHandler {
 
   @Override
   public void delete(Context context) {
+    //TODO
+  }
+
+  @Override
+  public void index(Context context) {
+    //TODO
+  }
+
+  @Override
+  public void save(Context context) {
+    //TODO
+  }
+
+  @Override
+  public void create(Context context) {
     //TODO
   }
 }

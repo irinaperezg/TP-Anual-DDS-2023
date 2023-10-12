@@ -40,8 +40,14 @@ public class UsuariosController implements ICrudViewsHandler {
   public void validar(Context context) {
     String nombre = context.formParam("nombre");
     String contrasenia = context.formParam("contrasenia");
-    String contraseniaEncriptadaDB = validadorDeContrasenia.encriptarContrasenia(contrasenia);
+    String contraseniaEncriptadaDB = " ";
     Usuario usuario = this.usuarioRepository.buscarPorNombreUsuario(nombre);
+
+    try {
+      contraseniaEncriptadaDB = validadorDeContrasenia.encriptarContrasenia(contrasenia);
+    } catch (NoSuchAlgorithmException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+      // TODO MANEJAR EL ERROR no se pudo encriptar
+    }
 
     if (usuario.getContraseniaEncriptada() == contraseniaEncriptadaDB)
     {
@@ -74,6 +80,7 @@ public class UsuariosController implements ICrudViewsHandler {
     String contrasenia = context.formParam("contrasenia");
     String telefono = context.formParam("telefono");
     String email = context.formParam("email");
+    String contraseniaEncriptada = " ";
 
     try {
       validadorDeContrasenia.verificarValidez(nombre, contrasenia);
@@ -82,7 +89,7 @@ public class UsuariosController implements ICrudViewsHandler {
     }
 
     try {
-      String contraseniaEncriptada = validadorDeContrasenia.encriptarContrasenia(contrasenia);
+      contraseniaEncriptada = validadorDeContrasenia.encriptarContrasenia(contrasenia);
       Usuario usuario = new Usuario(nombre, contraseniaEncriptada);
       Persona persona = new Persona(usuario, email, telefono);
     } catch (NoSuchAlgorithmException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
