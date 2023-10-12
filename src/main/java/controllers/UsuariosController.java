@@ -40,7 +40,7 @@ public class UsuariosController implements ICrudViewsHandler {
   public void validar(Context context) {
     String nombre = context.formParam("nombre");
     String contrasenia = context.formParam("contrasenia");
-    String contraseniaEncriptadaDB = contraseniaEncriptadaDB = validadorDeContrasenia.encriptarContrasenia(contrasenia);
+    String contraseniaEncriptadaDB = validadorDeContrasenia.encriptarContrasenia(contrasenia);
     Usuario usuario = this.usuarioRepository.buscarPorNombreUsuario(nombre);
 
     if (usuario.getContraseniaEncriptada() == contraseniaEncriptadaDB)
@@ -49,6 +49,7 @@ public class UsuariosController implements ICrudViewsHandler {
 
       // GUARDO EL ID DEL USUARIO EN LA SESION PARA PODER UTILIZARLA DESPUES
       context.sessionAttribute("id",usuario.getId());
+      // REDIGIR
     }
     else
     {
