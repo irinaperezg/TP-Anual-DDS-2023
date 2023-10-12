@@ -1,11 +1,12 @@
 package models.domain.main.entidades;
 
-import models.domain.localizacion.main.Localidad;
+import models.domain.main.localizacion.Localidad;
 import models.domain.main.EntidadPrestadora;
 import models.domain.main.Establecimiento;
 import models.domain.main.OrganismoDeControl;
 import models.domain.main.incidentes.Incidente;
 import models.domain.main.servicio.Servicio;
+import models.domain.usuarios.Comunidad;
 import models.domain.usuarios.Persona;
 import lombok.Getter;
 
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 @Table(name="entidad")
 public class Entidad {
 
+  @Getter
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -27,7 +29,7 @@ public class Entidad {
   private TipoEntidad tipo;
 
   @Getter
-  @Column(name="denominacion", columnDefinition = "TEXT")
+  @Column(name = "denominacion", columnDefinition = "TEXT")
   private String denominacion;
 
   @ManyToOne
@@ -38,21 +40,13 @@ public class Entidad {
   @OneToMany(mappedBy = "entidad", cascade = CascadeType.ALL, orphanRemoval = true)
   private final List<Establecimiento> establecimientos = new ArrayList<>();
 
-  @ManyToMany(cascade = { CascadeType.ALL })
+  @ManyToMany(cascade = {CascadeType.ALL})
   @JoinTable(
-          name = "Entidades_X_Organismo",
-          joinColumns = { @JoinColumn(name = "entidad_id") },
-          inverseJoinColumns = { @JoinColumn(name = "organismo_de_control_id") }
+      name = "Entidades_X_Organismo",
+      joinColumns = {@JoinColumn(name = "entidad_id")},
+      inverseJoinColumns = {@JoinColumn(name = "organismo_de_control_id")}
   )
   private final List<OrganismoDeControl> organismosDeControl = new ArrayList<>();
-
-  @ManyToMany(cascade = { CascadeType.ALL })
-  @JoinTable(
-          name = "Asociados_Entidad_Persona",
-          joinColumns = { @JoinColumn(name = "entidad_id") },
-          inverseJoinColumns = { @JoinColumn(name = "persona_id") }
-  )
-  private final List<Persona> asociados = new ArrayList<>();
 
 
   public Entidad(TipoEntidad tipo, String denominacion) {
@@ -64,24 +58,14 @@ public class Entidad {
 
   }
 
-  public List<Persona> buscarInteresados(Localidad localidad, Servicio servicio) {
-    List<Persona> interesados = new ArrayList<>();
-    for(Persona persona : asociados) {
-      if (persona.getLocalidad().esIgualA(localidad) && servicio.esDeInteresPara(persona)) {
-        interesados.add(persona);
-      }
-    }
-    return interesados;
-  }
-
-  public void agregarAsociado(Persona persona) {
-    asociados.add(persona);
-  }
-
   public List<Incidente> obtenerIncidentesTotales() {
     return establecimientos.stream()
         .flatMap(establecimiento -> establecimiento.obtenerIncidentesTotales().stream())
         .collect(Collectors.toList());
+  }
+
+  public Integer obtenerIncidentesNoResueltos() {
+    return obtenerIncidentesTotales().stream().filter(Incidente::isAbierto).toList().size();
   }
 
   public List<Incidente> obtenerIncidentesSemanales() {
@@ -93,15 +77,17 @@ public class Entidad {
         filter(incidente -> !incidente.isAbierto()).collect(Collectors.toList());
     long totalSegundos = incidentes.stream().mapToLong(incidente -> incidente.calcularTiempoCierre().toSeconds()).sum();
     long cantidadIncidentes = incidentes.size();
-    if (cantidadIncidentes == 0)
-    {
+    if (cantidadIncidentes == 0) {
       return 0;
     }
     return totalSegundos / cantidadIncidentes;
   }
 
-  public void agregarAsociados(Persona ... nuevosAsociados) {
-    asociados.addAll(List.of(nuevosAsociados));
+  public Integer obtenerCantidaMiembrosAfectados() {
+    return establecimientos.stream().mapToInt(Establecimiento::obtenerCantidadMiembrosAfectados).sum();
   }
 
+  public Integer obtenerSumatoriaTiemposResolucion() {
+    return this.obtenerIncidentesTotales().stream().filter(incidente -> !incidente.isAbierto()).mapToInt(incidente -> Math.toIntExact(incidente.calcularTiempoCierre().toSeconds())).sum();
+  }
 }

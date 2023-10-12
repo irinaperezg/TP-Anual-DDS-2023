@@ -7,8 +7,6 @@ import javax.persistence.Embeddable;
 @Getter
 @Embeddable
 public class TipoEntidad {
-
-
   private String tipoEntidad;
   private String tipoEstablecimiento;
 }

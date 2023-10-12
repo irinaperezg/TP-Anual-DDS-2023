@@ -5,6 +5,7 @@ import models.domain.main.entidades.Entidad;
 import models.domain.main.informes.rankings.Rankeador;
 import models.domain.main.informes.rankings.Ranking;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +28,7 @@ public class GeneradorDeInformes {
     return instancia;
   }
 
-  public void generarInforme(EntidadPrestadora entidadPrestadora) {
+  public void generarInforme(EntidadPrestadora entidadPrestadora ) throws IOException {
 
     List <Entidad> entidades = entidadPrestadora.getEntidades();
 
@@ -49,7 +50,7 @@ public class GeneradorDeInformes {
 
     this.adapter.generarInforme(entidadPrestadora.getDenominacion(), rankingPromedioCierre, rankingCantidadIncidentes, rankingMayorImpacto);
   }
-  public void generarInformesParaEntidadesPrestadoras(List<EntidadPrestadora> entidadesPrestadoras) {
+  public void generarInformesParaEntidadesPrestadoras(List<EntidadPrestadora> entidadesPrestadoras) throws IOException {
     for(EntidadPrestadora entidadPrestadora : entidadesPrestadoras) {
       generarInforme(entidadPrestadora);
     }

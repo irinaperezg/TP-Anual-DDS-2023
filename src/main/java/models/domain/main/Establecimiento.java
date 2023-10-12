@@ -1,9 +1,10 @@
 package models.domain.main;
 
-import models.domain.localizacion.main.Localidad;
+import models.domain.main.localizacion.Localidad;
 import models.domain.main.entidades.Entidad;
 import models.domain.main.incidentes.Incidente;
 import models.domain.main.servicio.Servicio;
+import models.domain.usuarios.Comunidad;
 import models.domain.usuarios.Persona;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +15,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
+@Getter
+@Setter
 @Table(name="establecimiento")
 public class Establecimiento {
 
@@ -21,7 +24,6 @@ public class Establecimiento {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Getter
   @Column(name="denominacion", columnDefinition = "TEXT")
   private String denominacion;
 
@@ -38,6 +40,10 @@ public class Establecimiento {
   @OneToMany(mappedBy = "establecimiento", cascade = CascadeType.ALL, orphanRemoval = true)
   private final List<PrestacionDeServicio> prestaciones = new ArrayList<>();
 
+  //TODO mapear a base de datos
+  @Transient
+  private List<Comunidad> comunidadesAsociadas = new ArrayList<>();
+
   public Establecimiento() {
     this.denominacion = null;
     this.entidad = null;
@@ -49,11 +55,20 @@ public class Establecimiento {
         .collect(Collectors.toList());
   }
 
+  @ManyToMany(cascade = { CascadeType.ALL })
+  @JoinTable(
+      name = "Asociados_Establecimientos_Comunidad",
+      joinColumns = { @JoinColumn(name = "establecimiento_id") },
+      inverseJoinColumns = { @JoinColumn(name = "comunidad_id") }
+  )
+  private final List<Comunidad> comunidades = new ArrayList<>();
+
   public Establecimiento(Entidad entidad, String denominacion) {
     this.entidad = entidad;
     this.denominacion = denominacion;
   }
-  public List<Persona> buscarInteresados(Servicio servicio) {
-    return this.entidad.buscarInteresados(this.localidad, servicio);
+
+  public Integer obtenerCantidadMiembrosAfectados() {
+    return comunidadesAsociadas.stream().mapToInt(Comunidad::obtenerCantidadMiembrosAfectados).sum();
   }
 }

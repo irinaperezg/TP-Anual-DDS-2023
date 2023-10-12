@@ -15,6 +15,7 @@ public class ServicioCompuesto extends Servicio {
           joinColumns = @JoinColumn(name = "servicio_compuesto_id"),
           inverseJoinColumns = @JoinColumn(name = "servicio_id"))
   private List<Servicio> servicios = new ArrayList<>();
+
   public ServicioCompuesto(String descripcion, Servicio ... otrosServicios) {
     super(descripcion);
     agregarServicios(otrosServicios);
@@ -23,13 +24,12 @@ public class ServicioCompuesto extends Servicio {
   public ServicioCompuesto() {
 
   }
+
   public void agregarServicios(Servicio ... serviciosNuevos){
     servicios.addAll(Arrays.stream(serviciosNuevos).toList());
   }
+
   public void eliminarServicios(Servicio ... serviciosASacar){
     servicios.removeAll(Arrays.stream(serviciosASacar).toList());
-  }
-  public boolean esDeInteresPara(Persona persona) {
-    return servicios.stream().anyMatch(servicio -> servicio.esDeInteresPara(persona));
   }
 }

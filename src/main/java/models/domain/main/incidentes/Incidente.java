@@ -100,14 +100,6 @@ public class Incidente {
     return horasDiferencia <= 24;
   }
 
-  public int calcularImpactoSobreComunidad()
-  {
-    //TODO: ARREGLAR ESTO
-    int impacto = 0;
-    //int impacto = this.getComunidad().getMiembros().size();
-    return impacto;
-  }
-
   // MÉTODOS PARA PODER COMPARAR INCIDENTES:
   // Dos incidentes son iguales si tienen misma denominación y si pertenecen a la misma comunidad.
   // Si hace falta más cosas para que sean iguales diganme y lo agrego.

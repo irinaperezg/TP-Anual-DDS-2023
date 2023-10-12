@@ -2,6 +2,7 @@ package models.domain.main.servicio;
 
 import models.domain.main.OrganismoDeControl;
 import models.domain.main.PrestacionDeServicio;
+import models.domain.usuarios.Comunidad;
 import models.domain.usuarios.Persona;
 import lombok.Getter;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Getter
 @DiscriminatorColumn(name = "tipo")
 public abstract class Servicio {
 
@@ -18,7 +20,6 @@ public abstract class Servicio {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Getter
   @Column(name="descripcion")
   private String descripcion;
 
@@ -31,11 +32,11 @@ public abstract class Servicio {
 
   @ManyToMany(cascade = { CascadeType.ALL })
   @JoinTable(
-          name = "Asociados_Servicio_Persona",
-          joinColumns = { @JoinColumn(name = "servicio_id") },
-          inverseJoinColumns = { @JoinColumn(name = "persona_id") }
+      name = "Asociados_Servicios_Comunidad",
+      joinColumns = { @JoinColumn(name = "servicio_id") },
+      inverseJoinColumns = { @JoinColumn(name = "comunidad_id") }
   )
-  private List<Persona> asociados = new ArrayList<>();
+  private final List<Comunidad> comunidadesAsociadas = new ArrayList<>();
 
   public Servicio(String descripcion) {
     this.descripcion = descripcion;
@@ -43,13 +44,5 @@ public abstract class Servicio {
 
   public Servicio() {
 
-  }
-
-  public boolean esDeInteresPara(Persona persona) {
-    return asociados.contains(persona);
-  }
-
-  public void agregarAsociado(Persona persona) {
-    asociados.add(persona);
   }
 }

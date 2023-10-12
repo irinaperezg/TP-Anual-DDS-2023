@@ -1,7 +1,7 @@
 package models.repositorios;
 
-import models.domain.localizacion.main.Localizacion;
-import models.domain.localizacion.main.TipoLocalizacion;
+import models.domain.main.localizacion.Localizacion;
+import models.domain.main.localizacion.TipoLocalizacion;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 import java.util.List;

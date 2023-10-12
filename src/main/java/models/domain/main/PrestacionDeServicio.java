@@ -4,7 +4,6 @@ import models.domain.main.incidentes.Incidente;
 import models.domain.main.notificaciones.Notificador;
 import models.domain.main.notificaciones.frecuenciasNotificacion.Notificacion;
 import models.domain.main.servicio.Servicio;
-import domain.usuarios.*;
 import lombok.Getter;
 import models.domain.usuarios.Comunidad;
 import models.domain.usuarios.Miembro;
@@ -49,16 +48,8 @@ public class PrestacionDeServicio {
     this.servicio = servicio;
   }
 
-  private List<Persona> buscarInteresados() {
-    return establecimiento.buscarInteresados(this.servicio);
-  }
-
-  public void notificarInteresados (Incidente incidente) {
-    //TODO: ARREGLAR ESTO
-    //List<Persona> listadoPersonasInteresadas = new ArrayList<>(incidente.getComunidad().getMiembros().stream().map(Miembro::getPersona).toList());
-    List<Persona> listadoPersonasInteresadas = new ArrayList<>();
-    listadoPersonasInteresadas.addAll(buscarInteresados());
-    listadoPersonasInteresadas.stream().collect(Collectors.toSet()).stream().toList();
+  public void notificarAMiembros (Incidente incidente) {
+    Set<Persona> listadoPersonasInteresadas = new HashSet<>(incidente.getComunidad().getMiembros().stream().map(Miembro::getPersona).toList());
     for (Persona persona : listadoPersonasInteresadas){
       persona.getFrecuenciaNotification().gestionarInicidente(persona, incidente);
     }
@@ -66,15 +57,18 @@ public class PrestacionDeServicio {
 
   public void ocurrioUnIncidente(Miembro miembro, String descripcion, String denominacion) {
     Comunidad comunidadMiembro = miembro.getComunidad();
-    Incidente incidente = new Incidente(descripcion, denominacion, comunidadMiembro, this, miembro);
-    incidentes.add(incidente);
-    comunidadMiembro.agregarIncidente(incidente);
-    notificarInteresados(incidente);
+    if (comunidadMiembro.leInteresa(this)) {
+      Incidente incidente = new Incidente(descripcion, denominacion, comunidadMiembro, this, miembro);
+      incidentes.add(incidente);
+      comunidadMiembro.agregarIncidente(incidente);
+      notificarAMiembros(incidente);
+    }
+
   }
 
   public void cerrarUnIncidente(Incidente incidente) {
     incidente.cerrar();
-    notificarInteresados(incidente);
+    notificarAMiembros(incidente);
   }
 
   public void solicitarRevisionDeIncidenteA(Persona persona, Incidente incidente) {

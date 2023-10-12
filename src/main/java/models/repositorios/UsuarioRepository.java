@@ -18,7 +18,6 @@ public class UsuarioRepository implements WithSimplePersistenceUnit {
   public Usuario buscarPorID(Long id) {
     return entityManager().find(Usuario.class, id);
   }
-}
 
   public Usuario buscarPorNombreUsuario(String name) {
     return entityManager().find(Usuario.class, name);

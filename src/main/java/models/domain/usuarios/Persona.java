@@ -2,14 +2,13 @@ package models.domain.usuarios;
 
 import models.domain.converter.FrecuenciaDeNotificacionAttributeConverter;
 import models.domain.converter.LocalDateTimeAttributeConverter;
-import models.domain.localizacion.main.Localidad;
+import models.domain.main.localizacion.Localidad;
 import models.domain.main.entidades.Entidad;
 import models.domain.main.notificaciones.frecuenciasNotificacion.FrecuenciaNotificacion;
 import models.domain.main.notificaciones.mediosNotificacion.PreferenciaMedioNotificacion;
 import models.domain.main.servicio.Servicio;
 import lombok.Getter;
 import lombok.Setter;
-import org.quartz.SchedulerException;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -55,13 +54,6 @@ public class Persona {
   @Convert(converter = LocalDateTimeAttributeConverter.class)
   @Column(name="horario")
   private List<LocalDateTime> horariosDeNotificaciones;
-
-  @ManyToMany(mappedBy = "asociados")
-  private List<Entidad> entidades = new ArrayList<>();
-
-  @ManyToMany(mappedBy = "asociados")
-  private List<Servicio> servicios = new ArrayList<>();
-
 
   public Persona(Usuario usuario, String email, String telefono){
     this.usuario = usuario;

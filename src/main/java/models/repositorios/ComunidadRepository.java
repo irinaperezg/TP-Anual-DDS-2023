@@ -1,5 +1,6 @@
 package models.repositorios;
 
+import models.domain.main.servicio.Servicio;
 import models.domain.usuarios.Comunidad;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 

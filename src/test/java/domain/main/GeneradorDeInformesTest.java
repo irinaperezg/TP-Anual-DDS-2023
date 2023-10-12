@@ -21,6 +21,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.quartz.SchedulerException;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,7 +40,10 @@ public class GeneradorDeInformesTest {
     NotificacionSinApuros notificacionSinApuros = new NotificacionSinApuros();
 
     Usuario usuario = new Usuario("pepe", "argento");
-    Persona persona1 = new Persona(usuario, "ej1@gmail.com", "1234", notificacionSinApuros, PreferenciaMedioNotificacion.EMAIL, listaHorarios);
+    Persona persona1 = new Persona(usuario, "ej1@gmail.com", "1234");
+    persona1.setFrecuenciaNotification(notificacionSinApuros);
+    persona1.setPreferenciaMedioNotificacion(PreferenciaMedioNotificacion.EMAIL);
+    persona1.setHorariosDeNotificaciones(listaHorarios);
 
     Entidad entidad1 = new Entidad(tipoEntidad, "entidad1");
     Entidad entidad2 = new Entidad(tipoEntidad, "entidad2");
@@ -73,7 +77,7 @@ public class GeneradorDeInformesTest {
 
   @Test
   @DisplayName("Se crea un nuevo informe con apachePDFBox")
-  public void generarInforme() {
+  public void generarInforme() throws IOException {
     ApachePDFBox apachePDFBox = new ApachePDFBox();
 
     List<Entidad> entidades = entidadPrestadora.getEntidades();
