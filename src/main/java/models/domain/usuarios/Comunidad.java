@@ -1,5 +1,6 @@
 package models.domain.usuarios;
 
+import lombok.Setter;
 import models.domain.main.Establecimiento;
 import models.domain.main.PrestacionDeServicio;
 import models.domain.main.entidades.Entidad;
@@ -29,6 +30,11 @@ public class Comunidad {
 
   @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Miembro> miembros = new ArrayList<>();
+
+  public Comunidad() {
+
+  }
+
   public List<Miembro> getAdministradores() {
     return miembros.stream()
             .filter(Miembro::getEsAdministrador)
@@ -50,6 +56,16 @@ public class Comunidad {
 
   @ManyToMany(mappedBy = "comunidadesAsociadas")
   private List<Establecimiento> establecimientosObservados = new ArrayList<>();
+
+  public Comunidad(Long id, String descripcion, List<Miembro> miembros, List<Servicio> serviciosObservados, List<Establecimiento> establecimientosObservados) {
+    this.id = id;
+    this.descripcion = descripcion;
+    this.estaActiva = true;
+    this.miembros = miembros;
+    this.incidentes = new ArrayList<>();
+    this.serviciosObservados = serviciosObservados;
+    this.establecimientosObservados = establecimientosObservados;
+  }
 
   public void agregarIncidente(Incidente incidente) {
     incidentes.add(incidente);

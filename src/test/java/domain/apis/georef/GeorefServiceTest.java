@@ -1,4 +1,4 @@
-package domain.localizacion;
+package domain.apis.georef;
 
 import models.domain.apis.georef.ServicioGeoref;
 import models.domain.apis.georef.adapters.GeorefAdapter;
@@ -32,7 +32,6 @@ public class GeorefServiceTest {
     public void ServicioGeorefProveeListadoDeProvinciasTest() throws IOException {
         ListadoDeProvincias listadoDeProvinciasMock = mock(ListadoDeProvincias.class);
         List<Provincia> provinciasMock = this.provinciasMock();
-
 
         when(listadoDeProvinciasMock.getProvincias()).thenReturn(provinciasMock);
         when(this.adapterMock.listadoDeProvincias()).thenReturn(listadoDeProvinciasMock);
