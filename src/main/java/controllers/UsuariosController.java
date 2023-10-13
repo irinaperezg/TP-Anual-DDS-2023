@@ -34,7 +34,7 @@ public class UsuariosController implements ICrudViewsHandler {
   @Override
   public void index(Context context) {
     //TODO DEVOLVER VISTA DE LOGIN
-    //context.render(nombre de la vista de login);
+    context.render("login.hbs");
   }
 
   public void validar(Context context) {
@@ -71,7 +71,7 @@ public class UsuariosController implements ICrudViewsHandler {
 
   public void create(Context context) {
     //TODO DEVOLVER VISTA DE SIGNUP
-    //context.render(nombre de la vista de signup);
+    context.render("singup.hbs");
   }
 
   @Override

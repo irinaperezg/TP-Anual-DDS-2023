@@ -1,0 +1,73 @@
+/* Encabezado */
+header {
+    background-color: #FFF;
+    margin: 0;
+    padding: 5px 0;
+    text-align: center;
+    height: auto;
+}
+
+
+
+header img {
+    margin: auto 0;
+    padding: 0;
+    display: inline-block;
+    vertical-align: middle;
+    width: 22%;
+}
+
+
+/* Pantallas pequeñas */
+@media screen and (max-width: 630px) {
+    header img {
+        width: 40%;  /* Reducido un poco */
+    }
+
+    header {
+        height: auto;  /* Cambiado a auto para permitir que el contenido dicte la altura */
+    }
+}
+
+@media screen and (min-width: 620px) and (max-width: 1023px) {
+    header img {
+        width: 20%;  /* Reducido un poco */
+    }
+}
+
+/* Menú */
+.menu {
+    color: #767676;
+    display: inline;
+    font-family: 'Cabin';
+    font-size: 20px;  /* Reducido el tamaño de fuente */
+    font-weight: 400;
+}
+
+.menu-container {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0; /* Asegúrate de que no haya relleno adicional */
+}
+
+.menu li {
+    display: inline;
+    margin-right: 50px;  /* Reducido el margen derecho */
+    padding: 0;
+}
+
+.menu li a:hover {
+    text-decoration: underline;
+}
+
+/* Miniheader */
+.miniheader {
+    color: hsl(0, 2%, 61%);
+    font-family: 'Cabin';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
