@@ -135,30 +135,31 @@ body {
 
 
 
+
 .login_container .botonTelefonoYMail {
-   
+
     flex-shrink: 0;
     border-radius: 0px;
     align-items: flex-start;
-    background-color: #0CC0DF;
+    background: #BEBEBE;
     border: none;
     color: #fff;
     cursor: pointer;
     font-family: 'Cabin';
     font-size: 18px;
     font-weight: 100;
-    
+
     display: inline-block;
     margin-right: 10px;
 
-    
+
     gap: 10px;
-    
+
     padding: 10px 100px;
 
     backdrop-filter: blur(2px);
     transition: background-color 0.3s ease;
-    
+
 }
 
 
@@ -182,8 +183,10 @@ body {
 
 
 /* Botones */
-
+.activo {
+    background: #0CC0DF !important;
+}
 
 button:hover {
-    background-color: #06697a;
+    background: #06697a;
 }

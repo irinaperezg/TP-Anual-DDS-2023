@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,25 +14,24 @@
 
     <div class="login_container">
         <h2>Crear Usuario</h2>
-        <form method="POST">
+        <form method="POST" onsubmit="return validarFormulario();" action="login.html">
             <div class="input_container">
-                <input type="text" placeholder="Nombre de usuario" required>
+                <input id="campoNombreUsuario" type="text" placeholder="Nombre de usuario">
             </div>
             <div class="input_container">
-                <input type="password" placeholder="Contraseña" required>
+                <input id="campoContrasena" type="password" placeholder="Contraseña">
             </div>
             <div class="seleccionTipo" id="grupo">
-                <button id="botonCorreo" class="botonTelefonoYMail"   onclick="seleccionarTipo('correo')">Email</button>
-                <button id="botonTelefono" class="botonTelefonoYMail" onclick="seleccionarTipo('telefono')">Teléfono</button>
+                <button id="botonCorreo" class="botonTelefonoYMail activo" onclick="seleccionarTipo('correo')" type="button">Email</button>
+                <button id="botonTelefono" class="botonTelefonoYMail" onclick="seleccionarTipo('telefono')" type="button">Teléfono</button>
             </div>
 
             <div class="input_container">
-                <input type="text" id="campoCorreo" placeholder="Correo electrónico" class="miniheader">
-                <input type="text" id="campoTelefono" placeholder="Número de teléfono" class="miniheader" style="display:none;">
+                <input type="text" id="campoTelefonoYMail" placeholder="Correo electrónico" class="miniheader" >
             </div>
-            
+
             <button type="submit" class="boton posicionBotonIniciarSesion">
-                <a class="textoBotonCrear" href="inicio.html">Crear</a>
+                Crear
             </button>
         </form>
 

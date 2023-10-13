@@ -135,7 +135,7 @@ body {
     bottom: 10px;     /* 20px desde la parte inferior de la pantalla. */
     right: 10px;      /* 20px desde la parte derecha de la pantalla. */
     padding: 10px 20px; /* Espaciado interno del botón. */
-    background-color: #87CEEB; /* Color celeste de fondo. */
+    background-color: #0CC0DF; /* Color celeste de fondo. */
     color: #FFFFFF;  /* Color de texto blanco. */
     border: none;    /* Sin borde. */
     border-radius: 5px; /* Bordes ligeramente redondeados. */
@@ -143,9 +143,10 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra sutil. */
     font-size: 25px; /* Tamaño de letra. */
     z-index: 1000;   /* Asegurarse de que aparezca por encima de otros elementos. */
+    font-family: ABeeZee;
 }
 
 .btn-add:hover {
-    background-color: #68AACC; /* Un celeste un poco más oscuro al pasar el mouse. */
+    background-color: #06697a; /* Un celeste un poco más oscuro al pasar el mouse. */
 }
 

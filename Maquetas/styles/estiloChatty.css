@@ -52,7 +52,7 @@ body {
     font-size: 20px;
     font-weight: 500;
     gap: 10px;
-    padding: 10px 239px;
+    padding: 1% 5%;
     backdrop-filter: blur(2px);
     flex-direction: row; /* Establecer la dirección de flex a "row" */
     justify-content: center; /* Centrar horizontalmente */
@@ -137,7 +137,7 @@ input {
 .titulosMedianos {
     color: #7E7B7B;
     font-family: 'Cabin';
-    font-size: 40px;
+    font-size: 4vw;
     text-align: center;
     font-style: normal;
     font-weight: 700;

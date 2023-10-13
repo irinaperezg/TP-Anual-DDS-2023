@@ -1,5 +1,3 @@
-// js/sumarAComunidad.js
-
 document.addEventListener("DOMContentLoaded", function() {
     const selected = document.querySelector(".selected");
     const optionsContainer = document.querySelector(".options-container");
@@ -12,15 +10,20 @@ document.addEventListener("DOMContentLoaded", function() {
     optionsList.forEach((option) => {
       option.addEventListener("click", () => {
         selected.textContent = option.querySelector("label").textContent;
-        const description = option.getAttribute("data-description");
+        const descriptionServicios = option.getAttribute("data-description");
+        const descriptionEstablecimientos = option.getAttribute("data-description1");
+        
+        // Combina las dos descripciones con un elemento <br> para el salto de línea
+        const combinedDescription = descriptionServicios + '<br>' + descriptionEstablecimientos;
+    
         const descriptionElement = document.querySelector(".description");
         if (descriptionElement) {
-          descriptionElement.textContent = description;
+          descriptionElement.innerHTML = combinedDescription; // Usamos innerHTML para permitir el uso de HTML en el contenido
         }
         optionsContainer.classList.remove("active");
       });
     });
-  
+    
     // Agregamos un evento click al documento para cerrar el menú si se hace clic en cualquier otro lugar
     document.addEventListener("click", (e) => {
       if (!selected.contains(e.target) && !optionsContainer.contains(e.target)) {
@@ -29,7 +32,15 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
   
-
+document.querySelector(".botonUnir").addEventListener("click", (e) => {
+  const selected = document.querySelector(".selected");
+  console.log(selected.textContent);
+  if (selected.textContent == "Seleccione una comunidad para sumarse") {
+    console.log("AAAA");
+  } else {
+    console.log("bbbb");
+  }
+});
 
   function seleccionarTipo(tipo) {
     const botonObservador = document.getElementById("botonObservador");
