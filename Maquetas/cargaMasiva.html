@@ -30,15 +30,20 @@
 
       <div>
         <h2 class="cargaMasiva">Selecciona un archivo con formato CSV para la carga de datos</h2>
-        <div class = "cargaMasivaDiv">
-          <img class="fotoCargaMasiva" src="img/cargaCSV.png" alt="logo-carga">
-          <h3>entidad_y_organismos.csv</h2>
+        <div class="cargaMasivaDiv">
+          <img id="csv-icon" src="img/cargaCSV.png" alt="CSV Icon">
+          <span id="csv-filename">ejemplo.csv</span>
         </div>
+      
       </div>
 
-      <form action="#" method="POST" action = "">
-        <button type="submit" class="boton cargarDatos">Cargar Datos</button>
-      </form>
+      <form action="#" method="POST" enctype="multipart/form-data">
+        <input type="file" name="csvfile" accept=".csv" id="csvfile" style="display: none;">
+        <button type="button" class="boton cargarDatos" onclick="document.getElementById('csvfile').click();">Cargar Datos</button>
+    </form>
+    <div class="error-container">
+        <p id="error-message">Por favor, selecciona un archivo CSV válido.</p>
+    </div>
 
       <h2 class ="idk">Cada línea del archivo debe tener los siguientes datos separados por coma:</h2>
       <div class="formatoCargaMasiva">
@@ -47,6 +52,6 @@
         <h3>Nombre del delegado</h3>
         <h3>Email del delegado</h3>
       </div>
-
+    <script src="js/cargaMasiva.js"></script>
   </body>
 </html>

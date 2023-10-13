@@ -85,3 +85,46 @@
     color: #767676;
     left: 40%;
 }
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Asegura que el contenedor ocupe toda la altura de la ventana */
+}
+
+.error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#error-message {
+    color: red;
+    display: none; /* Oculta el mensaje de error por defecto */
+}
+
+#cargaMasivaDiv {
+    border: 1px solid #BEBEBE;
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#csv-filename {
+    font-style: italic;
+    color: #888;
+    margin-left: 10px; /* Espacio entre el ícono y el nombre del archivo */
+}
+
+#csv-icon {
+    width: 24px; /* Ajusta el tamaño según lo que necesites */
+    height: 24px;
+}
+
+
+
