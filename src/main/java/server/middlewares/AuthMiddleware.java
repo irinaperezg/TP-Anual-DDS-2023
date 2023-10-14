@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AuthMiddleware {
     public static void apply(JavalinConfig config) {
-        List<String> allowedPaths = Arrays.asList("/login", "/singup");
+        List<String> allowedPaths = Arrays.asList("/login", "/signup", "/inicio");
 
         config.accessManager(((handler, context, routerRoles) ->
         {

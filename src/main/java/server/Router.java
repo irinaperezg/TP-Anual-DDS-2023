@@ -13,8 +13,8 @@ public class Router {
       post("login", ((UsuariosController) FactoryController.controller("Usuarios"))::validar);
 
       // SIGN UP
-      get("singup", ((UsuariosController) FactoryController.controller("Usuarios"))::create);
-      post("singup", ((UsuariosController) FactoryController.controller("Usuarios"))::save);
+      get("signup", ((UsuariosController) FactoryController.controller("Usuarios"))::create);
+      post("signup", ((UsuariosController) FactoryController.controller("Usuarios"))::save);
 
       // TODO PERMISOS!!!!!!
 
