@@ -11,6 +11,8 @@ import server.utils.ICrudViewsHandler;
 
 import java.lang.reflect.InvocationTargetException;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.github.jknack.handlebars.internal.lang3.BooleanUtils.toInteger;
 
@@ -62,8 +64,12 @@ public class UsuariosController implements ICrudViewsHandler {
   // INICIO
   @Override
   public void show(Context context) {
-    //TODO agarrar el nombre del usuario y que en inicio.hbs muestre Bienvenido/a NOMBRE
-    context.render("inicio.hbs");
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+    Map<String, Object> model = new HashMap<>();
+    model.put("usuario", usuario);
+    //TODO ver que se ponga correctamente el nombre del usuario
+
+    context.render("inicio.hbs", model);
   }
 
   //SIGNUP
