@@ -1,22 +1,16 @@
 package controllers;
 
 import io.javalin.http.Context;
-import models.domain.main.notificaciones.frecuenciasNotificacion.FrecuenciaNotificacion;
-import models.domain.main.notificaciones.mediosNotificacion.PreferenciaMedioNotificacion;
 import models.domain.usuarios.Persona;
 import models.domain.usuarios.Usuario;
 import models.repositorios.PersonaRepository;
 import models.repositorios.UsuarioRepository;
 import models.validadorDeContrasenias.ValidadorDeContrasenia;
-import models.validadorDeContrasenias.encriptadores.Encriptador;
-import models.validadorDeContrasenias.encriptadores.MD5;
 import models.validadorDeContrasenias.excepciones.ExcepcionContraseniaInvalida;
-import org.quartz.SchedulerException;
 import server.utils.ICrudViewsHandler;
 
 import java.lang.reflect.InvocationTargetException;
 import java.security.NoSuchAlgorithmException;
-import java.time.LocalDateTime;
 
 import static com.github.jknack.handlebars.internal.lang3.BooleanUtils.toInteger;
 
@@ -44,17 +38,17 @@ public class UsuariosController implements ICrudViewsHandler {
     Usuario usuario = this.usuarioRepository.buscarPorNombreUsuario(nombre);
 
     try {
-      contraseniaEncriptadaDB = validadorDeContrasenia.encriptarContrasenia(contrasenia);
+      contraseniaEncriptadaDB = this.validadorDeContrasenia.encriptarContrasenia(contrasenia);
     } catch (NoSuchAlgorithmException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
       // TODO MANEJAR EL ERROR no se pudo encriptar
     }
 
-    if (usuario.getContraseniaEncriptada() == contraseniaEncriptadaDB)
+    if (usuario.getContraseniaEncriptada().equals(contraseniaEncriptadaDB))
     {
       // TODO GARANTIZAR ACCESO
 
       // GUARDO EL ID DEL USUARIO EN LA SESION PARA PODER UTILIZARLA DESPUES
-      context.sessionAttribute("id",usuario.getId());
+      context.sessionAttribute("usuario_id",usuario.getId());
       // REDIGIR
     }
     else
@@ -92,8 +86,14 @@ public class UsuariosController implements ICrudViewsHandler {
       contraseniaEncriptada = validadorDeContrasenia.encriptarContrasenia(contrasenia);
       Usuario usuario = new Usuario(nombre, contraseniaEncriptada);
       Persona persona = new Persona(usuario, email, telefono);
+      usuarioRepository.registrar(usuario);
+      //personaRepository.registrar(persona); si persisto la persona rompe
+      context.redirect("/login");
     } catch (NoSuchAlgorithmException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
-      // TODO MANEJAR EL ERROR
+
+
+      //TODO hacer algo con la excepción
+      e.printStackTrace();
     }
   }
 

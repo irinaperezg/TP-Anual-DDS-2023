@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 import models.config.Config;
 import models.validadorDeContrasenias.excepciones.ExcepcionComun;
+import models.validadorDeContrasenias.validaciones.Validacion;
 
 public class NoEsComun implements Validacion {
 

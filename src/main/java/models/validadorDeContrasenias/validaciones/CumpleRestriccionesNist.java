@@ -2,7 +2,9 @@ package models.validadorDeContrasenias.validaciones;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import models.validadorDeContrasenias.excepciones.ExcepcionContraseniaInvalida;
+import models.validadorDeContrasenias.validaciones.Validacion;
 import models.validadorDeContrasenias.validaciones.restriccionesNist.CumpleComplejidad;
 import models.validadorDeContrasenias.validaciones.restriccionesNist.CumpleLongitud;
 import models.validadorDeContrasenias.validaciones.restriccionesNist.CumpleRotacion;

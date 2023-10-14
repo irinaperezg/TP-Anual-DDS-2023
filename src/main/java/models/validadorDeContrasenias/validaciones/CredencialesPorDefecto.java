@@ -1,6 +1,7 @@
 package models.validadorDeContrasenias.validaciones;
 
 import models.validadorDeContrasenias.excepciones.ExcepcionCredencial;
+import models.validadorDeContrasenias.validaciones.Validacion;
 
 public class CredencialesPorDefecto implements Validacion {
   public boolean validarContrasenia(String nombre, String contrasenia) throws ExcepcionCredencial {

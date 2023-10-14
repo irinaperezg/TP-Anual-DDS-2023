@@ -3,7 +3,6 @@ package controllers;
 
 import models.repositorios.*;
 import models.validadorDeContrasenias.ValidadorDeContrasenia;
-import models.validadorDeContrasenias.encriptadores.MD5;
 
 public class FactoryController {
 

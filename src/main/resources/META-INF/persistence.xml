@@ -15,7 +15,7 @@
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/tp_anual"/>
 
             <property name="hibernate.connection.username" value="root" />
-            <property name="hibernate.connection.password" value="" />
+            <property name="hibernate.connection.password" value="1234" />
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
 
 
