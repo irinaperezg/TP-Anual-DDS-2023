@@ -135,12 +135,13 @@ body {
 
 
 
+
 .login_container .botonTelefonoYMail {
 
     flex-shrink: 0;
     border-radius: 0px;
     align-items: flex-start;
-    background-color: #0CC0DF;
+    background: #BEBEBE;
     border: none;
     color: #fff;
     cursor: pointer;
@@ -182,8 +183,10 @@ body {
 
 
 /* Botones */
-
+.activo {
+    background: #0CC0DF !important;
+}
 
 button:hover {
-    background-color: #06697a;
+    background: #06697a;
 }

@@ -25,9 +25,10 @@ public class UsuariosController implements ICrudViewsHandler {
     this.validadorDeContrasenia = validadorDeContrasenia;
   }
 
+
+  //LOGIN
   @Override
   public void index(Context context) {
-    //TODO DEVOLVER VISTA DE LOGIN
     context.render("login.hbs");
   }
 
@@ -45,11 +46,11 @@ public class UsuariosController implements ICrudViewsHandler {
 
     if (usuario.getContraseniaEncriptada().equals(contraseniaEncriptadaDB))
     {
-      // TODO GARANTIZAR ACCESO
-
       // GUARDO EL ID DEL USUARIO EN LA SESION PARA PODER UTILIZARLA DESPUES
-      context.sessionAttribute("usuario_id",usuario.getId());
+      context.sessionAttribute("usuario_id", usuario.getId());
+
       // REDIGIR
+      context.redirect("/inicio");
     }
     else
     {
@@ -58,22 +59,25 @@ public class UsuariosController implements ICrudViewsHandler {
 
   }
 
+  // INICIO
   @Override
   public void show(Context context) {
-    //TODO
+    //TODO agarrar el nombre del usuario y que en inicio.hbs muestre Bienvenido/a NOMBRE
+    context.render("inicio.hbs");
   }
 
+  //SIGNUP
+  @Override
   public void create(Context context) {
-    //TODO DEVOLVER VISTA DE SIGNUP
-    context.render("singup.hbs");
+    context.render("signup.hbs");
   }
 
   @Override
   public void save(Context context) {
     String nombre = context.formParam("nombre");
     String contrasenia = context.formParam("contrasenia");
-    String telefono = context.formParam("telefono");
-    String email = context.formParam("email");
+    String telefonoYMail = context.formParam("telefonoYMail");
+    String tipoSeleccionado = context.formParam("tipoSeleccionado");
     String contraseniaEncriptada = " ";
 
     try {
@@ -85,9 +89,17 @@ public class UsuariosController implements ICrudViewsHandler {
     try {
       contraseniaEncriptada = validadorDeContrasenia.encriptarContrasenia(contrasenia);
       Usuario usuario = new Usuario(nombre, contraseniaEncriptada);
-      Persona persona = new Persona(usuario, email, telefono);
       usuarioRepository.registrar(usuario);
-      //personaRepository.registrar(persona); si persisto la persona rompe
+
+      Persona persona;
+      if (tipoSeleccionado.equals("correo")) {
+        persona = new Persona(usuario, telefonoYMail, "");
+      } else {
+        persona = new Persona(usuario, "", telefonoYMail);
+      }
+
+      //personaRepository.registrar(persona); TODO si persisto la persona rompe
+
       context.redirect("/login");
     } catch (NoSuchAlgorithmException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
 
@@ -97,18 +109,14 @@ public class UsuariosController implements ICrudViewsHandler {
     }
   }
 
+
+  //NADA
   @Override
-  public void edit(Context context) {
-    //TODO creo q no hace falta se podria eliminar? porque la persona la editamos en persona controller.
-  }
+  public void edit(Context context) {}
 
   @Override
-  public void update(Context context) {
-    //TODO creo q no hace falta se podria eliminar?
-  }
+  public void update(Context context) {}
 
   @Override
-  public void delete(Context context) {
-    //TODO creo q no hace falta se podria eliminar?
-  }
+  public void delete(Context context) {}
 }

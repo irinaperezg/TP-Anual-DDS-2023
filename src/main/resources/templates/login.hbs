@@ -4,29 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/login.css">
-    <title>Registro</title>
+    <title>Iniciar Sesion</title>
 </head>
-
 <body>
 <div class="logo_container">
     <img class="logo" src="img/logo.png" alt="logo-header">
 </div>
 <div class="login_container">
     <h2>Iniciar Sesión</h2>
-    <form method="POST" action="/login">
+    <form method="POST" onsubmit="return validarFormularioInicio()" action="/login">
         <div class="input_container">
-            <input type="text" placeholder="Usuario" required>
+            <input id="usuarioInput" name="nombre" type="text" placeholder="Usuario" required>
         </div>
         <div class="input_container">
-            <input type="password" placeholder="Contraseña" required>
+            <input id="contraseniaInput" name="contrasenia" type="password" placeholder="Contraseña" required>
         </div>
 
-        <button type="submit">
-            <a class="textoBotonCrear" href="inicio.hbs">Iniciar Sesión</a>
+        <button type="submit" class="boton posicionBotonIniciarSesion">
+            Iniciar Sesión
         </button>
+
     </form>
 
     <a class="texto2" href="/singup">* Crear usuario</a>
 </div>
+<script src="js/inicioSesion.js"></script>
 </body>
 </html>

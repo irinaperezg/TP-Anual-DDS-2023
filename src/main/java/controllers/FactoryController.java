@@ -20,6 +20,7 @@ public class FactoryController {
       case "CargaMasiva": controller = new CargaMasivaController(new EntidadPrestadoraRepository(), new OrganismoDeControlRepository()); break;
 
     }
+
     return controller;
   }
 }

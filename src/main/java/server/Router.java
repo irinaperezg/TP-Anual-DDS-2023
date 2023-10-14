@@ -18,6 +18,9 @@ public class Router {
 
       // TODO PERMISOS!!!!!!
 
+      // INICIO
+      get("inicio", ((UsuariosController) FactoryController.controller("Usuarios"))::show);
+
       // PERFIL
       // TODO MAQUETA
       // VER PERFIL DE ALGUIEN

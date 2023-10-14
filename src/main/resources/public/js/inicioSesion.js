@@ -1,40 +1,46 @@
-document.querySelector("#grupo .botonTelefonoYMail:nth-child(1)").click();
-
-
-function seleccionarTipo(tipo) {
+function seleccionarTipo(tipoNuevo) {
     const botonCorreo = document.getElementById("botonCorreo");
     const botonTelefono = document.getElementById("botonTelefono");
-    const campoCorreo = document.getElementById("campoCorreo");
-    const campoTelefono = document.getElementById("campoTelefono");
-
-    // Elimina la clase "activo" de ambos botones
-    botonCorreo.classList.remove("activo");
-    botonTelefono.classList.remove("activo");
+    const campo = document.getElementById("campoTelefonoYMail");
+    const tipoSeleccionado = document.getElementById("tipoSeleccionado");
 
     // Aplica la clase "activo" al botón seleccionado
-    if (tipo === 'correo') {
+    if (tipoSeleccionado.value === "telefono" && tipoNuevo === "correo") {
+        botonTelefono.classList.remove("activo");
         botonCorreo.classList.add("activo");
-        campoCorreo.style.display = 'block';
-        campoTelefono.style.display = 'none';
-        campoCorreo.required = true;
-        campoTelefono.required = false;
-
-        botonTelefono.style.backgroundColor = '#BEBEBE';
-        botonCorreo.style.backgroundColor = '#0CC0DF';
-
-        // Realiza acciones específicas para el registro por correo
-
-    } else if (tipo === 'telefono') {
+        campo.placeholder = "Correo Electrónico";
+        tipoSeleccionado.value = "correo";
+    } else if (tipoSeleccionado.value === "correo" && tipoNuevo === "telefono") {
+        botonCorreo.classList.remove("activo");
         botonTelefono.classList.add("activo");
-        campoCorreo.style.display = 'none';
-        campoTelefono.style.display = 'block';
-        campoCorreo.required = false;
-        campoTelefono.required = true;
-
-        botonCorreo.style.backgroundColor = '#BEBEBE';
-        botonTelefono.style.backgroundColor = '#0CC0DF';
-
-
-        // Realiza acciones específicas para el registro por teléfono
+        campo.placeholder = "Teléfono";
+        tipoSeleccionado.value = "telefono"
     }
+}
+
+
+function validarFormulario() {
+    const nombreUsuario = document.getElementById('campoNombreUsuario');
+    const contrasena = document.getElementById('campoContrasena');
+    const campoTelefonoYMail = document.getElementById('campoTelefonoYMail');
+
+    if (!nombreUsuario.value || !contrasena.value || !campoTelefonoYMail.value) {
+        alert('Por favor, complete todos los campos.');
+        return false;
+    }
+
+    return true;
+}
+
+function validarFormularioInicio() {
+    const nombreUsuario = document.getElementById('usuarioInput');
+    const contrasena = document.getElementById('contraseniaInput');
+
+    if (!nombreUsuario.value || !contrasena.value) {
+        alert('Por favor, complete los campos de nombre de usuario y contraseña.');
+        return false;
+    }
+
+
+    return true;
 }
