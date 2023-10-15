@@ -27,11 +27,13 @@
 </header>
 
 <div>
-    <h1 class="titulosMedianos">Nombre Usuario X</h1>
+    <h1 class="titulosMedianos">  {{usuario.nombre}}</h1>
 </div>
 <!-- ACA VA A TENER Q IR ALGUNA ESPECIE DE FOR LOOP Q MUESTRE TODAS LAS COMUNIDADES DEL USUARIO-->
 <div class = "comunidad">
-    <h2 class = "letraComunidad">Comunidad A</h2>
+    {{#each comunidades}}
+    <h2 class = "letraComunidad">{{this.nombre}}</h2>
+    {{/each}}
 </div>
 
 <a href="/comunidades/crear" class="unirseAComunidad">+</a>

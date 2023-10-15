@@ -21,6 +21,9 @@ public class Comunidad {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Column(name="nombre")
+  private String nombre;
+
   @Column(name="descripcion")
   private String descripcion;
 
@@ -57,8 +60,9 @@ public class Comunidad {
   @ManyToMany(mappedBy = "comunidadesAsociadas")
   private List<Establecimiento> establecimientosObservados = new ArrayList<>();
 
-  public Comunidad(Long id, String descripcion, List<Miembro> miembros, List<Servicio> serviciosObservados, List<Establecimiento> establecimientosObservados) {
+  public Comunidad(Long id, String nombre, String descripcion, List<Miembro> miembros, List<Servicio> serviciosObservados, List<Establecimiento> establecimientosObservados) {
     this.id = id;
+    this.nombre = nombre;
     this.descripcion = descripcion;
     this.estaActiva = true;
     this.miembros = miembros;

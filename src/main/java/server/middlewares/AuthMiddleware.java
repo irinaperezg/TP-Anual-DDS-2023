@@ -14,7 +14,7 @@ public class AuthMiddleware {
         {
             if(context.sessionAttribute("id_usuario") == null && !allowedPaths.contains(context.path())) {
                 throw new AccessDeniedException();
-                context.redirect("/login"); // tira error xd
+                //context.redirect("/login"); // tira error xd
             }
             else {
                 handler.handle(context);

@@ -34,22 +34,27 @@
 </header>
 
 <main>
+
+    <form>
     <section class="seccion-selectores">
         <div class="servicio-selector-container">
             <select class="servicio-selector">
-                <option value="abierto">Servicio1</option>
-                <option value="cerrado">Servicio2</option>
+                {{#each prestaciones}}
+                <option value="{{this.nombre}}">{{this.nombre}}</option>
+                {{/each}}
             </select>
+
         </div>
 
+
         <div class="comunidad-selector-container">
-            <h2>Comunidad X</h2>
+            {{#each comunidades}}
+            <h2>{{this.nombre}}</h2>
 
             <div class="comunidad-select-container">
                 <select class="comunidad-selector">
-                    <option value="Comunidad X">Comunidad X</option>
-                    <option value="Comunidad Y">Comunidad Y</option>
-                    <option value="Comunidad Z">Comunidad Z</option>
+                    <option value = "{{this.nombre}}" >{{this.nombre}}</option>
+                    {{/each}}
                 </select>
                 <div class="uno linea-blanca"></div>
                 <div class="dos linea-blanca"></div>
@@ -60,18 +65,18 @@
     <div class="separador"></div>
 
     <div class="seccion-nuevo-incidente">
-        <form>
-            <h3>Nuevo incidente</h3>
-            <input type="text" id="prestacion" placeholder="Prestación">
 
-            <input type="text" id="denominacion" placeholder="Denominación">
+            <h3>Nuevo incidente</h3>
+            <input type="text" id="prestacion" name="prestacion" placeholder="Prestación">
+
+            <input type="text" id="denominacion" name="denominacion" placeholder="Denominación">
 
             <label for="observaciones">Observaciones</label>
-            <textarea id="observaciones"></textarea>
+            <textarea id="observaciones" name="observaciones"></textarea>
 
             <button>Publicar Incidente</button>
-        </form>>
     </div>
+    </form>>
 </main>
 
 </body>
