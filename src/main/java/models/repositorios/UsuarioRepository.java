@@ -4,6 +4,8 @@ import models.domain.usuarios.Usuario;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class UsuarioRepository implements WithSimplePersistenceUnit {
@@ -32,8 +34,15 @@ public class UsuarioRepository implements WithSimplePersistenceUnit {
 
   public Usuario buscarPorNombreUsuario(String name) {
     EntityManager em = entityManager();
-    Usuario usuario = em.find(Usuario.class, name);
-    em.close();
-    return usuario;
+    try {
+      TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u WHERE u.nombre = :nombre", Usuario.class);
+      query.setParameter("nombre", name);
+      return query.getSingleResult();
+    } catch (NoResultException e) {
+      // Handle the case where no user with the given name is found
+      return null;
+    } finally {
+      em.close();
+    }
   }
 }
