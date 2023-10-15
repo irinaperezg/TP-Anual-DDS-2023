@@ -11,13 +11,12 @@
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
 
-            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/tp_anual"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver" />
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/tp_anual?serverTimezone=UTC"/>
 
             <property name="hibernate.connection.username" value="root" />
-            <property name="hibernate.connection.password" value="Forhonor2003" />
+            <property name="hibernate.connection.password" value="1234" />
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
-
 
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>

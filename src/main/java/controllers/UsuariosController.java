@@ -6,7 +6,10 @@ import models.domain.usuarios.Usuario;
 import models.repositorios.PersonaRepository;
 import models.repositorios.UsuarioRepository;
 import models.validadorDeContrasenias.ValidadorDeContrasenia;
+import models.validadorDeContrasenias.excepciones.ExcepcionComplejidad;
 import models.validadorDeContrasenias.excepciones.ExcepcionContraseniaInvalida;
+import models.validadorDeContrasenias.excepciones.ExcepcionCredencial;
+import models.validadorDeContrasenias.excepciones.ExcepcionLongitud;
 import server.utils.ICrudViewsHandler;
 
 import java.lang.reflect.InvocationTargetException;
@@ -29,10 +32,32 @@ public class UsuariosController implements ICrudViewsHandler {
 
 
   //LOGIN
+
   @Override
   public void index(Context context) {
-    context.render("login.hbs");
+    Map<String, Object> model = new HashMap<>();
+
+    String errorType = context.queryParam("error");
+    if (errorType != null) {
+      switch (errorType) {
+        case "unregistered":
+          model.put("errorMessage", "Usuario no registrado.");
+          break;
+        case "encryption_error":
+          model.put("errorMessage", "Error al encriptar la contraseña. Inténtelo nuevamente.");
+          break;
+        case "invalid_password":
+          model.put("errorMessage", "Contraseña inválida.");
+          break;
+        default:
+          model.put("errorMessage", "Ocurrió un error al intentar iniciar sesión.");
+          break;
+      }
+    }
+
+    context.render("login.hbs", model);
   }
+
 
   public void validar(Context context) {
     String nombre = context.formParam("nombre");
@@ -40,26 +65,27 @@ public class UsuariosController implements ICrudViewsHandler {
     String contraseniaEncriptadaDB = " ";
     Usuario usuario = this.usuarioRepository.buscarPorNombreUsuario(nombre);
 
+    // Verificar si el usuario está registrado
+    if(usuario == null) {
+      context.redirect("/login?error=unregistered");
+      return;
+    }
+
     try {
       contraseniaEncriptadaDB = this.validadorDeContrasenia.encriptarContrasenia(contrasenia);
     } catch (NoSuchAlgorithmException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
-      // TODO MANEJAR EL ERROR no se pudo encriptar
+      context.redirect("/login?error=encryption_error");
+      return;
     }
 
-    if (usuario.getContraseniaEncriptada().equals(contraseniaEncriptadaDB))
-    {
-      // GUARDO EL ID DEL USUARIO EN LA SESION PARA PODER UTILIZARLA DESPUES
+    if (usuario.getContraseniaEncriptada().equals(contraseniaEncriptadaDB)) {
       context.sessionAttribute("usuario_id", usuario.getId());
-
-      // REDIGIR
       context.redirect("/inicio");
+    } else {
+      context.redirect("/login?error=invalid_password");
     }
-    else
-    {
-      // TODO CONTRASEÑA INVALIDA
-    }
-
   }
+
 
   // INICIO
   @Override
@@ -75,8 +101,32 @@ public class UsuariosController implements ICrudViewsHandler {
   //SIGNUP
   @Override
   public void create(Context context) {
-    context.render("signup.hbs");
+    Map<String, Object> model = new HashMap<>();
+
+    String errorType = context.queryParam("error");
+    if (errorType != null) {
+      switch (errorType) {
+        case "complexity":
+          model.put("errorMessage", "La contraseña no tiene la complejidad requerida.");
+          break;
+        case "length":
+          model.put("errorMessage", "La contraseña no cumple con la longitud requerida.");
+          break;
+        case "invalid_password":
+          model.put("errorMessage", "Contraseña inválida.");
+          break;
+        case "registration_error":
+          model.put("errorMessage", "Error al intentar registrar al usuario. Inténtelo nuevamente.");
+          break;
+        default:
+          model.put("errorMessage", "Ocurrió un error al intentar registrarse.");
+          break;
+      }
+    }
+
+    context.render("signup.hbs", model);
   }
+
 
   @Override
   public void save(Context context) {
@@ -88,8 +138,18 @@ public class UsuariosController implements ICrudViewsHandler {
 
     try {
       validadorDeContrasenia.verificarValidez(nombre, contrasenia);
+    } catch (ExcepcionComplejidad e) {
+
+      context.redirect("/signup?error=complexity");
+      return;
+    } catch (ExcepcionLongitud e) {
+
+      context.redirect("/signup?error=length");
+      return;
     } catch (ExcepcionContraseniaInvalida e) {
-      // TODO HAY Q VER SI NO ES VALIDA LA CONTRASEÑA Q INGRESA EL USUARIO
+
+      context.redirect("/signup?error=invalid_password");
+      return;
     }
 
     try {
@@ -104,14 +164,14 @@ public class UsuariosController implements ICrudViewsHandler {
         persona = new Persona(usuario, "", telefonoYMail);
       }
 
-      //personaRepository.registrar(persona); TODO si persisto la persona rompe
+      //personaRepository.registrar(persona); //TODO si persisto la persona rompe
 
       context.redirect("/login");
     } catch (NoSuchAlgorithmException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
 
 
-      //TODO hacer algo con la excepción
       e.printStackTrace();
+      context.redirect("/signup?error=registration_error");
     }
   }
 

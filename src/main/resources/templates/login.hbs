@@ -19,7 +19,9 @@
         <div class="input_container">
             <input id="contraseniaInput" name="contrasenia" type="password" placeholder="Contraseña" required>
         </div>
-
+        {{#if errorMessage}}
+            <p class="error_login">{{errorMessage}}</p>
+        {{/if}}
         <button type="submit" class="boton posicionBotonIniciarSesion">
             Iniciar Sesión
         </button>

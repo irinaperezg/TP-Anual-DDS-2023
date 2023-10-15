@@ -61,7 +61,8 @@ public class Persona {
     this.telefono = telefono;
     this.frecuenciaNotification = null;
     this.preferenciaMedioNotificacion = null;
-    this.horariosDeNotificaciones = null;
+    this.horariosDeNotificaciones = new ArrayList<>();
+
   }
 
   public Persona() {

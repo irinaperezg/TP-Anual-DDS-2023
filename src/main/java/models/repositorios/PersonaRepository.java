@@ -5,29 +5,28 @@ import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import models.domain.usuarios.Usuario;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import java.util.List;
 
 public class PersonaRepository implements WithSimplePersistenceUnit {
 
     public void registrar(Persona persona) {
         EntityManager em = entityManager();
-        em.getTransaction().begin();
+        EntityTransaction tx = null;
 
-        // Verificar si el usuario ya está persistido
-        Usuario usuarioExistente = em.find(Usuario.class, persona.getUsuario().getId());
-
-        if (usuarioExistente == null) {
-            // Si el usuario no existe, persistirlo primero
-            em.persist(persona.getUsuario());
-        } else {
-            // Reasociar con el usuario existente
-            persona.setUsuario(usuarioExistente);
+        try {
+            tx = em.getTransaction();
+            tx.begin();
+            em.persist(persona);
+            tx.commit();
+        } catch (RuntimeException e) {
+            if (tx != null && tx.isActive()) tx.rollback();
+            throw e;
+        } finally {
+            em.close();
         }
-
-        em.persist(persona);
-        em.getTransaction().commit();
-        em.close();
     }
+
 
 
     public List<Persona> todos() {
