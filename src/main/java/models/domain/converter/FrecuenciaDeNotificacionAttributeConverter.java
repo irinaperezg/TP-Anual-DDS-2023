@@ -14,13 +14,18 @@ public class FrecuenciaDeNotificacionAttributeConverter implements
 {
   @Override
   public String convertToDatabaseColumn(FrecuenciaNotificacion frecuenciaNotificacion) {
+    if (frecuenciaNotificacion == null) {
+      return null;  // o puedes retornar una cadena vacía o un valor predeterminado si lo prefieres.
+    }
     String frecuencia = "";
-    switch(frecuenciaNotificacion.getClass().getName()) {
+    switch(frecuenciaNotificacion.getClass().getSimpleName()) {
       case "NotificacionCuandoSucedeIncidente": frecuencia = "Cuando sucede"; break;
       case "NotificacionSinApuros": frecuencia = "Sin apuros"; break;
+      default: throw new IllegalArgumentException("Tipo de FrecuenciaNotificacion desconocido: " + frecuenciaNotificacion.getClass().getName());
     }
     return frecuencia;
   }
+
 
   @Override
   public FrecuenciaNotificacion convertToEntityAttribute(String frecuencia) {

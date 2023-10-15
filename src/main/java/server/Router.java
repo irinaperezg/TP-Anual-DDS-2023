@@ -16,6 +16,9 @@ public class Router {
       get("signup", ((UsuariosController) FactoryController.controller("Usuarios"))::create);
       post("signup", ((UsuariosController) FactoryController.controller("Usuarios"))::save);
 
+      // CERRAR SESION
+      get("logout", ((UsuariosController) FactoryController.controller("Usuarios"))::logout);
+
       // TODO PERMISOS!!!!!!
 
       // INICIO
@@ -28,8 +31,8 @@ public class Router {
 
 
       // EDITAR MI PERFIL (en figma se llama configuración)
-      get("perfil/editar", ((PersonasController) FactoryController.controller("Personas"))::edit);
-      post("perfil/editar", ((PersonasController) FactoryController.controller("Personas"))::update);
+      get("perfil", ((PersonasController) FactoryController.controller("Personas"))::edit);
+      post("perfil", ((PersonasController) FactoryController.controller("Personas"))::update);
 
       // LISTAR COMUNIDADES
       get("comunidades", ((ComunidadesController) FactoryController.controller("Comunidades"))::index);

@@ -6,6 +6,8 @@ import models.domain.usuarios.Usuario;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 import java.util.List;
 
 public class PersonaRepository implements WithSimplePersistenceUnit {
@@ -19,14 +21,22 @@ public class PersonaRepository implements WithSimplePersistenceUnit {
             tx.begin();
             em.persist(persona);
             tx.commit();
-        } catch (RuntimeException e) {
+        } catch (PersistenceException pe) {
+            System.out.println("Error de persistencia: " + pe.getMessage());
+            pe.printStackTrace();
             if (tx != null && tx.isActive()) tx.rollback();
-            throw e;
+        } catch (IllegalStateException ise) {
+            System.out.println("Estado ilegal: " + ise.getMessage());
+            ise.printStackTrace();
+            if (tx != null && tx.isActive()) tx.rollback();
+        } catch (Exception e) {
+            System.out.println("Excepción general: " + e.getMessage());
+            e.printStackTrace();
+            if (tx != null && tx.isActive()) tx.rollback();
         } finally {
             em.close();
         }
     }
-
 
 
     public List<Persona> todos() {
@@ -42,5 +52,22 @@ public class PersonaRepository implements WithSimplePersistenceUnit {
         em.close();
         return persona;
     }
+
+    public Persona buscarPorUsuario(Usuario usuario) {
+        EntityManager em = entityManager();
+        try {
+            Persona persona = em.createQuery(
+                            "SELECT p FROM Persona p WHERE p.usuario = :usuario",
+                            Persona.class)
+                    .setParameter("usuario", usuario)
+                    .getSingleResult();
+            return persona;
+        } catch (NoResultException e) {
+            return null;  // No se encontró una Persona para el Usuario dado
+        } finally {
+            em.close();
+        }
+    }
+
 }
 

@@ -9,7 +9,7 @@ public class RankingsController implements ICrudViewsHandler {
     }
     @Override
     public void index(Context context) {
-      //TODO
+      //context.render("rankings.hbs");
     }
 
     @Override

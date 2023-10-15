@@ -7,6 +7,7 @@ import models.domain.usuarios.Persona;
 import models.domain.usuarios.Usuario;
 import models.repositorios.IncidenteRepository;
 import models.repositorios.PersonaRepository;
+import models.repositorios.UsuarioRepository;
 import server.utils.ICrudViewsHandler;
 
 import javax.persistence.Column;
@@ -19,6 +20,7 @@ import java.util.Objects;
 public class PersonasController implements ICrudViewsHandler {
   private PersonaRepository personaRepository;
 
+
   public PersonasController(PersonaRepository personaRepository) {
     this.personaRepository = personaRepository;
   }
@@ -29,17 +31,36 @@ public class PersonasController implements ICrudViewsHandler {
     Persona persona = this.personaRepository.buscarPorID(Long.parseLong(id));
     Map<String, Object> model = new HashMap<>();
     model.put("persona", persona);
-    context.render("nombre de la vista para mostrar a la persona deseada", model);
+    context.render("nombre de la vista para mostrar a la persona deseada", model); //TODO
   }
 
   @Override
   public void edit(Context context) {
-    Long id = context.sessionAttribute("id");
-    Persona persona = this.personaRepository.buscarPorID(id);
-    Map<String, Object> model = new HashMap<>();
-    model.put("persona", persona);
-    context.render("nombre de la vista para mostrar el perfil de la persona", model);
+  /*  try {
+      Long usuarioId = context.sessionAttribute("usuario_id");
+      if (usuarioId == null) {
+        context.status(403).result("Acceso denegado");
+        return;
+      }
+
+
+
+      Persona persona = this.personaRepository.buscarPorIDUsuario(usuario);
+      if (persona == null) {
+        context.status(404).result("Persona no encontrada");
+        return;
+      }
+
+      Map<String, Object> model = new HashMap<>();
+      model.put("persona", persona);
+      context.render("perfil.hbs", model);
+    } catch (Exception e) {
+      e.printStackTrace();
+      context.status(500).result(e.getMessage());
+    }*/
   }
+
+
 
   @Override
   public void update(Context context) {

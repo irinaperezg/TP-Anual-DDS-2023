@@ -71,3 +71,18 @@ header img {
     font-weight: 500;
     line-height: normal;
 }
+
+.cerrarSesion {
+    color: #767676;
+    display: inline;
+    font-family: 'Cabin';
+    font-size: 20px;
+    font-weight: 400;
+
+    display: inline;
+    margin-left: 21%;
+    padding: 0;
+}
+.cerrarSesion a:hover {
+    text-decoration: underline;
+}
