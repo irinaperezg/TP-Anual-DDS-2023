@@ -30,7 +30,7 @@ public class IncidentesController implements ICrudViewsHandler {
   public void index(Context context) {
     Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
     List<Comunidad> comunidades = this.comunidadRepository.buscarComunidadesUsuario(usuario);
-    //List<Incidente> incidentes = this.incidenteRepository.buscarIncidentesPorComunidad(comunidad);
+    //List<Incidente> incidentes = this.incidenteRepository.buscarPorComunidad(comunidad);
     Map<String, Object> model = new HashMap<>();
     model.put("usuario", usuario);
     model.put("comunidades", comunidades);
@@ -64,8 +64,8 @@ public class IncidentesController implements ICrudViewsHandler {
     String prestacion = context.formParam("prestacion");
     String denominacion = context.formParam("denominacion");
     String observaciones = context.formParam("observaciones");
-    Incidente nuevoIncidente = new Incidente();
-    this.incidenteRepository.registrar(nuevoIncidente);
+   // Incidente nuevoIncidente = new Incidente
+   // this.incidenteRepository.registrar(incidente);
   }
 
   @Override

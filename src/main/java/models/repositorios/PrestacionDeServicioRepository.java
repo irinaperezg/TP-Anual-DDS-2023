@@ -7,21 +7,23 @@ import models.domain.usuarios.Comunidad;
 
 import java.util.List;
 
-public class PrestacionDeServicioRepository implements WithSimplePersistenceUnit  {
-  public void registrar(PrestacionDeServicio prestacionDeServicio)
-  {
+public class PrestacionDeServicioRepository implements WithSimplePersistenceUnit {
+  public void registrar(PrestacionDeServicio prestacionDeServicio) {
     entityManager().persist(prestacionDeServicio);
   }
 
-  /*public List<PrestacionDeServicio> todos() {
+  public List<PrestacionDeServicio> todos() {
     return entityManager()
-        .createQuery("from PrestacionDeServicio")
-        .getResultList();
-  }*/
-
- /* public List<PrestacionDeServicio> prestacionesDeUnServicio (Servicio servicio) {
+            .createQuery("from PrestacionDeServicio")
+            .getResultList();
 
   }
-*/
+}
+/*
+  public List<PrestacionDeServicio> prestacionesDeUnServicio (Servicio servicio) {
+
+
+
 
 }
+*/

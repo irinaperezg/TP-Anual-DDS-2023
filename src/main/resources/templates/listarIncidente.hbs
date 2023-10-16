@@ -2,11 +2,12 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/header.css">
-    <link rel="stylesheet" href="styles/estiloChatty.css">
-    <link rel="stylesheet" href="styles/listarIncidentes.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/estiloGeneral.css">
+    <link rel="stylesheet" href="css/listarIncidentes.css">
+    <script src="js/listarIncidentes.js"></script>
     <meta charset="utf-8">
-    <title>Carga masiva</title>
+    <title>Listado de Incidentes</title>
 </head>
 
 <body class="bodyInterno centrado">
@@ -15,75 +16,63 @@
 <header>
     <div class="menu-container">
         <ul class="menu">
-            <li><a href="inicio.html">Inicio</a></li>
-            <li> <a href="perfilPersona.html"> Configuración </a></li>
-            <li class="paginaActual"><a href="listarIncidentes.html">Incidentes</a></li>
-            <li><a href="listarComunidades.html">Comunidades</a></li>
-            <li><a href="rankings.html">Ranking</a></li>
+            <li><a href="/inicio">Inicio</a></li>
+            <li> <a href="/perfil"> Configuración </a></li>
+            <li class="paginaActual"><a href="/incidentes">Incidentes</a></li>
+            <li><a href="/comunidades">Comunidades</a></li>
+            <li><a href="/rankings">Ranking</a></li>
         </ul>
+        <li class = "cerrarSesion"> <a href="/logout">Cerrar Sesión</a></li>
         <img src="img/logo.png" alt="logo-header">
     </div>
 </header>
 
-<main>
-    <section class="seccion-selectores">
-        <div class="estado-selector-container">
-            <select class="estado-selector">
-                <option value="abierto">Abierto</option>
-                <option value="cerrado">Cerrado</option>
-            </select>
-        </div>
-
-        <div class="comunidad-selector-container">
-            {{#each comunidades}}
-            <h2>{{this.nombre}}</h2>
-
-            <div class="comunidad-select-container">
-                <select class="comunidad-selector">
-                        <option value = {{this.nombre}} >{{this.nombre}}</option>
-                    {{/each}}
-                </select>
-                <div class="uno linea-blanca"></div>
-                <div class="dos linea-blanca"></div>
-            </div>
-        </div>
-    </section>
-
-    <div class="separador"></div>
-
-    <div class="seccion-tarjetas">
-        <!-- Las tarjetas se repiten aquí -->
-        <div class="tarjeta">
-            Denominación: <span class="denominacion">XXXX</span><br>
-            Prestación: <span class="prestacion">XXXX</span><br>
-            Horario de publicación: XXXX<br>
-            Observaciones: XXXX
-            <button class="btn-close">X</button>
-        </div>
-        <div class="tarjeta">
-            Denominación: <span class="denominacion">XXXX</span><br>
-            Prestación: <span class="prestacion">XXXX</span><br>
-            Horario de publicación: XXXX<br>
-            Observaciones: XXXX
-            <button class="btn-close">X</button>
-        </div>
-        <div class="tarjeta">
-            Denominación: <span class="denominacion">XXXX</span><br>
-            Prestación: <span class="prestacion">XXXX</span><br>
-            Horario de publicación: XXXX<br>
-            Observaciones: XXXX
-            <button class="btn-close">X</button>
-        </div>
-        <div class="tarjeta">
-            Denominación: <span class="denominacion">XXXX</span><br>
-            Prestación: <span class="prestacion">XXXX</span><br>
-            Horario de publicación: XXXX<br>
-            Observaciones: XXXX
-            <button class="btn-close">X</button>
-        </div>
-        <!-- Repite div tarjeta para más tarjetas -->
+<div class="seccion-selectores">
+    <div class="estado-selector-container">
+        <select class="estado-selector" id="estado-selector">
+            <option value="ambos" selected>Ambos</option>
+            <option value="abierto">Abierto</option>
+            <option value="cerrado">Cerrado</option>
+        </select>
     </div>
-    <a href="crearIncidente.html" class="btn-add">+</a>
-</main>
+
+    <div class="comunidad-selector-container">
+        {{#if comunidadSeleccionada}}
+            <h2>{{comunidadSeleccionada.nombre}}</h2>
+        {{else}}
+            <h2>Todas las comunidades</h2>
+        {{/if}}
+        <div class="comunidad-select-container">
+            <select class="comunidad-selector">
+                    <option value="todas" selected>Todas</option>
+                    {{#each comunidades}}
+                    <option value="{{this.id}}">{{this.nombre}}</option>
+                    {{/each}}
+            </select>
+            <div class="uno linea-blanca"></div>
+            <div class="dos linea-blanca"></div>
+        </div>
+    </div>
+</div>
+
+<div class="separador"></div>
+
+<div class="seccion-tarjetas">
+    <div class = "incidente">
+            {{#if incidentes}}
+                {{#each incidentes}}
+                    Denominación: <span class="denominacion">{{this.denominacion}}</span><br>
+                    Prestación: <span class="prestacion">{{this.prestacion_de_servicio_id}}</span><br>
+                    Horario de publicación: {{this.fechaApertura}}<br>
+                    Observaciones: {{this.observaciones}}
+                    <button class="btn-close">X</button>
+                {{/each}}
+            {{else}}
+                <p>Ningún incidente disponible</p>
+            {{/if}}
+    </div>
+</div>
+<a href="/incidentes/crear" class="btn-add">+</a>
+
 </body>
 </html>
