@@ -10,15 +10,13 @@ public class AuthMiddleware {
     public static void apply(JavalinConfig config) {
         List<String> allowedPaths = Arrays.asList("/login", "/signup");
 
-        config.accessManager(((handler, context, routerRoles) ->
+        config.accessManager((handler, context, routerRoles) ->
         {
-            if(context.sessionAttribute("id_usuario") == null && !allowedPaths.contains(context.path())) {
-                throw new AccessDeniedException();
-                //context.redirect("/login"); // tira error xd
-            }
-            else {
+            if (context.sessionAttribute("usuario_id") == null && !allowedPaths.contains(context.path())) {
+                context.redirect("/login");
+            } else {
                 handler.handle(context);
             }
-        }));
+        });
     }
 }

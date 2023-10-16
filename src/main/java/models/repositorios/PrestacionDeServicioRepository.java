@@ -19,9 +19,9 @@ public class PrestacionDeServicioRepository implements WithSimplePersistenceUnit
         .getResultList();
   }
 
-  public List<PrestacionDeServicio> prestacionesDeUnServicio (Servicio servicio) {
+  /*public List<PrestacionDeServicio> prestacionesDeUnServicio (Servicio servicio) {
 
-  }
+  }*/
 
 
 }

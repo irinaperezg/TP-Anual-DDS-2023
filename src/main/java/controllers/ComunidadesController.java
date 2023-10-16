@@ -30,14 +30,13 @@ public class ComunidadesController implements ICrudViewsHandler {
     context.render("listarComunidades.hbs", model);
   }
 
-
   @Override
   public void show(Context context) {
     //TODO
   }
 
   public void create(Context context) {
-    //TODO
+    context.render("suma.hbs");
   }
 
   @Override

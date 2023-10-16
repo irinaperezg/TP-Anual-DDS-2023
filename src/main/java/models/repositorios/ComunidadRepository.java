@@ -11,6 +11,7 @@ public class ComunidadRepository implements WithSimplePersistenceUnit {
 
   public void registrar(Comunidad comunidad)
   {
+
     entityManager().persist(comunidad);
   }
 
@@ -25,13 +26,15 @@ public class ComunidadRepository implements WithSimplePersistenceUnit {
   }
 
   public List<Comunidad> buscarComunidadesUsuario(Usuario usuario) {
+    String queryComunidades = "SELECT DISTINCT c FROM Comunidad c " +
+                              "JOIN c.miembros m " +
+                              "JOIN m.persona p " +
+                              "JOIN p.usuario u " +
+                              "WHERE u.id = :usuarioId"; // Usar un parámetro en lugar de incrustar el ID
 
-    String queryComunidades = "SELECT * FROM Comunidad C " +
-        "JOIN miembros M on M.comunidad_id = C.id " +
-        "JOIN personas P on P.id = M.persona_id " +
-        "JOIN usuario U on U.id = P.usuario_id "  +
-        usuario.getId();
-
-    return entityManager().createQuery(queryComunidades).getResultList();
+    return entityManager()
+            .createQuery(queryComunidades, Comunidad.class)
+            .setParameter("usuarioId", usuario.getId())
+            .getResultList();
   }
 }
