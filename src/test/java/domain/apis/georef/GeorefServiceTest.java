@@ -41,31 +41,31 @@ public class GeorefServiceTest {
 
     private List<Provincia> provinciasMock() {
         List<Provincia> provincias = new ArrayList<>();
-        provincias.add(new Provincia(1, "Buenos Aires"));
-        provincias.add(new Provincia(2, "Cordoba"));
+        provincias.add(new Provincia("Buenos Aires"));
+        provincias.add(new Provincia("Cordoba"));
         return provincias;
     }
 
     @Test
     public void ServicioGeorefProveeMunicipiosDeBuenosAiresTest() throws IOException {
-        Provincia buenosAires = new Provincia(1, "Buenos Aires");
+        Provincia buenosAires = new Provincia("Buenos Aires");
 
         ListadoDeMunicipios listadoDeMunicipiosMock = mock(ListadoDeMunicipios.class);
         List<Localizacion> municipiosMock = this.municipiosMock();
 
 
         when(listadoDeMunicipiosMock.getMunicipios()).thenReturn(municipiosMock);
-        when(this.adapterMock.listadoDeMunicipiosDeProvincia(buenosAires.getId())).thenReturn(listadoDeMunicipiosMock);
+        when(this.adapterMock.listadoDeMunicipiosDeProvincia(Math.toIntExact(buenosAires.getId()))).thenReturn(listadoDeMunicipiosMock);
 
-        Assertions.assertEquals(3, this.servicioGeoref.listadoDeMunicipiosDeProvincia(buenosAires.getId()).getMunicipios().size());
+        Assertions.assertEquals(3, this.servicioGeoref.listadoDeMunicipiosDeProvincia(Math.toIntExact(buenosAires.getId())).getMunicipios().size());
     }
 
     private List<Localizacion> municipiosMock() {
         List<Localizacion> municipios = new ArrayList<>();
-        Provincia buenosAires = new Provincia(1, "Buenos Aires");
-        municipios.add(new Localizacion(2L, "Pilar", buenosAires , TipoLocalizacion.Municipio));
-        municipios.add(new Localizacion(3L, "Bahia Blanca", buenosAires, TipoLocalizacion.Municipio));
-        municipios.add(new Localizacion(4L, "Ezeiza", buenosAires, TipoLocalizacion.Municipio));
+        Provincia buenosAires = new Provincia("Buenos Aires");
+        municipios.add(new Localizacion("Pilar", buenosAires , TipoLocalizacion.Municipio));
+        municipios.add(new Localizacion("Bahia Blanca", buenosAires, TipoLocalizacion.Municipio));
+        municipios.add(new Localizacion("Ezeiza", buenosAires, TipoLocalizacion.Municipio));
         return municipios;
     }
 

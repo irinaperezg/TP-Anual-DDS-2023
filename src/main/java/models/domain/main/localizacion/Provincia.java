@@ -9,12 +9,13 @@ import javax.persistence.*;
 @Table(name="provincia")
 public class Provincia {
   @Id
-  private Integer id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
   @Column(name = "nombre")
   private String nombre;
 
-  public Provincia(Integer id, String nombre) {
-    this.id = id;
+  public Provincia(String nombre) {
+
     this.nombre = nombre;
   }
 

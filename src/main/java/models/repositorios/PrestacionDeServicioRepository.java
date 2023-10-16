@@ -13,15 +13,15 @@ public class PrestacionDeServicioRepository implements WithSimplePersistenceUnit
     entityManager().persist(prestacionDeServicio);
   }
 
-  public List<PrestacionDeServicio> todos() {
+  /*public List<PrestacionDeServicio> todos() {
     return entityManager()
         .createQuery("from PrestacionDeServicio")
         .getResultList();
+  }*/
+
+ /* public List<PrestacionDeServicio> prestacionesDeUnServicio (Servicio servicio) {
+
   }
-
-  public List<PrestacionDeServicio> prestacionesDeUnServicio (Servicio servicio) {
-
-  }
-
+*/
 
 }

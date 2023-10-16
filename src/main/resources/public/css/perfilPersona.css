@@ -33,6 +33,16 @@
     cursor: pointer;
 }
 
+.secondary-button {
+    background-color: #007BFF;
+    border: none;
+    color: #FFF;
+    padding: 0px;
+    font-size: 14px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
 .label-container {
     display: flex;
     align-items: center;
@@ -168,7 +178,7 @@ label {
 
 
 .input-select {
-    width: 100%;
+    width: 75%;
     padding: 5px;
     border: none;
     outline:transparent ;

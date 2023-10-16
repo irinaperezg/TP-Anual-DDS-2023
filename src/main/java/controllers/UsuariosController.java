@@ -3,6 +3,7 @@ package controllers;
 import io.javalin.http.Context;
 import models.domain.usuarios.Persona;
 import models.domain.usuarios.Usuario;
+import models.repositorios.LocalizacionRepository;
 import models.repositorios.PersonaRepository;
 import models.repositorios.UsuarioRepository;
 import models.validadorDeContrasenias.ValidadorDeContrasenia;
@@ -18,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.github.jknack.handlebars.internal.lang3.BooleanUtils.toInteger;
+import static models.domain.main.localizacion.TipoLocalizacion.Departamento;
 
 public class UsuariosController implements ICrudViewsHandler {
     private UsuarioRepository usuarioRepository;

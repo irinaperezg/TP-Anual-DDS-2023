@@ -8,7 +8,8 @@ import javax.persistence.*;
 @Table(name = "localidad")
 public class Localidad {
   @Id
-  private Integer id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
   @Column(name = "nombre_localidad")
   private String nombre;
@@ -17,8 +18,7 @@ public class Localidad {
   @JoinColumn(name = "localizacion_id")
   private Localizacion localizacion;
 
-  public Localidad(Integer id, String nombre, Localizacion localizacion) {
-    this.id = id;
+  public Localidad(String nombre, Localizacion localizacion) {
     this.nombre = nombre;
     this.localizacion = localizacion;
   }

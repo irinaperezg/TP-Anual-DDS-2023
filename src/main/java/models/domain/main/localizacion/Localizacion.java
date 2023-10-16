@@ -23,18 +23,14 @@ public class Localizacion {
   @Column(name = "tipo_localizacion")
   private TipoLocalizacion tipoLocalizacion;
 
-  public Localizacion(Long id, String nombre, Provincia provincia, TipoLocalizacion tipo) {
-    this.id = id;
+  public Localizacion(String nombre, Provincia provincia, TipoLocalizacion tipo) {
     this.nombre = nombre;
     this.provincia = provincia;
     this.tipoLocalizacion = tipo;
   }
 
   public Localizacion() {
-    this.id = null;
-    this.nombre = null;
-    this.provincia = null;
-    this.tipoLocalizacion = null;
+
   }
 
   public boolean esIgualA(Localizacion localizacion) {

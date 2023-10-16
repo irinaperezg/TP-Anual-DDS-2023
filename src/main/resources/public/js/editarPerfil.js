@@ -3,12 +3,9 @@ function editarCampo(boton) {
     const inputText = campoEditable.querySelector('.input-text');
     const saveButton = campoEditable.querySelector('.save-button');
 
-
     saveButton.style.display = 'inline-block';
-
     inputText.contentEditable = true;
     inputText.focus();
-
 
     const range = document.createRange();
     range.selectNodeContents(inputText);
@@ -17,7 +14,6 @@ function editarCampo(boton) {
     sel.addRange(range);
 
     campoEditable.classList.add('editando');
-
 
     document.addEventListener('click', function guardar(e) {
         if (!campoEditable.contains(e.target) && e.target !== saveButton) {
@@ -28,7 +24,6 @@ function editarCampo(boton) {
         }
     });
 
-
     saveButton.addEventListener('click', function() {
         inputText.contentEditable = false;
         saveButton.style.display = 'none';
@@ -37,14 +32,26 @@ function editarCampo(boton) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    const botonesEditar = document.querySelectorAll('.edit-button');
+    const botonesSeleccionadores = document.querySelectorAll(".boton_seleccionador");
 
-    botonesEditar.forEach((boton) => {
-        boton.addEventListener('click', function(event) {
-            event.stopPropagation();
-            editarCampo(this);
+    botonesSeleccionadores.forEach(boton => {
+        boton.addEventListener("click", function() {
+
+            const grupo = this.closest('.grupo');
+            const botonesDelGrupo = grupo.querySelectorAll('.boton_seleccionador');
+
+            botonesDelGrupo.forEach(b => b.classList.add('boton_seleccionado'));
+            this.classList.remove('boton_seleccionado');
+
+            const campo = this.getAttribute('data-campo');
+            const valor = this.getAttribute('data-valor');
+
+            guardarCampo(campo, valor);
         });
+
     });
+    document.querySelector("#grupo1 .boton_seleccionador:nth-child(1)").click();
+    document.querySelector("#grupo2 .boton_seleccionador:nth-child(1)").click();
 });
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -56,31 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-const botones = document.querySelectorAll(".boton_seleccionador");
-
-
-botones.forEach(boton => {
-    boton.addEventListener("click", function() {
-
-
-        const grupo = this.closest('.grupo');
-        const botonesDelGrupo = grupo.querySelectorAll('.boton_seleccionador');
-
-
-        botonesDelGrupo.forEach(b => b.classList.add('boton_seleccionado'));
-
-
-        this.classList.remove('boton_seleccionado');
-    });
-});
-
-//simulo click al cargar la pantalla
-document.querySelector("#grupo1 .boton_seleccionador:nth-child(1)").click();
-
-
-document.querySelector("#grupo2 .boton_seleccionador:nth-child(1)").click();
-
-// horarios
+// Horarios
 function toggleDropdown() {
     const dropdown = document.querySelector(".dropdown-content");
     dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
@@ -96,7 +79,6 @@ document.addEventListener("DOMContentLoaded", function() {
             const etiqueta = document.createElement('span');
             etiqueta.classList.add('etiqueta-horario');
             etiqueta.innerHTML = `${horario} <button class="eliminar-horario" onclick="eliminarHorario(this)">x</button>`;
-            // Agrega una "x" para eliminar el horario
 
             const container = document.querySelector('.horarios-seleccionados');
             container.appendChild(etiqueta);
@@ -105,10 +87,26 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // Agrega un evento para eliminar los horarios seleccionados cuando se hace clic en la "x"
+    // Agregar un evento para eliminar los horarios seleccionados cuando se hace clic en la "x"
     document.querySelector('.horarios-seleccionados').addEventListener('click', function(event) {
         if (event.target.classList.contains('eliminar-horario')) {
             event.target.parentElement.remove();
         }
     });
 });
+
+function guardarCampo(campo, valor) {
+    $.ajax({
+        url: '/perfil',
+        type: 'POST',
+        data: { campo: campo, valor: valor },
+        success: function(response){
+            console.log('Campo actualizado exitosamente:', response);
+        },
+        error: function(error) {
+            alert('Error al guardar campo: ' + error.responseText);
+        }
+    });
+}
+
+

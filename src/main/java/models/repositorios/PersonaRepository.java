@@ -69,5 +69,24 @@ public class PersonaRepository implements WithSimplePersistenceUnit {
         }
     }
 
+    public Persona buscarPorIDUsuario(Long usuarioId) {
+        EntityManager em = entityManager();
+        try {
+            Persona persona = em.createQuery(
+                            "SELECT p FROM Persona p WHERE p.usuario.id = :usuarioId",
+                            Persona.class)
+                    .setParameter("usuarioId", usuarioId)
+                    .getSingleResult();
+            return persona;
+        } catch (NoResultException e) {
+            return null;  // No se encontró una Persona para el ID de Usuario dado
+        } finally {
+            em.close();
+        }
+    }
+
+
 }
+
+
 

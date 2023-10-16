@@ -3,10 +3,8 @@ package models.domain.usuarios;
 import models.domain.converter.FrecuenciaDeNotificacionAttributeConverter;
 import models.domain.converter.LocalDateTimeAttributeConverter;
 import models.domain.main.localizacion.Localidad;
-import models.domain.main.entidades.Entidad;
 import models.domain.main.notificaciones.frecuenciasNotificacion.FrecuenciaNotificacion;
 import models.domain.main.notificaciones.mediosNotificacion.PreferenciaMedioNotificacion;
-import models.domain.main.servicio.Servicio;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,10 +13,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter @Setter
 
 @Entity
 @Table(name="persona")
+@Getter @Setter
 public class Persona {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +28,7 @@ public class Persona {
 
   @OneToMany(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Miembro> miembros;
+
 
   @ManyToOne
   @JoinColumn(name = "localidad_id", referencedColumnName = "id")
@@ -43,10 +42,12 @@ public class Persona {
 
   @Column(name="frecuencia_notificacion")
   @Convert(converter = FrecuenciaDeNotificacionAttributeConverter.class)
+  @Setter
   private FrecuenciaNotificacion frecuenciaNotification;
 
   @Enumerated(EnumType.STRING)
   @Column(name="medio_de_notificacion")
+  @Setter
   private PreferenciaMedioNotificacion preferenciaMedioNotificacion;
 
   @ElementCollection
@@ -76,4 +77,5 @@ public class Persona {
   public Long getId() {
     return id;
   }
+
 }

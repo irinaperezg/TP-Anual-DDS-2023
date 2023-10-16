@@ -1,6 +1,7 @@
 package models.domain.usuarios;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -12,6 +13,7 @@ public class Usuario {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Setter
   @Column(name="nombre", columnDefinition = "TEXT", unique = true)
   private String nombre;
 
