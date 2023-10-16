@@ -40,7 +40,7 @@ header img {
     color: #767676;
     display: inline;
     font-family: 'Cabin';
-    font-size: 1.4vw;  /* Reducido el tamaño de fuente */
+    font-size: 15px;  /* Reducido el tamaño de fuente */
     font-weight: 400;
 }
 

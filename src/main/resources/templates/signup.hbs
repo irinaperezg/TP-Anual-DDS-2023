@@ -28,11 +28,13 @@
             </div>
         {{/if}}
         <div class="seleccionTipo" id="grupo">
-            <button id="botonCorreo" class="botonTelefonoYMail activo" onclick="seleccionarTipo('correo')" type="button">Email</button>
-            <button id="botonTelefono" class="botonTelefonoYMail" onclick="seleccionarTipo('telefono')" type="button">Teléfono</button>
+            <button id="botonCorreo" class="botonTelefonoYMail activo" onclick="seleccionarTipo('correo')" type="button" data-valor-medio="EMAIL" >Email</button>
+            <button id="botonTelefono" class="botonTelefonoYMail" onclick="seleccionarTipo('telefono')" type="button" data-valor-medio="WHATSAPP">Teléfono</button>
         </div>
 
+
         <input type="hidden" id="tipoSeleccionado" name="tipoSeleccionado" value="correo">
+        <input type="hidden" name="valor-medio" id="campoValorMedio" value="EMAIL">
 
         <div class="input_container">
             <input type="text" id="campoTelefonoYMail" name="telefonoYMail" placeholder="Correo electrónico" class="miniheader" >

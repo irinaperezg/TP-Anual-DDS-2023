@@ -53,7 +53,7 @@ public class Router {
 
       // LISTAR INCIDENTES
       get("incidentes", ((IncidentesController) FactoryController.controller("Incidentes"))::index);
- //     get("incidentes/{comunidadId}/{estado}", ((IncidentesController) FactoryController.controller("Incidentes"))::listarIncidentes);
+      post("incidentes/{comunidadId}/{estado}", ((IncidentesController) FactoryController.controller("Incidentes"))::listarIncidentes);
 
       // APERTURA DE INCIDENTE
       get("incidentes/crear", ((IncidentesController) FactoryController.controller("Incidentes"))::create);

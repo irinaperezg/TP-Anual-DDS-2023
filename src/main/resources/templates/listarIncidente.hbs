@@ -59,18 +59,18 @@
 
 <div class="seccion-tarjetas">
     <div class = "incidente">
-            {{#if incidentes}}
-                {{#each incidentes}}
-                    Denominación: <span class="denominacion">{{this.denominacion}}</span><br>
-                    Prestación: <span class="prestacion">{{this.prestacion_de_servicio_id}}</span><br>
-                    Horario de publicación: {{this.fechaApertura}}<br>
-                    Observaciones: {{this.observaciones}}
-                    <button class="btn-close">X</button>
-                {{/each}}
-            {{else}}
-                <p>Ningún incidente disponible</p>
-            {{/if}}
-    </div>
+        {{#if incidentes}}
+            {{#each incidentes}}
+                Denominación: <span class="denominacion">{{this.denominacion}}</span><br>
+                Prestación: <span class="prestacion">{{this.prestacion_de_servicio_id}}</span><br>
+                Horario de publicación: {{this.fechaApertura}}<br>
+                Observaciones: {{this.observaciones}}
+                <button class="btn-close">X</button>
+            {{/each}}
+        {{else}}
+            <p>Ningún incidente disponible</p>
+        {{/if}}
+   </div>
 </div>
 <a href="/incidentes/crear" class="btn-add">+</a>
 

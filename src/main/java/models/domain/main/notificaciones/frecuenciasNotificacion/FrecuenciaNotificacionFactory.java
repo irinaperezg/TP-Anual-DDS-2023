@@ -4,9 +4,9 @@ public class FrecuenciaNotificacionFactory {
 
     public static FrecuenciaNotificacion obtenerPorNombre(String nombre) {
         switch (nombre.toUpperCase()) {
-            case "CUANDO_SUCEDA":
+            case "CUANDO_SUCEDE":
                 return new NotificacionCuandoSucedeIncidente();
-            case "SIN_APUROS":
+            case "SIN_APURO":
                 return new NotificacionSinApuros();
             default:
                 throw new IllegalArgumentException("Nombre de frecuencia no reconocido: " + nombre);

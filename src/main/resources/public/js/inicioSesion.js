@@ -44,3 +44,27 @@ function validarFormularioInicio() {
 
     return true;
 }
+
+function seleccionarTipo(tipoNuevo) {
+    const valorMedio = (tipoNuevo === 'correo') ? 'EMAIL' : 'WHATSAPP';
+    document.getElementById('campoValorMedio').value = valorMedio;
+
+    const botonCorreo = document.getElementById("botonCorreo");
+    const botonTelefono = document.getElementById("botonTelefono");
+    const campo = document.getElementById("campoTelefonoYMail");
+    const tipoSeleccionado = document.getElementById("tipoSeleccionado");
+
+    // Aplica la clase "activo" al botón seleccionado
+    if (tipoSeleccionado.value === "telefono" && tipoNuevo === "correo") {
+        botonTelefono.classList.remove("activo");
+        botonCorreo.classList.add("activo");
+        campo.placeholder = "Correo Electrónico";
+        tipoSeleccionado.value = "correo";
+    } else if (tipoSeleccionado.value === "correo" && tipoNuevo === "telefono") {
+        botonCorreo.classList.remove("activo");
+        botonTelefono.classList.add("activo");
+        campo.placeholder = "Teléfono";
+        tipoSeleccionado.value = "telefono"
+    }
+}
+

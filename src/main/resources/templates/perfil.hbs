@@ -35,7 +35,7 @@
         <label for="nombre">Nombre:</label>
         <div class="campo-editable">
 
-                <input type="email" class="input-text" name="nombre" value="{{persona.usuario.nombre}}" id="nombre" >
+                <input type="nombre" class="input-text" name="nombre" value="{{persona.usuario.nombre}}" id="nombre" >
             <button class="edit-button lapiz"><i class="fas fa-pencil-alt"></i></button>
             <button class="save-button boton guardar" onclick="guardarCampo('nombre')">Guardar</button>
         </div>
@@ -85,10 +85,9 @@
         <button class="boton_seleccionador" data-campo="medioNotificacion" data-valor="EMAIL">Email</button>
     </div>
     <div class="grupo" id="grupo2">
-        <button class="boton_seleccionador" data-campo="frecuenciaNotificacion" data-valor="CUANDO_SUCEDA">Cuando sucede</button>
-        <button class="boton_seleccionador" data-campo="frecuenciaNotificacion" data-valor="SIN_APUROS">Sin apuros</button>
+        <button class="boton_seleccionador" data-campo="frecuenciaNotificacion" data-valor="CUANDO_SUCEDE">Cuando sucede</button>
+        <button class="boton_seleccionador" data-campo="frecuenciaNotificacion" data-valor="SIN_APURO">Sin apuros</button>
     </div>
-
 
     <p style="margin-top: 25px;">Horarios para recibir notificaciones sin apuros</p>
     <div class="horarios-container">
@@ -109,6 +108,23 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="js/editarPerfil.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const preferenciaMedioNotificacion = "{{persona.preferenciaMedioNotificacion}}";
+
+        console.log('preferenciaMedioNotificacion:', preferenciaMedioNotificacion);
+
+        let botonMedioNotificacion = document.querySelector(`#grupo1 .boton_seleccionador[data-valor="${preferenciaMedioNotificacion}"]`);
+        if (botonMedioNotificacion) {
+            botonMedioNotificacion.click();
+        }
+
+    });
+</script>
+
+
+
 
 </body>
 </html>

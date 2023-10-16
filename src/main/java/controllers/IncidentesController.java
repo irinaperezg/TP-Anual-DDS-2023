@@ -30,17 +30,45 @@ public class IncidentesController implements ICrudViewsHandler {
   public void index(Context context) {
     Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
     List<Comunidad> comunidades = this.comunidadRepository.buscarComunidadesUsuario(usuario);
-    //List<Incidente> incidentes = this.incidenteRepository.buscarPorComunidad(comunidad);
+    List<Incidente> incidentes = this.incidenteRepository.todos();
     Map<String, Object> model = new HashMap<>();
     model.put("usuario", usuario);
     model.put("comunidades", comunidades);
-    context.render("listarIncidentes.hbs", model);
+    model.put("incidentes", incidentes);
+    context.render("listarIncidente.hbs", model);
   }
 
-  public void listarPorEstado(Context context) {
-    //TODO
-  }
+  public void listarIncidentes(Context context) {
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+    List<Comunidad> comunidades = this.comunidadRepository.buscarComunidadesUsuario(usuario);
+    Map<String, Object> model = new HashMap<>();
+    model.put("usuario", usuario);
+    model.put("comunidades", comunidades);
 
+    Long comunidadId = Long.parseLong(context.pathParam("comunidadId"));
+    String estado = context.pathParam("estado");
+
+    Comunidad comunidadSeleccionada = comunidadRepository.buscarPorID(comunidadId);
+
+    List<Incidente> incidentes;
+    if (estado.equalsIgnoreCase("ambos")) {
+      // Obtener todos los incidentes de la comunidad
+      incidentes = incidenteRepository.buscarPorComunidad(comunidadId);
+    } else {
+      Boolean estadoBool = null;
+      switch (estado) {
+        case "abierto" -> estadoBool = true;
+        case "cerrado" -> estadoBool = false;
+      }
+      incidentes = incidenteRepository.buscarPorComunidadYEstado(comunidadId, estadoBool);
+    }
+
+    model.put("comunidadSeleccionada", comunidadSeleccionada);
+    model.put("incidentes", incidentes);
+
+    // Renderizar la vista con los incidentes
+    context.render("incidentes.hbs", model);
+  }
 
   @Override
   public void show(Context context) {
@@ -82,4 +110,5 @@ public class IncidentesController implements ICrudViewsHandler {
   public void delete(Context context) {
     //TODO
   }
+
 }

@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
     });
-    document.querySelector("#grupo1 .boton_seleccionador:nth-child(1)").click();
+    //document.querySelector("#grupo1 .boton_seleccionador:nth-child(1)").click();
     document.querySelector("#grupo2 .boton_seleccionador:nth-child(1)").click();
 });
 
@@ -156,3 +156,5 @@ function guardarHorarios() {
     });
     guardarCampo('horarios', JSON.stringify(horariosArray));
 }
+
+

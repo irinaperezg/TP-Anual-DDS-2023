@@ -1,6 +1,7 @@
 package controllers;
 
 import io.javalin.http.Context;
+import models.domain.main.notificaciones.mediosNotificacion.PreferenciaMedioNotificacion;
 import models.domain.usuarios.Persona;
 import models.domain.usuarios.Usuario;
 import models.repositorios.LocalizacionRepository;
@@ -140,6 +141,7 @@ public class UsuariosController implements ICrudViewsHandler {
     public void save(Context context) {
         String nombre = context.formParam("nombre");
         String contrasenia = context.formParam("contrasenia");
+        String valorMedio = context.formParam("valor-medio");
         String telefonoYMail = context.formParam("telefonoYMail");
         String tipoSeleccionado = context.formParam("tipoSeleccionado");
         String contraseniaEncriptada = " ";
@@ -171,7 +173,8 @@ public class UsuariosController implements ICrudViewsHandler {
             } else {
                 persona = new Persona(usuario, "", telefonoYMail);
             }
-
+            PreferenciaMedioNotificacion medio = PreferenciaMedioNotificacion.valueOf(valorMedio);
+            persona.setPreferenciaMedioNotificacion(medio);
             personaRepository.registrar(persona);
 
             context.redirect("/login");
