@@ -90,21 +90,18 @@
     </div>
 
 
-
-
     <p style="margin-top: 25px;">Horarios para recibir notificaciones sin apuros</p>
     <div class="horarios-container">
         <div class="horarios-seleccionados"></div>
         <button class="add-btn" onclick="toggleDropdown()">
             +
             <div class="dropdown">
-                <div class="dropdown-content">
-                    <a href="#" data-horario="08:00">08:00</a>
-                    <a href="#" data-horario="09:00">09:00</a>
-                    <a href="#" data-horario="10:00">10:00</a>
+                <div class="dropdown-content" id="dropdown-content">
+
                 </div>
             </div>
         </button>
+        <button onclick="guardarHorarios() " class="botonsote">Guardar</button>
     </div>
 
 </div>

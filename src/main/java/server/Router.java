@@ -19,7 +19,6 @@ public class Router {
       // CERRAR SESION
       get("logout", ((UsuariosController) FactoryController.controller("Usuarios"))::logout);
 
-      // TODO PERMISOS!!!!!!
 
       // INICIO
       get("inicio", ((UsuariosController) FactoryController.controller("Usuarios"))::show);
