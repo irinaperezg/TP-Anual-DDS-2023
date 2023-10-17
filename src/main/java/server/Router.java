@@ -47,7 +47,7 @@ public class Router {
       get("comunidades/{id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::show);
 
       // UNIRSE A COMUNIDAD
-      post("comunidades/{id}", ((MiembrosController) FactoryController.controller("Miembros"))::create);
+      get("comunidades/sumar", ((ComunidadesController) FactoryController.controller("Comunidades"))::create);
 
       // EDITAR EL TIPO DE MIEMBRO --> creo q el nombre de la ruta está mal, parece que fuese editar una comunidad pero
       // mi idea es q el miembro elija si es afectado u observador
