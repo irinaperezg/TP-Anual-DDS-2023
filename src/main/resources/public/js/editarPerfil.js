@@ -36,23 +36,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
     botonesSeleccionadores.forEach(boton => {
         boton.addEventListener("click", function() {
-
-            const grupo = this.closest('.grupo');
-            const botonesDelGrupo = grupo.querySelectorAll('.boton_seleccionador');
-
-            botonesDelGrupo.forEach(b => b.classList.add('boton_seleccionado'));
-            this.classList.remove('boton_seleccionado');
-
             const campo = this.getAttribute('data-campo');
             const valor = this.getAttribute('data-valor');
 
+            // Obtén el grupo al que pertenece este botón
+            const grupo = this.closest('.grupo');
+            const botonesDelGrupo = grupo.querySelectorAll('.boton_seleccionador');
+
+            botonesDelGrupo.forEach(b => {
+                // Quita la clase de todos los botones del grupo
+                b.classList.remove('boton_seleccionado');
+            });
+
+            this.classList.add('boton_seleccionado');
+
+            if (campo === "frecuenciaNotificacion") {
+                if (valor === "CUANDO_SUCEDE") {
+                    ocultarElementos();
+                } else if (valor === "SIN_APURO") {
+                    mostrarElementos();
+                }
+            }
+
             guardarCampo(campo, valor);
         });
-
     });
-    //document.querySelector("#grupo1 .boton_seleccionador:nth-child(1)").click();
+
+    // Inicialmente, hacer clic en el primer botón de "Cuando sucede"
     document.querySelector("#grupo2 .boton_seleccionador:nth-child(1)").click();
 });
+
 
 document.addEventListener('DOMContentLoaded', function() {
     const selectLocalidad = document.querySelector('[data-campo="localidad"] .input-select');
@@ -67,11 +80,22 @@ document.addEventListener('DOMContentLoaded', function() {
 // Set para almacenar los horarios seleccionados
 const selectedHorarios = new Set();
 
-// Función para mostrar/ocultar el menú desplegable
+
 function toggleDropdown() {
     const dropdown = document.querySelector(".dropdown");
-    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    const addBtn = document.querySelector('.add-btn');
+
+    if (dropdown.style.display === "block") {
+        // Si el menú está visible, ocultarlo y restablecer la posición del botón "+"
+        dropdown.style.display = "none";
+        addBtn.style.position = "static";
+    } else {
+        // Si el menú está oculto, mostrarlo y ajustar la posición del botón "+"
+        dropdown.style.display = "block";
+        addBtn.style.position = "relative";
+    }
 }
+
 
 // Función para generar los horarios automáticamente
 function generateTimes() {
@@ -138,7 +162,7 @@ function guardarCampo(campo, valor) {
 document.addEventListener("DOMContentLoaded", function() {
     generateTimes();  // Genera los horarios automáticamente
 
-    // Evento para eliminar horarios seleccionados cuando se hace clic en la "x"
+
     document.querySelector('.horarios-seleccionados').addEventListener('click', function(event) {
         if (event.target.classList.contains('eliminar-horario')) {
             event.target.parentElement.remove();
@@ -155,6 +179,41 @@ function guardarHorarios() {
         return now.toISOString();
     });
     guardarCampo('horarios', JSON.stringify(horariosArray));
+}
+
+function toggleBotones() {
+    const cuandoSucedeButton = document.querySelector('[data-valor="CUANDO_SUCEDE"]');
+    const sinApurosButton = document.querySelector('[data-valor="SIN_APURO"]');
+    const guardarButton = document.querySelector('.botonsote');
+    const addHorariosButton = document.querySelector('.add-btn');
+    const parrafo = document.getElementById('parrafo');
+
+    if (sinApurosButton.classList.contains('boton_seleccionado')) {
+        mostrarElementos();
+    } else {
+        ocultarElementos();
+    }
+}
+
+
+function ocultarElementos() {
+    const parrafo = document.getElementById('parrafo');
+    const guardarButton = document.querySelector('.botonsote');
+    const addHorariosButton = document.querySelector('.add-btn');
+
+    parrafo.style.display = 'none';
+    guardarButton.style.display = 'none';
+    addHorariosButton.style.display = 'none';
+}
+
+function mostrarElementos() {
+    const parrafo = document.getElementById('parrafo');
+    const guardarButton = document.querySelector('.botonsote');
+    const addHorariosButton = document.querySelector('.add-btn');
+
+    parrafo.style.display = 'block';
+    guardarButton.style.display = 'block';
+    addHorariosButton.style.display = 'block';
 }
 
 

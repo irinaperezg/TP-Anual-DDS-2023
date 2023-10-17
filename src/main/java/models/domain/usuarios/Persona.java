@@ -27,7 +27,7 @@ public class Persona {
   private Usuario usuario;
 
   @OneToMany(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true)
-  private List<Miembro> miembros;
+  private List<Miembro> miembros = new ArrayList<>();
 
 
   @ManyToOne
@@ -63,7 +63,6 @@ public class Persona {
     this.frecuenciaNotification = null;
     this.preferenciaMedioNotificacion = null;
     this.horariosDeNotificaciones = new ArrayList<>();
-
   }
 
   public Persona() {
@@ -77,6 +76,7 @@ public class Persona {
   public Long getId() {
     return id;
   }
+
 
 
 }

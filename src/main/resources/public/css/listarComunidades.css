@@ -31,6 +31,7 @@ body {
     flex-direction: column; /* Alinear el contenido verticalmente */
     justify-content: center; /* Centrar verticalmente el contenido */
     height: 90px; /* Aumentar la altura según tus necesidades */
+    position: relative;
 }
 
 
@@ -87,5 +88,15 @@ body {
         text-align: center;
     }
 
+    .bajaComunidad {
+        color: #FF2199;
+        font-family: ABeeZee;
+        font-size: 20px; /* Ajusta el tamaño de la cruz según tus preferencias */
+        text-decoration: none; /* Elimina la decoración de enlace (subrayado) */
+        margin-right: 0px; /* Agrega un espacio a la izquierda de la cruz */
+        position: absolute;
+        right: 5px;
+        top: 50%;
+    }
 
 }

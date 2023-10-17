@@ -33,6 +33,7 @@
 <div class = "comunidad">
     {{#each comunidades}}
     <h2 class = "letraComunidad">{{this.nombre}}</h2>
+    <a href="/comunidades/baja/{{this.id}}/{{usuario.id}}" class="bajaComunidad" >&#10006;</a>
     {{/each}}
 </div>
 

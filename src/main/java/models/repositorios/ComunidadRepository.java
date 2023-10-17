@@ -3,16 +3,22 @@ package models.repositorios;
 import models.domain.main.servicio.Servicio;
 import models.domain.usuarios.Comunidad;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
+import models.domain.usuarios.Miembro;
+import models.domain.usuarios.Persona;
 import models.domain.usuarios.Usuario;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 public class ComunidadRepository implements WithSimplePersistenceUnit {
 
   public void registrar(Comunidad comunidad)
   {
-
     entityManager().persist(comunidad);
+  }
+
+  public void actualizar(Comunidad comunidad){
+    entityManager().merge(comunidad);
   }
 
   public List<Comunidad> todos() {
@@ -37,4 +43,7 @@ public class ComunidadRepository implements WithSimplePersistenceUnit {
             .setParameter("usuarioId", usuario.getId())
             .getResultList();
   }
+
+
+
 }

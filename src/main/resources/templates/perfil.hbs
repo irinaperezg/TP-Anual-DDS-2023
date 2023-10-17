@@ -24,7 +24,7 @@
             <li ><a href="/comunidades">Comunidades</a></li>
             <li ><a href="/rankings">Ranking</a></li>
         </ul>
-        <li class = "cerrarSesion"> <a href="/logout">Cerrar Sesión</a></li>
+
         <img src="img/logo.png" alt="logo-header">
     </div>
 </header>
@@ -89,7 +89,7 @@
         <button class="boton_seleccionador" data-campo="frecuenciaNotificacion" data-valor="SIN_APURO">Sin apuros</button>
     </div>
 
-    <p style="margin-top: 25px;">Horarios para recibir notificaciones sin apuros</p>
+    <p style="margin-top: 25px;" id="parrafo">Horarios para recibir notificaciones sin apuros</p>
     <div class="horarios-container">
         <div class="horarios-seleccionados"></div>
         <button class="add-btn" onclick="toggleDropdown()">
@@ -102,7 +102,7 @@
         </button>
         <button onclick="guardarHorarios() " class="botonsote">Guardar</button>
     </div>
-
+<li class = "cerrarSesion"> <a href="/logout">Cerrar Sesión</a></li>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

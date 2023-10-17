@@ -76,13 +76,27 @@ header img {
     color: #767676;
     display: inline;
     font-family: 'Cabin';
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 400;
 
     display: inline;
     margin-left: 21%;
     padding: 0;
 }
+
+.cerrarSesion {
+    color: #FF2199;
+    font-family: 'Cabin', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    margin: 10px;
+
+}
+
+
 .cerrarSesion a:hover {
     text-decoration: underline;
 }

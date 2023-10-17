@@ -89,4 +89,5 @@ public class Comunidad {
   public boolean leInteresa (PrestacionDeServicio prestacion) {
     return serviciosObservados.contains(prestacion.getServicio()) && establecimientosObservados.contains(prestacion.getEstablecimiento());
   }
+
 }

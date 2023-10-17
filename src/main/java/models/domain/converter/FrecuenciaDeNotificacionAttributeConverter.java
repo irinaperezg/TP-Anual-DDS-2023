@@ -6,34 +6,44 @@ import models.domain.main.notificaciones.frecuenciasNotificacion.NotificacionSin
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-import java.util.Objects;
 
 @Converter(autoApply = true)
-public class FrecuenciaDeNotificacionAttributeConverter implements
-    AttributeConverter<FrecuenciaNotificacion, String>
-{
+public class FrecuenciaDeNotificacionAttributeConverter implements AttributeConverter<FrecuenciaNotificacion, String> {
+
+  // Convertir la entidad FrecuenciaNotificacion a su representación en la base de datos.
   @Override
   public String convertToDatabaseColumn(FrecuenciaNotificacion frecuenciaNotificacion) {
     if (frecuenciaNotificacion == null) {
-      return null;  // o puedes retornar una cadena vacía o un valor predeterminado si lo prefieres.
+      return null;
     }
-    String frecuencia = "";
-    switch(frecuenciaNotificacion.getClass().getSimpleName()) {
-      case "NotificacionCuandoSucedeIncidente": frecuencia = "Cuando sucede"; break;
-      case "NotificacionSinApuros": frecuencia = "Sin apuros"; break;
-      default: throw new IllegalArgumentException("Tipo de FrecuenciaNotificacion desconocido: " + frecuenciaNotificacion.getClass().getName());
+
+    if (frecuenciaNotificacion instanceof NotificacionCuandoSucedeIncidente) {
+      return "Cuando sucede";
     }
-    return frecuencia;
+
+    if (frecuenciaNotificacion instanceof NotificacionSinApuros) {
+      return "Sin apuros";
+    }
+
+    // Si no es ninguno de los tipos esperados, lanzamos una excepción
+    throw new IllegalArgumentException("Tipo de FrecuenciaNotificacion desconocido: " + frecuenciaNotificacion.getClass().getSimpleName());
   }
 
-
+  // Convertir la representación en cadena de la base de datos a la entidad FrecuenciaNotificacion.
   @Override
   public FrecuenciaNotificacion convertToEntityAttribute(String frecuencia) {
-    FrecuenciaNotificacion frecuenciaNotificacion = null;
-    if(Objects.equals(frecuencia, "Cuando sucede"))
-      frecuenciaNotificacion = new NotificacionCuandoSucedeIncidente();
-    if(Objects.equals(frecuencia, "Sin apuros"))
-      frecuenciaNotificacion = new NotificacionSinApuros();
-    return frecuenciaNotificacion;
+    if (frecuencia == null) {
+      return null;
+    }
+
+    switch (frecuencia) {
+      case "Cuando sucede":
+        return new NotificacionCuandoSucedeIncidente();
+      case "Sin apuros":
+        return new NotificacionSinApuros();
+      default:
+        // Si no es ninguna de las cadenas esperadas, lanzamos una excepción
+        throw new IllegalArgumentException("Valor de columna desconocido para FrecuenciaNotificacion: " + frecuencia);
+    }
   }
 }

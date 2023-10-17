@@ -102,7 +102,10 @@ label {
 }
 
 .dropdown {
-    position: absolute;
+    top: 50%; //Centra verticalmente
+left: 50%; //Centra horizontalmente
+transform: translate(-50%, -50%); //Desplaza el dropdown hacia arriba y hacia la izquierda en un 50% de su propio tamaño.
+position: absolute;
     display: none;
     background-color: #f9f9f9;
     min-width: 160px;
@@ -133,6 +136,7 @@ label {
     font-size: 30px;
     cursor: pointer;
     margin-left: 10px;
+    margin-bottom: 10px;
     padding: 10px;
     border-radius: 50%;
     width: 40px;
@@ -140,6 +144,7 @@ label {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 
@@ -235,7 +240,7 @@ button:hover {
     flex-shrink: 0;
     border-radius: 0px;
     align-items: flex-start;
-    background-color: #0CC0DF;
+    background-color: #BEBEBE;
     border: none;
     color: #fff;
     cursor: pointer;
@@ -254,7 +259,7 @@ button:hover {
 
 
 .boton_seleccionado {
-    background: #BEBEBE;
+    background-color: #0CC0DF;
 }
 
 /*Intentando que sea responsive*/

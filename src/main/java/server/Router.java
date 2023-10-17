@@ -36,6 +36,9 @@ public class Router {
       // LISTAR COMUNIDADES
       get("comunidades", ((ComunidadesController) FactoryController.controller("Comunidades"))::index);
 
+      // BAJARSE DE UNA COMUNIDAD
+      get("comunidades/baja/{comunidad_id}/{usuario_id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::delete);
+
       // CREAR NUEVA COMUNIDAD
       get("comunidades/crear", ((ComunidadesController) FactoryController.controller("Comunidades"))::create);
       post("comunidades/crear", ((ComunidadesController) FactoryController.controller("Comunidades"))::save);
