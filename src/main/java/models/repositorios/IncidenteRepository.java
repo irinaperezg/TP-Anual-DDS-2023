@@ -47,11 +47,11 @@ public class IncidenteRepository implements WithSimplePersistenceUnit {
             .getResultList();
   }
 
-  public List<Incidente> obtenerIncidentesAsociados(Long entidadId) {
+  /*public List<Incidente> obtenerIncidentesAsociados(Long entidadId) {
     String jpql = "SELECT i FROM Incidente i " +
         "JOIN i.comunidades c " +
         "WHERE c.id = :comunidadId";
 
     return entityManager().createQuery(jpql, Establecimiento.class).setParameter("comunidadId", comunidadId).getResultList();
-  }
+  } */
 }

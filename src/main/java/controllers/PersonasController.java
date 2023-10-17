@@ -147,7 +147,7 @@ public class PersonasController implements ICrudViewsHandler {
             for (String horario : horariosArray) {
               try {
                 LocalTime time = LocalTime.parse(horario, DateTimeFormatter.ofPattern("HH:mm"));
-                LocalDateTime dateTime = LocalDateTime.of(currentDate, time);
+                LocalDateTime dateTime = LocalDateTime.of(currentDate, time).minusHours(3);;
                 horariosList.add(dateTime);
               } catch (DateTimeParseException e) {
                 // Manejar el error, por ejemplo, registrar o ignorar la fecha incorrecta.

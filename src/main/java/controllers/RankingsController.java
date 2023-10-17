@@ -8,6 +8,7 @@ import models.domain.usuarios.Comunidad;
 import models.repositorios.EntidadRepository;
 import server.utils.ICrudViewsHandler;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,18 +34,12 @@ public class RankingsController implements ICrudViewsHandler {
   }
 
   @Override
-  public void show (Context context){
+  public void show (Context context) throws IOException {
     Map<String, Object> model = new HashMap<>();
     List<String> ranking = null;
     String descripcion = "";
     List<Entidad> entidades = this.entidadRepository.todos();
     String id = context.pathParam("id");
-
-    for (Entidad entidad : entidades) {
-      this.entidadRepository.cargarEstablecimientosEnEntidad(entidad.getId());
-
-    }
-
 
     switch(id) {
       case "1":
@@ -56,12 +51,10 @@ public class RankingsController implements ICrudViewsHandler {
         descripcion = "Entidades con mayor cantidad de incidentes reportados en la semana";
         break;
       case "3":
-        //ranking = this.gradoImpactoProblematicas.elaborarRanking(entidades);
+        ranking = this.gradoImpactoProblematicas.elaborarRanking(entidades);
         descripcion = "Incidentes con mayor grado de impacto de las problemáticas";
         break;
     }
-
-
 
     model.put("ranking", ranking);
     model.put("id", id);
