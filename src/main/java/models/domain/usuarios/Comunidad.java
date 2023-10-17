@@ -15,6 +15,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @Table(name="comunidad")
 public class Comunidad {
   @Id

@@ -16,7 +16,9 @@ import models.repositorios.UsuarioRepository;
 import server.utils.ICrudViewsHandler;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
@@ -137,22 +139,16 @@ public class PersonasController implements ICrudViewsHandler {
             }
             break;
           case "horarios":
-           /* String[] horariosArray = new Gson().fromJson(valor, String[].class);
-            List<LocalDateTime> horariosList = Arrays.stream(horariosArray)
-                    .map(horario -> LocalDateTime.parse(horario, DateTimeFormatter.ISO_DATE_TIME))
-                    .collect(Collectors.toList());
-            persona.setHorariosDeNotificaciones(horariosList);
-            em.merge(persona);*/
-
             String[] horariosArray = new Gson().fromJson(valor, String[].class);
             List<LocalDateTime> horariosList = new ArrayList<>();
 
-            DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+            LocalDate currentDate = LocalDate.now();
 
             for (String horario : horariosArray) {
               try {
-                LocalDateTime fecha = LocalDateTime.parse(horario, formatter);
-                horariosList.add(fecha);
+                LocalTime time = LocalTime.parse(horario, DateTimeFormatter.ofPattern("HH:mm"));
+                LocalDateTime dateTime = LocalDateTime.of(currentDate, time);
+                horariosList.add(dateTime);
               } catch (DateTimeParseException e) {
                 // Manejar el error, por ejemplo, registrar o ignorar la fecha incorrecta.
               }
@@ -160,9 +156,6 @@ public class PersonasController implements ICrudViewsHandler {
 
             persona.setHorariosDeNotificaciones(horariosList);
             em.merge(persona);
-
-
-
             break;
           default:
             context.status(400).result("Campo no reconocido");

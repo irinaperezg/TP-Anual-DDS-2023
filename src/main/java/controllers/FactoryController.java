@@ -11,7 +11,7 @@ public class FactoryController {
     switch (nombre) {
       case "Incidentes": controller = new IncidentesController(new IncidenteRepository(), new UsuarioRepository(),
           new ComunidadRepository(), new ServicioRepository()); break;
-      case "Comunidades": controller = new ComunidadesController(new ComunidadRepository(), new UsuarioRepository(), new MiembroRepository(), new PersonaRepository()); break;
+      case "Comunidades": controller = new ComunidadesController(new ComunidadRepository(), new UsuarioRepository(), new MiembroRepository(), new PersonaRepository(), new EstablecimientoRepository(), new ServicioRepository()); break;
       case "Usuarios": controller = new UsuariosController(new UsuarioRepository(), new PersonaRepository(), new ValidadorDeContrasenia()); break;
       case "Miembros": controller = new MiembrosController(new MiembroRepository()); break;
       case "Personas": controller = new PersonasController(new PersonaRepository()); break;

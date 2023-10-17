@@ -80,7 +80,6 @@ document.addEventListener('DOMContentLoaded', function() {
 // Set para almacenar los horarios seleccionados
 const selectedHorarios = new Set();
 
-
 function toggleDropdown() {
     const dropdown = document.querySelector(".dropdown");
     const addBtn = document.querySelector('.add-btn');
@@ -95,7 +94,6 @@ function toggleDropdown() {
         addBtn.style.position = "relative";
     }
 }
-
 
 // Función para generar los horarios automáticamente
 function generateTimes() {
@@ -140,7 +138,7 @@ function eliminarHorario(buttonElement, horario) {
 // Función para guardar horarios en el servidor
 function guardarHorarios() {
     const horariosArray = Array.from(selectedHorarios);
-    guardarCampo('horarios', horariosArray.join(','));
+    guardarCampo('horarios', JSON.stringify(horariosArray));
 }
 
 // Función para enviar datos al servidor
@@ -162,7 +160,6 @@ function guardarCampo(campo, valor) {
 document.addEventListener("DOMContentLoaded", function() {
     generateTimes();  // Genera los horarios automáticamente
 
-
     document.querySelector('.horarios-seleccionados').addEventListener('click', function(event) {
         if (event.target.classList.contains('eliminar-horario')) {
             event.target.parentElement.remove();
@@ -170,16 +167,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-function guardarHorarios() {
-    const horariosArray = Array.from(selectedHorarios).map(horario => {
-        // Asumiendo que todos los horarios son para la fecha actual
-        const now = new Date();
-        const [hour, minute] = horario.split(':');
-        now.setHours(hour, minute, 0, 0);
-        return now.toISOString();
-    });
-    guardarCampo('horarios', JSON.stringify(horariosArray));
-}
 
 function toggleBotones() {
     const cuandoSucedeButton = document.querySelector('[data-valor="CUANDO_SUCEDE"]');

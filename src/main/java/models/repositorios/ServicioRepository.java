@@ -1,5 +1,6 @@
 package models.repositorios;
 
+import models.domain.main.Establecimiento;
 import models.domain.main.servicio.Servicio;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import models.domain.usuarios.Comunidad;
@@ -23,12 +24,14 @@ public class ServicioRepository implements WithSimplePersistenceUnit {
     return entityManager().find(Servicio.class, id);
   }
 
-  public List<Servicio> serviciosDeUnaComunidad (Comunidad comunidad) {
-    String queryServicio = "SELECT * FROM Servicio S " +
-        "JOIN SERVICIOS_COMUNIDAD SC ON SC.SERVCIO_ID = S.ID" +
-        "JOIN COMUNIDAD C ON C.ID = SC.COMUNIDAD_ID " +
-        "WHERE C.ID = " +
-        comunidad.getId();
-    return entityManager().createQuery(queryServicio).getResultList();
+
+
+
+  public List<Servicio> obtenerServiciosAsociados(Long comunidadId) {
+    String jpql = "SELECT e FROM Servicio e " +
+        "JOIN e.comunidadesAsociadas c " +
+        "WHERE c.id = :comunidadId";
+
+    return entityManager().createQuery(jpql, Servicio.class).setParameter("comunidadId", comunidadId).getResultList();
   }
 }

@@ -7,7 +7,9 @@ import java.util.List;
 
 public class EstablecimientoRepository implements WithSimplePersistenceUnit {
 
-  public void registrar(Establecimiento establecimiento) {entityManager().persist(establecimiento);}
+  public void registrar(Establecimiento establecimiento) {
+    entityManager().persist(establecimiento);
+  }
 
   public List<Establecimiento> todos() {
     return entityManager()
@@ -18,4 +20,13 @@ public class EstablecimientoRepository implements WithSimplePersistenceUnit {
   public Establecimiento buscarPorID(Long id) {
     return entityManager().find(Establecimiento.class, id);
   }
+
+  public List<Establecimiento> obtenerEstablecimientosAsociados(Long comunidadId) {
+    String jpql = "SELECT e FROM Establecimiento e " +
+        "JOIN e.comunidades c " +
+        "WHERE c.id = :comunidadId";
+
+    return entityManager().createQuery(jpql, Establecimiento.class).setParameter("comunidadId", comunidadId).getResultList();
+  }
+
 }
