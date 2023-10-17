@@ -151,6 +151,20 @@ h2 {
     background-color: #06697a;
   }
 
+.botonUnir {
+    background-color: #0CC0DF;  /* Color de fondo azul */
+    color: white;  /* Texto en blanco */
+    padding: 12px 24px;  /* Padding alrededor del texto */
+    border: none;  /* Sin bordes */
+    border-radius: 4px;  /* Bordes redondeados */
+    font-size: 18px;  /* Tamaño de letra más grande */
+    cursor: pointer;  /* Cursor en forma de mano */
+    transition: background-color 0.3s;  /* Animación al cambiar el color de fondo */
+    outline: none;  /* Sin borde alrededor al hacer clic */
+    margin-top: 15px;  /* Espacio en la parte superior */
+    width: 150px;
+}
+
 
   @media (max-width: 767px) {
 

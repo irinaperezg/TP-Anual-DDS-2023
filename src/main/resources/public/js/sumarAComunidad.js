@@ -3,6 +3,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const optionsContainer = document.querySelector(".options-container");
     const optionsList = document.querySelectorAll(".option");
 
+    // Seleccionar tipo por defecto
+    seleccionarTipo('observador');
+
     selected.addEventListener("click", () => {
         optionsContainer.classList.toggle("active");
     });
@@ -12,14 +15,13 @@ document.addEventListener("DOMContentLoaded", function() {
             selected.textContent = option.querySelector("label").textContent;
             const descriptionServicios = option.getAttribute("data-description");
             const descriptionEstablecimientos = option.getAttribute("data-description1");
-
-            // Combina las dos descripciones con un elemento <br> para el salto de línea
             const combinedDescription = descriptionServicios + '<br>' + descriptionEstablecimientos;
 
             const descriptionElement = document.querySelector(".description");
             if (descriptionElement) {
                 descriptionElement.innerHTML = combinedDescription; // Usamos innerHTML para permitir el uso de HTML en el contenido
             }
+            actualizarComunidadSeleccionada(option.getAttribute("data-comunidad-id"));
             optionsContainer.classList.remove("active");
         });
     });
@@ -34,11 +36,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 document.querySelector(".botonUnir").addEventListener("click", (e) => {
     const selected = document.querySelector(".selected");
-    console.log(selected.textContent);
     if (selected.textContent == "Seleccione una comunidad para sumarse") {
-        console.log("AAAA");
+        console.log("Comunidad no seleccionada");
+        e.preventDefault(); // Evitar el envío del formulario si no se ha seleccionado una comunidad
     } else {
-        console.log("bbbb");
+        console.log("Comunidad seleccionada");
     }
 });
 
@@ -52,18 +54,23 @@ function seleccionarTipo(tipo) {
 
     if (tipo === 'observador') {
         botonObservador.classList.add("activo");
-
-
         botonAfectado.style.backgroundColor = '#BEBEBE';
         botonObservador.style.backgroundColor = '#0CC0DF';
-
-
     } else if (tipo === 'afectado') {
         botonAfectado.classList.add("activo");
-
         botonObservador.style.backgroundColor = '#BEBEBE';
         botonAfectado.style.backgroundColor = '#0CC0DF';
-
-
     }
+
+    actualizarTipoSeleccionado(tipo); // Actualiza el input oculto con el tipo seleccionado
+}
+
+function actualizarTipoSeleccionado(tipo) {
+    const tipoInput = document.querySelector("#selectedTipo");
+    tipoInput.value = tipo;
+}
+
+function actualizarComunidadSeleccionada(comunidadId) {
+    const comunidadInput = document.querySelector("#selectedComunidad");
+    comunidadInput.value = comunidadId;
 }

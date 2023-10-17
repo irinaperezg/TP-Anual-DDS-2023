@@ -3,17 +3,16 @@ package controllers;
 import io.javalin.http.Context;
 import models.domain.main.Establecimiento;
 import models.domain.main.servicio.Servicio;
-import models.domain.usuarios.Comunidad;
-import models.domain.usuarios.Miembro;
-import models.domain.usuarios.Persona;
-import models.domain.usuarios.Usuario;
+import models.domain.usuarios.*;
 import models.repositorios.*;
 import server.utils.ICrudViewsHandler;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ComunidadesController implements ICrudViewsHandler {
 
@@ -49,18 +48,61 @@ public class ComunidadesController implements ICrudViewsHandler {
   }
   @Override
   public void create(Context context) {
-    List<Comunidad> comunidades = this.comunidadRepository.todos(); // necesito del repositorio sacar todas las communidades
-    Map<String, Object> modelo = new HashMap<>();
+    Long usuarioId = context.sessionAttribute("usuario_id");
+    Usuario usuario = usuarioRepository.buscarPorID(usuarioId);
+    Persona persona = personaRepository.buscarPorIDUsuario(usuarioId);
 
+    // Obtener todas las comunidades
+    List<Comunidad> todasComunidades = comunidadRepository.todos();
 
-    for (Comunidad comunidad : comunidades) {
+    // Cargar los establecimientos y servicios para todas las comunidades
+    for (Comunidad comunidad : todasComunidades) {
       cargarEstablecimientosEnComunidad(comunidad.getId());
       cargarServiciosEnComunidad(comunidad.getId());
     }
 
-    modelo.put("comunidades", comunidades);
+    // Usando Java Stream API, filtrar las comunidades excluyendo las que ya tienen al miembro
+    List<Comunidad> comunidadesSinMiembro = todasComunidades.stream()
+        .filter(comunidad -> comunidad.getMiembros().stream()
+            .noneMatch(miembro -> miembro.getPersona().equals(persona)))
+        .collect(Collectors.toList());
+
+    // Convertir las comunidades en comunidadesView
+    List<ComunidadView> comunidadesView = new ArrayList<>();
+
+    for (Comunidad comunidad : comunidadesSinMiembro) {
+      ComunidadView cv = new ComunidadView();
+      cv.setId(comunidad.getId());
+      cv.setNombre(comunidad.getNombre());
+
+      String servicios = comunidad.getServiciosObservados()
+          .stream()
+          .map(servicio -> servicio.getDescripcion())
+          .collect(Collectors.joining(", "));
+      cv.setServicios(servicios);
+
+      String establecimientos = comunidad.getEstablecimientosObservados()
+          .stream()
+          .map(establecimiento -> establecimiento.getDenominacion())
+          .collect(Collectors.joining(", "));
+      cv.setEstablecimientos(establecimientos);
+
+      comunidadesView.add(cv);
+    }
+
+    Map<String, Object> modelo = new HashMap<>();
+    modelo.put("comunidades", comunidadesView);
+    modelo.put("usuario", usuario);
     context.render("sumarAComunidad.hbs", modelo);
   }
+
+
+
+
+
+
+
+
 
 
   @Override

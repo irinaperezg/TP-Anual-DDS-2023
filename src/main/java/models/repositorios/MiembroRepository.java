@@ -11,9 +11,11 @@ public class MiembroRepository implements WithSimplePersistenceUnit {
 
   public void registrar(Miembro miembro)
   {
+    entityManager().getTransaction().begin();
     entityManager().persist(miembro);
-  }
+    entityManager().getTransaction().commit();
 
+  }
   public List<Miembro> todos() {
     return entityManager()
         .createQuery("from Miembro")
