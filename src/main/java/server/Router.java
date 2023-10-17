@@ -84,6 +84,10 @@ public class Router {
       get("carga-masiva", ((CargaMasivaController) FactoryController.controller("CargaMasiva"))::index);
       post("carga-masiva", ((CargaMasivaController) FactoryController.controller("CargaMasiva"))::save);
 
+      // RANKINGS
+      get("rankings", ((RankingsController) FactoryController.controller("Rankings"))::index);
+      get("rankings/{id}", ((RankingsController) FactoryController.controller("Rankings"))::show);
+
     });
   }
 }

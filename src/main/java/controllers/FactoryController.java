@@ -1,6 +1,9 @@
 package controllers;
 
 
+import models.domain.main.informes.rankings.CantidadIncidentesReportados;
+import models.domain.main.informes.rankings.GradoImpactoProblematicas;
+import models.domain.main.informes.rankings.PromedioCierre;
 import models.repositorios.*;
 import models.validadorDeContrasenias.ValidadorDeContrasenia;
 
@@ -17,7 +20,7 @@ public class FactoryController {
       case "Personas": controller = new PersonasController(new PersonaRepository()); break;
       case "OrganismoDeControl": controller = new OrganismoDeControlController(new OrganismoDeControlRepository()); break;
       case "EntidadPrestadora": controller = new EntidadPrestadoraController(new EntidadPrestadoraRepository()); break;
-      case "Rankings": controller = new RankingsController(); break;
+      case "Rankings": controller = new RankingsController(new CantidadIncidentesReportados(), new GradoImpactoProblematicas(), new PromedioCierre(), new EntidadRepository()); break;
       case "CargaMasiva": controller = new CargaMasivaController(new EntidadPrestadoraRepository(), new OrganismoDeControlRepository()); break;
 
     }

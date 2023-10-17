@@ -1,5 +1,6 @@
 package models.repositorios;
 
+import models.domain.main.Establecimiento;
 import models.domain.main.entidades.Entidad;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
@@ -18,4 +19,6 @@ public class EntidadRepository implements WithSimplePersistenceUnit {
   public Entidad buscarPorID(Long id) {
     return entityManager().find(Entidad.class, id);
   }
+
+
 }

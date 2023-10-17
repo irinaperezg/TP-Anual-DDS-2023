@@ -1,5 +1,6 @@
 package models.repositorios;
 
+import models.domain.main.Establecimiento;
 import models.domain.main.incidentes.Incidente;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
@@ -44,5 +45,13 @@ public class IncidenteRepository implements WithSimplePersistenceUnit {
             .setParameter("comunidadId", comunidadId)
             .setParameter("abierto", abierto)
             .getResultList();
+  }
+
+  public List<Incidente> obtenerIncidentesAsociados(Long entidadId) {
+    String jpql = "SELECT i FROM Incidente i " +
+        "JOIN i.comunidades c " +
+        "WHERE c.id = :comunidadId";
+
+    return entityManager().createQuery(jpql, Establecimiento.class).setParameter("comunidadId", comunidadId).getResultList();
   }
 }
