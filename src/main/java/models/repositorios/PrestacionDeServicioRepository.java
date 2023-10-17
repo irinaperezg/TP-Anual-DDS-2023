@@ -18,6 +18,10 @@ public class PrestacionDeServicioRepository implements WithSimplePersistenceUnit
             .getResultList();
 
   }
+
+  public PrestacionDeServicio buscarPorID(Long id) {
+    return entityManager().find(PrestacionDeServicio.class, id);
+  }
 }
 /*
   public List<PrestacionDeServicio> prestacionesDeUnServicio (Servicio servicio) {

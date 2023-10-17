@@ -30,12 +30,12 @@
     <h1 class="titulosMedianos">  {{usuario.nombre}}</h1>
 </div>
 <!-- ACA VA A TENER Q IR ALGUNA ESPECIE DE FOR LOOP Q MUESTRE TODAS LAS COMUNIDADES DEL USUARIO-->
+{{#each comunidades}}
 <div class = "comunidad">
-    {{#each comunidades}}
     <h2 class = "letraComunidad">{{this.nombre}}</h2>
     <a href="/comunidades/baja/{{this.id}}/{{usuario.id}}" class="bajaComunidad" >&#10006;</a>
-    {{/each}}
 </div>
+{{/each}}
 
 <a href="/comunidades/sumar" class="unirseAComunidad">+</a>
 

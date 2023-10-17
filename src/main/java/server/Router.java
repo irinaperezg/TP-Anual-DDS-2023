@@ -58,7 +58,6 @@ public class Router {
 
       // LISTAR INCIDENTES
       get("incidentes", ((IncidentesController) FactoryController.controller("Incidentes"))::index);
-      post("incidentes/{comunidadId}/{estado}", ((IncidentesController) FactoryController.controller("Incidentes"))::listarIncidentes);
 
       // APERTURA DE INCIDENTE
       get("incidentes/crear", ((IncidentesController) FactoryController.controller("Incidentes"))::create);
@@ -87,6 +86,8 @@ public class Router {
       // RANKINGS
       get("rankings", ((RankingsController) FactoryController.controller("Rankings"))::index);
       get("rankings/{id}", ((RankingsController) FactoryController.controller("Rankings"))::show);
+
+
 
     });
   }

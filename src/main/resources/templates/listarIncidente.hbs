@@ -1,18 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/estiloGeneral.css">
     <link rel="stylesheet" href="css/listarIncidentes.css">
-    <script src="js/listarIncidentes.js"></script>
-    <meta charset="utf-8">
     <title>Listado de Incidentes</title>
 </head>
 
 <body class="bodyInterno centrado">
 
-<!-- HEADER -->
 <header>
     <div class="menu-container">
         <ul class="menu">
@@ -30,24 +28,20 @@
 <div class="seccion-selectores">
     <div class="estado-selector-container">
         <select class="estado-selector" id="estado-selector">
-            <option value="ambos" selected>Ambos</option>
-            <option value="abierto">Abierto</option>
-            <option value="cerrado">Cerrado</option>
+            <option value="AMBOS" selected>Ambos</option>
+            <option value="ABIERTO">Abierto</option>
+            <option value="CERRADO">Cerrado</option>
         </select>
     </div>
 
     <div class="comunidad-selector-container">
-        {{#if comunidadSeleccionada}}
-            <h2>{{comunidadSeleccionada.nombre}}</h2>
-        {{else}}
-            <h2>Todas las comunidades</h2>
-        {{/if}}
+        <h2 id="comunidadSeleccionadaTexto">Todas las comunidades</h2>
         <div class="comunidad-select-container">
             <select class="comunidad-selector">
-                    <option value="todas" selected>Todas</option>
-                    {{#each comunidades}}
-                    <option value="{{this.id}}">{{this.nombre}}</option>
-                    {{/each}}
+                <option value="todas" selected>Todas</option>
+                {{#each comunidades}}
+                    <option value="{{this.nombre}}">{{this.nombre}}</option>
+                {{/each}}
             </select>
             <div class="uno linea-blanca"></div>
             <div class="dos linea-blanca"></div>
@@ -58,21 +52,28 @@
 <div class="separador"></div>
 
 <div class="seccion-tarjetas">
-    <div class = "incidente">
-        {{#if incidentes}}
-            {{#each incidentes}}
-                Denominación: <span class="denominacion">{{this.denominacion}}</span><br>
-                Prestación: <span class="prestacion">{{this.prestacion_de_servicio_id}}</span><br>
-                Horario de publicación: {{this.fechaApertura}}<br>
-                Observaciones: {{this.observaciones}}
-                <button class="btn-close">X</button>
+    {{#if comunidades}}
+        {{#each comunidades}}
+            {{#each this.incidentes}}
+                <div class = "incidente" data-comunidad="{{this.comunidad.nombre}}">
+                     Denominación: <span class="denominacion">{{this.denominacion}}</span><br>
+                     Prestación: <span class="prestacion">{{this.prestacion.servicio.descripcion}} en {{this.prestacion.establecimiento.denominacion}} de {{this.prestacion.establecimiento.entidad.denominacion}}</span><br>
+                     Horario de publicación: <span class="fechaApertura">{{this.fechaApertura}}</span><br>
+                     Observaciones: <span class="observaciones">{{this.observaciones}}</span><br>
+                     {{#if this.abierto}}
+                        Estado: <span class="estado">ABIERTO</span>
+                     {{else}}
+                        Estado: <span class="estado">CERRADO</span>
+                     {{/if}}
+                     <button class="btn-close" data-incidente-id="{{this.id}}">X</button>
+                </div>
             {{/each}}
-        {{else}}
-            <p>Ningún incidente disponible</p>
-        {{/if}}
-   </div>
+        {{/each}}
+    {{/if}}
 </div>
-<a href="/incidentes/crear" class="btn-add">+</a>
 
+<a href="incidentes/crear" class="btn-add">+</a>
+
+<script src="js/listarIncidentes.js"></script>
 </body>
 </html>

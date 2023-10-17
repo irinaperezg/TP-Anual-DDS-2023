@@ -145,6 +145,7 @@ public class ComunidadesController implements ICrudViewsHandler {
     context.redirect("/comunidades"); // Redirige a la lista de comunidades u otra página
 
   }
+
   @Transactional
   public void cargarEstablecimientosEnComunidad(Long comunidadId) {
     Comunidad comunidad = comunidadRepository.buscarPorID(comunidadId); // Obtén la comunidad por su ID

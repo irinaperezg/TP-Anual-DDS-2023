@@ -7,77 +7,77 @@
     <link rel="stylesheet" href="css/crearIncidente.css">
     <meta charset="utf-8">
     <title>Nuevo Incidente</title>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/estiloGeneral.css">
+    <link rel="stylesheet" href="../css/crearIncidente.css">
+    <meta charset="utf-8">
+    <title>Nuevo Incidente</title>
 </head>
+
 <body class="bodyInterno centrado">
 
 <!-- HEADER -->
 <header>
     <div class="menu-container">
         <ul class="menu">
-            <li><a href="/inicio">Inicio</a></li>
-            <li> <a href="/perfilr"> Configuración </a></li>
-            <li class="paginaActual"><a href="/incidentes">Incidentes</a></li>
+            <li class="paginaActual"><a href="/inicio">Inicio</a></li>
+            <li> <a href="/perfil"> Configuración </a></li>
+            <li><a href="/incidentes">Incidentes</a></li>
             <li ><a href="/comunidades">Comunidades</a></li>
             <li ><a href="/rankings">Rankings</a></li>
         </ul>
         <li class = "cerrarSesion"> <a href="/logout">Cerrar Sesión</a></li>
-        <img src="img/logo.png" alt="logo-header">
+        <img src="../img/logo.png" alt="logo-header">
     </div>
-
-    <div class="notification" id="notificationPopup">
-        <p id="notificationText">This is a notification!</p>
-        <button class="close-btn" id="closeNotification">×</button>
-    </div>
-
-    <button id="showNotification">Show Notification</button>
-    <script src="js/notificacion.js"></script>
 </header>
 
-<main>
+    <div class="seccion-selectores">
 
-    <form>
-    <section class="seccion-selectores">
         <div class="servicio-selector-container">
-            <select class="servicio-selector">
-                {{#each prestaciones}}
-                <option value="{{this.nombre}}">{{this.nombre}}</option>
+            <select class="prestacion-selector">
+                {{#each comunidades}}
+                    {{#each this.establecimientosObservados}}
+                        {{#each this.prestaciones}}
+                            <option class="prestacion-option" value="{{this.id}}" data-comunidad={{../../id}}>{{this.servicio.descripcion}} en {{this.establecimiento.denominacion}}</option>
+                        {{/each}}
+                    {{/each}}
                 {{/each}}
             </select>
-
         </div>
 
-
         <div class="comunidad-selector-container">
-            {{#each comunidades}}
-            <h2>{{this.nombre}}</h2>
-
+            <h2 id="comunidadSeleccionadaTexto"></h2>
             <div class="comunidad-select-container">
                 <select class="comunidad-selector">
-                    <option value = "{{this.nombre}}" >{{this.nombre}}</option>
-                    {{/each}}
+                        {{#each comunidades}}
+                            <option class="comunidad-option" value="{{this.id}}">{{this.nombre}}</option>
+                        {{/each}}
                 </select>
                 <div class="uno linea-blanca"></div>
                 <div class="dos linea-blanca"></div>
             </div>
         </div>
-    </section>
+    </div>
 
     <div class="separador"></div>
 
     <div class="seccion-nuevo-incidente">
 
             <h3>Nuevo incidente</h3>
-            <input type="text" id="prestacion" name="prestacion" placeholder="Prestación">
+            <div class="form">
+                <input type="text" id="denominacion" name="denominacion" placeholder="Denominación" required>
 
-            <input type="text" id="denominacion" name="denominacion" placeholder="Denominación">
+                <label for="observaciones">Observaciones</label>
+                <textarea id="observaciones" name="observaciones" required></textarea>
 
-            <label for="observaciones">Observaciones</label>
-            <textarea id="observaciones" name="observaciones"></textarea>
-
-            <button>Publicar Incidente</button>
+                <button id="botonCrear">Publicar Incidente</button>
+            </div>
     </div>
-    </form>>
-</main>
 
+<script src="../js/crearIncidente.js"></script>
 </body>
 </html>
