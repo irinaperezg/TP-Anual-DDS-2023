@@ -57,19 +57,23 @@ public class ComunidadesController implements ICrudViewsHandler {
 
     // Obtener todas las comunidades
     List<Comunidad> todasComunidades = comunidadRepository.todos();
-
+    List<Comunidad> comunidadesSinMiembro = new ArrayList<>();
     // Cargar los establecimientos y servicios para todas las comunidades
     for (Comunidad comunidad : todasComunidades) {
-      cargarEstablecimientosEnComunidad(comunidad.getId());
-      cargarServiciosEnComunidad(comunidad.getId());
-    }
+      if (!miembroRepository.existePersonaEnComunidad(persona.getId(),comunidad.getId())){
+        cargarEstablecimientosEnComunidad(comunidad.getId());
+        cargarServiciosEnComunidad(comunidad.getId());
+        comunidadesSinMiembro.add(comunidad);
+      }
 
+    }
+    /*
     // Usando Java Stream API, filtrar las comunidades excluyendo las que ya tienen al miembro
     List<Comunidad> comunidadesSinMiembro = todasComunidades.stream()
         .filter(comunidad -> comunidad.getMiembros().stream()
             .noneMatch(miembro -> miembro.getPersona().equals(persona)))
         .collect(Collectors.toList());
-
+*/
     // Convertir las comunidades en comunidadesView
     List<ComunidadView> comunidadesView = new ArrayList<>();
 
@@ -137,10 +141,8 @@ public class ComunidadesController implements ICrudViewsHandler {
   public void delete(Context context) {
     Long comunidadId = Long.parseLong(context.pathParam("comunidad_id"));
     Long usuarioId = Long.parseLong(context.pathParam("usuario_id"));
-
-    Comunidad comunidad = comunidadRepository.buscarPorID(comunidadId);
     Persona persona = personaRepository.buscarPorIDUsuario(usuarioId);
-    Miembro miembro = miembroRepository.buscarMiembroPorPersonaId(persona.getId());
+    Miembro miembro = miembroRepository.buscarMiembroPorPersonaId(persona.getId(), comunidadId);
     miembroRepository.removeMiembro(miembro); // Implementa este método en la clase Comunidad
     context.redirect("/comunidades"); // Redirige a la lista de comunidades u otra página
 
