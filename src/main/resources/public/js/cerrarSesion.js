@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
         event.preventDefault(); // Evita que el enlace se siga al hacer clic
 
         // Muestra un cuadro de diálogo de confirmación
-        const confirmacion = confirm("¿Seguro que deseas cerrar la sesión?");
+        const confirmacion = confirm("¿Seguro/a que deseas cerrar la sesión?");
 
         if (confirmacion) {
             // Si el usuario confirma, redirige a la página de cierre de sesión
