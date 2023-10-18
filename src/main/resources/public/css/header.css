@@ -1,3 +1,33 @@
+a {
+    text-decoration: none; /* Elimina el subrayado */
+}
+
+a:hover {
+    text-decoration: none; /* Elimina el subrayado en el efecto :hover */
+}
+
+.cerrar-sesion-icon {
+    width: 7%; /* El ancho se ajusta al 4% del ancho de la ventana */
+    max-width: 50px;
+    height: auto; /* La altura se ajusta automáticamente para mantener la proporción */
+    position: absolute;
+    bottom: 1%; /* Ajusta la distancia desde la parte inferior en relación con el alto de la ventana */
+    right: 1.5%; /* Ajusta la distancia desde la derecha en relación con el ancho de la ventana */
+    top: 14%; /* Ajusta la distancia desde la parte superior en relación con el alto de la ventana */
+}
+
+@media screen and (max-width: 768px) {
+    .cerrar-sesion-icon {
+        width: 8%; /* Ajusta el tamaño para pantallas más pequeñas */
+        bottom: 2%; /* Ajusta la posición para pantallas más pequeñas */
+        right: 1.5%; /* Ajusta la distancia desde la derecha en relación con el ancho de la ventana */
+        top: 16%;/
+    }
+}
+
+
+
+
 /* Encabezado */
 header {
     background-color: #FFF;

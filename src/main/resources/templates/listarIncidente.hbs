@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/estiloGeneral.css">
     <link rel="stylesheet" href="css/listarIncidentes.css">
+    <link rel="icon" href="img/favicon.png" type="image/png">
     <title>Listado de Incidentes</title>
 </head>
 
@@ -15,14 +16,18 @@
     <div class="menu-container">
         <ul class="menu">
             <li><a href="/inicio">Inicio</a></li>
-            <li> <a href="/perfil"> Configuración </a></li>
+            <li> <a href="/perfil"> Perfil </a></li>
             <li class="paginaActual"><a href="/incidentes">Incidentes</a></li>
             <li><a href="/comunidades">Comunidades</a></li>
             <li><a href="/rankings">Rankings</a></li>
         </ul>
-        <li class = "cerrarSesion"> <a href="/logout">Cerrar Sesión</a></li>
         <img src="img/logo.png" alt="logo-header">
     </div>
+    <a href="#" id="cerrarSesionLink">
+          <div class="cerrar-sesion-icon">
+            <i class="fa-solid fa-arrow-right-from-bracket" style="color: #ff4db5;"></i>
+          </div>
+        </a>
 </header>
 
 <div class="seccion-selectores">
@@ -75,5 +80,7 @@
 <a href="incidentes/crear" class="btn-add">+</a>
 
 <script src="js/listarIncidentes.js"></script>
+<script src="js/cerrarSesion.js"></script>
+<script src="https://kit.fontawesome.com/a39dd266ae.js" crossorigin="anonymous"></script>
 </body>
 </html>

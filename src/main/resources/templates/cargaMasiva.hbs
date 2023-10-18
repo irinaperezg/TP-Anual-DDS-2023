@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="css/estiloGeneral.css">
     <link rel="stylesheet" href="css/cargaMasiva.css">
     <meta charset="utf-8">
+    <link rel="icon" href="img/favicon.png" type="image/png">
     <title>Carga masiva</title>
   </head>
 
@@ -16,15 +17,19 @@
             <div class="menu-container">
               <ul class="menu" style="margin-left: 40px;">
                    <li><a href="/inicio">Inicio</a></li>
-                   <li class="paginaActual"> <a href="/perfil"> Configuración </a></li>
+                   <li class="paginaActual"> <a href="/perfil"> Perfil </a></li>
                    <li><a href="/incidentes">Incidentes</a></li>
                    <li ><a href="/comunidades">Comunidades</a></li>
                    <li ><a href="/rankings">Rankings</a></li>
                </ul>
-              <li class = "cerrarSesion"> <a href="/logout">Cerrar Sesión</a></li>
               <img src="img/logo.png" alt="logo-header">
 
             </div>
+            <a href="#" id="cerrarSesionLink">
+                  <div class="cerrar-sesion-icon">
+                    <i class="fa-solid fa-arrow-right-from-bracket" style="color: #ff4db5;"></i>
+                  </div>
+            </a>
       </header>
 
       <div>
@@ -71,5 +76,8 @@
         <h3>Email del delegado</h3>
       </div>
     <script src="js/cargaMasiva.js"></script>
+    <script src="js/cerrarSesion.js"></script>
+    <script src="https://kit.fontawesome.com/a39dd266ae.js" crossorigin="anonymous"></script>
+
   </body>
 </html>
