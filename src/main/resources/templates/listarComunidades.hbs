@@ -38,12 +38,14 @@
 {{#each comunidades}}
 <div class = "comunidad">
     <h2 class = "letraComunidad">{{this.nombre}}</h2>
-    <a href="/comunidades/baja/{{this.id}}/{{usuario.id}}" class="bajaComunidad" >&#10006;</a>
+    <a href="/comunidades/baja/{{this.id}}/{{usuario.id}}" class="bajaComunidad" id="eliminarComunidad">&#10006;</a>
+
 </div>
 {{/each}}
 
 <a href="/comunidades/sumar" class="unirseAComunidad">+</a>
 <script src="js/cerrarSesion.js"></script>
+<script src="js/listarComunidades.js"></script>
 <script src="https://kit.fontawesome.com/a39dd266ae.js" crossorigin="anonymous"></script>
 
 </body>

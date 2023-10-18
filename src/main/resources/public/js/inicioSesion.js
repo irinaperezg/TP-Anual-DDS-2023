@@ -29,6 +29,13 @@ function validarFormulario() {
         return false;
     }
 
+    var confirmacion = confirm('¿Estás seguro/a de que deseas crear este usuario?');
+
+    // Si el usuario elige "Cancelar" en la ventana emergente, devuelve false y detiene el envío del formulario.
+    if (!confirmacion) {
+        return false;
+    }
+
     return true;
 }
 
@@ -40,7 +47,6 @@ function validarFormularioInicio() {
         alert('Por favor, complete los campos de nombre de usuario y contraseña.');
         return false;
     }
-
 
     return true;
 }
