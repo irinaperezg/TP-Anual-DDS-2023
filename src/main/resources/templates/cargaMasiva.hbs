@@ -51,16 +51,20 @@
           <button type="submit" class="boton cargarDatos" id="submitButton" disabled>Subir Datos</button>
       </form>
 
+       <div class="error-container">
+            <p id="error-message">Por favor, selecciona un archivo CSV válido.</p>
+       </div>
+
       <!-- MENSAJE DE ERROR -->
       {{#if errorMessage}}
           <div class="error-message">
-          {{errorMessage}}
+            {{errorMessage}}
           </div>
       {{/if}}
 
       {{#if happyMessage}}
           <div class="happy-message">
-          {{happyMessage}}
+            {{happyMessage}}
           </div>
      {{/if}}
 

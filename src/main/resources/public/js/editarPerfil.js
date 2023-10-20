@@ -1,3 +1,15 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const preferenciaMedioNotificacion = "{{persona.preferenciaMedioNotificacion}}";
+
+    console.log('preferenciaMedioNotificacion:', preferenciaMedioNotificacion);
+
+    let botonMedioNotificacion = document.querySelector(`#grupo1 .boton_seleccionador[data-valor="${preferenciaMedioNotificacion}"]`);
+    if (botonMedioNotificacion) {
+        botonMedioNotificacion.click();
+    }
+
+});
+
 function editarCampo(boton) {
     const campoEditable = boton.closest('.campo');
     const inputText = campoEditable.querySelector('.input-text');

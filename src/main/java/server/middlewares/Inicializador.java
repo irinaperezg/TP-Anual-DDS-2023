@@ -37,5 +37,7 @@ public class Inicializador {
   }
 
   public void inicializarLocalidades() {
-    List<Localidad> localidades = this.localizacionRepository.todasLasLocalidades();
+    //List<Localidad> localidades = this.localizacionRepository.todasLasLocalidades();
+  }
+
   }

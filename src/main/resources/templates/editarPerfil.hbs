@@ -2,12 +2,12 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="css/estiloGeneral.css">
-    <link rel="stylesheet" href="css/perfilPersona.css">
-    <link rel="icon" href="img/favicon.png" type="image/png">
+    <link rel="stylesheet" href="../css/estiloGeneral.css">
+    <link rel="stylesheet" href="../css/perfilPersona.css">
+    <link rel="icon" href="../img/favicon.png" type="image/png">
     <meta charset="utf-8">
     <title>Editar Mi Perfil</title>
 </head>
@@ -25,7 +25,7 @@
             <li ><a href="/rankings">Rankings</a></li>
         </ul>
 
-        <img src="img/logo.png" alt="logo-header">
+        <img src="../img/logo.png" alt="logo-header">
     </div>
 
     <a href="#" id="cerrarSesionLink">
@@ -40,30 +40,21 @@
     <div class="campo" data-campo="nombre">
         <label for="nombre">Nombre:</label>
         <div class="campo-editable">
-
-                <input type="nombre" class="input-text" name="nombre" value="{{persona.usuario.nombre}}" id="nombre" >
-            <button class="edit-button lapiz"><i class="fas fa-pencil-alt"></i></button>
-            <button class="save-button boton guardar" onclick="guardarCampo('nombre')">Guardar</button>
+             <input type="nombre" class="input-text" name="nombre" value="{{persona.usuario.nombre}}" id="nombre" >
         </div>
     </div>
 
     <div class="campo" data-campo="email">
         <label for="email">Email:</label>
         <div class="campo-editable">
-
-                <input type="email" class="input-text"name="email" value="{{persona.email}}" id="email" >
-            <button class="edit-button lapiz"><i class="fas fa-pencil-alt"></i></button>
-            <button class="save-button boton guardar" onclick="guardarCampo('email')">Guardar</button>
-
+             <input type="email" class="input-text"name="email" value="{{persona.email}}" id="email" >
         </div>
     </div>
 
     <div class="campo" data-campo="telefono">
         <label for="telefono">Teléfono:</label>
         <div class="campo-editable">
-                <input type="telefono" class="input-text"name="telefono" value="{{persona.telefono}}" id="telefono" >
-            <button class="edit-button lapiz"><i class="fas fa-pencil-alt"></i></button>
-            <button class="save-button boton guardar" onclick="guardarCampo('telefono')">Guardar</button>
+             <input type="telefono" class="input-text"name="telefono" value="{{persona.telefono}}" id="telefono" >
         </div>
 
     </div>
@@ -86,7 +77,6 @@
                         <option value="{{this.id}}">{{this.nombre}} - {{this.localizacion.nombre}}</option>
                     {{/each}}
                 </select>
-                <button class="secondary-button boton guardar" data-always-visible="true" onclick="guardarCampo('localidad')">Guardar</button>
             </div>
         </div>
 
@@ -116,38 +106,19 @@
                 </div>
             </div>
         </button>
-        <button onclick="guardarHorarios() " class="botonsote">Guardar</button>
     </div>
-
-
-
 
 </div>
 
 
-<button onclick="guardarHorarios() " class="botonsote alineacion"><a href="/carga-masiva">Carga Masiva</a></button>
-
+<button class="botonsote alineacion"><a href="/carga-masiva">Carga Masiva</a></button>
 
 <script src="https://kit.fontawesome.com/a39dd266ae.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="js/editarPerfil.js"></script>
-<script src="js/cerrarSesion.js"></script>
-<script src="js/listarProvinciaLocalidad.js"></script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const preferenciaMedioNotificacion = "{{persona.preferenciaMedioNotificacion}}";
-
-        console.log('preferenciaMedioNotificacion:', preferenciaMedioNotificacion);
-
-        let botonMedioNotificacion = document.querySelector(`#grupo1 .boton_seleccionador[data-valor="${preferenciaMedioNotificacion}"]`);
-        if (botonMedioNotificacion) {
-            botonMedioNotificacion.click();
-        }
-
-    });
-</script>
+<script src="../js/editarPerfil.js"></script>
+<script src="../js/cerrarSesion.js"></script>
+<script src="../js/listarProvinciaLocalidad.js"></script>
 
 </body>
 </html>

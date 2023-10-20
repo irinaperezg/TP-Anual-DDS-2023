@@ -84,7 +84,7 @@
 }
 
 /* Estilos para mensajes de error o éxito */
-.error-message, .happy-message {
+.happy-message {
     border: 1px solid;
     border-radius: 5px;
     margin-bottom: 20px;
@@ -94,10 +94,21 @@
     margin: 2% auto; /* Centra horizontalmente */
     padding: 10px; /* Aumenta el espacio interno */
     justify-content: center;
+    color: mediumseagreen;
 }
 
-
-
+.error-message{
+    border: 1px solid;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center;
+    width: 80%; /* Ajusta el ancho del contenedor */
+    margin: 2% auto; /* Centra horizontalmente */
+    padding: 10px; /* Aumenta el espacio interno */
+    justify-content: center;
+    color: orangered;
+}
 
 .boton.cargarDatos {
     display: block;
