@@ -9,14 +9,10 @@ public class Router {
   public static void init() {
     Server.app().routes(() -> {
       // LOGIN
-      //get("login", ((UsuariosController) FactoryController.controller("Usuarios"))::index);
-      //post("login", ((UsuariosController) FactoryController.controller("Usuarios"))::validar);
       get("login", ((LoginController) FactoryController.controller("Login"))::index);
       post("login", ((LoginController) FactoryController.controller("Login"))::validar);
 
       // SIGN UP
-      //get("signup", ((UsuariosController) FactoryController.controller("Usuarios"))::create);
-      //post("signup", ((UsuariosController) FactoryController.controller("Usuarios"))::save);
       get("signup", ((SignUpController) FactoryController.controller("Signup"))::create);
       post("signup", ((SignUpController) FactoryController.controller("Signup"))::save);
 
@@ -28,14 +24,14 @@ public class Router {
       get("inicio", ((UsuariosController) FactoryController.controller("Usuarios"))::show);
 
       // PERFIL
-      // TODO MAQUETA
+      // VER MI PERFIL
+      get("perfil", ((PersonasController) FactoryController.controller("Personas"))::index);
+      // EDITAR MI PERFIL
+      get("perfil/editar", ((PersonasController) FactoryController.controller("Personas"))::edit);
+      post("perfil", ((PersonasController) FactoryController.controller("Personas"))::update); // TODO CAMBIAR filtrado por PROVINCIAS Y LOCALIDADES
+
       // VER PERFIL DE ALGUIEN
       get("perfil/{id}", ((PersonasController) FactoryController.controller("Personas"))::show);
-
-
-      // EDITAR MI PERFIL (en figma se llama configuración)
-      get("perfil", ((PersonasController) FactoryController.controller("Personas"))::edit);
-      post("perfil", ((PersonasController) FactoryController.controller("Personas"))::update); // TODO CAMBIAR filtrado por PROVINCIAS Y LOCALIDADES
 
       // LISTAR COMUNIDADES
       get("comunidades", ((ComunidadesController) FactoryController.controller("Comunidades"))::index);

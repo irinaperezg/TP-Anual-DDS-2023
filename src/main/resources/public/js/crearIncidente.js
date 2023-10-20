@@ -86,17 +86,11 @@ function crearIncidente() {
     const denominacion = document.querySelector("#denominacion").value;
     const observaciones = document.querySelector("#observaciones").value;
 
-    console.log(prestacion_id);
-    console.log(denominacion);
-    console.log(observaciones);
-
     const data = {
         prestacion_id: prestacion_id,
         incidente_denominacion: denominacion,
         incidente_observaciones: observaciones
     };
-
-    console.log(data);
 
     fetch(`../../incidentes/crear`, {
         method: "POST",

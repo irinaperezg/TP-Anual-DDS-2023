@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/perfilPersona.css">
     <link rel="icon" href="img/favicon.png" type="image/png">
     <meta charset="utf-8">
-    <title>Editar Perfil Persona</title>
+    <title>Perfil/title>
 </head>
 
 <body class="bodyInterno centrado">
@@ -36,120 +36,86 @@
 </header>
 
 <div class="sostenedor_de_campos">
-    <form method="POST" action="/perfil">
     <div class="campo" data-campo="nombre">
-        <label for="nombre">Nombre:</label>
+        <label>Nombre:</label>
         <div class="campo-editable">
-
-                <input type="nombre" class="input-text" name="nombre" value="{{persona.usuario.nombre}}" id="nombre" >
-            <button class="edit-button lapiz"><i class="fas fa-pencil-alt"></i></button>
-            <button class="save-button boton guardar" onclick="guardarCampo('nombre')">Guardar</button>
+            {{persona.usuario.nombre}}
         </div>
     </div>
 
     <div class="campo" data-campo="email">
-        <label for="email">Email:</label>
+        <label>Email:</label>
         <div class="campo-editable">
-
-                <input type="email" class="input-text"name="email" value="{{persona.email}}" id="email" >
-            <button class="edit-button lapiz"><i class="fas fa-pencil-alt"></i></button>
-            <button class="save-button boton guardar" onclick="guardarCampo('email')">Guardar</button>
-
+            {{persona.email}}
         </div>
     </div>
 
     <div class="campo" data-campo="telefono">
-        <label for="telefono">Teléfono:</label>
+        <label>Teléfono:</label>
         <div class="campo-editable">
-                <input type="telefono" class="input-text"name="telefono" value="{{persona.telefono}}" id="telefono" >
-            <button class="edit-button lapiz"><i class="fas fa-pencil-alt"></i></button>
-            <button class="save-button boton guardar" onclick="guardarCampo('telefono')">Guardar</button>
+            {{#if persona.horarioDeNotificaciones}}
+                {{persona.telefono}}
+            {{else}}
+            Sin teléfono definido.
+            {{/if}}
         </div>
-
     </div>
-        <div class="campo" data-campo="provincia">
-            <label for="provincia">Provincia:</label>
-            <div class="campo-editable">
-                <select class="input-select" name="provincia" id="provincia">
-                    {{#each provincias}}
-                        <option value="{{this.id}}">{{this.provincia}}</option>
-                    {{/each}}
-                </select>
-                <button class="secondary-button boton guardar" data-always-visible="true" onclick="guardarCampo('localidad')">Guardar</button>
-            </div>
+
+    <div class="campo" data-campo="localidad">
+        <label>Localidad:</label>
+        <div class="campo-editable">
+            {{#if persona.localidad}}
+                {{persona.localidad.nombre}} - {{persona.localidad.localizacion.nombre}} - {{persona.localidad.localizacion.provincia.nombre}}
+            {{else}}
+            Sin localidad definida.
+            {{/if}}
         </div>
+    </div>
 
-        <div class="campo" data-campo="localidad">
-            <label for="localidad">Localidad:</label>
-            <div class="campo-editable">
-                <select class="input-select" name="localidad" id="localidad">
-                    {{#each localidades}}
-                        <option value="{{this.id}}">{{this.nombre}}</option>
-                    {{/each}}
-                </select>
-                <button class="secondary-button boton guardar" data-always-visible="true" onclick="guardarCampo('localidad')">Guardar</button>
-            </div>
+    <div class="campo" data-campo="localidad">
+        <label>Medio de notificación:</label>
+        <div class="campo-editable">
+            {{#if persona.preferenciaMedioNotificacion}}
+                {{persona.preferenciaMedioNotificacion}}
+            {{else}}
+                Sin preferencia definida.
+            {{/if}}
         </div>
-
-    </form>
-
-</div>
-
-<div class="sostenedor_de_botones">
-    <p>Elige la forma de recibir notificaciones</p>
-    <div class="grupo" id="grupo1">
-        <button class="boton_seleccionador" data-campo="medioNotificacion" data-valor="WHATSAPP">Telefono</button>
-        <button class="boton_seleccionador" data-campo="medioNotificacion" data-valor="EMAIL">Email</button>
-    </div>
-    <div class="grupo" id="grupo2">
-        <button class="boton_seleccionador" data-campo="frecuenciaNotificacion" data-valor="CUANDO_SUCEDE">Cuando sucede</button>
-        <button class="boton_seleccionador" data-campo="frecuenciaNotificacion" data-valor="SIN_APURO">Sin apuros</button>
     </div>
 
-    <p style="margin-top: 25px;" id="parrafo">Horarios para recibir notificaciones sin apuros</p>
-    <div class="horarios-container">
-        <div class="horarios-seleccionados"></div>
-        <button class="add-btn" onclick="toggleDropdown()">
-            +
-            <div class="dropdown">
-                <div class="dropdown-content" id="dropdown-content">
-
-                </div>
-            </div>
-        </button>
-        <button onclick="guardarHorarios() " class="botonsote">Guardar</button>
+    <div class="campo" data-campo="localidad">
+        <label>Frecuencia de notificación:</label>
+        <div class="campo-editable">
+        {{#if personaFrecuencia}}
+            {{personaFrecuencia}}
+        {{else}}
+            Sin frecuencia definida.
+        {{/if}}
+        </div>
     </div>
 
+    <div class="campo" data-campo="frecuencias">
+        <label>Horarios:</label>
+        <div class="campo-editable">
+            {{#if persona.horarioDeNotificaciones}}
+                {{#each persona.horariosDeNotificaciones}}
+                    {{this}}
+                {{/each}}
+            {{else}}
+            Sin horarios definidos.
+            {{/if}}
+        </div>
+    </div>
 
-
-
+    <a href="/perfil/editar" class="secondary-button boton guardar">Editar</a>
 </div>
 
 
-<button onclick="guardarHorarios() " class="botonsote alineacion"><a href="/carga-masiva">Carga Masiva</a></button>
 <script src="https://kit.fontawesome.com/a39dd266ae.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="js/editarPerfil.js"></script>
+<script src="js/perfil.js"></script>
 <script src="js/cerrarSesion.js"></script>
-<script src="js/listarProvinciaLocalidad.js"></script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const preferenciaMedioNotificacion = "{{persona.preferenciaMedioNotificacion}}";
-
-        console.log('preferenciaMedioNotificacion:', preferenciaMedioNotificacion);
-
-        let botonMedioNotificacion = document.querySelector(`#grupo1 .boton_seleccionador[data-valor="${preferenciaMedioNotificacion}"]`);
-        if (botonMedioNotificacion) {
-            botonMedioNotificacion.click();
-        }
-
-    });
-</script>
-
-
-
 
 </body>
 </html>

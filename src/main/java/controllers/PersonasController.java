@@ -34,15 +34,58 @@ public class PersonasController implements ICrudViewsHandler {
     this.localizacionRepository = localizacionRepository;
   }
 
+  // VER PERFIL PROPIO
   @Override
-  public void show(Context context) {
-    String id = context.pathParam("id");
-    Persona persona = this.personaRepository.buscarPorID(Long.parseLong(id));
-    Map<String, Object> model = new HashMap<>();
-    model.put("persona", persona);
-    context.render("nombre de la vista para mostrar a la persona deseada", model); //TODO
+  public void index(Context context) {
+    try {
+      Long usuarioId = context.sessionAttribute("usuario_id");
+      if (usuarioId == null) {
+        context.status(403).result("Acceso denegado");
+        return;
+      }
+
+      Persona persona = this.personaRepository.buscarPorIDUsuario(usuarioId);
+      if (persona == null) {
+        context.status(404).result("Persona no encontrada");
+        return;
+      }
+      Map<String, Object> model = new HashMap<>();
+      String personaFrecuencia = persona.getFrecuenciaNotification().getClass().getSimpleName();
+      model.put("persona", persona);
+      model.put("personaFrecuencia", personaFrecuencia);
+      context.render("perfil.hbs", model);
+    } catch (Exception e) {
+      e.printStackTrace();
+      context.status(500).result(e.getMessage());
+    }
   }
 
+  // VER PERFIL DE PERSONA CON UN ID
+  @Override
+  public void show(Context context) {
+    try {
+      Long usuarioId = context.sessionAttribute("usuario_id");
+      if (usuarioId == null) {
+        context.status(403).result("Acceso denegado");
+        return;
+      }
+
+      String id = context.pathParam("id");
+      Persona persona = this.personaRepository.buscarPorID(Long.parseLong(id));
+      if (persona == null) {
+        context.status(404).result("Persona no encontrada");
+        return;
+      }
+      Map<String, Object> model = new HashMap<>();
+      model.put("persona", persona);
+      context.render("perfilPersona.hbs", model);
+    } catch (Exception e) {
+      e.printStackTrace();
+      context.status(500).result(e.getMessage());
+    }
+  }
+
+  // EDITAR PERFIL PROPIO
   @Override
   public void edit(Context context) {
     try {
@@ -66,14 +109,12 @@ public class PersonasController implements ICrudViewsHandler {
       model.put("persona", persona);
       model.put("provincias", provincias); // Añadir provincias al modelo
       model.put("localidades", localidades);  // Añadir localidades al modelo
-      context.render("perfil.hbs", model);
+      context.render("editarPerfil.hbs", model);
     } catch (Exception e) {
       e.printStackTrace();
       context.status(500).result(e.getMessage());
     }
   }
-
-
 
 
   @Override
@@ -191,10 +232,6 @@ public class PersonasController implements ICrudViewsHandler {
     //TODO
   }
 
-  @Override
-  public void index(Context context) {
-    //TODO
-  }
 
   @Override
   public void save(Context context) {

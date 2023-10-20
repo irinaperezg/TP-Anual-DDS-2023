@@ -31,8 +31,8 @@ public class LocalizacionRepository implements WithSimplePersistenceUnit {
   // TODO
   }
 
-  public void persistirProvincias() {
-    // TODO
+  public void persistirProvincias(List<Provincia> provincias) {
+    //TODO
   }
 
   public List<Localidad> todasLasLocalidades() {
