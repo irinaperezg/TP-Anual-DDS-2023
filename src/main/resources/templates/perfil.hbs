@@ -67,6 +67,17 @@
         </div>
 
     </div>
+        <div class="campo" data-campo="provincia">
+            <label for="provincia">Provincia:</label>
+            <div class="campo-editable">
+                <select class="input-select" name="provincia" id="provincia">
+                    {{#each provincias}}
+                        <option value="{{this.id}}">{{this.provincia}}</option>
+                    {{/each}}
+                </select>
+                <button class="secondary-button boton guardar" data-always-visible="true" onclick="guardarCampo('localidad')">Guardar</button>
+            </div>
+        </div>
 
         <div class="campo" data-campo="localidad">
             <label for="localidad">Localidad:</label>
@@ -121,6 +132,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="js/editarPerfil.js"></script>
 <script src="js/cerrarSesion.js"></script>
+<script src="js/listarProvinciaLocalidad.js"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

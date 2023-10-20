@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import io.javalin.http.Context;
 import models.domain.main.localizacion.Localidad;
 import models.domain.main.localizacion.Localizacion;
+import models.domain.main.localizacion.Provincia;
 import models.domain.main.notificaciones.frecuenciasNotificacion.FrecuenciaNotificacion;
 import models.domain.main.notificaciones.frecuenciasNotificacion.FrecuenciaNotificacionFactory;
 import models.domain.main.notificaciones.mediosNotificacion.PreferenciaMedioNotificacion;
@@ -26,10 +27,11 @@ import java.util.stream.Collectors;
 
 public class PersonasController implements ICrudViewsHandler {
   private PersonaRepository personaRepository;
+  private LocalizacionRepository localizacionRepository;
 
-
-  public PersonasController(PersonaRepository personaRepository) {
+  public PersonasController(PersonaRepository personaRepository, LocalizacionRepository localizacionRepository) {
     this.personaRepository = personaRepository;
+    this.localizacionRepository = localizacionRepository;
   }
 
   @Override
@@ -57,11 +59,12 @@ public class PersonasController implements ICrudViewsHandler {
       }
 
       // Obtener todas las localidades
-      LocalizacionRepository localizacionRepository = new LocalizacionRepository();
-      List<Localidad> localidades = localizacionRepository.todasLasLocalidades();
+      List<Localidad> localidades = this.localizacionRepository.todasLasLocalidades();
+      List<Provincia> provincias = this.localizacionRepository.todasLasProvincias();
 
       Map<String, Object> model = new HashMap<>();
       model.put("persona", persona);
+      model.put("provincias", provincias); // Añadir provincias al modelo
       model.put("localidades", localidades);  // Añadir localidades al modelo
       context.render("perfil.hbs", model);
     } catch (Exception e) {

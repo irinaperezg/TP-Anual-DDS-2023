@@ -1,7 +1,9 @@
 package models.repositorios;
 
+import models.domain.apis.georef.ServicioGeoref;
 import models.domain.main.localizacion.Localidad;
 import models.domain.main.localizacion.Localizacion;
+import models.domain.main.localizacion.Provincia;
 import models.domain.main.localizacion.TipoLocalizacion;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import models.domain.usuarios.Persona;
@@ -13,6 +15,7 @@ import java.util.List;
 
 public class LocalizacionRepository implements WithSimplePersistenceUnit {
 
+  private ServicioGeoref servicioGeoref;
   public void registrar(Localizacion localizacion)
   {
     entityManager().persist(localizacion);
@@ -23,10 +26,25 @@ public class LocalizacionRepository implements WithSimplePersistenceUnit {
         .createQuery("from Localizacion")
         .getResultList();
   }
+
+  public void persistirLocalidades() {
+  // TODO
+  }
+
+  public void persistirProvincias() {
+    // TODO
+  }
+
   public List<Localidad> todasLasLocalidades() {
     return entityManager()
             .createQuery("from Localidad", Localidad.class)
             .getResultList();
+  }
+
+  public List<Provincia> todasLasProvincias() {
+    return entityManager()
+        .createQuery("from Provincia ", Provincia.class)
+        .getResultList();
   }
 
   public Localizacion buscarPorID(Long id) {
