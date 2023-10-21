@@ -10,39 +10,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
-function editarCampo(boton) {
-    const campoEditable = boton.closest('.campo');
-    const inputText = campoEditable.querySelector('.input-text');
-    const saveButton = campoEditable.querySelector('.save-button');
-
-    saveButton.style.display = 'inline-block';
-    inputText.contentEditable = true;
-    inputText.focus();
-
-    const range = document.createRange();
-    range.selectNodeContents(inputText);
-    const sel = window.getSelection();
-    sel.removeAllRanges();
-    sel.addRange(range);
-
-    campoEditable.classList.add('editando');
-
-    document.addEventListener('click', function guardar(e) {
-        if (!campoEditable.contains(e.target) && e.target !== saveButton) {
-            inputText.contentEditable = false;
-            saveButton.style.display = 'none';
-            campoEditable.classList.remove('editando');
-            document.removeEventListener('click', guardar);
-        }
-    });
-
-    saveButton.addEventListener('click', function() {
-        inputText.contentEditable = false;
-        saveButton.style.display = 'none';
-        campoEditable.classList.remove('editando');
-    });
-}
-
 document.addEventListener('DOMContentLoaded', function() {
     const botonesSeleccionadores = document.querySelectorAll(".boton_seleccionador");
 

@@ -27,8 +27,8 @@ public class Router {
       // VER MI PERFIL
       get("perfil", ((PersonasController) FactoryController.controller("Personas"))::index);
       // EDITAR MI PERFIL
-      get("perfil/editar", ((PersonasController) FactoryController.controller("Personas"))::edit);
-      post("perfil", ((PersonasController) FactoryController.controller("Personas"))::update); // TODO CAMBIAR filtrado por PROVINCIAS Y LOCALIDADES
+      get("perfil/editar", ((PersonasController) FactoryController.controller("Personas"))::edit); // TODO CAMBIAR filtrado por PROVINCIAS Y LOCALIDADES
+      post("perfil", ((PersonasController) FactoryController.controller("Personas"))::update);
 
       // VER PERFIL DE ALGUIEN
       get("perfil/{id}", ((PersonasController) FactoryController.controller("Personas"))::show);

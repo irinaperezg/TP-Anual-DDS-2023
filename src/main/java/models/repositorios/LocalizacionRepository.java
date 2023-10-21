@@ -27,23 +27,34 @@ public class LocalizacionRepository implements WithSimplePersistenceUnit {
         .getResultList();
   }
 
-  public void persistirLocalidades() {
-  // TODO
-  }
 
   public void persistirProvincias(List<Provincia> provincias) {
-    //TODO
+    provincias.forEach(p -> entityManager().persist(p));
   }
 
-  public List<Localidad> todasLasLocalidades() {
-    return entityManager()
-            .createQuery("from Localidad", Localidad.class)
-            .getResultList();
+  public void persistirLocalizaciones(List<Localizacion> localizaciones) {
+    localizaciones.forEach(l -> entityManager().persist(l));
+  }
+
+  public void persistirLocalidades(List<Localidad> localidades) {
+    localidades.forEach(l -> entityManager().persist(l));
   }
 
   public List<Provincia> todasLasProvincias() {
     return entityManager()
         .createQuery("from Provincia ", Provincia.class)
+        .getResultList();
+  }
+
+  public List<Localizacion> todasLasLocalizaciones() {
+    return entityManager()
+        .createQuery("from Localizacion", Localizacion.class)
+        .getResultList();
+  }
+
+  public List<Localidad> todasLasLocalidades() {
+    return entityManager()
+        .createQuery("from Localidad", Localidad.class)
         .getResultList();
   }
 

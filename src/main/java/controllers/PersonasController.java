@@ -51,6 +51,8 @@ public class PersonasController implements ICrudViewsHandler {
       }
       Map<String, Object> model = new HashMap<>();
       String personaFrecuencia = persona.getFrecuenciaNotification().getClass().getSimpleName();
+      String mensajeCambiosAplicados = context.queryParam("mensaje");
+      model.put("mensajeCambiosAplicados", mensajeCambiosAplicados);
       model.put("persona", persona);
       model.put("personaFrecuencia", personaFrecuencia);
       context.render("perfil.hbs", model);
@@ -117,7 +119,6 @@ public class PersonasController implements ICrudViewsHandler {
   }
 
 
-  @Override
   public void update(Context context) {
     try {
       Long usuarioId = context.sessionAttribute("usuario_id");
@@ -132,9 +133,14 @@ public class PersonasController implements ICrudViewsHandler {
         return;
       }
 
+      String nombre = context.formParam("nombre");
+      String email = context.formParam("email");
+      String telefono = context.formParam("telefono");
+      String localidadString = context.formParam("localidad");
 
       String campo = context.formParam("campo");
       String valor = context.formParam("valor");
+
 
       EntityManager em = personaRepository.entityManager();
       EntityTransaction tx = em.getTransaction();
@@ -142,74 +148,64 @@ public class PersonasController implements ICrudViewsHandler {
       try {
         tx.begin();
 
+        if (nombre != null) {
+          Usuario usuario = persona.getUsuario();
+          usuario.setNombre(nombre);
+          em.merge(usuario);
+        }
+        if (email != null) {
+          persona.setEmail(email);
+        }
+        if (telefono != null) {
+          persona.setTelefono(telefono);
+        }
+        if (localidadString != null) {
+          Long localidadId = Long.parseLong(localidadString);
+          Localidad localidad = new LocalizacionRepository().buscarLocalidadPorId(localidadId);
+          if (localidad != null) {
+            persona.setLocalidad(localidad);
+          } else {
+            context.status(404).result("Localidad no encontrada");
+            return;
+          }
+        }
         switch (campo) {
-          case "nombre":
-            Usuario usuario = persona.getUsuario();
-            usuario.setNombre(valor);
-            em.merge(usuario);
-            break;
-          case "email":
-            persona.setEmail(valor);
-            em.merge(persona);
-            break;
-          case "telefono":
-            persona.setTelefono(valor);
-            em.merge(persona);
-            break;
-          case "localidad":
-            Long localidadId = Long.parseLong(valor);
-            Localidad localidad = new LocalizacionRepository().buscarLocalidadPorId(localidadId);
-            if (localidad != null) {
-              persona.setLocalidad(localidad);
-              em.merge(persona);
-            } else {
-              context.status(404).result("Localidad no encontrada");
-              return;
-            }
-            break;
           case "medioNotificacion":
             PreferenciaMedioNotificacion medio = PreferenciaMedioNotificacion.valueOf(valor);
             persona.setPreferenciaMedioNotificacion(medio);
-            em.merge(persona);
             break;
           case "frecuenciaNotificacion":
-            try {
-              FrecuenciaNotificacion frecuencia = FrecuenciaNotificacionFactory.obtenerPorNombre(valor);
-              persona.setFrecuenciaNotification(frecuencia);
-              em.merge(persona);
+          try {
+            FrecuenciaNotificacion frecuencia = FrecuenciaNotificacionFactory.obtenerPorNombre(valor);
+            persona.setFrecuenciaNotification(frecuencia);
             } catch (IllegalArgumentException e) {
-              context.status(400).result("Frecuencia no reconocida");
-              return;
+                context.status(400).result("Frecuencia no reconocida");
+                return;
             }
             break;
           case "horarios":
-            String[] horariosArray = new Gson().fromJson(valor, String[].class);
-            List<LocalDateTime> horariosList = new ArrayList<>();
+          String[] horariosArray = new Gson().fromJson(valor, String[].class);
+          List<LocalDateTime> horariosList = new ArrayList<>();
 
-            LocalDate currentDate = LocalDate.now();
+          LocalDate currentDate = LocalDate.now();
 
-            for (String horario : horariosArray) {
-              try {
-                LocalTime time = LocalTime.parse(horario, DateTimeFormatter.ofPattern("HH:mm"));
-                LocalDateTime dateTime = LocalDateTime.of(currentDate, time).minusHours(3);;
-                horariosList.add(dateTime);
-              } catch (DateTimeParseException e) {
-                // Manejar el error, por ejemplo, registrar o ignorar la fecha incorrecta.
-              }
+          for (String horario : horariosArray) {
+            try {
+              LocalTime time = LocalTime.parse(horario, DateTimeFormatter.ofPattern("HH:mm"));
+              LocalDateTime dateTime = LocalDateTime.of(currentDate, time).minusHours(3);;
+              horariosList.add(dateTime);
+            } catch (DateTimeParseException e) {
+              // Manejar el error, por ejemplo, registrar o ignorar la fecha incorrecta.
             }
-
-            persona.setHorariosDeNotificaciones(horariosList);
-            em.merge(persona);
-            break;
+          }
+          persona.setHorariosDeNotificaciones(horariosList);
+          break;
           default:
-            context.status(400).result("Campo no reconocido");
-            return;
-        }
-
-
-
+          context.status(400).result("Campo no reconocido");
+          return;
+      }
+        em.merge(persona);
         tx.commit();
-
       } catch (Exception e) {
         if (tx != null && tx.isActive()) tx.rollback();
         throw e;
@@ -217,12 +213,12 @@ public class PersonasController implements ICrudViewsHandler {
         em.close();
       }
 
-      context.result("Campo actualizado exitosamente");
-
     } catch (Exception e) {
       e.printStackTrace();
       context.status(500).result(e.getMessage());
     }
+    context.result("Campo actualizado exitosamente");
+    context.redirect("/perfil?mensaje=Campos+actualizados+exitosamente");
   }
 
 
