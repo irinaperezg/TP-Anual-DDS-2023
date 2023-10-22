@@ -16,7 +16,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CargaMasivaController implements ICrudViewsHandler {
+public class CargaMasivaController extends Controller implements ICrudViewsHandler {
 
   private EntidadPrestadoraRepository entidadPrestadoraRepository;
   private OrganismoDeControlRepository organismoDeControlRepository;

@@ -5,7 +5,7 @@ import models.repositorios.EntidadPrestadoraRepository;
 import models.repositorios.PersonaRepository;
 import server.utils.ICrudViewsHandler;
 
-public class EntidadPrestadoraController implements ICrudViewsHandler {
+public class EntidadPrestadoraController extends Controller implements ICrudViewsHandler {
 
   private EntidadPrestadoraRepository entidadPrestadoraRepository;
 

@@ -5,7 +5,7 @@ import models.repositorios.OrganismoDeControlRepository;
 import models.repositorios.PersonaRepository;
 import server.utils.ICrudViewsHandler;
 
-public class OrganismoDeControlController implements ICrudViewsHandler {
+public class OrganismoDeControlController extends Controller implements ICrudViewsHandler {
 
   private OrganismoDeControlRepository organismoDeControlRepository;
 

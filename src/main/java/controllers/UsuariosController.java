@@ -22,7 +22,7 @@ import java.util.Map;
 import static com.github.jknack.handlebars.internal.lang3.BooleanUtils.toInteger;
 import static models.domain.main.localizacion.TipoLocalizacion.Departamento;
 
-public class UsuariosController implements ICrudViewsHandler {
+public class UsuariosController extends Controller implements ICrudViewsHandler {
     private UsuarioRepository usuarioRepository;
     private PersonaRepository personaRepository;
     private ValidadorDeContrasenia validadorDeContrasenia;

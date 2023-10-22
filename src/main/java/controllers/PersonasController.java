@@ -25,7 +25,7 @@ import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class PersonasController implements ICrudViewsHandler {
+public class PersonasController extends Controller implements ICrudViewsHandler {
   private PersonaRepository personaRepository;
   private LocalizacionRepository localizacionRepository;
 

@@ -2,6 +2,7 @@ package models.domain.usuarios;
 
 import lombok.Getter;
 import lombok.Setter;
+import models.domain.usuarios.roles.Rol;
 
 import javax.persistence.*;
 
@@ -19,6 +20,10 @@ public class Usuario {
 
   @Column(name="contrasenia", columnDefinition = "TEXT")
   private String contraseniaEncriptada;
+
+  @ManyToOne
+  @JoinColumn(name = "rol_id", referencedColumnName = "id")
+  private Rol rol;
 
   public Usuario(String nombre, String contraseniaEncriptada) {
     this.nombre = nombre;

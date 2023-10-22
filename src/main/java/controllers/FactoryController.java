@@ -7,7 +7,7 @@ import models.domain.main.informes.rankings.PromedioCierre;
 import models.repositorios.*;
 import models.validadorDeContrasenias.ValidadorDeContrasenia;
 
-public class FactoryController {
+public class FactoryController extends Controller{
 
   public static Object controller(String nombre) {
     Object controller = null;

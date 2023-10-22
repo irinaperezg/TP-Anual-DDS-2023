@@ -1,6 +1,7 @@
 package server;
 
 import controllers.*;
+import models.domain.usuarios.roles.TipoRol;
 
 import static io.javalin.apibuilder.ApiBuilder.*;
 
@@ -40,11 +41,12 @@ public class Router {
       get("comunidades/baja/{comunidad_id}/{usuario_id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::delete);
 
       // CREAR NUEVA COMUNIDAD
-      //get("comunidades/crear", ((ComunidadesController) FactoryController.controller("Comunidades"))::create);
-      post("comunidades/sumar", ((ComunidadesController) FactoryController.controller("Comunidades"))::save);
+      //get("comunidades/crear", ((ComunidadesController) FactoryController.controller("Comunidades"))::create, TipoRol.ADMINISTRADOR);
+
 
       // UNIRSE A COMUNIDAD
-      get("comunidades/sumar", ((ComunidadesController) FactoryController.controller("Comunidades"))::create);
+      get("comunidades/sumar", ((ComunidadesController) FactoryController.controller("Comunidades"))::add);
+      post("comunidades/sumar", ((ComunidadesController) FactoryController.controller("Comunidades"))::save);
 
       // VER COMUNIDAD PUNTUAL
       get("comunidades/{id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::show);

@@ -20,7 +20,7 @@ package controllers;
     import java.util.List;
     import java.util.Map;
 
-public class IncidentesController implements ICrudViewsHandler {
+public class IncidentesController extends Controller implements ICrudViewsHandler {
   private IncidenteRepository incidenteRepository;
   private UsuarioRepository usuarioRepository;
   private ComunidadRepository comunidadRepository;

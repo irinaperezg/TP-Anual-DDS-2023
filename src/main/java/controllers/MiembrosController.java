@@ -6,7 +6,7 @@ import models.repositorios.MiembroRepository;
 import models.repositorios.PersonaRepository;
 import server.utils.ICrudViewsHandler;
 
-public class MiembrosController implements ICrudViewsHandler {
+public class MiembrosController extends Controller implements ICrudViewsHandler {
 
   private MiembroRepository miembroRepository;
 

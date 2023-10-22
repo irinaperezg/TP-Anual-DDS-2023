@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RankingsController implements ICrudViewsHandler {
+public class RankingsController extends Controller implements ICrudViewsHandler {
 
   private CantidadIncidentesReportados cantidadIncidentesReportados;
   private GradoImpactoProblematicas gradoImpactoProblematicas;

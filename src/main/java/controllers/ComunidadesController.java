@@ -5,6 +5,7 @@ import models.domain.main.Establecimiento;
 import models.domain.main.servicio.Servicio;
 import models.domain.usuarios.*;
 import models.repositorios.*;
+import server.exceptions.AccessDeniedException;
 import server.utils.ICrudViewsHandler;
 
 import javax.transaction.Transactional;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class ComunidadesController implements ICrudViewsHandler {
+public class ComunidadesController extends Controller implements ICrudViewsHandler {
 
   private ComunidadRepository comunidadRepository;
   private UsuarioRepository usuarioRepository;
@@ -51,22 +52,39 @@ public class ComunidadesController implements ICrudViewsHandler {
 
   
   public void create(Context context) {
-    Long usuarioId = context.sessionAttribute("usuario_id");
-    Usuario usuario = usuarioRepository.buscarPorID(usuarioId);
-    Persona persona = personaRepository.buscarPorIDUsuario(usuarioId);
+    Usuario usuarioLogueado = super.usuarioLogueado(context);
 
-    // Obtener todas las comunidades
-    List<Comunidad> todasComunidades = comunidadRepository.todos();
-    List<Comunidad> comunidadesSinMiembro = new ArrayList<>();
-    // Cargar los establecimientos y servicios para todas las comunidades
-    for (Comunidad comunidad : todasComunidades) {
-      if (!miembroRepository.existePersonaEnComunidad(persona.getId(),comunidad.getId())){
-        cargarEstablecimientosEnComunidad(comunidad.getId());
-        cargarServiciosEnComunidad(comunidad.getId());
-        comunidadesSinMiembro.add(comunidad);
-      }
-
+    if(usuarioLogueado == null || !usuarioLogueado.getRol().tienePermiso("crear_comunidad")) {
+      throw new AccessDeniedException();
     }
+
+    // Estas 4 lineas de código de arriba deberían estar en todos los métodos que quiera
+
+    // DEVOLVER UNA VISTA QUE PERMITA CREAR UNA COMUNIDAD
+    Map<String, Object> model = new HashMap<>();
+    model.put("comunidad", null);
+    context.render("crearComunidad.hbs", model);
+
+  }
+
+
+public void add (Context context) {
+  Long usuarioId = context.sessionAttribute("usuario_id");
+  Usuario usuario = usuarioRepository.buscarPorID(usuarioId);
+  Persona persona = personaRepository.buscarPorIDUsuario(usuarioId);
+
+  // Obtener todas las comunidades
+  List<Comunidad> todasComunidades = comunidadRepository.todos();
+  List<Comunidad> comunidadesSinMiembro = new ArrayList<>();
+  // Cargar los establecimientos y servicios para todas las comunidades
+  for (Comunidad comunidad : todasComunidades) {
+    if (!miembroRepository.existePersonaEnComunidad(persona.getId(),comunidad.getId())){
+      cargarEstablecimientosEnComunidad(comunidad.getId());
+      cargarServiciosEnComunidad(comunidad.getId());
+      comunidadesSinMiembro.add(comunidad);
+    }
+
+  }
     /*
     // Usando Java Stream API, filtrar las comunidades excluyendo las que ya tienen al miembro
     List<Comunidad> comunidadesSinMiembro = todasComunidades.stream()
@@ -74,37 +92,34 @@ public class ComunidadesController implements ICrudViewsHandler {
             .noneMatch(miembro -> miembro.getPersona().equals(persona)))
         .collect(Collectors.toList());
 */
-    // Convertir las comunidades en comunidadesView
-    List<ComunidadView> comunidadesView = new ArrayList<>();
+  // Convertir las comunidades en comunidadesView
+  List<ComunidadView> comunidadesView = new ArrayList<>();
 
-    for (Comunidad comunidad : comunidadesSinMiembro) {
-      ComunidadView cv = new ComunidadView();
-      cv.setId(comunidad.getId());
-      cv.setNombre(comunidad.getNombre());
+  for (Comunidad comunidad : comunidadesSinMiembro) {
+    ComunidadView cv = new ComunidadView();
+    cv.setId(comunidad.getId());
+    cv.setNombre(comunidad.getNombre());
 
-      String servicios = comunidad.getServiciosObservados()
-          .stream()
-          .map(servicio -> servicio.getDescripcion())
-          .collect(Collectors.joining(", "));
-      cv.setServicios(servicios);
+    String servicios = comunidad.getServiciosObservados()
+        .stream()
+        .map(servicio -> servicio.getDescripcion())
+        .collect(Collectors.joining(", "));
+    cv.setServicios(servicios);
 
-      String establecimientos = comunidad.getEstablecimientosObservados()
-          .stream()
-          .map(establecimiento -> establecimiento.getDenominacion())
-          .collect(Collectors.joining(", "));
-      cv.setEstablecimientos(establecimientos);
+    String establecimientos = comunidad.getEstablecimientosObservados()
+        .stream()
+        .map(establecimiento -> establecimiento.getDenominacion())
+        .collect(Collectors.joining(", "));
+    cv.setEstablecimientos(establecimientos);
 
-      comunidadesView.add(cv);
-    }
-
-    Map<String, Object> modelo = new HashMap<>();
-    modelo.put("comunidades", comunidadesView);
-    modelo.put("usuario", usuario);
-    context.render("sumarAComunidad.hbs", modelo);
+    comunidadesView.add(cv);
   }
 
-
-
+  Map<String, Object> modelo = new HashMap<>();
+  modelo.put("comunidades", comunidadesView);
+  modelo.put("usuario", usuario);
+  context.render("sumarAComunidad.hbs", modelo);
+}
 
 
 

@@ -13,7 +13,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginController implements ICrudViewsHandler {
+public class LoginController extends Controller implements ICrudViewsHandler {
   private UsuarioRepository usuarioRepository;
   private PersonaRepository personaRepository;
   private ValidadorDeContrasenia validadorDeContrasenia;

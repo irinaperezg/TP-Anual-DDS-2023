@@ -18,7 +18,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SignUpController implements ICrudViewsHandler {
+public class SignUpController extends Controller implements ICrudViewsHandler {
   private UsuarioRepository usuarioRepository;
   private PersonaRepository personaRepository;
   private ValidadorDeContrasenia validadorDeContrasenia;
