@@ -37,6 +37,7 @@ public class PersonasController implements ICrudViewsHandler {
   // VER PERFIL PROPIO
   @Override
   public void index(Context context) {
+    String personaFrecuencia = "";
     try {
       Long usuarioId = context.sessionAttribute("usuario_id");
       if (usuarioId == null) {
@@ -50,7 +51,17 @@ public class PersonasController implements ICrudViewsHandler {
         return;
       }
       Map<String, Object> model = new HashMap<>();
-      String personaFrecuencia = persona.getFrecuenciaNotification().getClass().getSimpleName();
+
+
+      if (persona.getFrecuenciaNotification().getClass().getSimpleName() == "NotificacionCuandoSucedeIncidente")
+      {
+        personaFrecuencia = "Cuando sucede";
+      }
+      else
+      {
+        personaFrecuencia = "Sin apuros";
+      }
+
       String mensajeCambiosAplicados = context.queryParam("mensaje");
       model.put("mensajeCambiosAplicados", mensajeCambiosAplicados);
       model.put("persona", persona);
