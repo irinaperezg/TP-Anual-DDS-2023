@@ -29,15 +29,54 @@ public class LocalizacionRepository implements WithSimplePersistenceUnit {
 
 
   public void persistirProvincias(List<Provincia> provincias) {
-    provincias.forEach(p -> entityManager().persist(p));
+    EntityTransaction tx = entityManager().getTransaction();
+    try {
+      tx.begin();
+      provincias.forEach(p -> {
+        Provincia provinciaGestionada = entityManager().merge(p);
+        entityManager().persist(provinciaGestionada);
+      });
+          tx.commit();
+    } catch(Exception e)
+    {
+      if (tx != null && tx.isActive()) {
+        tx.rollback();
+      }
+    }
   }
 
   public void persistirLocalizaciones(List<Localizacion> localizaciones) {
-    localizaciones.forEach(l -> entityManager().persist(l));
+    EntityTransaction tx = entityManager().getTransaction();
+    try {
+      tx.begin();
+      localizaciones.forEach(l -> {
+        Localizacion localizacionGestionada = entityManager().merge(l);
+        entityManager().persist(localizacionGestionada);
+      });
+      tx.commit();
+    } catch(Exception e)
+    {
+      if (tx != null && tx.isActive()) {
+        tx.rollback();
+      }
+    }
   }
 
   public void persistirLocalidades(List<Localidad> localidades) {
-    localidades.forEach(l -> entityManager().persist(l));
+    EntityTransaction tx = entityManager().getTransaction();
+    try {
+      tx.begin();
+      localidades.forEach(l -> {
+        Localidad localidadGestionada = entityManager().merge(l);
+        entityManager().persist(localidadGestionada);
+      });
+      tx.commit();
+    } catch(Exception e)
+    {
+      if (tx != null && tx.isActive()) {
+        tx.rollback();
+      }
+    }
   }
 
   public List<Provincia> todasLasProvincias() {
@@ -99,5 +138,14 @@ public class LocalizacionRepository implements WithSimplePersistenceUnit {
       em.close();
     }
   }
+
+  //public void cargarTodo() {
+  //  EntityManager em = entityManager();
+  //  EntityTransaction tx = null;
+//
+  //  try {
+//
+  // }
+  //}
 }
 

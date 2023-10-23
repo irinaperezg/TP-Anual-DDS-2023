@@ -1,5 +1,6 @@
 package models.domain.main.localizacion;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -8,12 +9,13 @@ import javax.persistence.*;
 @Table(name = "localidad")
 public class Localidad {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
   private Long id;
 
   @Column(name = "nombre_localidad")
   private String nombre;
 
+  @Setter
   @ManyToOne
   @JoinColumn(name = "localizacion_id")
   private Localizacion localizacion;

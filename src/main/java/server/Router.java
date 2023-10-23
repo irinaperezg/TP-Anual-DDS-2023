@@ -20,7 +20,6 @@ public class Router {
       // CERRAR SESION
       get("logout", ((UsuariosController) FactoryController.controller("Usuarios"))::logout);
 
-
       // INICIO
       get("inicio", ((UsuariosController) FactoryController.controller("Usuarios"))::show);
 
@@ -42,7 +41,6 @@ public class Router {
 
       // CREAR NUEVA COMUNIDAD
       //get("comunidades/crear", ((ComunidadesController) FactoryController.controller("Comunidades"))::create, TipoRol.ADMINISTRADOR);
-
 
       // UNIRSE A COMUNIDAD
       get("comunidades/sumar", ((ComunidadesController) FactoryController.controller("Comunidades"))::add);

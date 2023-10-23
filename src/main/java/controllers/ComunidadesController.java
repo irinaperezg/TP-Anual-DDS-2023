@@ -48,9 +48,6 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     //TODO
   }
   @Override
-  
-
-  
   public void create(Context context) {
     Usuario usuarioLogueado = super.usuarioLogueado(context);
 
@@ -120,10 +117,6 @@ public void add (Context context) {
   modelo.put("usuario", usuario);
   context.render("sumarAComunidad.hbs", modelo);
 }
-
-
-
-
 
 
 

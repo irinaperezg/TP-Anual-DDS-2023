@@ -1,16 +1,18 @@
 package models.domain.main.localizacion;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
-@Getter
+@Getter @Setter
 @Entity
 @Table(name="provincia")
 public class Provincia {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
   private Long id;
+
   @Column(name = "nombre")
   private String nombre;
 
