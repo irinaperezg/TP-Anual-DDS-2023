@@ -76,9 +76,11 @@ public class Inicializador {
         localidades.addAll(this.servicioGeoref.listadoDeLocalidades(localizacion.getId().intValue(),
             localizacion.getTipoLocalizacion()).getLocalidades());
 
-        for (Localidad localidad : localidades) {
-          localidad.setLocalizacion(localizacion);
+        for (Localidad localidadNueva : localidadesNuevas) {
+          localidadNueva.setLocalizacion(localizacion);
         }
+
+        localidades.addAll(localidadesNuevas);
       }
 
       localizacionRepository.persistirLocalidades(localidades);
