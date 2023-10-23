@@ -73,8 +73,8 @@ public class Inicializador {
     List <Localidad> localidades = this.localizacionRepository.todasLasLocalidades();
     if (localidades.isEmpty()) {
       for (Localizacion localizacion : localizaciones) {
-        localidades.addAll(this.servicioGeoref.listadoDeLocalidades(localizacion.getId().intValue(),
-            localizacion.getTipoLocalizacion()).getLocalidades());
+        List<Localidad> localidadesNuevas =this.servicioGeoref.listadoDeLocalidades(localizacion.getId().intValue(),
+                localizacion.getTipoLocalizacion()).getLocalidades();
 
         for (Localidad localidadNueva : localidadesNuevas) {
           localidadNueva.setLocalizacion(localizacion);
@@ -87,4 +87,4 @@ public class Inicializador {
     }
     return localidades;
   }
-  }
+}
