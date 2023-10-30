@@ -1,7 +1,67 @@
+function Localidad(nombre, provincia_id) {
+    this.nombre = nombre;
+    this.provincia_id = provincia_id;
+}
+
+function leerLocalidades() {
+    const selectLocalidad = document.querySelector("#localidad_select");
+    const localidadesLeidas = [];
+
+    for (const opcion of selectLocalidad.options) {
+        const localidad = new Localidad(opcion.text, opcion.getAttribute("data-provincia"));
+        localidadesLeidas.push(localidad);
+    }
+
+    return localidadesLeidas;
+}
+
+let localidades = []
+
+document.addEventListener('DOMContentLoaded', function() {
+    localidades = leerLocalidades();
+
+    console.log(localidades);
+
+    const selectLocalidad = document.querySelector("#localidad_select");
+
+    selectLocalidad.addEventListener('change', () => {
+        console.log('Localidad seleccionada:', this.text);
+    });
+
+    const selectProvincia = document.querySelector("#provincia_select");
+
+    selectProvincia.addEventListener("change", () => {
+        cargarLocalidades(selectProvincia.value);
+    });
+
+});
+
+function cargarLocalidades(provincia_id) {
+    const localidadesAMostrar = localidades.filter(localidad => esDeProvincia(provincia_id, localidad));
+
+    const selectLocalidad = document.querySelector("#localidad_select");
+    selectLocalidad.innerHTML = "";
+
+    for (const localidadAMostrar of localidadesAMostrar) {
+        var opcion = document.createElement("option");
+        opcion.value = localidadAMostrar.id;
+        opcion.text = localidadAMostrar.nombre;
+        selectLocalidad.appendChild(opcion);
+    }
+}
+
+function esDeProvincia(provincia_id, localidad) {
+    return provincia_id === localidad.provincia_id
+}
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
     const preferenciaMedioNotificacion = "{{persona.preferenciaMedioNotificacion}}";
 
-    console.log('preferenciaMedioNotificacion:', preferenciaMedioNotificacion);
+    //console.log('preferenciaMedioNotificacion:', preferenciaMedioNotificacion);
 
     let botonMedioNotificacion = document.querySelector(`#grupo1 .boton_seleccionador[data-valor="${preferenciaMedioNotificacion}"]`);
     if (botonMedioNotificacion) {
@@ -44,16 +104,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Inicialmente, hacer clic en el primer botón de "Cuando sucede"
     document.querySelector("#grupo2 .boton_seleccionador:nth-child(1)").click();
 });
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    const selectLocalidad = document.querySelector('[data-campo="localidad"] .input-select');
-
-    selectLocalidad.addEventListener('change', function() {
-        console.log('Localidad seleccionada:', this.value);
-    });
-});
-
 
 // Horarios
 // Set para almacenar los horarios seleccionados
@@ -127,7 +177,7 @@ function guardarCampo(campo, valor) {
         type: 'POST',
         data: { campo: campo, valor: valor },
         success: function(response){
-            console.log('Campo actualizado exitosamente:', response);
+            //console.log('Campo actualizado exitosamente:', response);
         },
         error: function(error) {
             alert('Error al guardar campo: ' + error.responseText);

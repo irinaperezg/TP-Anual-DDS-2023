@@ -60,7 +60,7 @@
         <div class="campo" data-campo="provincia">
             <label for="provincia">Provincia:</label>
             <div class="campo-editable">
-                <select class="input-select" name="provincia" id="provincia">
+                <select class="input-select" name="provincia" id="provincia_select">
                     {{#each provincias}}
                         <option value="{{this.id}}">{{this.nombre}}</option>
                     {{/each}}
@@ -71,15 +71,15 @@
         <div class="campo" data-campo="localidad">
             <label for="localidad">Localidad:</label>
             <div class="campo-editable">
-                <select class="input-select" name="localidad" id="localidad">
+                <select class="input-select" name="localidad" id="localidad_select">
                     {{#each localidades}}
-                        <option value="{{this.id}}">{{this.nombre}} - {{this.localizacion.nombre}}</option>
+                        <option value="{{this.id}}" data-provincia="{{this.localizacion.provincia.id}}">{{this.nombre}} - {{this.localizacion.nombre}}</option>
                     {{/each}}
                 </select>
             </div>
         </div>
 
-        <button type="submit" class="boton cargarDatos" >Guardar</button> <!-- TODO Faltaria un cartel q diga q los cambios se guardaron bien --!>
+        <button type="submit" class="boton cargarDatos" >Guardar</button> <!-- TODO Faltaria un cartel q diga q los cambios se guardaron bien -->
 
     </form>
 
@@ -119,7 +119,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="../js/editarPerfil.js"></script>
 <script src="../js/cerrarSesion.js"></script>
-<script src="../js/listarProvinciaLocalidad.js"></script>
 
 </body>
 </html>
