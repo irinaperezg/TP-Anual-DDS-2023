@@ -40,10 +40,21 @@ public class IncidentesController extends Controller implements ICrudViewsHandle
   public void index(Context context) {
     Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
     List<Comunidad> comunidades = this.comunidadRepository.buscarComunidadesUsuario(usuario);
-    Map<String, Object> model = new HashMap<>();
-    model.put("comunidades", comunidades);
+    List<Incidente> incidentes = new ArrayList<>();
 
-    context.render("listarIncidente.hbs", model);
+    for (Comunidad comunidad : comunidades) {
+        List<Incidente> incidentesComunidad = comunidad.getIncidentes();
+        if (!incidentesComunidad.isEmpty()) {
+            incidentes.addAll(incidentesComunidad);
+        }
+    }
+
+    Map<String, Object> model = new HashMap<>();
+
+    model.put("comunidades", comunidades);
+    model.put("incidentes", incidentes);
+
+    context.render("listarIncidentes.hbs", model);
   }
 
   @Override
@@ -53,12 +64,21 @@ public class IncidentesController extends Controller implements ICrudViewsHandle
 
   @Override
   public void create(Context context) {
-    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
-    List<Comunidad> comunidades = this.comunidadRepository.buscarComunidadesUsuario(usuario);
+      Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+      List<Comunidad> comunidades = this.comunidadRepository.buscarComunidadesUsuario(usuario);
+      List<PrestacionDeServicio> prestaciones = new ArrayList<>();
 
-    Map<String, Object> model = new HashMap<>();
-    model.put("comunidades", comunidades);
-    context.render("crearIncidente.hbs", model);
+      for(Comunidad comunidad: comunidades) {
+          for(Establecimiento establecimiento : comunidad.getEstablecimientosObservados()) {
+              prestaciones.addAll(establecimiento.getPrestaciones());
+          }
+      }
+
+      Map<String, Object> model = new HashMap<>();
+      model.put("comunidades", comunidades);
+      model.put("prestaciones", prestaciones); //TODO meter esto en hbs y ver como referenciar la comunidad
+
+        context.render("crearIncidente.hbs", model);
   }
 
   @Override

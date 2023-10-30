@@ -57,22 +57,20 @@
 <div class="separador"></div>
 
 <div class="seccion-tarjetas">
-    {{#if comunidades}}
-        {{#each comunidades}}
-            {{#each this.incidentes}}
-                <div class = "incidente" data-comunidad="{{this.comunidad.nombre}}">
-                     Denominación: <span class="denominacion">{{this.denominacion}}</span><br>
-                     Prestación: <span class="prestacion">{{this.prestacion.servicio.descripcion}} en {{this.prestacion.establecimiento.denominacion}} de {{this.prestacion.establecimiento.entidad.denominacion}}</span><br>
-                     Horario de publicación: <span class="fechaApertura">{{this.fechaApertura}}</span><br>
-                     Observaciones: <span class="observaciones">{{this.observaciones}}</span><br>
-                     {{#if this.abierto}}
-                        Estado: <span class="estado">ABIERTO</span>
-                     {{else}}
-                        Estado: <span class="estado">CERRADO</span>
-                     {{/if}}
-                     <button class="btn-close" data-incidente-id="{{this.id}}">X</button>
-                </div>
-            {{/each}}
+    {{#if incidentes}}
+        {{#each incidentes}}
+            <div class = "incidente" data-comunidad="{{this.comunidad.nombre}}">
+                 Denominación: <span class="denominacion">{{this.denominacion}}</span><br>
+                 Prestación: <span class="prestacion">{{this.prestacion.servicio.descripcion}} en {{this.prestacion.establecimiento.denominacion}} de {{this.prestacion.establecimiento.entidad.denominacion}}</span><br>
+                 Horario de publicación: <span class="fechaApertura">{{this.fechaApertura}}</span><br>
+                 Observaciones: <span class="observaciones">{{this.observaciones}}</span><br>
+                 {{#if this.abierto}}
+                    Estado: <span class="estado">ABIERTO</span>
+                 {{else}}
+                    Estado: <span class="estado">CERRADO</span>
+                 {{/if}}
+                 <button class="btn-close" data-incidente-id="{{this.id}}">X</button>
+            </div>
         {{/each}}
     {{/if}}
 </div>
@@ -82,5 +80,6 @@
 <script src="js/listarIncidentes.js"></script>
 <script src="js/cerrarSesion.js"></script>
 <script src="https://kit.fontawesome.com/a39dd266ae.js" crossorigin="anonymous"></script>
+
 </body>
 </html>
