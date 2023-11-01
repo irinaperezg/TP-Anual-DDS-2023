@@ -14,6 +14,7 @@ import models.domain.main.notificaciones.mediosNotificacion.PreferenciaMedioNoti
 import models.domain.main.servicio.Servicio;
 import models.domain.main.servicio.ServicioBase;
 import models.domain.usuarios.*;
+import models.domain.usuarios.roles.Rol;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -39,7 +40,7 @@ public class GeneradorDeInformesTest {
     List<LocalDateTime> listaHorarios = new ArrayList<>();
     NotificacionSinApuros notificacionSinApuros = new NotificacionSinApuros();
 
-    Usuario usuario = new Usuario("pepe", "argento");
+    Usuario usuario = new Usuario("pepe", "argento", new Rol());
     Persona persona1 = new Persona(usuario, "ej1@gmail.com", "1234");
     persona1.setFrecuenciaNotification(notificacionSinApuros);
     persona1.setPreferenciaMedioNotificacion(PreferenciaMedioNotificacion.EMAIL);

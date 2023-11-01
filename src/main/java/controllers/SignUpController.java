@@ -4,7 +4,9 @@ import io.javalin.http.Context;
 import models.domain.main.notificaciones.mediosNotificacion.PreferenciaMedioNotificacion;
 import models.domain.usuarios.Persona;
 import models.domain.usuarios.Usuario;
+import models.domain.usuarios.roles.Rol;
 import models.repositorios.PersonaRepository;
+import models.repositorios.RolRepository;
 import models.repositorios.UsuarioRepository;
 import models.validadorDeContrasenias.ValidadorDeContrasenia;
 import models.validadorDeContrasenias.excepciones.ExcepcionComplejidad;
@@ -18,15 +20,19 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static models.domain.usuarios.roles.TipoRol.CONSUMIDOR;
+
 public class SignUpController extends Controller implements ICrudViewsHandler {
   private UsuarioRepository usuarioRepository;
   private PersonaRepository personaRepository;
   private ValidadorDeContrasenia validadorDeContrasenia;
+  private RolRepository rolRepository;
 
-  public SignUpController(UsuarioRepository usuarioRepository, PersonaRepository personaRepository, ValidadorDeContrasenia validadorDeContrasenia) {
+  public SignUpController(UsuarioRepository usuarioRepository, PersonaRepository personaRepository, ValidadorDeContrasenia validadorDeContrasenia, RolRepository rolRepository) {
     this.usuarioRepository = usuarioRepository;
     this.personaRepository = personaRepository;
     this.validadorDeContrasenia = validadorDeContrasenia;
+    this.rolRepository = rolRepository;
   }
 
   @Override
@@ -84,8 +90,9 @@ public class SignUpController extends Controller implements ICrudViewsHandler {
     }
 
     try {
+      Rol rol = rolRepository.buscarPorTipoRol(CONSUMIDOR);
       contraseniaEncriptada = validadorDeContrasenia.encriptarContrasenia(contrasenia);
-      Usuario usuario = new Usuario(nombre, contraseniaEncriptada);
+      Usuario usuario = new Usuario(nombre, contraseniaEncriptada, rol);
       usuarioRepository.registrar(usuario);
 
       Persona persona;

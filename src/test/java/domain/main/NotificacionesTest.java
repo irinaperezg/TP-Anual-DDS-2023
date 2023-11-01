@@ -13,6 +13,7 @@ import models.domain.usuarios.Comunidad;
 import models.domain.usuarios.Miembro;
 import models.domain.usuarios.Persona;
 import models.domain.usuarios.Usuario;
+import models.domain.usuarios.roles.Rol;
 import org.junit.jupiter.api.Test;
 import org.quartz.*;
 
@@ -28,7 +29,7 @@ class NotificacionesTest {
   void notificarIncidentes() throws SchedulerException, InterruptedException {
     NotificacionSinApuros notificacionSinApuros = new NotificacionSinApuros();
     Comunidad comunidad = new Comunidad();
-    Usuario usuario = new Usuario("pepe", "argento");
+    Usuario usuario = new Usuario("pepe", "argento", new Rol());
     List<LocalDateTime> listaHorarios = new ArrayList<>();
 
     LocalDateTime horarioEspecifico1 = LocalDateTime.of(2023, Month.JULY, 10, 13, 15);

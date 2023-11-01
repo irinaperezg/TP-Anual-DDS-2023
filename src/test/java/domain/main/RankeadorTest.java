@@ -14,6 +14,7 @@ import models.domain.usuarios.Comunidad;
 import models.domain.usuarios.Miembro;
 import models.domain.usuarios.Persona;
 import models.domain.usuarios.Usuario;
+import models.domain.usuarios.roles.Rol;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -49,7 +50,7 @@ public class RankeadorTest {
     gradoImpacto = new GradoImpactoProblematicas();
     cantidadIncidentes = new CantidadIncidentesReportados();
 
-    usuario = new Usuario("pepe", "argento");
+    usuario = new Usuario("pepe", "argento", new Rol());
     persona1 = new Persona(usuario, "panchito@gmail.com", "1234");
 
     miembro1 = new Miembro(persona1,comunidad1);

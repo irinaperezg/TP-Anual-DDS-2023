@@ -40,7 +40,7 @@ public class Router {
       get("comunidades/baja/{comunidad_id}/{usuario_id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::delete);
 
       // CREAR NUEVA COMUNIDAD
-      //get("comunidades/crear", ((ComunidadesController) FactoryController.controller("Comunidades"))::create, TipoRol.ADMINISTRADOR);
+      get("comunidades/crear", ((ComunidadesController) FactoryController.controller("Comunidades"))::create, TipoRol.ADMINISTRADOR);
 
       // UNIRSE A COMUNIDAD
       get("comunidades/sumar", ((ComunidadesController) FactoryController.controller("Comunidades"))::add);

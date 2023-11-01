@@ -25,9 +25,10 @@ public class Usuario {
   @JoinColumn(name = "rol_id", referencedColumnName = "id")
   private Rol rol;
 
-  public Usuario(String nombre, String contraseniaEncriptada) {
+  public Usuario(String nombre, String contraseniaEncriptada, Rol rol) {
     this.nombre = nombre;
     this.contraseniaEncriptada = contraseniaEncriptada;
+    this.rol = rol;
   }
   public Usuario() {
 
