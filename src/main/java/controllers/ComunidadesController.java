@@ -23,14 +23,16 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
   private PersonaRepository personaRepository;
   private EstablecimientoRepository establecimientoRepository;
   private ServicioRepository servicioRepository;
+  private RolRepository rolRepository;
 
-  public ComunidadesController(ComunidadRepository comunidadRepository, UsuarioRepository usuarioRepository, MiembroRepository miembroRepository, PersonaRepository personaRepository, EstablecimientoRepository establecimientoRepository, ServicioRepository servicioRepository) {
+  public ComunidadesController(ComunidadRepository comunidadRepository, UsuarioRepository usuarioRepository, MiembroRepository miembroRepository, PersonaRepository personaRepository, EstablecimientoRepository establecimientoRepository, ServicioRepository servicioRepository, RolRepository rolRepository) {
     this.comunidadRepository = comunidadRepository;
     this.usuarioRepository = usuarioRepository;
     this.miembroRepository = miembroRepository;
     this.personaRepository = personaRepository;
     this.establecimientoRepository = establecimientoRepository;
     this.servicioRepository = servicioRepository;
+    this.rolRepository = rolRepository;
   }
   @Override
   public void index(Context context) {
@@ -49,11 +51,13 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
   }
   @Override
   public void create(Context context) {
-    Usuario usuarioLogueado = super.usuarioLogueado(context);
+    Long usuarioId = context.sessionAttribute("usuario_id");
+    Usuario usuarioLogueado = usuarioRepository.buscarPorID(usuarioId);
 
-    if(usuarioLogueado == null || !usuarioLogueado.getRol().tienePermiso("crear_comunidad")) {
+    if(usuarioLogueado == null || !rolRepository.tienePermiso(usuarioLogueado.getRol().getId(), "crear_comunidad")) {
       throw new AccessDeniedException();
     }
+
 
     // Estas 4 lineas de código de arriba deberían estar en todos los métodos que quiera
 

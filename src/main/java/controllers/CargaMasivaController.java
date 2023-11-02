@@ -5,9 +5,9 @@ import io.javalin.http.UploadedFile;
 import models.domain.main.EntidadPrestadora;
 import models.domain.main.OrganismoDeControl;
 import models.domain.usuarios.Delegado;
-import models.repositorios.ComunidadRepository;
-import models.repositorios.EntidadPrestadoraRepository;
-import models.repositorios.OrganismoDeControlRepository;
+import models.domain.usuarios.Usuario;
+import models.repositorios.*;
+import server.exceptions.AccessDeniedException;
 import server.utils.ICrudViewsHandler;
 
 import javax.persistence.EntityManager;
@@ -20,13 +20,24 @@ public class CargaMasivaController extends Controller implements ICrudViewsHandl
 
   private EntidadPrestadoraRepository entidadPrestadoraRepository;
   private OrganismoDeControlRepository organismoDeControlRepository;
+  private UsuarioRepository usuarioRepository;
+  private RolRepository rolRepository;
 
-  public CargaMasivaController(EntidadPrestadoraRepository entidadPrestadoraRepository, OrganismoDeControlRepository organismoDeControlRepository) {
+  public CargaMasivaController(EntidadPrestadoraRepository entidadPrestadoraRepository, OrganismoDeControlRepository organismoDeControlRepository, UsuarioRepository usuarioRepository, RolRepository rolRepository) {
     this.entidadPrestadoraRepository = entidadPrestadoraRepository;
     this.organismoDeControlRepository = organismoDeControlRepository;
+    this.usuarioRepository = usuarioRepository;
+    this.rolRepository = rolRepository;
   }
   @Override
   public void index(Context context) {
+    Long usuarioId = context.sessionAttribute("usuario_id");
+    Usuario usuarioLogueado = usuarioRepository.buscarPorID(usuarioId);
+
+    if(usuarioLogueado == null || !rolRepository.tienePermiso(usuarioLogueado.getRol().getId(), "carga_masiva")) {
+      throw new AccessDeniedException();
+    }
+
     context.render("cargaMasiva.hbs");
   }
 

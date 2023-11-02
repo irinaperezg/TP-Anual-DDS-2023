@@ -5,10 +5,9 @@ import models.domain.main.notificaciones.mediosNotificacion.PreferenciaMedioNoti
 import models.domain.usuarios.Persona;
 import models.domain.usuarios.Usuario;
 import models.domain.usuarios.roles.Rol;
-import models.repositorios.LocalizacionRepository;
-import models.repositorios.PersonaRepository;
-import models.repositorios.RolRepository;
-import models.repositorios.UsuarioRepository;
+import models.domain.usuarios.roles.TipoRol;
+import models.indice.Menu;
+import models.repositorios.*;
 import models.validadorDeContrasenias.ValidadorDeContrasenia;
 import models.validadorDeContrasenias.excepciones.ExcepcionComplejidad;
 import models.validadorDeContrasenias.excepciones.ExcepcionContraseniaInvalida;
@@ -19,6 +18,7 @@ import server.utils.ICrudViewsHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.github.jknack.handlebars.internal.lang3.BooleanUtils.toInteger;
@@ -30,12 +30,14 @@ public class UsuariosController extends Controller implements ICrudViewsHandler 
     private PersonaRepository personaRepository;
     private ValidadorDeContrasenia validadorDeContrasenia;
     private RolRepository rolRepository;
+    private MenuRepository menuRepository;
 
-    public UsuariosController(UsuarioRepository usuarioRepository, PersonaRepository personaRepository, ValidadorDeContrasenia validadorDeContrasenia, RolRepository rolRepository) {
+    public UsuariosController(UsuarioRepository usuarioRepository, PersonaRepository personaRepository, ValidadorDeContrasenia validadorDeContrasenia, RolRepository rolRepository, MenuRepository menuRepository) {
         this.usuarioRepository = usuarioRepository;
         this.personaRepository = personaRepository;
         this.validadorDeContrasenia = validadorDeContrasenia;
         this.rolRepository = rolRepository;
+        this.menuRepository = menuRepository;
     }
 
     //CERRAR SESION
@@ -105,8 +107,12 @@ public class UsuariosController extends Controller implements ICrudViewsHandler 
     @Override
     public void show(Context context) {
         Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+        TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
+        List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+        menus.forEach(m -> m.setActivo(m.getNombre().equals("Inicio")));
         Map<String, Object> model = new HashMap<>();
         model.put("usuario", usuario);
+        model.put("menus", menus);
         //TODO ver que se ponga correctamente el nombre del usuario
 
         context.render("inicio.hbs", model);

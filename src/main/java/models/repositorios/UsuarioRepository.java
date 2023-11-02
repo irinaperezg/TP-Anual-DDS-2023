@@ -2,6 +2,8 @@ package models.repositorios;
 
 import models.domain.usuarios.Usuario;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
+import models.domain.usuarios.roles.Rol;
+import models.domain.usuarios.roles.TipoRol;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -44,5 +46,7 @@ public class UsuarioRepository implements WithSimplePersistenceUnit {
     } finally {
       em.close();
     }
+
+
   }
 }

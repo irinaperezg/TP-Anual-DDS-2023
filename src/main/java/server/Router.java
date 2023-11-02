@@ -80,7 +80,7 @@ public class Router {
       get("organismos-de-control", ((OrganismoDeControlController) FactoryController.controller("OrganismoDeControl"))::index);
 
       // CARGA MASIVA
-      get("carga-masiva", ((CargaMasivaController) FactoryController.controller("CargaMasiva"))::index);
+      get("carga-masiva", ((CargaMasivaController) FactoryController.controller("CargaMasiva"))::index, TipoRol.ADMINISTRADOR);
       post("carga-masiva", ((CargaMasivaController) FactoryController.controller("CargaMasiva"))::save);
 
       // RANKINGS
