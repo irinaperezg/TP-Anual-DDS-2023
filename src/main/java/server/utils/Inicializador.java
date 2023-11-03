@@ -6,21 +6,25 @@ import models.domain.main.localizacion.Localidad;
 import models.domain.main.localizacion.Localizacion;
 import models.domain.main.localizacion.Provincia;
 import models.domain.main.localizacion.TipoLocalizacion;
+import models.domain.usuarios.roles.Permiso;
+import models.domain.usuarios.roles.Rol;
 import models.domain.usuarios.roles.TipoRol;
 import models.indice.Menu;
 import models.repositorios.LocalizacionRepository;
 import models.repositorios.MenuRepository;
+import models.repositorios.PermisoRepository;
+import models.repositorios.RolRepository;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Inicializador {
 
   public LocalizacionRepository localizacionRepository;
   public ServicioGeoref servicioGeoref;
   public MenuRepository menuRepository;
+  public RolRepository rolRepository;
+  public PermisoRepository permisoRepository;
 
   public Inicializador()
   {
@@ -29,6 +33,8 @@ public class Inicializador {
     this.servicioGeoref = new ServicioGeoref();
     this.servicioGeoref.setAdapter(new ServicioGeorefRetrofitAdapter());
     this.menuRepository = new MenuRepository();
+    this.rolRepository = new RolRepository();
+    this.permisoRepository = new PermisoRepository();
   }
 
   public void inicializar() throws IOException {
@@ -37,6 +43,8 @@ public class Inicializador {
     List<Localizacion> localizaciones = this.inicializarLocalizaciones(provincias);
     this.inicializarLocalidades(localizaciones);
     inicializarMenus();
+    inicializarPermisos();
+    inicializarRoles();
   }
 
   public List<Provincia> inicializarProvincias() {
@@ -111,8 +119,41 @@ public class Inicializador {
         menus.add(new Menu("/carga-masiva", "Carga Masiva", TipoRol.ADMINISTRADOR));
 
         menuRepository.persistir(menus);
-
     }
+  }
 
+
+  public void inicializarRoles() {
+    List<Rol> roles = this.rolRepository.all();
+    if(!(roles.stream().anyMatch(x->x.getTipo().equals(TipoRol.ADMINISTRADOR))&&roles.stream().anyMatch(x->x.getTipo().equals(TipoRol.CONSUMIDOR)))){
+      Set<Permiso> permisosAdmin = new HashSet<>();
+      Set<Permiso> permisosCons = new HashSet<>();
+      permisosAdmin.add(permisoRepository.buscarPorNombreInterno("crear_comunidad"));
+      permisosAdmin.add(permisoRepository.buscarPorNombreInterno("carga_masiva"));
+      permisosCons.add(permisoRepository.buscarPorNombreInterno("ver_mis_comunidades"));
+      permisosCons.add(permisoRepository.buscarPorNombreInterno("ver_incidentes_de_mis_comunidades"));
+      permisosCons.add(permisoRepository.buscarPorNombreInterno("sumar_a_comunidad"));
+      permisosCons.add(permisoRepository.buscarPorNombreInterno("crear_incidente"));
+
+      roles.add(new Rol("consumidor", TipoRol.CONSUMIDOR, permisosCons));
+      roles.add(new Rol("administrador", TipoRol.ADMINISTRADOR, permisosAdmin));
+
+      rolRepository.persistir(roles);
+    }
+  }
+
+  public void inicializarPermisos (){
+    List<Permiso> permisos = this.permisoRepository.all();
+    if(permisos.isEmpty()){
+
+      permisos.add(new Permiso("crear_comunidad","crear_comunidad"));
+      permisos.add(new Permiso("carga_masiva","carga_masiva"));
+      permisos.add(new Permiso("ver_mis_comunidades", "ver_mis_comunidades"));
+      permisos.add(new Permiso("ver_incidentes_de_mis_comunidades", "ver_incidentes_de_mis_comunidades"));
+      permisos.add(new Permiso("sumar_a_comunidad", "sumar_a_comunidad"));
+      permisos.add(new Permiso("crear_incidente", "crear_incidente"));
+
+      permisoRepository.persistir(permisos);
+    }
   }
 }

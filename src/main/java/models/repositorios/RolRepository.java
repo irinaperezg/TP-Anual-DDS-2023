@@ -6,7 +6,9 @@ import models.domain.usuarios.Persona;
 import models.domain.usuarios.Usuario;
 import models.domain.usuarios.roles.Rol;
 import models.domain.usuarios.roles.TipoRol;
+import models.indice.Menu;
 
+import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import java.util.List;
 
@@ -52,4 +54,16 @@ public class RolRepository implements WithSimplePersistenceUnit {
   }
 
 
+  public List<Rol> all() {
+    return entityManager().createQuery("from Rol", Rol.class).getResultList();
   }
+
+  public void persistir(List<Rol> roles) {
+    EntityTransaction tx = entityManager().getTransaction();
+    tx.begin();
+    for (Rol r : roles) {
+      entityManager().merge(r);
+    }
+    tx.commit();
+  }
+}

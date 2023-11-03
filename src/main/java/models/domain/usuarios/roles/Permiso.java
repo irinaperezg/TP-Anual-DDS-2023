@@ -20,6 +20,15 @@ public class Permiso {
   @Column(name = "nombreInterno")
   private String nombreInterno;
 
+  public Permiso(String nombre, String nombreInterno) {
+    this.nombre = nombre;
+    this.nombreInterno = nombreInterno;
+  }
+
+  public Permiso() {
+
+  }
+
 
   public boolean coincideConNombreInterno (String nombre) {
     return this.nombreInterno.equals(nombre);

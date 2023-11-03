@@ -31,6 +31,12 @@ public class Rol {
 
   public Rol() {this.permisos = new HashSet<>();}
 
+  public Rol(String nombre, TipoRol tipo, Set<Permiso> permisos) {
+    this.nombre = nombre;
+    this.tipo = tipo;
+    this.permisos = permisos;
+  }
+
   public void agregarPermisos(Permiso ... permisos) {
     Collections.addAll(this.permisos, permisos);
   }

@@ -20,6 +20,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static models.domain.usuarios.roles.TipoRol.ADMINISTRADOR;
 import static models.domain.usuarios.roles.TipoRol.CONSUMIDOR;
 
 public class SignUpController extends Controller implements ICrudViewsHandler {
