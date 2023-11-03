@@ -9,6 +9,8 @@ package controllers;
     import models.domain.main.servicio.ServicioBase;
     import models.domain.usuarios.Comunidad;
     import models.domain.usuarios.Usuario;
+    import models.domain.usuarios.roles.TipoRol;
+    import models.indice.Menu;
     import models.repositorios.*;
     import io.javalin.http.Context;
     import net.bytebuddy.asm.Advice;
@@ -25,15 +27,20 @@ public class IncidentesController extends Controller implements ICrudViewsHandle
   private UsuarioRepository usuarioRepository;
   private ComunidadRepository comunidadRepository;
   private ServicioRepository servicioRepository;
+  private MenuRepository menuRepository;
+  private RolRepository rolRepository;
 
   private PrestacionDeServicioRepository prestacionDeServicioRepository;
 
   public IncidentesController(IncidenteRepository incidenteRepository, UsuarioRepository usuarioRepository,
-                              ComunidadRepository comunidadRepository, ServicioRepository servicioRepository) {
+                              ComunidadRepository comunidadRepository, ServicioRepository servicioRepository,
+                              RolRepository rolRepository, MenuRepository menuRepository) {
     this.incidenteRepository = incidenteRepository;
     this.usuarioRepository = usuarioRepository;
     this.comunidadRepository = comunidadRepository;
     this.servicioRepository = servicioRepository;
+    this.rolRepository = rolRepository;
+    this.menuRepository = menuRepository;
   }
 
   @Override
@@ -53,7 +60,12 @@ public class IncidentesController extends Controller implements ICrudViewsHandle
 
     model.put("comunidades", comunidades);
     model.put("incidentes", incidentes);
-
+    // MENU
+    TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
+    List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+    menus.forEach(m -> m.setActivo(m.getNombre().equals("Inicidentes")));
+    model.put("menus", menus);
+    //
     context.render("listarIncidentes.hbs", model);
   }
 
@@ -77,7 +89,12 @@ public class IncidentesController extends Controller implements ICrudViewsHandle
       Map<String, Object> model = new HashMap<>();
       model.put("comunidades", comunidades);
       model.put("prestaciones", prestaciones); //TODO meter esto en hbs y ver como referenciar la comunidad
-
+    // MENU
+    TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
+    List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+    menus.forEach(m -> m.setActivo(m.getNombre().equals("Incidentes")));
+    model.put("menus", menus);
+    //
         context.render("crearIncidente.hbs", model);
   }
 
@@ -108,6 +125,7 @@ public class IncidentesController extends Controller implements ICrudViewsHandle
   public void update(Context context) {
     String id = context.pathParam("id");
     this.incidenteRepository.cerrarIncidente(Long.parseLong(id));
+
     context.redirect("../../incidentes");
   }
 

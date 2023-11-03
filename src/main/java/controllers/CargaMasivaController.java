@@ -6,6 +6,8 @@ import models.domain.main.EntidadPrestadora;
 import models.domain.main.OrganismoDeControl;
 import models.domain.usuarios.Delegado;
 import models.domain.usuarios.Usuario;
+import models.domain.usuarios.roles.TipoRol;
+import models.indice.Menu;
 import models.repositorios.*;
 import server.exceptions.AccessDeniedException;
 import server.utils.ICrudViewsHandler;
@@ -14,6 +16,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CargaMasivaController extends Controller implements ICrudViewsHandler {
@@ -22,12 +25,17 @@ public class CargaMasivaController extends Controller implements ICrudViewsHandl
   private OrganismoDeControlRepository organismoDeControlRepository;
   private UsuarioRepository usuarioRepository;
   private RolRepository rolRepository;
+  private MenuRepository menuRepository;
 
-  public CargaMasivaController(EntidadPrestadoraRepository entidadPrestadoraRepository, OrganismoDeControlRepository organismoDeControlRepository, UsuarioRepository usuarioRepository, RolRepository rolRepository) {
+  public CargaMasivaController(EntidadPrestadoraRepository entidadPrestadoraRepository,
+                               OrganismoDeControlRepository organismoDeControlRepository,
+                               UsuarioRepository usuarioRepository, RolRepository rolRepository,
+                               MenuRepository menuRepository) {
     this.entidadPrestadoraRepository = entidadPrestadoraRepository;
     this.organismoDeControlRepository = organismoDeControlRepository;
     this.usuarioRepository = usuarioRepository;
     this.rolRepository = rolRepository;
+    this.menuRepository = menuRepository;
   }
   @Override
   public void index(Context context) {
@@ -37,8 +45,13 @@ public class CargaMasivaController extends Controller implements ICrudViewsHandl
     if(usuarioLogueado == null || !rolRepository.tienePermiso(usuarioLogueado.getRol().getId(), "carga_masiva")) {
       throw new AccessDeniedException();
     }
-
-    context.render("cargaMasiva.hbs");
+    TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuarioLogueado.getRol().getId());
+    List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+    menus.forEach(m -> m.setActivo(m.getNombre().equals("Carga Masiva")));
+    Map<String, Object> model = new HashMap<>();
+    model.put("usuario", usuarioLogueado);
+    model.put("menus", menus);
+    context.render("cargaMasiva.hbs", model);
   }
 
   @Override
@@ -116,7 +129,13 @@ public class CargaMasivaController extends Controller implements ICrudViewsHandl
     }
 
 
-
+    // MENU
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+    TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
+    List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+    menus.forEach(m -> m.setActivo(m.getNombre().equals("Carga Masiva")));
+    model.put("menus", menus);
+    //
 
     context.render("cargaMasiva.hbs", model);
 

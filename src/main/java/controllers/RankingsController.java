@@ -5,7 +5,10 @@ import models.domain.main.informes.rankings.CantidadIncidentesReportados;
 import models.domain.main.informes.rankings.GradoImpactoProblematicas;
 import models.domain.main.informes.rankings.PromedioCierre;
 import models.domain.usuarios.Comunidad;
-import models.repositorios.EntidadRepository;
+import models.domain.usuarios.Usuario;
+import models.domain.usuarios.roles.TipoRol;
+import models.indice.Menu;
+import models.repositorios.*;
 import server.utils.ICrudViewsHandler;
 
 import java.io.IOException;
@@ -19,18 +22,33 @@ public class RankingsController extends Controller implements ICrudViewsHandler 
   private GradoImpactoProblematicas gradoImpactoProblematicas;
   private PromedioCierre promedioCierre;
   private EntidadRepository entidadRepository;
+  private UsuarioRepository usuarioRepository;
+  private RolRepository rolRepository;
+  private MenuRepository menuRepository;
 
   public RankingsController(CantidadIncidentesReportados cantidadIncidentesReportados, GradoImpactoProblematicas gradoImpactoProblematicas,
-                            PromedioCierre promedioCierre, EntidadRepository entidadRepository) {
+                            PromedioCierre promedioCierre, EntidadRepository entidadRepository, MenuRepository menuRepository,
+                            UsuarioRepository usuarioRepository, RolRepository rolRepository) {
     this.promedioCierre = promedioCierre;
     this.cantidadIncidentesReportados = cantidadIncidentesReportados;
     this.gradoImpactoProblematicas = gradoImpactoProblematicas;
     this.entidadRepository = entidadRepository;
+    this.usuarioRepository = usuarioRepository;
+    this.rolRepository = rolRepository;
+    this.menuRepository = menuRepository;
   }
 
   @Override
   public void index (Context context){
-    context.render("rankings.hbs");
+    // MENU
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+    TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
+    List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+    menus.forEach(m -> m.setActivo(m.getNombre().equals("Rankings")));
+    Map<String, Object> model = new HashMap<>();
+    model.put("menus", menus);
+    //
+    context.render("rankings.hbs", model);
   }
 
   @Override
@@ -55,7 +73,13 @@ public class RankingsController extends Controller implements ICrudViewsHandler 
         descripcion = "Incidentes con mayor grado de impacto de las problemáticas";
         break;
     }
-
+    // MENU
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+    TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
+    List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+    menus.forEach(m -> m.setActivo(m.getNombre().equals("Rankings")));
+    model.put("menus", menus);
+    //
     model.put("ranking", ranking);
     model.put("id", id);
     model.put("descripcion", descripcion);

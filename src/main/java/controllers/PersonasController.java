@@ -10,10 +10,9 @@ import models.domain.main.notificaciones.frecuenciasNotificacion.FrecuenciaNotif
 import models.domain.main.notificaciones.mediosNotificacion.PreferenciaMedioNotificacion;
 import models.domain.usuarios.Persona;
 import models.domain.usuarios.Usuario;
-import models.repositorios.IncidenteRepository;
-import models.repositorios.LocalizacionRepository;
-import models.repositorios.PersonaRepository;
-import models.repositorios.UsuarioRepository;
+import models.domain.usuarios.roles.TipoRol;
+import models.indice.Menu;
+import models.repositorios.*;
 import server.utils.ICrudViewsHandler;
 
 import javax.persistence.*;
@@ -28,10 +27,16 @@ import java.util.stream.Collectors;
 public class PersonasController extends Controller implements ICrudViewsHandler {
   private PersonaRepository personaRepository;
   private LocalizacionRepository localizacionRepository;
+  private MenuRepository menuRepository;
+  private RolRepository rolRepository;
+  private UsuarioRepository usuarioRepository;
 
-  public PersonasController(PersonaRepository personaRepository, LocalizacionRepository localizacionRepository) {
+  public PersonasController(PersonaRepository personaRepository, LocalizacionRepository localizacionRepository, RolRepository rolRepository, UsuarioRepository usuarioRepository, MenuRepository menuRepository) {
     this.personaRepository = personaRepository;
     this.localizacionRepository = localizacionRepository;
+    this.menuRepository = menuRepository;
+    this.rolRepository = rolRepository;
+    this.usuarioRepository = usuarioRepository;
   }
 
   // VER PERFIL PROPIO
@@ -61,7 +66,13 @@ public class PersonasController extends Controller implements ICrudViewsHandler 
       {
         personaFrecuencia = "Sin apuros";
       }
-
+      // MENU
+      Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+      TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
+      List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+      menus.forEach(m -> m.setActivo(m.getNombre().equals("Perfil")));
+      model.put("menus", menus);
+      //
       String mensajeCambiosAplicados = context.queryParam("mensaje");
       model.put("mensajeCambiosAplicados", mensajeCambiosAplicados);
       model.put("persona", persona);
@@ -90,6 +101,13 @@ public class PersonasController extends Controller implements ICrudViewsHandler 
         return;
       }
       Map<String, Object> model = new HashMap<>();
+      // MENU
+      Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+      TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
+      List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+      menus.forEach(m -> m.setActivo(m.getNombre().equals("Perfil")));
+      model.put("menus", menus);
+      //
       model.put("persona", persona);
       context.render("perfilPersona.hbs", model);
     } catch (Exception e) {
@@ -119,6 +137,13 @@ public class PersonasController extends Controller implements ICrudViewsHandler 
       List<Provincia> provincias = this.localizacionRepository.todasLasProvincias();
 
       Map<String, Object> model = new HashMap<>();
+      // MENU
+      Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+      TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
+      List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+      menus.forEach(m -> m.setActivo(m.getNombre().equals("Perfil")));
+      model.put("menus", menus);
+      //
       model.put("persona", persona);
       model.put("provincias", provincias); // Añadir provincias al modelo
       model.put("localidades", localidades);  // Añadir localidades al modelo

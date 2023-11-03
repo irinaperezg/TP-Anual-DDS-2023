@@ -4,6 +4,8 @@ import io.javalin.http.Context;
 import models.domain.main.Establecimiento;
 import models.domain.main.servicio.Servicio;
 import models.domain.usuarios.*;
+import models.domain.usuarios.roles.TipoRol;
+import models.indice.Menu;
 import models.repositorios.*;
 import server.exceptions.AccessDeniedException;
 import server.utils.ICrudViewsHandler;
@@ -24,8 +26,9 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
   private EstablecimientoRepository establecimientoRepository;
   private ServicioRepository servicioRepository;
   private RolRepository rolRepository;
+  private MenuRepository menuRepository;
 
-  public ComunidadesController(ComunidadRepository comunidadRepository, UsuarioRepository usuarioRepository, MiembroRepository miembroRepository, PersonaRepository personaRepository, EstablecimientoRepository establecimientoRepository, ServicioRepository servicioRepository, RolRepository rolRepository) {
+  public ComunidadesController(ComunidadRepository comunidadRepository, UsuarioRepository usuarioRepository, MiembroRepository miembroRepository, PersonaRepository personaRepository, EstablecimientoRepository establecimientoRepository, ServicioRepository servicioRepository, RolRepository rolRepository, MenuRepository menuRepository) {
     this.comunidadRepository = comunidadRepository;
     this.usuarioRepository = usuarioRepository;
     this.miembroRepository = miembroRepository;
@@ -33,6 +36,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     this.establecimientoRepository = establecimientoRepository;
     this.servicioRepository = servicioRepository;
     this.rolRepository = rolRepository;
+    this.menuRepository = menuRepository;
   }
   @Override
   public void index(Context context) {
@@ -41,6 +45,12 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     Map<String, Object> model = new HashMap<>();
     model.put("usuario", usuario);
     model.put("comunidades", comunidades);
+    // MENU
+    TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
+    List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+    menus.forEach(m -> m.setActivo(m.getNombre().equals("Comunidades")));
+    model.put("menus", menus);
+    //
     context.render("listarComunidades.hbs", model);
   }
 
@@ -64,6 +74,12 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     // DEVOLVER UNA VISTA QUE PERMITA CREAR UNA COMUNIDAD
     Map<String, Object> model = new HashMap<>();
     model.put("comunidad", null);
+    // MENU
+    TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuarioLogueado.getRol().getId());
+    List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+    menus.forEach(m -> m.setActivo(m.getNombre().equals("Comunidades")));
+    model.put("menus", menus);
+    //
     context.render("crearComunidad.hbs", model);
 
   }
@@ -86,14 +102,7 @@ public void add (Context context) {
     }
 
   }
-    /*
-    // Usando Java Stream API, filtrar las comunidades excluyendo las que ya tienen al miembro
-    List<Comunidad> comunidadesSinMiembro = todasComunidades.stream()
-        .filter(comunidad -> comunidad.getMiembros().stream()
-            .noneMatch(miembro -> miembro.getPersona().equals(persona)))
-        .collect(Collectors.toList());
-*/
-  // Convertir las comunidades en comunidadesView
+
   List<ComunidadView> comunidadesView = new ArrayList<>();
 
   for (Comunidad comunidad : comunidadesSinMiembro) {
@@ -117,6 +126,12 @@ public void add (Context context) {
   }
 
   Map<String, Object> modelo = new HashMap<>();
+  // MENU
+  TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
+  List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+  menus.forEach(m -> m.setActivo(m.getNombre().equals("Comunidades")));
+  modelo.put("menus", menus);
+  //
   modelo.put("comunidades", comunidadesView);
   modelo.put("usuario", usuario);
   context.render("sumarAComunidad.hbs", modelo);
@@ -135,6 +150,14 @@ public void add (Context context) {
     // Deberías extender el método agregarPersonaAComunidad para que también acepte el tipo de miembro.
     Miembro miembro = comunidadRepository.agregarPersonaAComunidad(persona, comunidad, tipoMiembro);
     miembroRepository.registrar(miembro);
+    // MENU
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+    TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
+    List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+    menus.forEach(m -> m.setActivo(m.getNombre().equals("Comunidades")));
+    Map<String, Object> model = new HashMap<>();
+    model.put("menus", menus);
+    //
     context.redirect("/comunidades"); // Redirigir al listado de comunidades
   }
 
@@ -156,6 +179,14 @@ public void add (Context context) {
     Persona persona = personaRepository.buscarPorIDUsuario(usuarioId);
     Miembro miembro = miembroRepository.buscarMiembroPorPersonaId(persona.getId(), comunidadId);
     miembroRepository.removeMiembro(miembro); // Implementa este método en la clase Comunidad
+    // MENU
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+    TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
+    List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+    menus.forEach(m -> m.setActivo(m.getNombre().equals("Inicio")));
+    Map<String, Object> model = new HashMap<>();
+    model.put("menus", menus);
+    //
     context.redirect("/comunidades"); // Redirige a la lista de comunidades u otra página
 
   }
@@ -165,13 +196,13 @@ public void add (Context context) {
     Comunidad comunidad = comunidadRepository.buscarPorID(comunidadId); // Obtén la comunidad por su ID
     if (comunidad != null) {
       // Limpia la lista actual de establecimientos (si es necesario)
-      comunidad.getEstablecimientosObservados().clear();
+      //comunidad.limpiarEstablecimientosObservados();
 
       // Obtén los establecimientos relacionados a través de la tabla intermedia
       List<Establecimiento> establecimientos = establecimientoRepository.obtenerEstablecimientosAsociados(comunidadId);
 
       // Agrega los establecimientos a la lista de la comunidad
-      comunidad.getEstablecimientosObservados().addAll(establecimientos);
+      comunidad.setEstablecimientosObservados(establecimientos);
 
       // Guarda la comunidad actualizada en la base de datos
       comunidadRepository.actualizar(comunidad);

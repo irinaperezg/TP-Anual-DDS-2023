@@ -52,7 +52,7 @@ public class Router {
 
 
       // EDITAR EL TIPO DE MIEMBRO --> creo q el nombre de la ruta está mal, parece que fuese editar una comunidad pero
-      // mi idea es q el miembro elija si es afectado u observador
+      // mi idea es q el miembro elija si es afectado u observador FALTA
       get("comunidades/{id}/editar", ((MiembrosController) FactoryController.controller("Miembros"))::edit);
       post("comunidades/{id}/editar", ((MiembrosController) FactoryController.controller("Miembros"))::update);
 
@@ -73,10 +73,10 @@ public class Router {
       // REVISAR INCIDENTE
       //TODO
 
-      // LISTAR ENTIDADES PRESTADORAS
+      // LISTAR ENTIDADES PRESTADORAS FALTA
       get("entidades-prestadoras", ((EntidadPrestadoraController) FactoryController.controller("EntidadPrestadora"))::index);
 
-      // LISTAR ORGANISMOS DE CONTROL
+      // LISTAR ORGANISMOS DE CONTROL FALTA
       get("organismos-de-control", ((OrganismoDeControlController) FactoryController.controller("OrganismoDeControl"))::index);
 
       // CARGA MASIVA
