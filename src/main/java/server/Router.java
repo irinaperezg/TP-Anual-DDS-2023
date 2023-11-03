@@ -34,19 +34,19 @@ public class Router {
       get("perfil/{id}", ((PersonasController) FactoryController.controller("Personas"))::show);
 
       // LISTAR COMUNIDADES
-      get("comunidades", ((ComunidadesController) FactoryController.controller("Comunidades"))::index);
+      get("comunidades", ((ComunidadesController) FactoryController.controller("Comunidades"))::index, TipoRol.CONSUMIDOR);
 
       // BAJARSE DE UNA COMUNIDAD
-      get("comunidades/baja/{comunidad_id}/{usuario_id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::delete);
+      get("comunidades/baja/{comunidad_id}/{usuario_id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::delete, TipoRol.CONSUMIDOR);
 
       // CREAR NUEVA COMUNIDAD
       get("comunidades/crear", ((ComunidadesController) FactoryController.controller("Comunidades"))::create, TipoRol.ADMINISTRADOR);
 
       // UNIRSE A COMUNIDAD
-      get("comunidades/sumar", ((ComunidadesController) FactoryController.controller("Comunidades"))::add);
-      post("comunidades/sumar", ((ComunidadesController) FactoryController.controller("Comunidades"))::save);
+      get("comunidades/sumar", ((ComunidadesController) FactoryController.controller("Comunidades"))::add, TipoRol.CONSUMIDOR);
+      post("comunidades/sumar", ((ComunidadesController) FactoryController.controller("Comunidades"))::save, TipoRol.CONSUMIDOR);
 
-      // VER COMUNIDAD PUNTUAL
+      // VER COMUNIDAD PUNTUAL FALTA
       get("comunidades/{id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::show);
 
 
@@ -57,17 +57,17 @@ public class Router {
       post("comunidades/{id}/editar", ((MiembrosController) FactoryController.controller("Miembros"))::update);
 
       // LISTAR INCIDENTES
-      get("incidentes", ((IncidentesController) FactoryController.controller("Incidentes"))::index);
+      get("incidentes", ((IncidentesController) FactoryController.controller("Incidentes"))::index, TipoRol.CONSUMIDOR);
 
       // APERTURA DE INCIDENTE
-      get("incidentes/crear", ((IncidentesController) FactoryController.controller("Incidentes"))::create);
+      get("incidentes/crear", ((IncidentesController) FactoryController.controller("Incidentes"))::create, TipoRol.CONSUMIDOR);
       post("incidentes/crear", ((IncidentesController) FactoryController.controller("Incidentes"))::save);
 
-      // CIERRE DE INCIDENTE
+      // CIERRE DE INCIDENTE FALTA
       get("incidente/{id}/editar", ((IncidentesController) FactoryController.controller("Incidentes"))::edit);
       post("incidente/{id}/editar", ((IncidentesController) FactoryController.controller("Incidentes"))::update);
 
-      // VER INCIDENTE PUNTUAL
+      // VER INCIDENTE PUNTUAL FALTA
       get("incidente/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::show);
 
       // REVISAR INCIDENTE

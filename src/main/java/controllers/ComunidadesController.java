@@ -41,6 +41,11 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
   @Override
   public void index(Context context) {
     Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+
+    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "ver_mis_comunidades")) {
+      throw new AccessDeniedException();
+    }
+
     List<Comunidad> comunidades = this.comunidadRepository.buscarComunidadesUsuario(usuario);
     Map<String, Object> model = new HashMap<>();
     model.put("usuario", usuario);
@@ -88,6 +93,11 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
 public void add (Context context) {
   Long usuarioId = context.sessionAttribute("usuario_id");
   Usuario usuario = usuarioRepository.buscarPorID(usuarioId);
+
+  if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "sumar_a_comunidad")) {
+    throw new AccessDeniedException();
+  }
+
   Persona persona = personaRepository.buscarPorIDUsuario(usuarioId);
 
   // Obtener todas las comunidades
@@ -144,6 +154,13 @@ public void add (Context context) {
     Long comunidadId = Long.valueOf(context.formParam("comunidad_id"));
     String tipoMiembro = context.formParam("tipo"); // Esto te devuelve "observador" o "afectado".
     Long usuarioId = context.sessionAttribute("usuario_id");
+    Usuario usuario = usuarioRepository.buscarPorID(usuarioId);
+
+    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "ver_incidentes_de_mis_comunidades")) {
+      throw new AccessDeniedException();
+    }
+
+
     Persona persona = this.personaRepository.buscarPorIDUsuario(usuarioId);
     Comunidad comunidad = comunidadRepository.buscarPorID(comunidadId);
 
@@ -151,7 +168,6 @@ public void add (Context context) {
     Miembro miembro = comunidadRepository.agregarPersonaAComunidad(persona, comunidad, tipoMiembro);
     miembroRepository.registrar(miembro);
     // MENU
-    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
     TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
     List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
     menus.forEach(m -> m.setActivo(m.getNombre().equals("Comunidades")));
@@ -176,11 +192,17 @@ public void add (Context context) {
   public void delete(Context context) {
     Long comunidadId = Long.parseLong(context.pathParam("comunidad_id"));
     Long usuarioId = Long.parseLong(context.pathParam("usuario_id"));
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+
+    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "crear_comunidad")) {
+      throw new AccessDeniedException();
+    }
+
     Persona persona = personaRepository.buscarPorIDUsuario(usuarioId);
     Miembro miembro = miembroRepository.buscarMiembroPorPersonaId(persona.getId(), comunidadId);
     miembroRepository.removeMiembro(miembro); // Implementa este método en la clase Comunidad
     // MENU
-    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+
     TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
     List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
     menus.forEach(m -> m.setActivo(m.getNombre().equals("Inicio")));

@@ -27,7 +27,7 @@ public class Menu {
 
   private Boolean activo;
 
-  public Menu(String nombre, String link, TipoRol tipo) {
+  public Menu(String link, String nombre, TipoRol tipo) {
     this.nombre = nombre;
     this.link = link;
     this.tipo = tipo;

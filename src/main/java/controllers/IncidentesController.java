@@ -14,6 +14,7 @@ package controllers;
     import models.repositorios.*;
     import io.javalin.http.Context;
     import net.bytebuddy.asm.Advice;
+    import server.exceptions.AccessDeniedException;
     import server.utils.ICrudViewsHandler;
 
     import java.time.LocalDateTime;
@@ -46,6 +47,9 @@ public class IncidentesController extends Controller implements ICrudViewsHandle
   @Override
   public void index(Context context) {
     Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "sumar_a_comunidad")) {
+      throw new AccessDeniedException();
+    }
     List<Comunidad> comunidades = this.comunidadRepository.buscarComunidadesUsuario(usuario);
     List<Incidente> incidentes = new ArrayList<>();
 
@@ -77,6 +81,11 @@ public class IncidentesController extends Controller implements ICrudViewsHandle
   @Override
   public void create(Context context) {
       Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+
+    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "crear_incidente")) {
+      throw new AccessDeniedException();
+    }
+
       List<Comunidad> comunidades = this.comunidadRepository.buscarComunidadesUsuario(usuario);
       List<PrestacionDeServicio> prestaciones = new ArrayList<>();
 
