@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../css/cargaMasiva.css">
     <meta charset="utf-8">
     <link rel="icon" href="../img/favicon.png" type="image/png">
-    <title>Nueva Comunidad</title>
+    <title>Comunidades</title>
 </head>
 <body class="bodyInterno centrado">
 <header>
@@ -32,7 +32,7 @@
 </header>
 
 <div>
-    <h1 class="titulosMedianos">{{usuario.nombre}}</h1>
+    <h1 class="titulosMedianos">Comunidades</h1>
 </div>
 
 <div class="container2" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
@@ -47,24 +47,23 @@
         </div>
 
 
-        <div class="selected" style="background: #0CC0DF;">
-            Seleccione una comunidad para sumarse
+        <div class="selected" style="background: #0CC0DF; text-align: center;">
+            Seleccione una comunidad
         </div>
 
     </div>
     <div class="description">
     </div>
 
-<div class="seleccionTipo">
-    <div id="botonObservador" class="botonOyA" onclick="seleccionarTipo('observador')">Observador</div>
-    <div id="botonAfectado" class="botonOyA" onclick="seleccionarTipo('afectado')">Afectado</div>
-</div>
-
-<form action="/comunidades/sumar" method="post" id="joinForm">
-    <input type="hidden" name="comunidad_id" id="selectedComunidad">
-    <input type="hidden" name="tipo" id="selectedTipo">
-    <input type="submit" class="boton cargarDatos" value="Unirse">
+<form action="/editar-comunidad" method="post" id="joinForm">
+    <input type="hidden" id="selectedComunidad" name="selectedComunidad">
+    <button type="submit" class="boton cargarDatos">
+        Editar
+        <i class="fa-regular fa-pen-to-square"></i>
+    </button>
 </form>
+
+
 
 <script src="../js/verTodasComunidades.js"></script>
 <script src="../js/cerrarSesion.js"></script>

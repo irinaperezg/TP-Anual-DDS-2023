@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/estiloGeneral.css">
+    <link rel="stylesheet" href="css/listarComunidades.css">
+    <meta charset="utf-8">
+    <link rel="icon" href="img/favicon.png" type="image/png">
+    <title>Editar Comunidad</title>
+</head>
+
+<body class="bodyInterno centrado">
+
+<!-- HEADER -->
+<header>
+    <div class="menu-container">
+        <ul class="menu">
+                    {{#each menus}}
+                        {{#if this.activo}}
+                            <li class="paginaActual"><a href="{{this.link}}"> {{this.nombre}} </a></li>
+                        {{else}}
+                            <li><a href="{{this.link}}"> {{this.nombre}} </a></li>
+                        {{/if}}
+                    {{/each}}
+        </ul>
+        <img src="img/logo.png" alt="logo-header">
+    </div>
+    <a href="#" id="cerrarSesionLink">
+          <div class="cerrar-sesion-icon">
+            <i class="fa-solid fa-arrow-right-from-bracket" style="color: #ff4db5;"></i>
+          </div>
+    </a>
+</header>
+
+<div>
+    <h1 class="titulosMedianos">  {{comunidad.nombre}}</h1>
+</div>
+<div>
+    <h1 class="titulosMedianos">  Servicios de interés </h1>
+</div>
+
+{{#each servicios}}
+<div class = "comunidad">
+    <h2 class = "letraComunidad">{{this.denominacion}}</h2>
+    <a href="/editar-comunidad/eliminarServicio/{{this.id}}/{{comunidad.id}}" class="bajaComunidad" id="eliminarComunidad">&#10006;</a>
+
+</div>
+{{/each}}
+
+<a href="/comunidades/sumar" class="unirseAComunidad">Sumar Servicio</a>
+
+<div>
+    <h1 class="titulosMedianos">  Establecimientos de interés </h1>
+</div>
+{{#each establecimientos}}
+<div class = "comunidad">
+    <h2 class = "letraComunidad">{{this.descripcion}}</h2>
+    <a href="/editar-comunidad/eliminarEstablecimiento/{{this.id}}/{{comunidad.id}}" class="bajaComunidad" id="eliminarComunidad">&#10006;</a>
+
+</div>
+{{/each}}
+
+<a href="/comunidades/sumar" class="unirseAComunidad">Sumar Establecimiento</a>
+<script src="js/cerrarSesion.js"></script>
+<script src="js/listarComunidades.js"></script>
+<script src="https://kit.fontawesome.com/a39dd266ae.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

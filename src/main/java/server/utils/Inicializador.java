@@ -110,13 +110,14 @@ public class Inicializador {
         menus.add(new Menu("/inicio", "Inicio", TipoRol.ADMINISTRADOR));
         menus.add(new Menu("/perfil", "Perfil", TipoRol.CONSUMIDOR));
         menus.add(new Menu("/perfil-Admin", "Perfil", TipoRol.ADMINISTRADOR));
+        menus.add(new Menu("/administrar", "Administrar", TipoRol.ADMINISTRADOR));
+        menus.add(new Menu("/comunidades", "Comunidades", TipoRol.CONSUMIDOR));
         menus.add(new Menu("/incidentes", "Incidentes", TipoRol.CONSUMIDOR));
         menus.add(new Menu("/todos-incidentes", "Incidentes", TipoRol.ADMINISTRADOR));
-        menus.add(new Menu("/comunidades", "Comunidades", TipoRol.CONSUMIDOR));
-        menus.add(new Menu("/todas-comunidades", "Comunidades", TipoRol.ADMINISTRADOR));
         menus.add(new Menu("/rankings", "Rankings", TipoRol.CONSUMIDOR));
         menus.add(new Menu("/rankings", "Rankings", TipoRol.ADMINISTRADOR));
         menus.add(new Menu("/carga-masiva", "Carga Masiva", TipoRol.ADMINISTRADOR));
+
 
         menuRepository.persistir(menus);
     }
@@ -134,6 +135,9 @@ public class Inicializador {
       permisosCons.add(permisoRepository.buscarPorNombreInterno("ver_incidentes_de_mis_comunidades"));
       permisosCons.add(permisoRepository.buscarPorNombreInterno("sumar_a_comunidad"));
       permisosCons.add(permisoRepository.buscarPorNombreInterno("crear_incidente"));
+      permisosAdmin.add(permisoRepository.buscarPorNombreInterno("administrar_recursos"));
+      permisosAdmin.add(permisoRepository.buscarPorNombreInterno("ver_todas_comunidades"));
+      permisosAdmin.add(permisoRepository.buscarPorNombreInterno("editar_comunidad"));
 
       roles.add(new Rol("consumidor", TipoRol.CONSUMIDOR, permisosCons));
       roles.add(new Rol("administrador", TipoRol.ADMINISTRADOR, permisosAdmin));
@@ -152,6 +156,9 @@ public class Inicializador {
       permisos.add(new Permiso("ver_incidentes_de_mis_comunidades", "ver_incidentes_de_mis_comunidades"));
       permisos.add(new Permiso("sumar_a_comunidad", "sumar_a_comunidad"));
       permisos.add(new Permiso("crear_incidente", "crear_incidente"));
+      permisos.add(new Permiso("administrar_recursos", "administrar_recursos"));
+      permisos.add(new Permiso("ver_todas_comunidades", "ver_todas_comunidades"));
+      permisos.add(new Permiso("editar_comunidad", "editar_comunidad"));
 
       permisoRepository.persistir(permisos);
     }

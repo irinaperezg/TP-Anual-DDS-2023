@@ -91,7 +91,7 @@ public class SignUpController extends Controller implements ICrudViewsHandler {
     }
 
     try {
-      Rol rol = rolRepository.buscarPorTipoRol(CONSUMIDOR);
+      Rol rol = rolRepository.buscarPorTipoRol(ADMINISTRADOR);
       contraseniaEncriptada = validadorDeContrasenia.encriptarContrasenia(contrasenia);
       Usuario usuario = new Usuario(nombre, contraseniaEncriptada, rol);
       usuarioRepository.registrar(usuario);
