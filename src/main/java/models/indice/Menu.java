@@ -26,4 +26,14 @@ public class Menu {
   private TipoRol tipo;
 
   private Boolean activo;
+
+  public Menu(String nombre, String link, TipoRol tipo) {
+    this.nombre = nombre;
+    this.link = link;
+    this.tipo = tipo;
+  }
+
+  public Menu() {
+
+  }
 }
