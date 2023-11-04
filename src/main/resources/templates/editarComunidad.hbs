@@ -41,27 +41,22 @@
 </div>
 
 {{#each servicios}}
-<div class = "comunidad">
-    <h2 class = "letraComunidad">{{this.denominacion}}</h2>
-    <a href="/editar-comunidad/eliminarServicio/{{this.id}}/{{comunidad.id}}" class="bajaComunidad" id="eliminarComunidad">&#10006;</a>
-
-</div>
+    <div class="comunidad">
+        <h2 class="letraComunidad">{{this.denominacion}}</h2>
+        <a href="/editar-comunidad/eliminarServicio/{{this.id}}/{{comunidad.id}}" class="bajaComunidad" id="eliminarComunidad">&#10006;</a>
+    </div>
 {{/each}}
 
-<a href="/comunidades/sumar" class="unirseAComunidad">Sumar Servicio</a>
-
-<div>
-    <h1 class="titulosMedianos">  Establecimientos de interés </h1>
-</div>
 {{#each establecimientos}}
-<div class = "comunidad">
-    <h2 class = "letraComunidad">{{this.descripcion}}</h2>
-    <a href="/editar-comunidad/eliminarEstablecimiento/{{this.id}}/{{comunidad.id}}" class="bajaComunidad" id="eliminarComunidad">&#10006;</a>
-
-</div>
+    <div class="comunidad">
+        <h2 class="letraComunidad">{{this.denominacion}}</h2>
+        <a href="/editar-comunidad/eliminarEstablecimiento/{{this.id}}/{{comunidad.id}}" class="bajaComunidad" id="eliminarComunidad">&#10006;</a>
+    </div>
 {{/each}}
 
-<a href="/comunidades/sumar" class="unirseAComunidad">Sumar Establecimiento</a>
+
+
+
 <script src="js/cerrarSesion.js"></script>
 <script src="js/listarComunidades.js"></script>
 <script src="https://kit.fontawesome.com/a39dd266ae.js" crossorigin="anonymous"></script>

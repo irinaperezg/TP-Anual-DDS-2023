@@ -2,7 +2,10 @@ package controllers;
 
 import io.javalin.http.Context;
 import models.domain.main.Establecimiento;
+import models.domain.main.entidades.Entidad;
+import models.domain.main.entidades.TipoEntidad;
 import models.domain.main.servicio.Servicio;
+import models.domain.main.servicio.ServicioBase;
 import models.domain.usuarios.*;
 import models.domain.usuarios.roles.TipoRol;
 import models.indice.Menu;
@@ -239,9 +242,15 @@ public void add (Context context) {
     model.put("menus", menus);
     //
     List<Servicio> servicios = comunidad.getServiciosObservados();
-    model.put("servicios", servicios);
+    List<Servicio> ser = new ArrayList<>();
+    ser.add(new ServicioBase("pep"));
+    List<Establecimiento> es = new ArrayList<>();
+    TipoEntidad t = new TipoEntidad("jij", "joj");
+
+    es.add(new Establecimiento(new Entidad(t,"lol"), "cha"));
+    model.put("servicios", ser);
     List<Establecimiento> establecimientos = comunidad.getEstablecimientosObservados();
-    model.put("establecimientos", establecimientos);
+    model.put("establecimientos", es);
     model.put("comunidad", comunidad);
     context.render("editarComunidad.hbs", model);
 

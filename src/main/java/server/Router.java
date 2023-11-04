@@ -91,14 +91,14 @@ public class Router {
       //VER / ADMINISTRAR RECURSOS
       get("administrar", ((AdministrarController) FactoryController.controller("Administrar"))::index, TipoRol.ADMINISTRADOR);
 
-      get("todas-comunidades", ((ComunidadesController) FactoryController.controller("Comunidades"))::show, TipoRol.ADMINISTRADOR);get("todas-prestaciones", ((AdministrarController) FactoryController.controller("Administrar"))::index, TipoRol.ADMINISTRADOR);
+      get("todas-comunidades", ((ComunidadesController) FactoryController.controller("Comunidades"))::show, TipoRol.ADMINISTRADOR);
 
       post("editar-comunidad", ((ComunidadesController) FactoryController.controller("Comunidades"))::edit, TipoRol.ADMINISTRADOR);
-      get("editar-comunidad/eliminarServicio/{{servicio.id}}/{{comunidad.id}}", ((ComunidadesController) FactoryController.controller("Comunidades"))::deleteServicio, TipoRol.ADMINISTRADOR);
-      get("editar-comunidad/eliminarEstablecimiento/{{establecimiento.id}}/{{comunidad.id}}", ((ComunidadesController) FactoryController.controller("Comunidades"))::deleteEstablecimiento, TipoRol.ADMINISTRADOR);
+      get("editar-comunidad/eliminarServicio/{servicio.id}/{comunidad.id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::deleteServicio, TipoRol.ADMINISTRADOR);
+      get("editar-comunidad/eliminarEstablecimiento/{establecimiento.id}/{comunidad.id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::deleteEstablecimiento, TipoRol.ADMINISTRADOR);
 
 
-
+      get("todas-prestaciones", ((AdministrarController) FactoryController.controller("Administrar"))::index, TipoRol.ADMINISTRADOR);
       get("todas-entidades", ((AdministrarController) FactoryController.controller("Administrar"))::index, TipoRol.ADMINISTRADOR);
       get("todos-establecimientos", ((AdministrarController) FactoryController.controller("Administrar"))::index, TipoRol.ADMINISTRADOR);
 
