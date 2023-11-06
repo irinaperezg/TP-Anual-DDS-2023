@@ -137,8 +137,14 @@ h2 {
 
     
   }
-  
-  
+
+.botonOyA:hover {
+    background-color: #076c7e; /* Cambia el color al pasar el mouse sobre el botón */
+}
+
+.botonOyA:active {
+    background-color: #043844; /* Cambia el color cuando el botón está siendo presionado */
+}
   
   
   /* Botones */

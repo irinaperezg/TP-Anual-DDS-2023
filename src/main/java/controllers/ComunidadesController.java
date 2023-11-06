@@ -267,7 +267,7 @@ public void add (Context context) {
     Long usuarioId = Long.parseLong(context.pathParam("usuario_id"));
     Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
 
-    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "crear_comunidad")) {
+    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "salir_de_comunidad")) {
       throw new AccessDeniedException();
     }
 

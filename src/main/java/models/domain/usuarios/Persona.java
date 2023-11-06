@@ -4,6 +4,7 @@ import models.domain.converter.FrecuenciaDeNotificacionAttributeConverter;
 import models.domain.converter.LocalDateTimeAttributeConverter;
 import models.domain.main.localizacion.Localidad;
 import models.domain.main.notificaciones.frecuenciasNotificacion.FrecuenciaNotificacion;
+import models.domain.main.notificaciones.frecuenciasNotificacion.NotificacionCuandoSucedeIncidente;
 import models.domain.main.notificaciones.mediosNotificacion.PreferenciaMedioNotificacion;
 import lombok.Getter;
 import lombok.Setter;
@@ -60,7 +61,7 @@ public class Persona {
     this.usuario = usuario;
     this.email = email;
     this.telefono = telefono;
-    this.frecuenciaNotification = null;
+    this.frecuenciaNotification = new NotificacionCuandoSucedeIncidente();
     this.preferenciaMedioNotificacion = null;
     this.horariosDeNotificaciones = new ArrayList<>();
   }
