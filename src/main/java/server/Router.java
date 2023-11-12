@@ -100,9 +100,9 @@ public class Router {
 
       get("todas-prestaciones", ((AdministrarController) FactoryController.controller("Administrar"))::index, TipoRol.ADMINISTRADOR);
       get("todas-entidades", ((AdministrarController) FactoryController.controller("Administrar"))::index, TipoRol.ADMINISTRADOR);
-      get("todos-establecimientos", ((AdministrarController) FactoryController.controller("Administrar"))::index, TipoRol.ADMINISTRADOR);
+      get("todos-establecimientos", ((AdministrarController) FactoryController.controller("Administrar"))::indexEst, TipoRol.ADMINISTRADOR);
 
-
+      get("crear-establecimiento", ((AdministrarController) FactoryController.controller("Administrar"))::crearEst, TipoRol.ADMINISTRADOR);
     });
   }
 }

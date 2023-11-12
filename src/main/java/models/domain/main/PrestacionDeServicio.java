@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name="prestacionDeServicio")
-public class PrestacionDeServicio {
+public class  PrestacionDeServicio {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

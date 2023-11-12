@@ -25,7 +25,7 @@ public class FactoryController extends Controller{
       case "EntidadPrestadora": controller = new EntidadPrestadoraController(new EntidadPrestadoraRepository()); break;
       case "Rankings": controller = new RankingsController(new CantidadIncidentesReportados(), new GradoImpactoProblematicas(), new PromedioCierre(), new EntidadRepository(), new MenuRepository(), new UsuarioRepository(), new RolRepository()); break;
       case "CargaMasiva": controller = new CargaMasivaController(new EntidadPrestadoraRepository(), new OrganismoDeControlRepository(), new UsuarioRepository(), new RolRepository(), new MenuRepository()); break;
-      case "Administrar": controller = new AdministrarController(new UsuarioRepository(), new MenuRepository(), new RolRepository());
+      case "Administrar": controller = new AdministrarController(new UsuarioRepository(), new MenuRepository(), new RolRepository(), new EstablecimientoRepository(), new PrestacionDeServicioRepository(), new LocalizacionRepository(), new EntidadRepository());
     }
 
     return controller;

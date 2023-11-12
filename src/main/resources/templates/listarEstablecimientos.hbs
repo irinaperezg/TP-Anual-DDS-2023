@@ -37,21 +37,21 @@
     <h1 class="titulosMedianos">  {{comunidad.nombre}}</h1>
 </div>
 <div>
-    <h1 class="titulosMedianos">  Prestaciones de servicios </h1>
+    <h1 class="titulosMedianos"> Establecimientos </h1>
 </div>
 
-{{#each prestaciones}}
+{{#each establecimientos}}
     <div class="comunidad">
         <h2 class="letraComunidad">{{this.denominacion}}</h2>
-        <a href="/editar-comunidad/eliminarServicio/{{this.id}}/{{comunidad.id}}" class="bajaComunidad" id="eliminarComunidad">&#10006;</a>
+        <a href="/editar-comunidad/eliminarServicio/{{this.id}}/{{comunidad.id}}" class="bajaComunidad" id="eliminarEstablecimiento">&#10006;</a>
     </div>
 {{/each}}
 
 
-
+<a href="/crear-establecimiento" class="unirseAComunidad">+</a>
 
 <script src="js/cerrarSesion.js"></script>
-<script src="js/listarComunidades.js"></script>
+<script src="js/listarEstablecimientos.js"></script>
 <script src="https://kit.fontawesome.com/a39dd266ae.js" crossorigin="anonymous"></script>
 
 </body>
