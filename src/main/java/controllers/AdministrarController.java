@@ -9,6 +9,7 @@ import models.domain.usuarios.Comunidad;
 import models.domain.usuarios.Usuario;
 import models.domain.usuarios.roles.TipoRol;
 import models.indice.Menu;
+import models.json.JsonEstablecimiento;
 import models.repositorios.*;
 import models.validadorDeContrasenias.ValidadorDeContrasenia;
 import org.jetbrains.annotations.NotNull;
@@ -127,5 +128,41 @@ public class AdministrarController  extends Controller implements ICrudViewsHand
     model.put("menus", menus);
     //
     context.render("crearEstablecimiento.hbs", model);
+  }
+
+  public void guardarEst( Context context) {
+    Long u= context.sessionAttribute("usuario_id");
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+
+    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "administrar_recursos")) {
+      throw new AccessDeniedException();
+    }
+
+    JsonEstablecimiento data = context.bodyAsClass(JsonEstablecimiento.class);
+
+    // Ahora 'data' contiene tus datos del JSON
+    String denominacion = data.getDenominacion();
+    String entidad = data.getEntidad();
+    String localidad = data.getLocalidad();
+    List<Integer> prestaciones = data.getPrestaciones();
+
+    // Resto de tu lógica aquí
+
+    // Respondes como sea necesario
+    context.json(Map.of("mensaje", "Establecimiento creado exitosamente"));
+
+
+
+    List<Establecimiento> establecimientos = establecimientoRepository.todos();
+    Map<String, Object> model = new HashMap<>();
+    model.put("usuario", usuario);
+    model.put("establecimientos", establecimientos);
+    // MENU
+    TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
+    List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+    menus.forEach(m -> m.setActivo(m.getNombre().equals("Administrar")));
+    model.put("menus", menus);
+    //
+    context.render("listarEstablecimientos.hbs", model);
   }
 }

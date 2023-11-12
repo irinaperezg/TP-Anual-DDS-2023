@@ -103,6 +103,7 @@ public class Router {
       get("todos-establecimientos", ((AdministrarController) FactoryController.controller("Administrar"))::indexEst, TipoRol.ADMINISTRADOR);
 
       get("crear-establecimiento", ((AdministrarController) FactoryController.controller("Administrar"))::crearEst, TipoRol.ADMINISTRADOR);
+      post("crear-establecimiento", ((AdministrarController) FactoryController.controller("Administrar"))::guardarEst, TipoRol.ADMINISTRADOR);
     });
   }
 }

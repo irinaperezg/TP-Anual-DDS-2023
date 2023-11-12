@@ -1,5 +1,6 @@
 package models.domain.main;
 
+import lombok.Setter;
 import models.domain.main.incidentes.Incidente;
 import models.domain.main.notificaciones.Notificador;
 import models.domain.main.notificaciones.frecuenciasNotificacion.Notificacion;
@@ -14,9 +15,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
+
 @Table(name="prestacionDeServicio")
 public class  PrestacionDeServicio {
-
+  @Getter
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
