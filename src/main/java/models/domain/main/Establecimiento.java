@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.lang.invoke.StringConcatFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -51,6 +52,12 @@ public class Establecimiento {
   public Establecimiento() {
     this.denominacion = null;
     this.entidad = null;
+  }
+
+  public Establecimiento(String denominacion, Entidad entidad, Localidad localidad) {
+    this.denominacion = denominacion;
+    this.entidad = entidad;
+    this.localidad = localidad;
   }
 
   public List<Incidente> obtenerIncidentesTotales() {

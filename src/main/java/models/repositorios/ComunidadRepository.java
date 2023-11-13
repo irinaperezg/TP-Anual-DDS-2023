@@ -1,5 +1,7 @@
 package models.repositorios;
 
+import models.domain.main.PrestacionDeServicio;
+import models.domain.main.entidades.Entidad;
 import models.domain.main.servicio.Servicio;
 import models.domain.usuarios.*;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
@@ -10,7 +12,9 @@ import java.util.List;
 public class ComunidadRepository implements WithSimplePersistenceUnit {
 
   public void registrar(Comunidad comunidad) {
+    entityManager().getTransaction().begin();
     entityManager().persist(comunidad);
+    entityManager().getTransaction().commit();
   }
 
   public void actualizar(Comunidad comunidad) {
@@ -50,6 +54,14 @@ public class ComunidadRepository implements WithSimplePersistenceUnit {
     miembro.setTipo(tipoMiembro);
     miembro.setEsAdministrador(false);
     return miembro;
+  }
+
+  public void remove(Comunidad comunidad) {
+    EntityTransaction tx = entityManager().getTransaction();
+    tx.begin();
+    Comunidad managedComunidad = entityManager().merge(comunidad);
+    entityManager().remove(managedComunidad);
+    tx.commit();
   }
 
 }

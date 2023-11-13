@@ -40,18 +40,18 @@
 </header>
 
 <div>
-    <h1 class="titulosMedianos"> Establecimientos </h1>
+    <h1 class="titulosMedianos"> Entidades </h1>
 </div>
 
-{{#each establecimientos}}
+{{#each entidades}}
     <div class="listado">
         <h2 class="letraListado">{{this.denominacion}}</h2>
-        <a href="/todos-establecimientos/eliminarEstablecimiento/{{this.id}}" class="bajaComunidad" id="eliminarEstablecimiento">&#10006;</a>
+        <a href="/todas-entidades/eliminarEntidad/{{this.id}}" class="bajaComunidad" id="eliminarEstablecimiento">&#10006;</a>
     </div>
 {{/each}}
 
 
-<a href="/crear-establecimiento" class="unirseAComunidad">+</a>
+<a href="/crear-entidad" class="unirseAComunidad">+</a>
 
 <script src="js/cerrarSesion.js"></script>
 <script src="js/listarEstablecimientos.js"></script>

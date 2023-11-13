@@ -1,5 +1,5 @@
-/* Estilos para la sección Crear Establecimiento */
-#establecimientoForm {
+
+#formCrear {
     max-width: 80%;
     margin: 20px auto;
     padding: 20px;
@@ -8,16 +8,16 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-#establecimientoForm h1,
-#establecimientoForm label,
-#establecimientoForm input,
-#establecimientoForm select {
+#formCrear h1,
+#formCrear label,
+#formCrear input,
+#formCrear select {
     font-family: 'Cabin';
     font-size: 1rem;
     color: #7E7B7B;
 }
 
-#establecimientoForm h1 {
+#formCrear h1 {
     color: #7E7B7B;
     font-size: 2.5rem;
     text-align: center;
@@ -25,14 +25,14 @@
     margin-top: 20px;
 }
 
-#establecimientoForm label {
+#formCrear label {
     display: block;
     margin-bottom: 8px;
     color: #555;
 }
 
-#establecimientoForm input,
-#establecimientoForm select {
+#formCrear input,
+#formCrear select {
     width: 100%;
     padding: 12px;
     margin-bottom: 20px;
@@ -42,19 +42,21 @@
     transition: border-color 0.3s ease;
 }
 
-#denominacion {
+#denominacion,
+#tipoEntidad,
+#tipoEstablecimiento {
     width: 100%;
     box-sizing: border-box;
 }
 
 
-#establecimientoForm input:focus,
-#establecimientoForm select:focus {
+#formCrear input:focus,
+#formCrear select:focus {
     outline: none;
     border-color: #0CC0DF;
 }
 
-#establecimientoForm button {
+#formCrear button {
     background-color: #0CC0DF;
     color: #fff;
     border: none;
@@ -65,7 +67,7 @@
     transition: background-color 0.3s ease;
 }
 
-#establecimientoForm button:hover {
+#formCrear button:hover {
     background-color: #06697a;
 }
 

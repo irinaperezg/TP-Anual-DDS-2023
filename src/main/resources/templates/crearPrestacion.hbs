@@ -39,33 +39,31 @@
 </header>
 
 <div>
-    <h1 class="titulosMedianos">Crear Establecimiento</h1>
+    <h1 class="titulosMedianos">Crear Prestación de Servicio</h1>
 </div>
 
     <form id="formCrear">
-        <label for="denominacion">Denominación:</label>
-        <input type="text" id="denominacion" required>
 
-        <label for="entidad">Entidad:</label>
-        <select id="entidad" required>
-            {{#each entidades}}
+        <label for="establecimiento">Establecimiento:</label>
+        <select id="establecimiento" required>
+            {{#each establecimientos}}
                 <option value="{{this.id}}">{{this.denominacion}}</option>
             {{/each}}
         </select>
 
-        <label for="localidad">Localidad:</label>
-        <select id="localidad" required>
-            {{#each localidades}}
-                <option value="{{this.id}}">{{this.nombre}}</option>
+        <label for="servicio">Servicio:</label>
+        <select id="servicio" required>
+            {{#each servicios}}
+                <option value="{{this.id}}">{{this.descripcion}}</option>
             {{/each}}
         </select>
 
 
 
-        <button type="button" onclick="guardarEstablecimiento()">Guardar</button>
+        <button type="button" onclick="guardarPrestacion()">Guardar</button>
     </form>
 
-<script src="../js/crearEstablecimiento.js"></script>
+<script src="../js/crearPrestacion.js"></script>
 <script src="../js/cerrarSesion.js"></script>
 <script src="https://kit.fontawesome.com/a39dd266ae.js" crossorigin="anonymous"></script>
 </body>

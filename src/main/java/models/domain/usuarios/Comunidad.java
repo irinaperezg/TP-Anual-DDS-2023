@@ -39,6 +39,14 @@ public class Comunidad {
 
   }
 
+  public Comunidad(String nombre, String descripcion, List<Servicio> serviciosObservados, List<Establecimiento> establecimientosObservados) {
+    this.nombre = nombre;
+    this.descripcion = descripcion;
+    this.estaActiva= true;
+    this.serviciosObservados = serviciosObservados;
+    this.establecimientosObservados = establecimientosObservados;
+  }
+
   public List<Miembro> getAdministradores() {
     return miembros.stream()
             .filter(Miembro::getEsAdministrador)

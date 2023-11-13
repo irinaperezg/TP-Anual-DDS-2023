@@ -58,6 +58,12 @@ public class Entidad {
 
   }
 
+  public Entidad(TipoEntidad tipo, String denominacion, EntidadPrestadora entidadPrestadora) {
+    this.tipo = tipo;
+    this.denominacion = denominacion;
+    this.entidadPrestadora = entidadPrestadora;
+  }
+
   public List<Incidente> obtenerIncidentesTotales() {
     return establecimientos.stream()
         .flatMap(establecimiento -> establecimiento.obtenerIncidentesTotales().stream())

@@ -2,6 +2,7 @@ package controllers;
 
 import io.javalin.http.Context;
 import models.domain.main.Establecimiento;
+import models.domain.main.PrestacionDeServicio;
 import models.domain.main.entidades.Entidad;
 import models.domain.main.entidades.TipoEntidad;
 import models.domain.main.servicio.Servicio;
@@ -9,6 +10,8 @@ import models.domain.main.servicio.ServicioBase;
 import models.domain.usuarios.*;
 import models.domain.usuarios.roles.TipoRol;
 import models.indice.Menu;
+import models.json.JsonComunidad;
+import models.json.JsonPrestacion;
 import models.repositorios.*;
 import org.jetbrains.annotations.NotNull;
 import server.exceptions.AccessDeniedException;
@@ -73,34 +76,8 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     }
 
     // Obtener todas las comunidades
-    List<Comunidad> todasComunidades = comunidadRepository.todos();
-    // Cargar los establecimientos y servicios para todas las comunidades
-    for (Comunidad comunidad : todasComunidades) {
-        cargarEstablecimientosEnComunidad(comunidad.getId());
-        cargarServiciosEnComunidad(comunidad.getId());
-    }
+    List<Comunidad> comunidades = comunidadRepository.todos();
 
-    List<ComunidadView> comunidadesView = new ArrayList<>();
-
-    for (Comunidad comunidad : todasComunidades) {
-      ComunidadView cv = new ComunidadView();
-      cv.setId(comunidad.getId());
-      cv.setNombre(comunidad.getNombre());
-
-      String servicios = comunidad.getServiciosObservados()
-          .stream()
-          .map(servicio -> servicio.getDescripcion())
-          .collect(Collectors.joining(", "));
-      cv.setServicios(servicios);
-
-      String establecimientos = comunidad.getEstablecimientosObservados()
-          .stream()
-          .map(establecimiento -> establecimiento.getDenominacion())
-          .collect(Collectors.joining(", "));
-      cv.setEstablecimientos(establecimientos);
-
-      comunidadesView.add(cv);
-    }
 
     Map<String, Object> modelo = new HashMap<>();
     // MENU
@@ -109,7 +86,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     menus.forEach(m -> m.setActivo(m.getNombre().equals("Administrar")));
     modelo.put("menus", menus);
     //
-    modelo.put("comunidades", comunidadesView);
+    modelo.put("comunidades", comunidades);
     modelo.put("usuario", usuario);
     context.render("listarTodasComunidades.hbs", modelo);
   }
@@ -117,23 +94,22 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
 
   @Override
   public void create(Context context) {
-    Long usuarioId = context.sessionAttribute("usuario_id");
-    Usuario usuarioLogueado = usuarioRepository.buscarPorID(usuarioId);
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
 
-    if(usuarioLogueado == null || !rolRepository.tienePermiso(usuarioLogueado.getRol().getId(), "crear_comunidad")) {
+    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "administrar_recursos")) {
       throw new AccessDeniedException();
     }
 
-
-    // Estas 4 lineas de código de arriba deberían estar en todos los métodos que quiera
-
-    // DEVOLVER UNA VISTA QUE PERMITA CREAR UNA COMUNIDAD
+    List<Establecimiento> establecimientos = establecimientoRepository.todos();
+    List<Servicio> servicios = servicioRepository.todos();
     Map<String, Object> model = new HashMap<>();
-    model.put("comunidad", null);
+    model.put("usuario", usuario);
+    model.put("establecimientos", establecimientos);
+    model.put("servicios", servicios);
     // MENU
-    TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuarioLogueado.getRol().getId());
+    TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
     List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
-    menus.forEach(m -> m.setActivo(m.getNombre().equals("Comunidades")));
+    menus.forEach(m -> m.setActivo(m.getNombre().equals("Administrar")));
     model.put("menus", menus);
     //
     context.render("crearComunidad.hbs", model);
@@ -346,6 +322,54 @@ public void add (Context context) {
 
   }
 
+
   public void deleteEstablecimiento(@NotNull Context context) {
+  }
+
+  public void guardar(Context context) {
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+
+    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "administrar_recursos")) {
+      throw new AccessDeniedException();
+    }
+
+    JsonComunidad data = context.bodyAsClass(JsonComunidad.class);
+
+    String nombre = data.getNombre();
+    String denominacion = data.getDenominacion();
+    List<Long> establecimientosId = data.getEstablecimientos();
+    List<Establecimiento> establecimientos = establecimientosId.stream().map(x->establecimientoRepository.buscarPorID(x)).toList();
+    List<Long> serviciosId = data.getServicios();
+    List<Servicio> servicios = serviciosId.stream().map(x->servicioRepository.buscarPorID(x)).toList();
+
+    Comunidad comunidad = new Comunidad(nombre, denominacion, servicios, establecimientos);
+    comunidadRepository.registrar(comunidad);
+
+    Map<String, String> respuesta = new HashMap<>();
+
+    respuesta.put("mensaje", "Comunidad guardada exitosamente");
+    context.json(respuesta);
+  }
+
+  public void deleteComunidad( Context context) {
+    Long comunidad_id = Long.parseLong(context.pathParam("comunidad_id"));
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+    Comunidad comunidad = comunidadRepository.buscarPorID(comunidad_id);
+    comunidadRepository.remove(comunidad);
+    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "administrar_recursos")) {
+      throw new AccessDeniedException();
+    }
+
+    List<Comunidad> comunidades = comunidadRepository.todos();
+    Map<String, Object> model = new HashMap<>();
+    model.put("usuario", usuario);
+    model.put("comunidades", comunidades);
+    // MENU
+    TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
+    List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+    menus.forEach(m -> m.setActivo(m.getNombre().equals("Administrar")));
+    model.put("menus", menus);
+    //
+    context.redirect("/todas-comunidades");
   }
 }

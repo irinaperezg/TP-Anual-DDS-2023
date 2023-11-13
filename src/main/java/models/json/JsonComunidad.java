@@ -4,10 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+
 @Getter @Setter
-public class JsonEstablecimiento {
+public class JsonComunidad {
+  private String nombre;
   private String denominacion;
-  private Long entidad;
-  private Long localidad;
-  private List<Long> prestaciones;
+  private List<Long> servicios;
+  private List<Long> establecimientos;
+
 }

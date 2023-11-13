@@ -16,6 +16,16 @@ a:hover {
     top: 14%; /* Ajusta la distancia desde la parte superior en relación con el alto de la ventana */
 }
 
+.atras-icon {
+    width: 7%; /* El ancho se ajusta al 4% del ancho de la ventana */
+    max-width: 50px;
+    height: auto; /* La altura se ajusta automáticamente para mantener la proporción */
+    position: absolute;
+    bottom: 1%; /* Ajusta la distancia desde la parte inferior en relación con el alto de la ventana */
+    left: 1.5%; /* Ajusta la distancia desde la derecha en relación con el ancho de la ventana */
+    top: 14%; /* Ajusta la distancia desde la parte superior en relación con el alto de la ventana */
+}
+
 @media screen and (max-width: 768px) {
     .cerrar-sesion-icon {
         width: 8%; /* Ajusta el tamaño para pantallas más pequeñas */
