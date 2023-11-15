@@ -32,7 +32,7 @@ public class ComunidadMolde {
     }
 
     private EstadoComunidad getEstado(Comunidad comunidad) {
-      if (comunidad.getEstaActiva()) {
+      if (comunidad.getEstaActivo()) {
         return EstadoComunidad.ACTIVADA;
       } else {
         return EstadoComunidad.DESACTIVADA;

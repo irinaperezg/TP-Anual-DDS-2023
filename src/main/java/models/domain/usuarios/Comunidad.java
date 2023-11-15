@@ -28,9 +28,9 @@ public class Comunidad {
   @Column(name="descripcion")
   private String descripcion;
 
-  // TODO AGREGAR AL LUCID EL ESTADO
-  @Column(name="estaActiva")
-  private Boolean estaActiva;
+  @Getter@Setter
+  @Column(name="estaActivo", columnDefinition = "TEXT")
+  private Boolean estaActivo;
 
   @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Miembro> miembros = new ArrayList<>();
@@ -42,7 +42,7 @@ public class Comunidad {
   public Comunidad(String nombre, String descripcion, List<Servicio> serviciosObservados, List<Establecimiento> establecimientosObservados) {
     this.nombre = nombre;
     this.descripcion = descripcion;
-    this.estaActiva= true;
+    this.estaActivo= true;
     this.serviciosObservados = serviciosObservados;
     this.establecimientosObservados = establecimientosObservados;
   }
@@ -73,7 +73,7 @@ public class Comunidad {
     this.id = id;
     this.nombre = nombre;
     this.descripcion = descripcion;
-    this.estaActiva = true;
+    this.estaActivo = true;
     this.miembros = miembros;
     this.incidentes = new ArrayList<>();
     this.serviciosObservados = serviciosObservados;

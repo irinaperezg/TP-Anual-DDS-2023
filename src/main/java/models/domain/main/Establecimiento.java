@@ -37,6 +37,9 @@ public class Establecimiento {
   @JoinColumn(name = "localidad_id", referencedColumnName = "id")
   private Localidad localidad = null;
 
+  @Column(name="estaActivo", columnDefinition = "TEXT")
+  private Boolean estaActivo;
+
   @Getter
   @OneToMany(mappedBy = "establecimiento", cascade = CascadeType.ALL, orphanRemoval = true)
   private final List<PrestacionDeServicio> prestaciones = new ArrayList<>();
@@ -52,12 +55,14 @@ public class Establecimiento {
   public Establecimiento() {
     this.denominacion = null;
     this.entidad = null;
+    this.estaActivo=true;
   }
 
   public Establecimiento(String denominacion, Entidad entidad, Localidad localidad) {
     this.denominacion = denominacion;
     this.entidad = entidad;
     this.localidad = localidad;
+    this.estaActivo=true;
   }
 
   public List<Incidente> obtenerIncidentesTotales() {
@@ -77,6 +82,7 @@ public class Establecimiento {
   public Establecimiento(Entidad entidad, String denominacion) {
     this.entidad = entidad;
     this.denominacion = denominacion;
+    this.estaActivo=true;
   }
 
   public Integer obtenerCantidadMiembrosAfectados() {

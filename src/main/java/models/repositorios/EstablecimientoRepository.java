@@ -2,6 +2,7 @@ package models.repositorios;
 
 import models.domain.main.Establecimiento;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
+import models.domain.usuarios.Comunidad;
 import models.domain.usuarios.Miembro;
 
 import javax.persistence.EntityTransaction;
@@ -18,17 +19,20 @@ public class EstablecimientoRepository implements WithSimplePersistenceUnit {
     entityManager().getTransaction().commit();
   }
 
+  public void actualizar(Establecimiento establecimiento) {
+    entityManager().getTransaction().begin();
+    entityManager().merge(establecimiento);
+    entityManager().getTransaction().commit();
+  }
+
   public void remove (Establecimiento establecimiento) {
-    EntityTransaction tx = entityManager().getTransaction();
-    tx.begin();
-    Establecimiento managedEstablecimiento = entityManager().merge(establecimiento);
-    entityManager().remove(managedEstablecimiento);
-    tx.commit();
+    establecimiento.setEstaActivo(false);
+    actualizar(establecimiento);
   }
 
   public List<Establecimiento> todos() {
     return entityManager()
-        .createQuery("from Establecimiento")
+        .createQuery("from Establecimiento E where E.estaActivo=true")
         .getResultList();
   }
 

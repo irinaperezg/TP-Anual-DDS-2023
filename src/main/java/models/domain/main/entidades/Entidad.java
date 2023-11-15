@@ -1,5 +1,6 @@
 package models.domain.main.entidades;
 
+import lombok.Setter;
 import models.domain.main.localizacion.Localidad;
 import models.domain.main.EntidadPrestadora;
 import models.domain.main.Establecimiento;
@@ -40,6 +41,10 @@ public class Entidad {
   @OneToMany(mappedBy = "entidad", cascade = CascadeType.ALL, orphanRemoval = true)
   private final List<Establecimiento> establecimientos = new ArrayList<>();
 
+  @Getter@Setter
+  @Column(name="estaActivo", columnDefinition = "TEXT")
+  private Boolean estaActivo;
+
   @ManyToMany(cascade = {CascadeType.ALL})
   @JoinTable(
       name = "Entidades_X_Organismo",
@@ -52,6 +57,7 @@ public class Entidad {
   public Entidad(TipoEntidad tipo, String denominacion) {
     this.tipo = tipo;
     this.denominacion = denominacion;
+    this.estaActivo=true;
   }
 
   public Entidad() {
@@ -62,6 +68,7 @@ public class Entidad {
     this.tipo = tipo;
     this.denominacion = denominacion;
     this.entidadPrestadora = entidadPrestadora;
+    this.estaActivo=true;
   }
 
   public List<Incidente> obtenerIncidentesTotales() {

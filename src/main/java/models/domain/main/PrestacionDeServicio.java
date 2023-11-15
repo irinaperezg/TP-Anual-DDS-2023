@@ -33,12 +33,17 @@ public class  PrestacionDeServicio {
   @JoinColumn(name = "servicio_id", referencedColumnName = "id")
   private Servicio servicio;
 
+  @Getter@Setter
+  @Column(name="estaActivo", columnDefinition = "TEXT")
+  private Boolean estaActivo;
+
   @OneToMany(mappedBy = "prestacion", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Incidente> incidentes = new ArrayList<>();
 
   public PrestacionDeServicio() {
     this.establecimiento = null;
     this.servicio = null;
+    this.estaActivo=true;
   }
 
   public List<Incidente> getIncidentes() {
@@ -48,6 +53,7 @@ public class  PrestacionDeServicio {
   public PrestacionDeServicio(Establecimiento establecimiento, Servicio servicio) {
     this.establecimiento = establecimiento;
     this.servicio = servicio;
+    this.estaActivo=true;
   }
 
   public void notificarAMiembros (Incidente incidente) {

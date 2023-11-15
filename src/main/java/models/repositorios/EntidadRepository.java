@@ -15,22 +15,26 @@ public class EntidadRepository implements WithSimplePersistenceUnit {
     entityManager().getTransaction().commit();
   }
 
-  public List<Entidad> todos() {
-    return entityManager()
-        .createQuery("from Entidad")
-        .getResultList();
-  }
 
   public Entidad buscarPorID(Long id) {
     return entityManager().find(Entidad.class, id);
   }
 
-  public void remove(Entidad entidad) {
-    EntityTransaction tx = entityManager().getTransaction();
-    tx.begin();
-    Entidad managedEntidad = entityManager().merge(entidad);
-    entityManager().remove(managedEntidad);
-    tx.commit();
+  public void actualizar(Entidad entidad) {
+    entityManager().getTransaction().begin();
+    entityManager().merge(entidad);
+    entityManager().getTransaction().commit();
+  }
+
+  public void remove (Entidad entidad) {
+    entidad.setEstaActivo(false);
+    actualizar(entidad);
+  }
+
+  public List<Entidad> todos() {
+    return entityManager()
+        .createQuery("from Entidad E where E.estaActivo=true")
+        .getResultList();
   }
 
 
