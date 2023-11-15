@@ -17,3 +17,13 @@
     font-size: 1.75vw; /* Tamaño de fuente en viewport width */
     margin-bottom: 1%; /* Porcentaje del ancho del contenedor como margen inferior */
 }
+
+.editar {
+    color: #FF4DB5;
+    font-family: ABeeZee;
+    font-size: 1.5vw;
+    text-decoration: none;
+    position: absolute;
+    right: 6%;
+    top: 50%;
+}
