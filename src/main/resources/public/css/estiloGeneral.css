@@ -164,3 +164,21 @@ input {
     font-size: 16px; /* Tamaño de fuente base */
     width: 10vw;
 }
+
+
+/* Agrega esto en tu archivo de estilo CSS correspondiente */
+
+.botonEditarComunidad {
+    display: inline-block;
+    font-family: 'Cabin';
+    padding: 10px 15px;
+    background-color: #0CC0DF; /* Color de fondo del botón (puedes cambiarlo) */
+    color: #fff; /* Color del texto del botón (puedes cambiarlo) */
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px; /* Ajusta según sea necesario */
+}
+
+.botonEditarComunidad:hover {
+    background-color: #06697a; /* Cambia el color al pasar el ratón sobre el botón (puedes cambiarlo) */
+}

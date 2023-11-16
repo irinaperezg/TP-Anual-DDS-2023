@@ -372,4 +372,28 @@ public void add (Context context) {
     //
     context.redirect("/todas-comunidades");
   }
+
+  public void ver(Context context) {
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+    Long comunidad_id = Long.parseLong(context.pathParam("comunidad_id"));
+    Comunidad comunidad = comunidadRepository.buscarPorID(comunidad_id);
+    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "administrar_recursos")) {
+      throw new AccessDeniedException();
+    }
+
+    List<Establecimiento> establecimientos = establecimientoRepository.obtenerEstablecimientosAsociados(comunidad_id);
+    List<Servicio> servicios = servicioRepository.obtenerServiciosAsociados(comunidad_id);
+    Map<String, Object> model = new HashMap<>();
+    model.put("usuario", usuario);
+    model.put("comunidad", comunidad);
+    model.put("establecimientos", establecimientos);
+    model.put("servicios", servicios);
+    // MENU
+    TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
+    List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+    menus.forEach(m -> m.setActivo(m.getNombre().equals("Administrar")));
+    model.put("menus", menus);
+    //
+    context.render("mostrarComunidad.hbs", model);
+  }
 }

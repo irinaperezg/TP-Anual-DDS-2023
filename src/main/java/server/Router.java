@@ -39,14 +39,10 @@ public class Router {
       // BAJARSE DE UNA COMUNIDAD
       get("comunidades/baja/{comunidad_id}/{usuario_id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::delete, TipoRol.CONSUMIDOR);
 
-      // CREAR NUEVA COMUNIDAD
 
       // UNIRSE A COMUNIDAD
       get("comunidades/sumar", ((ComunidadesController) FactoryController.controller("Comunidades"))::add, TipoRol.CONSUMIDOR);
       post("comunidades/sumar", ((ComunidadesController) FactoryController.controller("Comunidades"))::save, TipoRol.CONSUMIDOR);
-
-      // VER COMUNIDAD PUNTUAL FALTA
-      get("comunidades/{id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::show);
 
 
 
@@ -100,6 +96,7 @@ public class Router {
       post("crear-comunidad", ((ComunidadesController) FactoryController.controller("Comunidades"))::guardar, TipoRol.ADMINISTRADOR);
       get("todas-comunidades/eliminarComunidad/{comunidad_id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::deleteComunidad, TipoRol.ADMINISTRADOR);
 
+      get("ver-comunidad/{comunidad_id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::ver, TipoRol.ADMINISTRADOR);
 
       get("todos-establecimientos", ((AdministrarController) FactoryController.controller("Administrar"))::indexEst, TipoRol.ADMINISTRADOR);
       get("crear-establecimiento", ((AdministrarController) FactoryController.controller("Administrar"))::crearEst, TipoRol.ADMINISTRADOR);
