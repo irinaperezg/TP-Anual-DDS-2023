@@ -49,4 +49,15 @@ public class UsuarioRepository implements WithSimplePersistenceUnit {
 
 
   }
+
+  public boolean existeUsuarioConNombre(String nombre) {
+    String jpql = "SELECT count(u) FROM Usuario u WHERE u.nombre = :nombre";
+    TypedQuery<Long> query = entityManager().createQuery(jpql, Long.class);
+    query.setParameter("nombre", nombre);
+    return query.getSingleResult() > 0;
+  }
 }
+
+
+
+

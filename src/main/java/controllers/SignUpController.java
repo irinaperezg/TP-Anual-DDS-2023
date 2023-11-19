@@ -55,6 +55,12 @@ public class SignUpController extends Controller implements ICrudViewsHandler {
         case "registration_error":
           model.put("errorMessage", "Error al intentar registrar al usuario. Inténtelo nuevamente.");
           break;
+        case "username_exists":
+          model.put("errorMessage", "El nombre de usuario ya está en uso.");
+          break;
+        case "email_exists":
+          model.put("errorMessage", "El correo electrónico/ o teléfono ya está en uso.");
+          break;
         default:
           model.put("errorMessage", "Ocurrió un error al intentar registrarse.");
           break;
@@ -63,6 +69,7 @@ public class SignUpController extends Controller implements ICrudViewsHandler {
 
     context.render("signup.hbs", model);
   }
+
 
 
   @Override
@@ -74,18 +81,27 @@ public class SignUpController extends Controller implements ICrudViewsHandler {
     String tipoSeleccionado = context.formParam("tipoSeleccionado");
     String contraseniaEncriptada = " ";
 
+    // Verificar si el nombre de usuario ya está en uso
+    if (usuarioRepository.existeUsuarioConNombre(nombre)) {
+      context.redirect("/signup?error=username_exists");
+      return;
+    }
+
+    // Verificar si el correo electrónico ya está en uso
+    if (personaRepository.existePersonaConCorreo(telefonoYMail)) {
+      context.redirect("/signup?error=email_exists");
+      return;
+    }
+
     try {
       validadorDeContrasenia.verificarValidez(nombre, contrasenia);
     } catch (ExcepcionComplejidad e) {
-
       context.redirect("/signup?error=complexity");
       return;
     } catch (ExcepcionLongitud e) {
-
       context.redirect("/signup?error=length");
       return;
     } catch (ExcepcionContraseniaInvalida e) {
-
       context.redirect("/signup?error=invalid_password");
       return;
     }
@@ -108,8 +124,6 @@ public class SignUpController extends Controller implements ICrudViewsHandler {
 
       context.redirect("/login");
     } catch (NoSuchAlgorithmException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
-
-
       e.printStackTrace();
       context.redirect("/signup?error=registration_error");
     }

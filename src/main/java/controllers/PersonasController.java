@@ -7,6 +7,7 @@ import models.domain.main.localizacion.Localizacion;
 import models.domain.main.localizacion.Provincia;
 import models.domain.main.notificaciones.frecuenciasNotificacion.FrecuenciaNotificacion;
 import models.domain.main.notificaciones.frecuenciasNotificacion.FrecuenciaNotificacionFactory;
+import models.domain.main.notificaciones.frecuenciasNotificacion.NotificacionCuandoSucedeIncidente;
 import models.domain.main.notificaciones.mediosNotificacion.PreferenciaMedioNotificacion;
 import models.domain.usuarios.Persona;
 import models.domain.usuarios.Usuario;
@@ -58,7 +59,7 @@ public class PersonasController extends Controller implements ICrudViewsHandler 
       Map<String, Object> model = new HashMap<>();
 
 
-      if (persona.getFrecuenciaNotification().getClass().getSimpleName() == "NotificacionCuandoSucedeIncidente")
+      if (persona.getFrecuenciaNotification() instanceof NotificacionCuandoSucedeIncidente)
       {
         personaFrecuencia = "Cuando sucede";
       }
@@ -193,10 +194,11 @@ public class PersonasController extends Controller implements ICrudViewsHandler 
           persona.setEmail(email);
         }
         if (telefono != null) {
+          System.out.println("Dentro del if, telefono: " + telefono);
           persona.setTelefono(telefono);
         }
         if (localidadString != null) {
-          Long localidadId = Long.parseLong(localidadString);
+          Long localidadId = Long.parseLong(localidadString.trim());
           Localidad localidad = new LocalizacionRepository().buscarLocalidadPorId(localidadId);
           if (localidad != null) {
             persona.setLocalidad(localidad);
@@ -243,6 +245,8 @@ public class PersonasController extends Controller implements ICrudViewsHandler 
         em.merge(persona);
         tx.commit();
       } catch (Exception e) {
+        if (tx != null && tx.isActive()) tx.rollback();
+        e.printStackTrace();
         if (tx != null && tx.isActive()) tx.rollback();
         throw e;
       } finally {

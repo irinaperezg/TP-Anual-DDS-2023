@@ -4,10 +4,7 @@ import models.domain.usuarios.Persona;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import models.domain.usuarios.Usuario;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceException;
+import javax.persistence.*;
 import java.util.List;
 
 public class PersonaRepository implements WithSimplePersistenceUnit {
@@ -84,6 +81,24 @@ public class PersonaRepository implements WithSimplePersistenceUnit {
             em.close();
         }
     }
+
+    public boolean existePersonaConCorreo(String correo) {
+        EntityManager em = entityManager();
+        try {
+            Long count = em.createQuery(
+                            "SELECT count(p) FROM Persona p WHERE p.email = :correo OR p.telefono = :correo",
+                            Long.class)
+                    .setParameter("correo", correo)
+                    .getSingleResult();
+            return count > 0;
+        } catch (NoResultException e) {
+            return false;  // No se encontró una Persona con el correo dado
+        } finally {
+            em.close();
+        }
+    }
+
+
 
 
 }
