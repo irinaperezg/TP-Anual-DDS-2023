@@ -2,7 +2,6 @@ package controllers;
 
 import io.javalin.http.Context;
 import models.domain.main.Establecimiento;
-import models.domain.main.PrestacionDeServicio;
 import models.domain.main.entidades.Entidad;
 import models.domain.main.entidades.TipoEntidad;
 import models.domain.main.servicio.Servicio;
@@ -11,9 +10,7 @@ import models.domain.usuarios.*;
 import models.domain.usuarios.roles.TipoRol;
 import models.indice.Menu;
 import models.json.JsonComunidad;
-import models.json.JsonPrestacion;
 import models.repositorios.*;
-import org.jetbrains.annotations.NotNull;
 import server.exceptions.AccessDeniedException;
 import server.utils.ICrudViewsHandler;
 
@@ -378,9 +375,19 @@ public void add (Context context) {
     if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "administrar_recursos")) {
       throw new AccessDeniedException();
     }
-
     List<Establecimiento> establecimientos = establecimientoRepository.todos();
+    establecimientos.forEach(x->
+        {
+          x.setPertenece(comunidad.getEstablecimientosObservados().contains(x));
+        }
+    );
     List<Servicio> servicios = servicioRepository.todos();
+    servicios.forEach(x->
+        {
+          x.setPertenece(
+              comunidad.getServiciosObservados().contains(x));
+        }
+    );
     Map<String, Object> model = new HashMap<>();
     model.put("usuario", usuario);
     model.put("comunidad", comunidad);

@@ -2,13 +2,12 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/estiloGeneral.css">
+    <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/crearEstablecimientos.css">
     <meta charset="utf-8">
     <link rel="icon" href="../img/favicon.png" type="image/png">
     <title>Editar Comunidad</title>
-    <script src="https://cdn.jsdelivr.net/npm/handlebars@4.7.7/dist/handlebars.min.js"></script>
 </head>
 
 <body class="bodyInterno centrado">
@@ -38,40 +37,47 @@
      <h1 class="titulosMedianos">Editar Comunidad</h1>
 </div>
 
-<form id="formEditar">
+<form id="formCrear">
      <label for="nombre">Nombre:</label>
      <input type="text" id="nombre" value="{{comunidad.nombre}}" required>
 
      <label for="descripcion">Descripción:</label>
-     <textarea id="descripcion" required>{{comunidad.descripcion}}</textarea>
+     <input type="text" id="descripcion" value="{{comunidad.descripcion}}" required>
 
       <!-- Lista de servicios observados -->
-            <!-- Lista de servicios observados -->
-            <label for="serviciosObservados">Servicios Observados:</label>
-            <select id="serviciosObservados" multiple>
-               {{#each servicios}}
-                  <option value="{{this.id}}" {{#if (includes comunidad.serviciosObservados this)}}selected{{/if}}>{{this.descripcion}}</option>
-               {{/each}}
-            </select>
+      <label for="servicio">Servicios Observados:</label>
+      <select id="servicio" multiple>
+         {{#each servicios}}
+            {{#if this.pertenece}}
+              <option value="{{this.id}}" selected>{{this.descripcion}}</option>
+            {{else}}
+              <option value="{{this.id}}" >{{this.descripcion}}</option>
+            {{/if}}
+         {{/each}}
+      </select>
 
-            <!-- Lista de establecimientos observados -->
-            <label for="establecimientosObservados">Establecimientos Observados:</label>
-            <select id="establecimientosObservados" multiple>
-               {{#each establecimientos}}
-                  <option value="{{this.id}}" {{#if (includes comunidad.establecimientosObservados this)}}selected{{/if}}>{{this.denominacion}}</option>
-               {{/each}}
-            </select>
+      <!-- Lista de establecimientos observados -->
+      <label for="establecimiento">Establecimientos Observados:</label>
+      <select id="establecimiento" multiple>
+
+         {{#each establecimientos}}
+                  {{#if this.pertenece}}
+                      <option value="{{this.id}}" selected>{{this.denominacion}}</option>
+                  {{else}}
+                      <option value="{{this.id}}">{{this.denominacion}}</option>
+                  {{/if}}
+
+         {{/each}}
+      </select>
 
 
-     <button type="button" onclick="guardarEdicion()">Guardar</button>
+
+     <button type="button" onclick="guardarComunidad()">Guardar</button>
     </form>
 
 
-
-
-
+<script src="../js/crearComunidad.js"></script>
 <script src="../js/cerrarSesion.js"></script>
-<script src="../js/editarComunidad.js"></script>
 <script src="https://kit.fontawesome.com/a39dd266ae.js" crossorigin="anonymous"></script>
 
 </body>

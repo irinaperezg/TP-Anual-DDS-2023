@@ -1,5 +1,6 @@
 package models.domain.main.servicio;
 
+import lombok.Setter;
 import models.domain.main.OrganismoDeControl;
 import models.domain.main.PrestacionDeServicio;
 import models.domain.usuarios.Comunidad;
@@ -32,6 +33,9 @@ public abstract class Servicio {
 
   @ManyToMany(mappedBy = "serviciosObservados")
   private List<Comunidad> comunidadesAsociadas = new ArrayList<>();
+
+  @Setter
+  private Boolean pertenece = false;
 
   public Servicio(String descripcion) {
     this.descripcion = descripcion;

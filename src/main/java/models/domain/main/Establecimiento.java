@@ -47,6 +47,8 @@ public class Establecimiento {
   @ManyToMany(mappedBy = "establecimientosObservados")
   private List<Comunidad> comunidadesAsociadas = new ArrayList<>();
 
+  private Boolean pertenece = false;
+
   public Establecimiento() {
     this.denominacion = null;
     this.entidad = null;
