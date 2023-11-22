@@ -33,6 +33,7 @@ public class Entidad {
   @Column(name = "denominacion", columnDefinition = "TEXT")
   private String denominacion;
 
+  @Getter
   @ManyToOne
   @JoinColumn(name = "entidad_prestadora_id", referencedColumnName = "id")
   private EntidadPrestadora entidadPrestadora;

@@ -62,12 +62,24 @@ public class Comunidad {
   @OneToMany(mappedBy = "comunidad", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Incidente> incidentes = new ArrayList<>();
 
-  // TODO AGREGAR AL LUCID
-  @ManyToMany(mappedBy = "comunidadesAsociadas")
+
+  @ManyToMany(cascade = { CascadeType.ALL })
+  @JoinTable(
+      name = "Asociados_Servicios_Comunidad",
+      joinColumns = { @JoinColumn(name = "comunidad_id") },
+      inverseJoinColumns = { @JoinColumn(name = "servicio_id") }
+  )
   private List<Servicio> serviciosObservados = new ArrayList<>();
 
-  @ManyToMany(mappedBy = "comunidadesAsociadas")
+
+  @ManyToMany(cascade = { CascadeType.ALL })
+  @JoinTable(
+      name = "Asociados_Establecimientos_Comunidad",
+      joinColumns = { @JoinColumn(name = "comunidad_id") },
+      inverseJoinColumns = { @JoinColumn(name = "establecimiento_id") }
+  )
   private List<Establecimiento> establecimientosObservados = new ArrayList<>();
+
 
   public Comunidad(Long id, String nombre, String descripcion, List<Miembro> miembros, List<Servicio> serviciosObservados, List<Establecimiento> establecimientosObservados) {
     this.id = id;

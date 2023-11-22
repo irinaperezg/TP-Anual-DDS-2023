@@ -30,13 +30,8 @@ public abstract class Servicio {
   @JoinColumn(name = "organismo_de_control_id", referencedColumnName = "id")
   private OrganismoDeControl organismoDeControl;
 
-  @ManyToMany(cascade = { CascadeType.ALL })
-  @JoinTable(
-      name = "Asociados_Servicios_Comunidad",
-      joinColumns = { @JoinColumn(name = "servicio_id") },
-      inverseJoinColumns = { @JoinColumn(name = "comunidad_id") }
-  )
-  private final List<Comunidad> comunidadesAsociadas = new ArrayList<>();
+  @ManyToMany(mappedBy = "serviciosObservados")
+  private List<Comunidad> comunidadesAsociadas = new ArrayList<>();
 
   public Servicio(String descripcion) {
     this.descripcion = descripcion;

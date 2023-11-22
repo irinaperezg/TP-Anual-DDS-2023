@@ -87,32 +87,33 @@ public class Router {
       get("administrar", ((AdministrarController) FactoryController.controller("Administrar"))::index, TipoRol.ADMINISTRADOR);
 
 
-      post("editar-comunidad", ((ComunidadesController) FactoryController.controller("Comunidades"))::edit, TipoRol.ADMINISTRADOR);
-      get("editar-comunidad/eliminarServicio/{servicio_id}/{comunidad_id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::deleteServicio, TipoRol.ADMINISTRADOR);
-      get("editar-comunidad/eliminarEstablecimiento/{establecimiento_id}/{comunidad_id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::deleteEstablecimiento, TipoRol.ADMINISTRADOR);
 
       get("todas-comunidades", ((ComunidadesController) FactoryController.controller("Comunidades"))::show, TipoRol.ADMINISTRADOR);
       get("crear-comunidad", ((ComunidadesController) FactoryController.controller("Comunidades"))::create, TipoRol.ADMINISTRADOR);
       post("crear-comunidad", ((ComunidadesController) FactoryController.controller("Comunidades"))::guardar, TipoRol.ADMINISTRADOR);
       get("todas-comunidades/eliminarComunidad/{comunidad_id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::deleteComunidad, TipoRol.ADMINISTRADOR);
-
       get("ver-comunidad/{comunidad_id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::ver, TipoRol.ADMINISTRADOR);
+      get("editar-comunidad/{comunidad_id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::editar, TipoRol.ADMINISTRADOR);
+
 
       get("todos-establecimientos", ((AdministrarController) FactoryController.controller("Administrar"))::indexEst, TipoRol.ADMINISTRADOR);
       get("crear-establecimiento", ((AdministrarController) FactoryController.controller("Administrar"))::crearEst, TipoRol.ADMINISTRADOR);
       post("crear-establecimiento", ((AdministrarController) FactoryController.controller("Administrar"))::guardarEst, TipoRol.ADMINISTRADOR);
       get("todos-establecimientos/eliminarEstablecimiento/{establecimiento_id}", ((AdministrarController) FactoryController.controller("Administrar"))::deleteEstablecimiento, TipoRol.ADMINISTRADOR);
+      get("ver-establecimiento/{establecimiento_id}", ((AdministrarController) FactoryController.controller("Administrar"))::verEnta, TipoRol.ADMINISTRADOR);
+
 
       get("todas-entidades", ((AdministrarController) FactoryController.controller("Administrar"))::indexEnt, TipoRol.ADMINISTRADOR);
       get("crear-entidad", ((AdministrarController) FactoryController.controller("Administrar"))::crearEnt, TipoRol.ADMINISTRADOR);
       post("crear-entidad", ((AdministrarController) FactoryController.controller("Administrar"))::guardarEnt, TipoRol.ADMINISTRADOR);
       get("todas-entidades/eliminarEntidad/{entidad_id}", ((AdministrarController) FactoryController.controller("Administrar"))::deleteEntidad, TipoRol.ADMINISTRADOR);
+      get("ver-entidad/{entidad_id}", ((AdministrarController) FactoryController.controller("Administrar"))::verEnti, TipoRol.ADMINISTRADOR);
 
       get("todas-prestaciones", ((AdministrarController) FactoryController.controller("Administrar"))::indexPrest, TipoRol.ADMINISTRADOR);
       get("crear-prestacion", ((AdministrarController) FactoryController.controller("Administrar"))::crearPrest, TipoRol.ADMINISTRADOR);
       post("crear-prestacion", ((AdministrarController) FactoryController.controller("Administrar"))::guardarPrest, TipoRol.ADMINISTRADOR);
       get("todas-prestaciones/eliminarPrestacion/{prestacion_id}", ((AdministrarController) FactoryController.controller("Administrar"))::deletePrestacion, TipoRol.ADMINISTRADOR);
-
+      get("ver-prestacion/{prestacion_id}", ((AdministrarController) FactoryController.controller("Administrar"))::verPres, TipoRol.ADMINISTRADOR);
     });
   }
 }

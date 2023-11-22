@@ -143,6 +143,15 @@ input {
     font-weight: 700;
 }
 
+.titulosChicos {
+    color: #7E7B7B;
+    font-family: 'Cabin';
+    font-size: 30px;
+    text-align: center;
+    font-style: normal;
+    font-weight: 500;
+}
+
 
 
 @media (min-width: 768px) {
@@ -152,7 +161,17 @@ input {
         flex-direction: row;
         align-items: center;
         width: auto;
+    }
+    .titulosMedianos {
+        flex-direction: row;
+        align-items: center;
+        width: auto;
+    }
 
+    .titulosChicos {
+        flex-direction: row;
+        align-items: center;
+        width: auto;
     }
 
 
@@ -169,15 +188,17 @@ input {
 /* Agrega esto en tu archivo de estilo CSS correspondiente */
 
 .botonEditarComunidad {
-    display: inline-block;
+    display: block;
     font-family: 'Cabin';
     padding: 10px 15px;
     background-color: #0CC0DF; /* Color de fondo del botón (puedes cambiarlo) */
     color: #fff; /* Color del texto del botón (puedes cambiarlo) */
     text-decoration: none;
     border-radius: 5px;
-    margin-top: 20px; /* Ajusta según sea necesario */
+    margin: 20px auto 0; /* Ajusta según sea necesario */
+    text-align: center;
 }
+
 
 .botonEditarComunidad:hover {
     background-color: #06697a; /* Cambia el color al pasar el ratón sobre el botón (puedes cambiarlo) */

@@ -362,4 +362,66 @@ public class AdministrarController  extends Controller implements ICrudViewsHand
     //
     context.redirect("/todas-prestaciones");
   }
+
+  public void verPres(Context context) {
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+    Long prestacion_id = Long.parseLong(context.pathParam("prestacion_id"));
+    PrestacionDeServicio prestacion = prestacionDeServicioRepository.buscarPorID(prestacion_id);
+    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "administrar_recursos")) {
+      throw new AccessDeniedException();
+    }
+
+    Map<String, Object> model = new HashMap<>();
+    model.put("usuario", usuario);
+    model.put("prestacion", prestacion);
+
+    // MENU
+    TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
+    List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+    menus.forEach(m -> m.setActivo(m.getNombre().equals("Administrar")));
+    model.put("menus", menus);
+    //
+    context.render("mostrarPrestacion.hbs", model);
+  }
+
+  public void verEnti(Context context) {
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+    Long entidad_id = Long.parseLong(context.pathParam("entidad_id"));
+    Entidad entidad = entidadRepository.buscarPorID(entidad_id);
+    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "administrar_recursos")) {
+      throw new AccessDeniedException();
+    }
+
+    Map<String, Object> model = new HashMap<>();
+    model.put("usuario", usuario);
+    model.put("entidad", entidad);
+
+    // MENU
+    TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
+    List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+    menus.forEach(m -> m.setActivo(m.getNombre().equals("Administrar")));
+    model.put("menus", menus);
+    //
+    context.render("mostrarEntidad.hbs", model);
+  }
+  public void verEnta(Context context) {
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+    Long establecimiento_id = Long.parseLong(context.pathParam("establecimiento_id"));
+    Establecimiento establecimiento = establecimientoRepository.buscarPorID(establecimiento_id);
+    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "administrar_recursos")) {
+      throw new AccessDeniedException();
+    }
+
+    Map<String, Object> model = new HashMap<>();
+    model.put("usuario", usuario);
+    model.put("establecimiento", establecimiento);
+
+    // MENU
+    TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
+    List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+    menus.forEach(m -> m.setActivo(m.getNombre().equals("Administrar")));
+    model.put("menus", menus);
+    //
+    context.render("mostrarEstablecimiento.hbs", model);
+  }
 }

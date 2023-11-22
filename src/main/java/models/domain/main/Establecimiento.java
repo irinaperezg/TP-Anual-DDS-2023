@@ -44,12 +44,7 @@ public class Establecimiento {
   @OneToMany(mappedBy = "establecimiento", cascade = CascadeType.ALL, orphanRemoval = true)
   private final List<PrestacionDeServicio> prestaciones = new ArrayList<>();
 
-  @ManyToMany(cascade = { CascadeType.ALL })
-  @JoinTable(
-      name = "Asociados_Establecimientos_Comunidad",
-      joinColumns = { @JoinColumn(name = "establecimiento_id") },
-      inverseJoinColumns = { @JoinColumn(name = "comunidad_id") }
-  )
+  @ManyToMany(mappedBy = "establecimientosObservados")
   private List<Comunidad> comunidadesAsociadas = new ArrayList<>();
 
   public Establecimiento() {
@@ -71,13 +66,7 @@ public class Establecimiento {
         .collect(Collectors.toList());
   }
 
-  @ManyToMany(cascade = { CascadeType.ALL })
-  @JoinTable(
-      name = "Asociados_Establecimientos_Comunidad",
-      joinColumns = { @JoinColumn(name = "establecimiento_id") },
-      inverseJoinColumns = { @JoinColumn(name = "comunidad_id") }
-  )
-  private final List<Comunidad> comunidades = new ArrayList<>();
+
 
   public Establecimiento(Entidad entidad, String denominacion) {
     this.entidad = entidad;

@@ -2,12 +2,13 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/estiloGeneral.css">
-    <link rel="stylesheet" href="css/listarComunidades.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/estiloGeneral.css">
+    <link rel="stylesheet" href="../css/crearEstablecimientos.css">
     <meta charset="utf-8">
-    <link rel="icon" href="img/favicon.png" type="image/png">
+    <link rel="icon" href="../img/favicon.png" type="image/png">
     <title>Editar Comunidad</title>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@4.7.7/dist/handlebars.min.js"></script>
 </head>
 
 <body class="bodyInterno centrado">
@@ -24,7 +25,7 @@
                         {{/if}}
                     {{/each}}
         </ul>
-        <img src="img/logo.png" alt="logo-header">
+        <img src="../img/logo.png" alt="logo-header">
     </div>
     <a href="#" id="cerrarSesionLink">
           <div class="cerrar-sesion-icon">
@@ -34,31 +35,43 @@
 </header>
 
 <div>
-    <h1 class="titulosMedianos">  {{comunidad.nombre}}</h1>
-</div>
-<div>
-    <h1 class="titulosMedianos">  Servicios de interés </h1>
+     <h1 class="titulosMedianos">Editar Comunidad</h1>
 </div>
 
-{{#each servicios}}
-    <div class="comunidad">
-        <h2 class="letraComunidad">{{this.denominacion}}</h2>
-        <a href="/editar-comunidad/eliminarServicio/{{this.id}}/{{comunidad.id}}" class="bajaComunidad" id="eliminarComunidad">&#10006;</a>
-    </div>
-{{/each}}
+<form id="formEditar">
+     <label for="nombre">Nombre:</label>
+     <input type="text" id="nombre" value="{{comunidad.nombre}}" required>
 
-{{#each establecimientos}}
-    <div class="comunidad">
-        <h2 class="letraComunidad">{{this.denominacion}}</h2>
-        <a href="/editar-comunidad/eliminarEstablecimiento/{{this.id}}/{{comunidad.id}}" class="bajaComunidad" id="eliminarComunidad">&#10006;</a>
-    </div>
-{{/each}}
+     <label for="descripcion">Descripción:</label>
+     <textarea id="descripcion" required>{{comunidad.descripcion}}</textarea>
+
+      <!-- Lista de servicios observados -->
+            <!-- Lista de servicios observados -->
+            <label for="serviciosObservados">Servicios Observados:</label>
+            <select id="serviciosObservados" multiple>
+               {{#each servicios}}
+                  <option value="{{this.id}}" {{#if (includes comunidad.serviciosObservados this)}}selected{{/if}}>{{this.descripcion}}</option>
+               {{/each}}
+            </select>
+
+            <!-- Lista de establecimientos observados -->
+            <label for="establecimientosObservados">Establecimientos Observados:</label>
+            <select id="establecimientosObservados" multiple>
+               {{#each establecimientos}}
+                  <option value="{{this.id}}" {{#if (includes comunidad.establecimientosObservados this)}}selected{{/if}}>{{this.denominacion}}</option>
+               {{/each}}
+            </select>
+
+
+     <button type="button" onclick="guardarEdicion()">Guardar</button>
+    </form>
 
 
 
 
-<script src="js/cerrarSesion.js"></script>
-<script src="js/listarComunidades.js"></script>
+
+<script src="../js/cerrarSesion.js"></script>
+<script src="../js/editarComunidad.js"></script>
 <script src="https://kit.fontawesome.com/a39dd266ae.js" crossorigin="anonymous"></script>
 
 </body>
