@@ -83,6 +83,10 @@ public class RankingsController extends Controller implements ICrudViewsHandler 
     model.put("ranking", ranking);
     model.put("id", id);
     model.put("descripcion", descripcion);
+
+    // Imprime el ranking en la consola
+    System.out.println("Ranking: " + ranking);
+
     context.render("rankingPuntual.hbs", model);
   }
 

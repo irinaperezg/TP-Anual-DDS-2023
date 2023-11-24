@@ -52,6 +52,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
 
     List<Comunidad> comunidades = this.comunidadRepository.buscarComunidadesUsuario(usuario);
     Map<String, Object> model = new HashMap<>();
+
     model.put("usuario", usuario);
     model.put("comunidades", comunidades);
     // MENU

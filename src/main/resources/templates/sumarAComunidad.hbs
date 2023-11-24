@@ -40,7 +40,7 @@
     <div class="select-box">
         <div class="options-container">
             {{#each comunidades}}
-                <div class="option" data-comunidad-id="{{this.id}}" onclick="seleccionarComunidad('{{this.id}}')" data-description="Servicios de interés: {{this.servicios}}" data-description1="Establecimientos de interés: {{this.establecimientos}}">
+                <div class="option" id = "botonComunidad" data-comunidad-id="{{this.id}}" onclick="seleccionarComunidad('{{this.id}}')" data-description="Servicios de interés: {{this.servicios}}" data-description1="Establecimientos de interés: {{this.establecimientos}}">
                     <label>{{this.nombre}}</label>
                 </div>
             {{/each}}
@@ -66,7 +66,8 @@
     <input type="submit" class="boton cargarDatos" value="Unirse">
 </form>
 
-<script src="../js/verTodasComunidades.js"></script>
+
+<script src="../js/sumarAComunidad.js"></script>
 <script src="../js/cerrarSesion.js"></script>
 <script src="https://kit.fontawesome.com/a39dd266ae.js" crossorigin="anonymous"></script>
 </body>

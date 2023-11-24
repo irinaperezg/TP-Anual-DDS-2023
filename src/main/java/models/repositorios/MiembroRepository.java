@@ -43,7 +43,19 @@ public class MiembroRepository implements WithSimplePersistenceUnit {
     }
   }
 
-
+  public List<Miembro> buscarMiembrosDeUsuario(Long idUsuario) {
+    try {
+      return entityManager()
+          .createQuery(
+              "SELECT m FROM Miembro m JOIN m.persona p WHERE p.usuario.id = :usuarioId",
+              Miembro.class
+          )
+          .setParameter("usuarioId", idUsuario)
+          .getResultList();
+    } catch (NoResultException e) {
+      return null;
+    }
+  }
 
 
   public void removeMiembro(Miembro miembro) {
