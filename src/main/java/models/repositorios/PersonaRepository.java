@@ -5,7 +5,10 @@ import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 import models.domain.usuarios.Usuario;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PersonaRepository implements WithSimplePersistenceUnit {
 
@@ -98,6 +101,31 @@ public class PersonaRepository implements WithSimplePersistenceUnit {
         }
     }
 
+
+    public List<LocalDateTime> buscarHorariosPorPersonaId(Long personaId) {
+        EntityManager em = entityManager();
+        try {
+            List<LocalDateTime> horarios = em.createQuery(
+                            "SELECT horario FROM Persona p JOIN p.horariosDeNotificaciones horario WHERE p.id = :personaId",
+                            LocalDateTime.class)
+                    .setParameter("personaId", personaId)
+                    .getResultList();
+            return horarios;
+        } finally {
+            em.close();
+        }
+    }
+    
+    public String convertirHorariosAStringHorasYMinutos(List<LocalDateTime> horarios) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        String horariosConcatenados = horarios.stream()
+                .map(horario -> horario.format(formatter))
+                .collect(Collectors.joining(" "));
+
+        return horariosConcatenados;
+    }
 
 
 

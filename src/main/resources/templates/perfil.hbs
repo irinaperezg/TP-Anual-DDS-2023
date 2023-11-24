@@ -17,11 +17,11 @@
 
 <!-- HEADER -->
 <header>
-    <div class="menu-container">
+    <div class="menu-container" style="margin-left: 52px">
         <ul class="menu">
                     {{#each menus}}
                         {{#if this.activo}}
-                            <li class="paginaActual"><a href="{{this.link}}"> {{this.nombre}} </a></li>
+                            <li class="paginaActual" ><a href="{{this.link}}"> {{this.nombre}} </a></li>
                         {{else}}
                             <li><a href="{{this.link}}"> {{this.nombre}} </a></li>
                         {{/if}}
@@ -50,14 +50,18 @@
     <div class="campo" data-campo="email">
         <label>Email:</label>
         <div class="campo-editable">
+        {{#if persona.email}}
             {{persona.email}}
+        {{else}}
+            Sin mail definido.
+        {{/if}}
         </div>
     </div>
 
     <div class="campo" data-campo="telefono">
         <label>Teléfono:</label>
         <div class="campo-editable">
-            {{#if persona.horarioDeNotificaciones}}
+            {{#if persona.telefono}}
                 {{persona.telefono}}
             {{else}}
             Sin teléfono definido.
@@ -69,7 +73,7 @@
         <label>Localidad:</label>
         <div class="campo-editable">
             {{#if persona.localidad}}
-                {{persona.localidad.nombre}} - {{persona.localidad.localizacion.nombre}} - {{persona.localidad.localizacion.provincia.nombre}}
+                {{persona.localidad.nombre}} - {{persona.localidad.localizacion.nombre}}
             {{else}}
             Sin localidad definida.
             {{/if}}
@@ -101,10 +105,8 @@
     <div class="campo" data-campo="frecuencias">
         <label>Horarios:</label>
         <div class="campo-editable">
-            {{#if persona.horarioDeNotificaciones}}
-                {{#each persona.horariosDeNotificaciones}}
-                    {{this}}
-                {{/each}}
+            {{#if horariosDisponibilidad}}
+                {{horariosDisponibilidad}}
             {{else}}
             Sin horarios definidos.
             {{/if}}

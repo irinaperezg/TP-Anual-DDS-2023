@@ -16,7 +16,7 @@
 
 <!-- HEADER -->
 <header>
-    <div class="menu-container">
+    <div class="menu-container" style="margin-left: 52px">
         <ul class="menu">
                     {{#each menus}}
                         {{#if this.activo}}
@@ -26,7 +26,7 @@
                         {{/if}}
                     {{/each}}
         </ul>
-        <img src="img/logo.png" alt="logo-header">
+        <img src="../img/logo.png" alt="logo-header">
     </div>
 
     <a href="#" id="cerrarSesionLink">
@@ -109,6 +109,7 @@
             </div>
         </button>
     </div>
+    <button onclick="guardarHorarios()" class="boton cargarDatos">Guardar Horarios</button>
 
 </div>
 

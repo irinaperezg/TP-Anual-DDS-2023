@@ -75,9 +75,16 @@ public class PersonasController extends Controller implements ICrudViewsHandler 
       model.put("menus", menus);
       //
       String mensajeCambiosAplicados = context.queryParam("mensaje");
+      List<LocalDateTime> horarios = this.personaRepository.buscarHorariosPorPersonaId(persona.getId());
+      String horariosDisponibilidad = this.personaRepository.convertirHorariosAStringHorasYMinutos(horarios);
+
+
+
+
       model.put("mensajeCambiosAplicados", mensajeCambiosAplicados);
       model.put("persona", persona);
       model.put("personaFrecuencia", personaFrecuencia);
+      model.put("horariosDisponibilidad", horariosDisponibilidad);
       context.render("perfil.hbs", model);
     } catch (Exception e) {
       e.printStackTrace();
@@ -207,41 +214,45 @@ public class PersonasController extends Controller implements ICrudViewsHandler 
             return;
           }
         }
-        switch (campo) {
-          case "medioNotificacion":
-            PreferenciaMedioNotificacion medio = PreferenciaMedioNotificacion.valueOf(valor);
-            persona.setPreferenciaMedioNotificacion(medio);
-            break;
-          case "frecuenciaNotificacion":
-          try {
-            FrecuenciaNotificacion frecuencia = FrecuenciaNotificacionFactory.obtenerPorNombre(valor);
-            persona.setFrecuenciaNotification(frecuencia);
-            } catch (IllegalArgumentException e) {
+
+        if(campo != null) {
+          switch (campo) {
+            case "medioNotificacion":
+              PreferenciaMedioNotificacion medio = PreferenciaMedioNotificacion.valueOf(valor);
+              persona.setPreferenciaMedioNotificacion(medio);
+              break;
+            case "frecuenciaNotificacion":
+              try {
+                FrecuenciaNotificacion frecuencia = FrecuenciaNotificacionFactory.obtenerPorNombre(valor);
+                persona.setFrecuenciaNotification(frecuencia);
+              } catch (IllegalArgumentException e) {
                 context.status(400).result("Frecuencia no reconocida");
                 return;
-            }
-            break;
-          case "horarios":
-          String[] horariosArray = new Gson().fromJson(valor, String[].class);
-          List<LocalDateTime> horariosList = new ArrayList<>();
+              }
+              break;
+            case "horarios":
+              String[] horariosArray = new Gson().fromJson(valor, String[].class);
+              List<LocalDateTime> horariosList = new ArrayList<>();
 
-          LocalDate currentDate = LocalDate.now();
+              LocalDate currentDate = LocalDate.now();
 
-          for (String horario : horariosArray) {
-            try {
-              LocalTime time = LocalTime.parse(horario, DateTimeFormatter.ofPattern("HH:mm"));
-              LocalDateTime dateTime = LocalDateTime.of(currentDate, time).minusHours(3);;
-              horariosList.add(dateTime);
-            } catch (DateTimeParseException e) {
-              // Manejar el error, por ejemplo, registrar o ignorar la fecha incorrecta.
-            }
+              for (String horario : horariosArray) {
+                try {
+                  LocalTime time = LocalTime.parse(horario, DateTimeFormatter.ofPattern("HH:mm"));
+                  LocalDateTime dateTime = LocalDateTime.of(currentDate, time).minusHours(3);
+                  ;
+                  horariosList.add(dateTime);
+                } catch (DateTimeParseException e) {
+                  // Manejar el error, por ejemplo, registrar o ignorar la fecha incorrecta.
+                }
+              }
+              persona.setHorariosDeNotificaciones(horariosList);
+              break;
+            default:
+              context.status(400).result("Campo no reconocido");
+              return;
           }
-          persona.setHorariosDeNotificaciones(horariosList);
-          break;
-          default:
-          context.status(400).result("Campo no reconocido");
-          return;
-      }
+        }
         em.merge(persona);
         tx.commit();
       } catch (Exception e) {
