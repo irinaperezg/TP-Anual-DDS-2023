@@ -4,6 +4,7 @@ import models.domain.apis.rankingImpactoIncidentes.ServicioRankingImpacto;
 import models.domain.apis.rankingImpactoIncidentes.entities.RequestEntidadDTO;
 import models.domain.apis.rankingImpactoIncidentes.entities.ResponseEntidadDTO;
 import models.domain.main.entidades.Entidad;
+import models.domain.main.informes.PosicionRanking;
 import models.repositorios.EntidadRepository;
 
 import java.io.IOException;
@@ -15,24 +16,36 @@ public class GradoImpactoProblematicas implements Ranking {
 
   public GradoImpactoProblematicas() {}
 
-  public List<String> elaborarRanking(List<Entidad> entidades) throws IOException {
-    ServicioRankingImpacto servicioRankingImpacto = ServicioRankingImpacto.instancia();
+  /*
+    * Entidades con mayor cantidad de incidentes reportados en la semana. Una vez que un incidente
+    sobre una prestación es reportado por algún usuario, independientemente de la comunidad de la que
+    forma parte, no se consideran, para el presente ranking, ningún incidente que se genere sobre dicha
+    prestación en un plazo de 24 horas siempre y cuando el mismo continúe abierto.
 
+  */
+
+  public List<PosicionRanking> elaborarRanking(List<Entidad> entidades) throws IOException {
+    ServicioRankingImpacto servicioRankingImpacto = ServicioRankingImpacto.instancia();
+    List<PosicionRanking> posicionRankings = new ArrayList<>();
+
+    //Esta es la solicitud del ServicioRankingImpacto
     List<RequestEntidadDTO> requestsEntidadDTO = generarRequests(entidades);
+
+    //Esta es la respuesta del ServicioRankingImpacto
     List<ResponseEntidadDTO> responseEntidadDTO = servicioRankingImpacto.generarRankingImpacto(requestsEntidadDTO);
 
-    List<Integer> idsEntidades = responseEntidadDTO.stream().sorted(Comparator.comparingInt(entidad -> entidad.puestoRanking))
-        .map(entidad -> entidad.idEntidad).toList();
-
-    List<String> entidadesFinales = new ArrayList<>();
+    //Obtenemos una instancia del repositorio de entidades
     EntidadRepository entidadRepository = new EntidadRepository();
 
-    for (Integer idEntidad : idsEntidades) {
-      String denominacionEntidad = entidadRepository.buscarPorID(idEntidad.longValue()).getDenominacion();
-      entidadesFinales.add(denominacionEntidad);
+    /*
+    * Por cada respuesta, obtenemos la entidad, su puntaje y generamos una posicion
+    * */
+    for (ResponseEntidadDTO responseEntidadDTO1 : responseEntidadDTO) {
+      Entidad entidad = entidadRepository.buscarPorID(responseEntidadDTO1.idEntidad.longValue());
+      PosicionRanking posicion = new PosicionRanking(responseEntidadDTO1.nivelImpactoEntidad, entidad);
+      posicionRankings.add(posicion);
     }
-
-    return entidadesFinales;
+    return posicionRankings;
   }
 
   private List<RequestEntidadDTO> generarRequests(List<Entidad> entidades) {

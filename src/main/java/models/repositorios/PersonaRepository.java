@@ -115,7 +115,7 @@ public class PersonaRepository implements WithSimplePersistenceUnit {
             em.close();
         }
     }
-    
+
     public String convertirHorariosAStringHorasYMinutos(List<LocalDateTime> horarios) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");

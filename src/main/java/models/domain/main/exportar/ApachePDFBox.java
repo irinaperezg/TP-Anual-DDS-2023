@@ -1,5 +1,7 @@
-package models.domain.main.informes;
+package models.domain.main.exportar;
 
+import lombok.Setter;
+import models.config.Config;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -8,9 +10,47 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+
+import static com.itextpdf.text.pdf.XfaXpathConstructor.XdpPackage.Config;
 
 public class ApachePDFBox implements PDFAdapter {
-  public PDDocument generarInforme(String denominacionEntidadPrestadora, List<String> rankingPromedioCierre, List<String> rankingCantidadIncidentes, List<String> rankingMayorImpacto) {
+
+  public String generarInforme(Exportable exportable, String nombreDeArchivo) {
+    PDDocument doc = new PDDocument();
+    PDPage myPage = new PDPage();
+    doc.addPage(myPage);
+    try {
+      PDPageContentStream cont = new PDPageContentStream(doc, myPage);
+      cont.beginText();
+      cont.setFont(PDType1Font.TIMES_ROMAN, 12);
+      cont.setLeading(14.5f);
+      cont.newLineAtOffset(25, 700);
+      this.agregarDatos(cont, exportable.getDatos());
+
+      cont.endText();
+      cont.close();
+      doc.save(rutaCompletaDelArchivo(nombreDeArchivo));
+      doc.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return this.rutaCompletaDelArchivo(nombreDeArchivo);
+  }
+
+  private String rutaCompletaDelArchivo(String nombreDeArchivo){
+    return models.config.Config.RUTA_EXPORTACION + nombreDeArchivo + ".pdf";
+  }
+
+  private void agregarDatos(PDPageContentStream pagina, Map<String, List<String>> datos) throws IOException {
+    for (Map.Entry<String, List<String>> entry : datos.entrySet()) {
+      pagina.newLine();
+      String datosDeLaFila = entry.getKey() + ": " + entry.getValue().toString();
+      pagina.showText(datosDeLaFila);
+    }
+  }
+
+  /*public PDDocument generarInforme(String denominacionEntidadPrestadora, List<String> rankingPromedioCierre, List<String> rankingCantidadIncidentes, List<String> rankingMayorImpacto) {
     int i = 1;
     try {
       // Create a new empty document
@@ -93,6 +133,6 @@ public class ApachePDFBox implements PDFAdapter {
       System.err.println("Error creating PDF: " + e.getMessage());
     }
     return null;
-  }
+  }*/
 
 }

@@ -6,6 +6,7 @@ import models.domain.main.informes.rankings.GradoImpactoProblematicas;
 import models.domain.main.informes.rankings.PromedioCierre;
 import models.repositorios.*;
 import models.validadorDeContrasenias.ValidadorDeContrasenia;
+import services.RankingsService;
 
 public class FactoryController extends Controller{
 
@@ -23,7 +24,7 @@ public class FactoryController extends Controller{
       case "Personas": controller = new PersonasController(new PersonaRepository(), new LocalizacionRepository(), new RolRepository(), new UsuarioRepository(), new MenuRepository()); break;
       case "OrganismoDeControl": controller = new OrganismoDeControlController(new OrganismoDeControlRepository()); break;
       case "EntidadPrestadora": controller = new EntidadPrestadoraController(new EntidadPrestadoraRepository()); break;
-      case "Rankings": controller = new RankingsController(new CantidadIncidentesReportados(), new GradoImpactoProblematicas(), new PromedioCierre(), new EntidadRepository(), new MenuRepository(), new UsuarioRepository(), new RolRepository()); break;
+      case "Rankings": controller = new RankingsController(new CantidadIncidentesReportados(), new GradoImpactoProblematicas(), new PromedioCierre(), new EntidadRepository(), new MenuRepository(), new UsuarioRepository(), new RolRepository(), new RankingsService()); break;
       case "CargaMasiva": controller = new CargaMasivaController(new EntidadPrestadoraRepository(), new OrganismoDeControlRepository(), new UsuarioRepository(), new RolRepository(), new MenuRepository()); break;
       case "Administrar": controller = new AdministrarController(new UsuarioRepository(), new MenuRepository(), new RolRepository(), new EstablecimientoRepository(), new PrestacionDeServicioRepository(), new LocalizacionRepository(), new EntidadRepository(), new EntidadPrestadoraRepository(), new ServicioRepository());
     }

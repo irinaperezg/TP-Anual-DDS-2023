@@ -5,6 +5,7 @@ import models.domain.main.entidades.Entidad;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 import javax.persistence.EntityTransaction;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EntidadRepository implements WithSimplePersistenceUnit {
@@ -32,10 +33,17 @@ public class EntidadRepository implements WithSimplePersistenceUnit {
   }
 
   public List<Entidad> todos() {
-    return entityManager()
-        .createQuery("from Entidad E where E.estaActivo=true")
-        .getResultList();
+    try {
+      return entityManager()
+              .createQuery("from Entidad", Entidad.class) // Asegúrate de incluir la clase Delegado si estás usando JPA TypedQuery
+              .getResultList();
+    } catch (Exception e) {
+      e.printStackTrace(); // Imprime la pila de la excepción para diagnóstico
+      // Aquí podrías también registrar la excepción o realizar otras acciones de manejo de errores
+      return new ArrayList<>(); // Devuelve una lista vacía o maneja el error como consideres apropiado
+    }
   }
+
 
 
 }

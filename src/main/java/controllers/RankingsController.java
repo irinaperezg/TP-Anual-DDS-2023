@@ -10,8 +10,10 @@ import models.domain.usuarios.roles.TipoRol;
 import models.indice.Menu;
 import models.repositorios.*;
 import server.utils.ICrudViewsHandler;
+import services.RankingsService;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,17 +27,25 @@ public class RankingsController extends Controller implements ICrudViewsHandler 
   private UsuarioRepository usuarioRepository;
   private RolRepository rolRepository;
   private MenuRepository menuRepository;
+  private RankingsService rankingsService;
 
-  public RankingsController(CantidadIncidentesReportados cantidadIncidentesReportados, GradoImpactoProblematicas gradoImpactoProblematicas,
-                            PromedioCierre promedioCierre, EntidadRepository entidadRepository, MenuRepository menuRepository,
-                            UsuarioRepository usuarioRepository, RolRepository rolRepository) {
-    this.promedioCierre = promedioCierre;
+  public RankingsController(CantidadIncidentesReportados cantidadIncidentesReportados,
+                            GradoImpactoProblematicas    gradoImpactoProblematicas,
+                            PromedioCierre               promedioCierre,
+                            EntidadRepository            entidadRepository,
+                            MenuRepository               menuRepository,
+                            UsuarioRepository            usuarioRepository,
+                            RolRepository                rolRepository,
+                            RankingsService              servicioRanking
+  ) {
+    this.promedioCierre               = promedioCierre;
     this.cantidadIncidentesReportados = cantidadIncidentesReportados;
-    this.gradoImpactoProblematicas = gradoImpactoProblematicas;
-    this.entidadRepository = entidadRepository;
-    this.usuarioRepository = usuarioRepository;
-    this.rolRepository = rolRepository;
-    this.menuRepository = menuRepository;
+    this.gradoImpactoProblematicas    = gradoImpactoProblematicas;
+    this.entidadRepository            = entidadRepository;
+    this.usuarioRepository            = usuarioRepository;
+    this.rolRepository                = rolRepository;
+    this.menuRepository               = menuRepository;
+    this.rankingsService              = servicioRanking;
   }
 
   @Override
@@ -61,15 +71,16 @@ public class RankingsController extends Controller implements ICrudViewsHandler 
 
     switch(id) {
       case "1":
-        ranking = this.promedioCierre.elaborarRanking(entidades);
+        ranking = this.rankingsService.pasarRankingAString(this.promedioCierre.elaborarRanking(entidades));
         descripcion = "Entidades con mayor promedio de tiempo de cierre de incidentes";
         break;
       case "2":
-        ranking = this.cantidadIncidentesReportados.elaborarRanking(entidades);
+        ranking = this.rankingsService.pasarRankingAString(this.cantidadIncidentesReportados.elaborarRanking(entidades));
         descripcion = "Entidades con mayor cantidad de incidentes reportados en la semana";
         break;
       case "3":
-        ranking = this.gradoImpactoProblematicas.elaborarRanking(entidades);
+        //ranking = this.rankingsService.pasarRankingAString(this.gradoImpactoProblematicas.elaborarRanking(entidades));
+        ranking = new ArrayList<>();
         descripcion = "Incidentes con mayor grado de impacto de las problemáticas";
         break;
     }
@@ -86,7 +97,7 @@ public class RankingsController extends Controller implements ICrudViewsHandler 
 
     // Imprime el ranking en la consola
     System.out.println("Ranking: " + ranking);
-
+    context.result(entidades.get(0).getDenominacion());
     context.render("rankingPuntual.hbs", model);
   }
 

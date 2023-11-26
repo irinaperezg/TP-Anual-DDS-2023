@@ -1,7 +1,10 @@
 package models.domain.main.informes.rankings;
 
 import models.domain.main.entidades.Entidad;
+import models.domain.main.incidentes.Incidente;
+import models.domain.main.informes.PosicionRanking;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -9,11 +12,17 @@ public class CantidadIncidentesReportados implements Ranking {
   public CantidadIncidentesReportados() {
   }
 
-  public List<String> elaborarRanking(List<Entidad> entidades){
-    return entidades.stream()
-        .sorted(Comparator.comparingInt((Entidad entidad) -> entidad.obtenerIncidentesSemanales()
-            .stream().filter(incidente -> (!incidente.esReciente() && !incidente.isAbierto())).distinct().toList()
-            .size()).reversed()).toList().stream().map(Entidad::getDenominacion).toList();
+  public List<PosicionRanking> elaborarRanking(List<Entidad> entidades){
+    List<PosicionRanking> posiciones = new ArrayList<>();
+
+    for (Entidad entidad : entidades)
+    {
+      int cantidad = entidad.obtenerIncidentesSemanales().size();
+      PosicionRanking posicionRanking = new PosicionRanking(cantidad, entidad);
+      posiciones.add(posicionRanking);
+    }
+
+    return posiciones;
   }
 
   public String getDenominacion()

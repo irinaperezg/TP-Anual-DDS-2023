@@ -8,6 +8,8 @@ public class Config {
   private static final Properties prop = new Properties();
   private static Config instancia;
 
+  public static final String RUTA_EXPORTACION = "tmp/";
+
   private Config() { //porque es un Singleton
   }
 

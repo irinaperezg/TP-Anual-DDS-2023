@@ -43,7 +43,7 @@ public class Entidad {
   private final List<Establecimiento> establecimientos = new ArrayList<>();
 
   @Getter@Setter
-  @Column(name="estaActivo", columnDefinition = "TEXT")
+  @Column(name="estaActivo")
   private Boolean estaActivo;
 
   @ManyToMany(cascade = {CascadeType.ALL})
@@ -58,7 +58,7 @@ public class Entidad {
   public Entidad(TipoEntidad tipo, String denominacion) {
     this.tipo = tipo;
     this.denominacion = denominacion;
-    this.estaActivo=true;
+    this.estaActivo = true;
   }
 
   public Entidad() {
@@ -69,7 +69,7 @@ public class Entidad {
     this.tipo = tipo;
     this.denominacion = denominacion;
     this.entidadPrestadora = entidadPrestadora;
-    this.estaActivo=true;
+    this.estaActivo = true;
   }
 
   public List<Incidente> obtenerIncidentesTotales() {
