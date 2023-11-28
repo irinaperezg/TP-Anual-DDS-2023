@@ -103,6 +103,8 @@ public class Router {
       post("crear-establecimiento", ((AdministrarController) FactoryController.controller("Administrar"))::guardarEst, TipoRol.ADMINISTRADOR);
       get("todos-establecimientos/eliminarEstablecimiento/{establecimiento_id}", ((AdministrarController) FactoryController.controller("Administrar"))::deleteEstablecimiento, TipoRol.ADMINISTRADOR);
       get("ver-establecimiento/{establecimiento_id}", ((AdministrarController) FactoryController.controller("Administrar"))::verEnta, TipoRol.ADMINISTRADOR);
+      get("editar-establecimiento/{establecimiento_id}", ((AdministrarController) FactoryController.controller("Administrar"))::editarEsta, TipoRol.ADMINISTRADOR);
+      post("editar-establecimiento/{establecimiento_id}", ((AdministrarController) FactoryController.controller("Administrar"))::guardarEditEsta, TipoRol.ADMINISTRADOR);
 
 
       get("todos-incidentes", ((AdministrarController) FactoryController.controller("Administrar"))::indexIncidentes, TipoRol.ADMINISTRADOR);
@@ -112,9 +114,9 @@ public class Router {
       post("crear-entidad", ((AdministrarController) FactoryController.controller("Administrar"))::guardarEnt, TipoRol.ADMINISTRADOR);
       get("todas-entidades/eliminarEntidad/{entidad_id}", ((AdministrarController) FactoryController.controller("Administrar"))::deleteEntidad, TipoRol.ADMINISTRADOR);
       get("ver-entidad/{entidad_id}", ((AdministrarController) FactoryController.controller("Administrar"))::verEnti, TipoRol.ADMINISTRADOR);
+      get("editar-entidad/{entidad_id}", ((AdministrarController) FactoryController.controller("Administrar"))::editarEnti, TipoRol.ADMINISTRADOR);
+      post("editar-entidad/{entidad_id}", ((AdministrarController) FactoryController.controller("Administrar"))::guardarEditEnti, TipoRol.ADMINISTRADOR);
 
-      get("crear-administrador", ((AdministrarController) FactoryController.controller("Administrar"))::crearAdmin, TipoRol.ADMINISTRADOR);
-      post("crear-administrador", ((AdministrarController) FactoryController.controller("Administrar"))::guardarAdmin, TipoRol.ADMINISTRADOR);
 
       get("todas-prestaciones", ((AdministrarController) FactoryController.controller("Administrar"))::indexPrest, TipoRol.ADMINISTRADOR);
       get("crear-prestacion", ((AdministrarController) FactoryController.controller("Administrar"))::crearPrest, TipoRol.ADMINISTRADOR);
@@ -124,6 +126,8 @@ public class Router {
       get("editar-prestacion/{prestacion_id}", ((AdministrarController) FactoryController.controller("Administrar"))::editarPrest, TipoRol.ADMINISTRADOR);
       post("editar-prestacion/{prestacion_id}", ((AdministrarController) FactoryController.controller("Administrar"))::guardarEditPrest, TipoRol.ADMINISTRADOR);
 
+      get("crear-administrador", ((AdministrarController) FactoryController.controller("Administrar"))::crearAdmin, TipoRol.ADMINISTRADOR);
+      post("crear-administrador", ((AdministrarController) FactoryController.controller("Administrar"))::guardarAdmin, TipoRol.ADMINISTRADOR);
 
 
     });

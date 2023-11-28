@@ -79,4 +79,10 @@ public class Establecimiento {
   public Integer obtenerCantidadMiembrosAfectados() {
     return comunidadesAsociadas.stream().mapToInt(Comunidad::obtenerCantidadMiembrosAfectados).sum();
   }
+
+  public void editar(String denominacion, Entidad entidad, Localidad localidad) {
+    this.entidad = entidad;
+    this.denominacion = denominacion;
+    this.localidad=localidad;
+  }
 }

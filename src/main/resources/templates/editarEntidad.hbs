@@ -31,6 +31,11 @@
             <i class="fa-solid fa-arrow-right-from-bracket" style="color: #ff4db5;"></i>
           </div>
     </a>
+    <a href="#" id="atrasLink">
+          <div class="atras-icon">
+             <i class="fa-solid fa-arrow-left" style="color: #ff4db5;"></i>
+          </div>
+    </a>
 </header>
 
 <div>
@@ -38,45 +43,34 @@
 </div>
 
 <form id="formCrear">
-     <label for="nombre">Nombre:</label>
-     <input type="text" id="nombre" value="{{comunidad.nombre}}" required>
+      <label for="denominacion">Denominación:</label>
+      <input type="text" id="denominacion" value="{{entidad.denominacion}}" required>
 
-     <label for="descripcion">Descripción:</label>
-     <input type="text" id="descripcion" value="{{comunidad.descripcion}}" required>
+      <label for="tipo">Tipo de Entidad:</label>
+      <input type="text" id="tipoEntidad" value="{{entidad.tipo.tipoEntidad}}" required>
 
-      <!-- Lista de servicios observados -->
-      <label for="servicio">Servicios Observados:</label>
-      <select id="servicio" multiple>
-         {{#each servicios}}
-            {{#if this.pertenece}}
-              <option value="{{this.id}}" selected>{{this.descripcion}}</option>
-            {{else}}
-              <option value="{{this.id}}" >{{this.descripcion}}</option>
-            {{/if}}
-         {{/each}}
+      <label for="tipo">Tipo de Establecimiento:</label>
+      <input type="text" id="tipoEstablecimiento" value="{{entidad.tipo.tipoEstablecimiento}}" required>
+
+      <label for="entidadPrestadora">Entidad Prestadora:</label>
+      <select id="entidadPrestadora" required>
+          {{#each entidadesPrestadoras}}
+              {{#if this.pertenece}}
+                   <option value="{{this.id}}" selected>{{this.denominacion}}</option>
+              {{else}}
+                   <option value="{{this.id}}">{{this.denominacion}}</option>
+              {{/if}}
+
+          {{/each}}
       </select>
 
-      <!-- Lista de establecimientos observados -->
-      <label for="establecimiento">Establecimientos Observados:</label>
-      <select id="establecimiento" multiple>
+      <input type="hidden" id="entidadId" value="{{entidad.id}}">
 
-         {{#each establecimientos}}
-                  {{#if this.pertenece}}
-                      <option value="{{this.id}}" selected>{{this.denominacion}}</option>
-                  {{else}}
-                      <option value="{{this.id}}">{{this.denominacion}}</option>
-                  {{/if}}
-
-         {{/each}}
-      </select>
-
-      <input type="hidden" id="comunidadId" value="{{comunidad.id}}">
-
-     <button type="button" onclick="guardarComunidad()">Guardar</button>
+     <button type="button" onclick="guardarEntidad()">Guardar</button>
     </form>
 
 
-<script src="../js/editarComunidad.js"></script>
+<script src="../js/editarEntidad.js"></script>
 <script src="../js/cerrarSesion.js"></script>
 <script src="https://kit.fontawesome.com/a39dd266ae.js" crossorigin="anonymous"></script>
 

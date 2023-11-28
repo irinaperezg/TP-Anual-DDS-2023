@@ -54,6 +54,9 @@ public class Entidad {
   )
   private final List<OrganismoDeControl> organismosDeControl = new ArrayList<>();
 
+  @Setter
+  private Boolean pertenece;
+
 
   public Entidad(TipoEntidad tipo, String denominacion) {
     this.tipo = tipo;
@@ -103,5 +106,11 @@ public class Entidad {
 
   public Integer obtenerSumatoriaTiemposResolucion() {
     return this.obtenerIncidentesTotales().stream().filter(incidente -> !incidente.isAbierto()).mapToInt(incidente -> Math.toIntExact(incidente.calcularTiempoCierre().toSeconds())).sum();
+  }
+
+  public void editar(TipoEntidad tipo, String denominacion, EntidadPrestadora entidadPrestadora) {
+    this.tipo = tipo;
+    this.denominacion = denominacion;
+    this.entidadPrestadora = entidadPrestadora;
   }
 }
