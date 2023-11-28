@@ -30,6 +30,7 @@ public class Router {
       get("perfil/editar", ((PersonasController) FactoryController.controller("Personas"))::edit); // TODO CAMBIAR filtrado por PROVINCIAS Y LOCALIDADES
       post("perfil", ((PersonasController) FactoryController.controller("Personas"))::update);
 
+
       // VER PERFIL DE ALGUIEN
       get("perfil/{id}", ((PersonasController) FactoryController.controller("Personas"))::show);
 
@@ -108,6 +109,9 @@ public class Router {
       post("crear-entidad", ((AdministrarController) FactoryController.controller("Administrar"))::guardarEnt, TipoRol.ADMINISTRADOR);
       get("todas-entidades/eliminarEntidad/{entidad_id}", ((AdministrarController) FactoryController.controller("Administrar"))::deleteEntidad, TipoRol.ADMINISTRADOR);
       get("ver-entidad/{entidad_id}", ((AdministrarController) FactoryController.controller("Administrar"))::verEnti, TipoRol.ADMINISTRADOR);
+
+      get("crear-administrador", ((AdministrarController) FactoryController.controller("Administrar"))::crearAdmin, TipoRol.ADMINISTRADOR);
+      post("crear-administrador", ((AdministrarController) FactoryController.controller("Administrar"))::guardarAdmin, TipoRol.ADMINISTRADOR);
 
       get("todas-prestaciones", ((AdministrarController) FactoryController.controller("Administrar"))::indexPrest, TipoRol.ADMINISTRADOR);
       get("crear-prestacion", ((AdministrarController) FactoryController.controller("Administrar"))::crearPrest, TipoRol.ADMINISTRADOR);
