@@ -67,7 +67,7 @@ public class IncidentesController extends Controller implements ICrudViewsHandle
     // MENU
     TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
     List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
-    menus.forEach(m -> m.setActivo(m.getNombre().equals("Inicidentes")));
+    menus.forEach(m -> m.setActivo(m.getNombre().equals("Incidentes")));
     model.put("menus", menus);
     //
     context.render("listarIncidentes.hbs", model);

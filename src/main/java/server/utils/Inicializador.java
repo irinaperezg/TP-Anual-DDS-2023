@@ -116,7 +116,6 @@ public class Inicializador {
 
         menus.add(new Menu("/comunidades", "Comunidades", TipoRol.CONSUMIDOR));
         menus.add(new Menu("/incidentes", "Incidentes", TipoRol.CONSUMIDOR));
-        menus.add(new Menu("/todos-incidentes", "Incidentes", TipoRol.ADMINISTRADOR));
 
         menus.add(new Menu("/rankings", "Rankings", TipoRol.CONSUMIDOR));
         menus.add(new Menu("/rankings", "Rankings", TipoRol.ADMINISTRADOR));

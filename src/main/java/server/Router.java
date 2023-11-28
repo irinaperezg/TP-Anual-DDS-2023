@@ -104,6 +104,8 @@ public class Router {
       get("ver-establecimiento/{establecimiento_id}", ((AdministrarController) FactoryController.controller("Administrar"))::verEnta, TipoRol.ADMINISTRADOR);
 
 
+      get("todos-incidentes", ((AdministrarController) FactoryController.controller("Administrar"))::indexIncidentes, TipoRol.ADMINISTRADOR);
+
       get("todas-entidades", ((AdministrarController) FactoryController.controller("Administrar"))::indexEnt, TipoRol.ADMINISTRADOR);
       get("crear-entidad", ((AdministrarController) FactoryController.controller("Administrar"))::crearEnt, TipoRol.ADMINISTRADOR);
       post("crear-entidad", ((AdministrarController) FactoryController.controller("Administrar"))::guardarEnt, TipoRol.ADMINISTRADOR);

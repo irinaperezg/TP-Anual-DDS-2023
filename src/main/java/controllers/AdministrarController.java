@@ -6,6 +6,7 @@ import models.domain.main.Establecimiento;
 import models.domain.main.PrestacionDeServicio;
 import models.domain.main.entidades.Entidad;
 import models.domain.main.entidades.TipoEntidad;
+import models.domain.main.incidentes.Incidente;
 import models.domain.main.localizacion.Localidad;
 import models.domain.main.notificaciones.mediosNotificacion.PreferenciaMedioNotificacion;
 import models.domain.main.servicio.Servicio;
@@ -42,6 +43,7 @@ public class AdministrarController  extends Controller implements ICrudViewsHand
   private ValidadorDeContrasenia validadorDeContrasenia;
   private UsuarioRepository usuarioRepository;
   private MenuRepository menuRepository;
+  private IncidenteRepository incidenteRepository;
   private RolRepository rolRepository;
   private EstablecimientoRepository establecimientoRepository;
   private PrestacionDeServicioRepository prestacionDeServicioRepository;
@@ -51,10 +53,12 @@ public class AdministrarController  extends Controller implements ICrudViewsHand
   private ServicioRepository servicioRepository;
   private PersonaRepository personaRepository;
 
+  private ComunidadRepository comunidadRepository;
+
   public AdministrarController(UsuarioRepository usuarioRepository, MenuRepository menuRepository, RolRepository rolRepository, EstablecimientoRepository establecimientoRepository,
                                PrestacionDeServicioRepository prestacionDeServicioRepository, LocalizacionRepository localizacionRepository, EntidadRepository entidadRepository,
                                EntidadPrestadoraRepository entidadPrestadoraRepository, ServicioRepository servicioRepository, ValidadorDeContrasenia validadorDeContrasenia,
-                               PersonaRepository personaRepository) {
+                               PersonaRepository personaRepository, IncidenteRepository incidenteRepository, ComunidadRepository comunidadRepository) {
     this.usuarioRepository = usuarioRepository;
     this.rolRepository = rolRepository;
     this.menuRepository = menuRepository;
@@ -66,6 +70,9 @@ public class AdministrarController  extends Controller implements ICrudViewsHand
     this.validadorDeContrasenia = validadorDeContrasenia;
     this.servicioRepository = servicioRepository;
     this.personaRepository = personaRepository;
+    this.incidenteRepository = incidenteRepository;
+    this.comunidadRepository = comunidadRepository;
+
   }
 
   @Override
@@ -203,6 +210,27 @@ public class AdministrarController  extends Controller implements ICrudViewsHand
     //
     context.redirect("/todos-establecimientos");
 
+  }
+
+  public void indexIncidentes( Context context) {
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+
+    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "administrar_recursos")) {
+      throw new AccessDeniedException();
+    }
+    List<Incidente> incidentes = incidenteRepository.todos();
+    List<Comunidad> comunidades = comunidadRepository.todos();
+    Map<String, Object> model = new HashMap<>();
+    model.put("usuario", usuario);
+    model.put("incidentes", incidentes);
+    model.put("comunidades", comunidades);
+    // MENU
+    TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
+    List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+    menus.forEach(m -> m.setActivo(m.getNombre().equals("Administrar")));
+    model.put("menus", menus);
+    //
+    context.render("listarTodosIncidentes.hbs", model);
   }
 
   public void indexEnt(Context context) {
