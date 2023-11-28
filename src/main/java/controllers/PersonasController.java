@@ -78,9 +78,7 @@ public class PersonasController extends Controller implements ICrudViewsHandler 
       List<LocalDateTime> horarios = this.personaRepository.buscarHorariosPorPersonaId(persona.getId());
       String horariosDisponibilidad = this.personaRepository.convertirHorariosAStringHorasYMinutos(horarios);
 
-
-
-
+      model.put("esAdmin", rolRepository.tienePermiso(usuario.getRol().getId(), "crear_administrador"));
       model.put("mensajeCambiosAplicados", mensajeCambiosAplicados);
       model.put("persona", persona);
       model.put("personaFrecuencia", personaFrecuencia);

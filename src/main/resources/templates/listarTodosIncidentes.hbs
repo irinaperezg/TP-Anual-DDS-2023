@@ -15,21 +15,21 @@
 <header>
     <div class="menu-container">
         <ul class="menu">
-                    {{#each menus}}
-                        {{#if this.activo}}
-                            <li class="paginaActual"><a href="{{this.link}}"> {{this.nombre}} </a></li>
-                        {{else}}
-                            <li><a href="{{this.link}}"> {{this.nombre}} </a></li>
-                        {{/if}}
-                    {{/each}}
+            {{#each menus}}
+                {{#if this.activo}}
+                    <li class="paginaActual"><a href="{{this.link}}"> {{this.nombre}} </a></li>
+                {{else}}
+                    <li><a href="{{this.link}}"> {{this.nombre}} </a></li>
+                {{/if}}
+            {{/each}}
         </ul>
         <img src="img/logo.png" alt="logo-header">
     </div>
     <a href="#" id="cerrarSesionLink">
-          <div class="cerrar-sesion-icon">
+        <div class="cerrar-sesion-icon">
             <i class="fa-solid fa-arrow-right-from-bracket" style="color: #ff4db5;"></i>
-          </div>
-        </a>
+        </div>
+    </a>
 </header>
 
 <div class="seccion-selectores">
@@ -62,25 +62,25 @@
     {{#if incidentes}}
         {{#each incidentes}}
             <div class = "incidente" data-comunidad="{{this.comunidad.nombre}}">
-                 Denominación: <span class="denominacion">{{this.denominacion}}</span><br>
-                 Prestación: <span class="prestacion">{{this.prestacion.servicio.descripcion}} en {{this.prestacion.establecimiento.denominacion}} de {{this.prestacion.establecimiento.entidad.denominacion}}</span><br>
-                 Horario de publicación: <span class="fechaApertura">{{this.fechaApertura}}</span><br>
-                 Observaciones: <span class="observaciones">{{this.observaciones}}</span><br>
-                 {{#if this.abierto}}
+                Denominación: <span class="denominacion">{{this.denominacion}}</span><br>
+                Prestación: <span class="prestacion">{{this.prestacion.servicio.descripcion}} en {{this.prestacion.establecimiento.denominacion}} de {{this.prestacion.establecimiento.entidad.denominacion}}</span><br>
+                Horario de publicación: <span class="fechaApertura">{{this.fechaApertura}}</span><br>
+                Observaciones: <span class="observaciones">{{this.observaciones}}</span><br>
+                {{#if this.abierto}}
                     Estado: <span class="estado">ABIERTO</span>
-                 {{else}}
+                {{else}}
                     Estado: <span class="estado">CERRADO</span>
-                 {{/if}}
-                 <button class="btn-close" data-incidente-id="{{this.id}}">X</button>
+                {{/if}}
+                <button class="btn-close" data-incidente-id="{{this.id}}">X</button>
             </div>
         {{/each}}
     {{/if}}
 </div>
 
-<a href="incidentes/crear" class="btn-add">+</a>
 
 <script src="js/listarIncidentes.js"></script>
 <script src="js/cerrarSesion.js"></script>
+<script src="js/listarEstablecimientos.js"></script>
 <script src="https://kit.fontawesome.com/a39dd266ae.js" crossorigin="anonymous"></script>
 
 </body>

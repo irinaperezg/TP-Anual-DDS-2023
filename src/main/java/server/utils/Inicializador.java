@@ -110,13 +110,12 @@ public class Inicializador {
         menus.add(new Menu("/inicio", "Inicio", TipoRol.ADMINISTRADOR));
 
         menus.add(new Menu("/perfil", "Perfil", TipoRol.CONSUMIDOR));
-        menus.add(new Menu("/perfil-Admin", "Perfil", TipoRol.ADMINISTRADOR));
+        menus.add(new Menu("/perfil", "Perfil", TipoRol.ADMINISTRADOR));
 
         menus.add(new Menu("/administrar", "Administrar", TipoRol.ADMINISTRADOR));
 
         menus.add(new Menu("/comunidades", "Comunidades", TipoRol.CONSUMIDOR));
         menus.add(new Menu("/incidentes", "Incidentes", TipoRol.CONSUMIDOR));
-        menus.add(new Menu("/todos-incidentes", "Incidentes", TipoRol.ADMINISTRADOR));
 
         menus.add(new Menu("/rankings", "Rankings", TipoRol.CONSUMIDOR));
         menus.add(new Menu("/rankings", "Rankings", TipoRol.ADMINISTRADOR));
@@ -144,6 +143,7 @@ public class Inicializador {
       permisosAdmin.add(permisoRepository.buscarPorNombreInterno("administrar_recursos"));
       permisosAdmin.add(permisoRepository.buscarPorNombreInterno("ver_todas_comunidades"));
       permisosAdmin.add(permisoRepository.buscarPorNombreInterno("editar_comunidad"));
+      permisosAdmin.add(permisoRepository.buscarPorNombreInterno("crear_administrador"));
 
       roles.add(new Rol("consumidor", TipoRol.CONSUMIDOR, permisosCons));
       roles.add(new Rol("administrador", TipoRol.ADMINISTRADOR, permisosAdmin));
@@ -166,6 +166,7 @@ public class Inicializador {
       permisos.add(new Permiso("administrar_recursos", "administrar_recursos"));
       permisos.add(new Permiso("ver_todas_comunidades", "ver_todas_comunidades"));
       permisos.add(new Permiso("editar_comunidad", "editar_comunidad"));
+      permisos.add(new Permiso("crear_administrador", "crear_administrador"));
 
       permisoRepository.persistir(permisos);
     }

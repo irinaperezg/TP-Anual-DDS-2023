@@ -6,12 +6,15 @@ import models.domain.main.Establecimiento;
 import models.domain.main.PrestacionDeServicio;
 import models.domain.main.entidades.Entidad;
 import models.domain.main.entidades.TipoEntidad;
+import models.domain.main.incidentes.Incidente;
 import models.domain.main.localizacion.Localidad;
+import models.domain.main.notificaciones.mediosNotificacion.PreferenciaMedioNotificacion;
 import models.domain.main.servicio.Servicio;
 import models.domain.usuarios.Comunidad;
 import models.domain.usuarios.Miembro;
 import models.domain.usuarios.Persona;
 import models.domain.usuarios.Usuario;
+import models.domain.usuarios.roles.Rol;
 import models.domain.usuarios.roles.TipoRol;
 import models.indice.Menu;
 import models.json.JsonEntidad;
@@ -19,18 +22,28 @@ import models.json.JsonEstablecimiento;
 import models.json.JsonPrestacion;
 import models.repositorios.*;
 import models.validadorDeContrasenias.ValidadorDeContrasenia;
+import models.validadorDeContrasenias.excepciones.ExcepcionComplejidad;
+import models.validadorDeContrasenias.excepciones.ExcepcionContraseniaInvalida;
+import models.validadorDeContrasenias.excepciones.ExcepcionLongitud;
 import org.jetbrains.annotations.NotNull;
 import server.exceptions.AccessDeniedException;
 import server.utils.ICrudViewsHandler;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static models.domain.usuarios.roles.TipoRol.ADMINISTRADOR;
+import static models.domain.usuarios.roles.TipoRol.CONSUMIDOR;
+
 public class AdministrarController  extends Controller implements ICrudViewsHandler {
+  private ValidadorDeContrasenia validadorDeContrasenia;
   private UsuarioRepository usuarioRepository;
   private MenuRepository menuRepository;
+  private IncidenteRepository incidenteRepository;
   private RolRepository rolRepository;
   private EstablecimientoRepository establecimientoRepository;
   private PrestacionDeServicioRepository prestacionDeServicioRepository;
@@ -38,8 +51,14 @@ public class AdministrarController  extends Controller implements ICrudViewsHand
   private EntidadRepository entidadRepository;
   private EntidadPrestadoraRepository entidadPrestadoraRepository;
   private ServicioRepository servicioRepository;
+  private PersonaRepository personaRepository;
 
-  public AdministrarController(UsuarioRepository usuarioRepository, MenuRepository menuRepository, RolRepository rolRepository, EstablecimientoRepository establecimientoRepository, PrestacionDeServicioRepository prestacionDeServicioRepository, LocalizacionRepository localizacionRepository, EntidadRepository entidadRepository, EntidadPrestadoraRepository entidadPrestadoraRepository, ServicioRepository servicioRepository) {
+  private ComunidadRepository comunidadRepository;
+
+  public AdministrarController(UsuarioRepository usuarioRepository, MenuRepository menuRepository, RolRepository rolRepository, EstablecimientoRepository establecimientoRepository,
+                               PrestacionDeServicioRepository prestacionDeServicioRepository, LocalizacionRepository localizacionRepository, EntidadRepository entidadRepository,
+                               EntidadPrestadoraRepository entidadPrestadoraRepository, ServicioRepository servicioRepository, ValidadorDeContrasenia validadorDeContrasenia,
+                               PersonaRepository personaRepository, IncidenteRepository incidenteRepository, ComunidadRepository comunidadRepository) {
     this.usuarioRepository = usuarioRepository;
     this.rolRepository = rolRepository;
     this.menuRepository = menuRepository;
@@ -48,7 +67,12 @@ public class AdministrarController  extends Controller implements ICrudViewsHand
     this.localizacionRepository = localizacionRepository;
     this.entidadRepository = entidadRepository;
     this.entidadPrestadoraRepository = entidadPrestadoraRepository;
+    this.validadorDeContrasenia = validadorDeContrasenia;
     this.servicioRepository = servicioRepository;
+    this.personaRepository = personaRepository;
+    this.incidenteRepository = incidenteRepository;
+    this.comunidadRepository = comunidadRepository;
+
   }
 
   @Override
@@ -186,6 +210,27 @@ public class AdministrarController  extends Controller implements ICrudViewsHand
     //
     context.redirect("/todos-establecimientos");
 
+  }
+
+  public void indexIncidentes( Context context) {
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+
+    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "administrar_recursos")) {
+      throw new AccessDeniedException();
+    }
+    List<Incidente> incidentes = incidenteRepository.todos();
+    List<Comunidad> comunidades = comunidadRepository.todos();
+    Map<String, Object> model = new HashMap<>();
+    model.put("usuario", usuario);
+    model.put("incidentes", incidentes);
+    model.put("comunidades", comunidades);
+    // MENU
+    TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
+    List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+    menus.forEach(m -> m.setActivo(m.getNombre().equals("Administrar")));
+    model.put("menus", menus);
+    //
+    context.render("listarTodosIncidentes.hbs", model);
   }
 
   public void indexEnt(Context context) {
@@ -424,4 +469,102 @@ public class AdministrarController  extends Controller implements ICrudViewsHand
     //
     context.render("mostrarEstablecimiento.hbs", model);
   }
+
+
+  public void crearAdmin(Context context) {
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+
+    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "crear_administrador")) {
+      throw new AccessDeniedException();
+    }
+
+    Map<String, Object> model = new HashMap<>();
+
+    String errorType = context.queryParam("error");
+    if (errorType != null) {
+      switch (errorType) {
+        case "complexity":
+          model.put("errorMessage", "La contraseña debe tener mayúsculas, minúsculas, números y símbolos.");
+          break;
+        case "length":
+          model.put("errorMessage", "La contraseña no cumple con la longitud requerida.");
+          break;
+        case "invalid_password":
+          model.put("errorMessage", "Contraseña inválida.");
+          break;
+        case "registration_error":
+          model.put("errorMessage", "Error al intentar registrar al usuario. Inténtelo nuevamente.");
+          break;
+        case "username_exists":
+          model.put("errorMessage", "El nombre de usuario ya está en uso.");
+          break;
+        case "email_exists":
+          model.put("errorMessage", "El correo electrónico/ o teléfono ya está en uso.");
+          break;
+        default:
+          model.put("errorMessage", "Ocurrió un error al intentar registrarse.");
+          break;
+      }
+    }
+
+    context.render("signupAdmin.hbs", model);
+  }
+
+  public void guardarAdmin( Context context) {
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+
+    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "crear_administrador")) {
+      throw new AccessDeniedException();
+    }
+
+    String nombre = context.formParam("nombre");
+    String contrasenia = context.formParam("contrasenia");
+    String valorMedio = context.formParam("valor-medio");
+    String telefonoYMail = context.formParam("telefonoYMail");
+    String tipoSeleccionado = context.formParam("tipoSeleccionado");
+    String contraseniaEncriptada = " ";
+
+    // Verificar si el nombre de usuario ya está en uso
+    if (usuarioRepository.existeUsuarioConNombre(nombre)) {
+      context.redirect("/crear-administrador?error=username_exists");
+      return;
+    }
+    try {
+      validadorDeContrasenia.verificarValidez(nombre, contrasenia);
+    } catch (ExcepcionComplejidad e) {
+      context.redirect("/crear-administrador?error=complexity");
+      return;
+    } catch (ExcepcionLongitud e) {
+      context.redirect("/crear-administrador?error=length");
+      return;
+    } catch (ExcepcionContraseniaInvalida e) {
+      context.redirect("/crear-administrador?error=invalid_password");
+      return;
+    }
+
+    try {
+      Rol rol = rolRepository.buscarPorTipoRol(ADMINISTRADOR);
+      contraseniaEncriptada = validadorDeContrasenia.encriptarContrasenia(contrasenia);
+      Usuario usuarioNuevo = new Usuario(nombre, contraseniaEncriptada, rol);
+      usuarioRepository.registrar(usuarioNuevo);
+
+      Persona persona;
+      if (tipoSeleccionado.equals("correo")) {
+        persona = new Persona(usuarioNuevo, telefonoYMail, "");
+      } else {
+        persona = new Persona(usuarioNuevo, "", telefonoYMail);
+      }
+      PreferenciaMedioNotificacion medio = PreferenciaMedioNotificacion.valueOf(valorMedio);
+      persona.setPreferenciaMedioNotificacion(medio);
+      personaRepository.registrar(persona);
+
+      context.redirect("/perfil");
+    } catch (NoSuchAlgorithmException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+      e.printStackTrace();
+      context.redirect("/crear-administrador?error=registration_error");
+    }
+
+
+  }
+
 }
