@@ -111,4 +111,11 @@ public class Comunidad {
     return serviciosObservados.contains(prestacion.getServicio()) && establecimientosObservados.contains(prestacion.getEstablecimiento());
   }
 
+  public void editar(String nombre, String descripcion, List<Servicio> serviciosObservados, List<Establecimiento> establecimientosObservados) {
+    this.nombre = nombre;
+    this.descripcion = descripcion;
+    this.serviciosObservados = serviciosObservados;
+    this.establecimientosObservados = establecimientosObservados;
+  }
+
 }

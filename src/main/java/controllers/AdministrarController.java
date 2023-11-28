@@ -17,6 +17,7 @@ import models.domain.usuarios.Usuario;
 import models.domain.usuarios.roles.Rol;
 import models.domain.usuarios.roles.TipoRol;
 import models.indice.Menu;
+import models.json.JsonComunidad;
 import models.json.JsonEntidad;
 import models.json.JsonEstablecimiento;
 import models.json.JsonPrestacion;
@@ -566,5 +567,66 @@ public class AdministrarController  extends Controller implements ICrudViewsHand
 
 
   }
+
+  public void editarPrest(Context context) {
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+    Long prestacion_id = Long.parseLong(context.pathParam("prestacion_id"));
+    PrestacionDeServicio prestacion = prestacionDeServicioRepository.buscarPorID(prestacion_id);
+    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "administrar_recursos")) {
+      throw new AccessDeniedException();
+    }
+    List<Establecimiento> establecimientos = establecimientoRepository.todos();
+    establecimientos.forEach(x->
+        {
+          x.setPertenece(prestacion.getEstablecimiento().equals(x));
+        }
+    );
+    List<Servicio> servicios = servicioRepository.todos();
+    servicios.forEach(x->
+        {
+          x.setPertenece(prestacion.getServicio().equals(x));
+        }
+    );
+    Map<String, Object> model = new HashMap<>();
+    model.put("usuario", usuario);
+    model.put("prestacion", prestacion);
+    model.put("establecimientos", establecimientos);
+    model.put("servicios", servicios);
+    // MENU
+    TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
+    List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+    menus.forEach(m -> m.setActivo(m.getNombre().equals("Administrar")));
+    model.put("menus", menus);
+    //
+    context.render("editarPrestacion.hbs", model);
+  }
+
+  public void guardarEditPrest(Context context) {
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+    Long prestacion_id = Long.parseLong(context.pathParam("prestacion_id"));
+    PrestacionDeServicio prestacion = prestacionDeServicioRepository.buscarPorID(prestacion_id);
+    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "administrar_recursos")) {
+      throw new AccessDeniedException();
+    }
+
+    JsonPrestacion data = context.bodyAsClass(JsonPrestacion.class);
+
+    Long establecimientoId = data.getEstablecimiento() ;
+    Establecimiento establecimiento = establecimientoRepository.buscarPorID(establecimientoId);
+    Long servicioId = data.getServicio();
+    Servicio servicio = servicioRepository.buscarPorID(servicioId);
+    prestacion.editar(establecimiento, servicio);
+
+    prestacionDeServicioRepository.actualizar(prestacion);
+
+    Map<String, String> respuesta = new HashMap<>();
+
+    respuesta.put("mensaje", "Prestación de Servicio guardada exitosamente");
+    context.json(respuesta);
+  }
+
+
+
+
 
 }

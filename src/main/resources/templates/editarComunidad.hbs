@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../css/crearEstablecimientos.css">
     <meta charset="utf-8">
     <link rel="icon" href="../img/favicon.png" type="image/png">
-    <title>Editar Comunidad</title>
+    <title>Administrar</title>
 </head>
 
 <body class="bodyInterno centrado">
@@ -70,13 +70,13 @@
          {{/each}}
       </select>
 
-
+      <input type="hidden" id="comunidadId" value="{{comunidad.id}}">
 
      <button type="button" onclick="guardarComunidad()">Guardar</button>
     </form>
 
 
-<script src="../js/crearComunidad.js"></script>
+<script src="../js/editarComunidad.js"></script>
 <script src="../js/cerrarSesion.js"></script>
 <script src="https://kit.fontawesome.com/a39dd266ae.js" crossorigin="anonymous"></script>
 

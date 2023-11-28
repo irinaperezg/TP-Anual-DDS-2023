@@ -11,6 +11,7 @@ import models.domain.usuarios.roles.TipoRol;
 import models.indice.Menu;
 import models.json.JsonComunidad;
 import models.repositorios.*;
+import org.jetbrains.annotations.NotNull;
 import server.exceptions.AccessDeniedException;
 import server.utils.ICrudViewsHandler;
 
@@ -74,7 +75,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     }
 
     // Obtener todas las comunidades
-    List<Comunidad> comunidades = comunidadRepository.todos();
+    List<Comunidad> comunidades = comunidadRepository.todos().stream().filter(x->x.getEstaActivo()).toList();
 
 
     Map<String, Object> modelo = new HashMap<>();
@@ -331,7 +332,7 @@ public void add (Context context) {
       throw new AccessDeniedException();
     }
 
-    List<Comunidad> comunidades = comunidadRepository.todos();
+    List<Comunidad> comunidades = comunidadRepository.todos().stream().filter(x->x.getEstaActivo()).toList();
     Map<String, Object> model = new HashMap<>();
     model.put("usuario", usuario);
     model.put("comunidades", comunidades);
@@ -402,5 +403,31 @@ public void add (Context context) {
     //
     context.render("editarComunidad.hbs", model);
 
+  }
+
+  public void guardarEdit(Context context) {
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+    Long comunidad_id = Long.parseLong(context.pathParam("comunidad_id"));
+
+    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "administrar_recursos")) {
+      throw new AccessDeniedException();
+    }
+
+    JsonComunidad data = context.bodyAsClass(JsonComunidad.class);
+
+    String nombre = data.getNombre();
+    String denominacion = data.getDenominacion();
+    List<Long> establecimientosId = data.getEstablecimientos();
+    List<Establecimiento> establecimientos = establecimientosId.stream().map(x->establecimientoRepository.buscarPorID(x)).toList();
+    List<Long> serviciosId = data.getServicios();
+    List<Servicio> servicios = serviciosId.stream().map(x->servicioRepository.buscarPorID(x)).toList();
+    Comunidad comunidad = comunidadRepository.buscarPorID(comunidad_id);
+    comunidad.editar(nombre, denominacion, servicios, establecimientos);
+    comunidadRepository.actualizar(comunidad);
+
+    Map<String, String> respuesta = new HashMap<>();
+
+    respuesta.put("mensaje", "Comunidad editada exitosamente");
+    context.json(respuesta);
   }
 }

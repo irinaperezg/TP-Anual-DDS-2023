@@ -95,6 +95,7 @@ public class Router {
       get("todas-comunidades/eliminarComunidad/{comunidad_id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::deleteComunidad, TipoRol.ADMINISTRADOR);
       get("ver-comunidad/{comunidad_id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::ver, TipoRol.ADMINISTRADOR);
       get("editar-comunidad/{comunidad_id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::editar, TipoRol.ADMINISTRADOR);
+      post("editar-comunidad/{comunidad_id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::guardarEdit, TipoRol.ADMINISTRADOR);
 
 
       get("todos-establecimientos", ((AdministrarController) FactoryController.controller("Administrar"))::indexEst, TipoRol.ADMINISTRADOR);
@@ -120,6 +121,11 @@ public class Router {
       post("crear-prestacion", ((AdministrarController) FactoryController.controller("Administrar"))::guardarPrest, TipoRol.ADMINISTRADOR);
       get("todas-prestaciones/eliminarPrestacion/{prestacion_id}", ((AdministrarController) FactoryController.controller("Administrar"))::deletePrestacion, TipoRol.ADMINISTRADOR);
       get("ver-prestacion/{prestacion_id}", ((AdministrarController) FactoryController.controller("Administrar"))::verPres, TipoRol.ADMINISTRADOR);
+      get("editar-prestacion/{prestacion_id}", ((AdministrarController) FactoryController.controller("Administrar"))::editarPrest, TipoRol.ADMINISTRADOR);
+      post("editar-prestacion/{prestacion_id}", ((AdministrarController) FactoryController.controller("Administrar"))::guardarEditPrest, TipoRol.ADMINISTRADOR);
+
+
+
     });
   }
 }
