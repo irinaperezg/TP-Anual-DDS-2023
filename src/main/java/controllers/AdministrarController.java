@@ -131,6 +131,7 @@ public class AdministrarController  extends Controller implements ICrudViewsHand
       throw new AccessDeniedException();
     }
     List<Establecimiento> establecimientos = establecimientoRepository.todos();
+    establecimientos.stream().filter(x->x.getEstaActivo());
     Map<String, Object> model = new HashMap<>();
     model.put("usuario", usuario);
     model.put("establecimientos", establecimientos);
@@ -150,7 +151,7 @@ public class AdministrarController  extends Controller implements ICrudViewsHand
       throw new AccessDeniedException();
     }
     List<Localidad> localidades = localizacionRepository.todasLasLocalidades();
-    List<Entidad> entidades = entidadRepository.todos();
+    List<Entidad> entidades = entidadRepository.todos().stream().filter(x->x.getEstaActivo()).toList();
     Map<String, Object> model = new HashMap<>();
     model.put("usuario", usuario);
     model.put("localidades", localidades);
@@ -241,6 +242,7 @@ public class AdministrarController  extends Controller implements ICrudViewsHand
       throw new AccessDeniedException();
     }
     List<Entidad> entidades = entidadRepository.todos();
+    entidades.stream().filter(x->x.getEstaActivo());
     Map<String, Object> model = new HashMap<>();
     model.put("usuario", usuario);
     model.put("entidades", entidades);
@@ -329,7 +331,8 @@ public class AdministrarController  extends Controller implements ICrudViewsHand
     if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "administrar_recursos")) {
       throw new AccessDeniedException();
     }
-    List<PrestacionDeServicio> prestacionesDeServicios = prestacionDeServicioRepository.todos();
+    List<PrestacionDeServicio> prestacionesDeServicios = prestacionDeServicioRepository.todos().stream().filter(x->x.getEstaActivo()).toList();
+
     Map<String, Object> model = new HashMap<>();
     model.put("usuario", usuario);
     model.put("prestacionesDeServicios", prestacionesDeServicios);
@@ -349,7 +352,7 @@ public class AdministrarController  extends Controller implements ICrudViewsHand
       throw new AccessDeniedException();
     }
 
-    List<Establecimiento> establecimientos = establecimientoRepository.todos();
+    List<Establecimiento> establecimientos = establecimientoRepository.todos().stream().filter(x->x.getEstaActivo()).toList();
     List<Servicio> servicios = servicioRepository.todos();
     Map<String, Object> model = new HashMap<>();
     model.put("usuario", usuario);
@@ -575,7 +578,7 @@ public class AdministrarController  extends Controller implements ICrudViewsHand
     if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "administrar_recursos")) {
       throw new AccessDeniedException();
     }
-    List<Establecimiento> establecimientos = establecimientoRepository.todos();
+    List<Establecimiento> establecimientos = establecimientoRepository.todos().stream().filter(x->x.getEstaActivo()).toList();
     establecimientos.forEach(x->
         {
           x.setPertenece(prestacion.getEstablecimiento().equals(x));
@@ -693,20 +696,20 @@ public class AdministrarController  extends Controller implements ICrudViewsHand
       throw new AccessDeniedException();
     }
     List<Localidad> localidades = localizacionRepository.todasLasLocalidades();
-    List<Entidad> entidades = entidadRepository.todos();
+    List<Entidad> entidades = entidadRepository.todos().stream().filter(x->x.getEstaActivo()).toList();
 
     localidades.forEach(x->
         {
           x.setPertenece(establecimiento.getLocalidad().equals(x));
         }
     );
-
+    Entidad e = establecimiento.getEntidad();
     entidades.forEach(x->
         {
-          x.setPertenece(establecimiento.getEntidad().equals(x));
+          x.setPertenece(e.equals(x));
         }
     );
-
+    entidades.stream().filter(x->x.getEstaActivo());
 
     Map<String, Object> model = new HashMap<>();
     model.put("usuario", usuario);

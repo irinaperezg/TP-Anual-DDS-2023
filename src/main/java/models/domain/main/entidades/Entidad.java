@@ -54,7 +54,7 @@ public class Entidad {
   )
   private final List<OrganismoDeControl> organismosDeControl = new ArrayList<>();
 
-  @Setter
+  @Setter @Getter
   private Boolean pertenece;
 
 

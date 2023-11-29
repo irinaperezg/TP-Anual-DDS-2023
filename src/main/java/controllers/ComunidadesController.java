@@ -52,6 +52,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     }
 
     List<Comunidad> comunidades = this.comunidadRepository.buscarComunidadesUsuario(usuario);
+    comunidades.stream().filter(x->x.getEstaActivo());
     Map<String, Object> model = new HashMap<>();
 
     model.put("usuario", usuario);
@@ -99,7 +100,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
       throw new AccessDeniedException();
     }
 
-    List<Establecimiento> establecimientos = establecimientoRepository.todos();
+    List<Establecimiento> establecimientos = establecimientoRepository.todos().stream().filter(x->x.getEstaActivo()).toList();
     List<Servicio> servicios = servicioRepository.todos();
     Map<String, Object> model = new HashMap<>();
     model.put("usuario", usuario);
@@ -136,9 +137,8 @@ public void add (Context context) {
       cargarServiciosEnComunidad(comunidad.getId());
       comunidadesSinMiembro.add(comunidad);
     }
-
   }
-
+  comunidadesSinMiembro.stream().filter(x->x.getEstaActivo());
   List<ComunidadView> comunidadesView = new ArrayList<>();
 
   for (Comunidad comunidad : comunidadesSinMiembro) {
@@ -353,7 +353,7 @@ public void add (Context context) {
       throw new AccessDeniedException();
     }
 
-    List<Establecimiento> establecimientos = establecimientoRepository.obtenerEstablecimientosAsociados(comunidad_id);
+    List<Establecimiento> establecimientos = establecimientoRepository.obtenerEstablecimientosAsociados(comunidad_id).stream().filter(x->x.getEstaActivo()).toList();
     List<Servicio> servicios = servicioRepository.obtenerServiciosAsociados(comunidad_id);
     Map<String, Object> model = new HashMap<>();
     model.put("usuario", usuario);
@@ -377,7 +377,7 @@ public void add (Context context) {
     if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "administrar_recursos")) {
       throw new AccessDeniedException();
     }
-    List<Establecimiento> establecimientos = establecimientoRepository.todos();
+    List<Establecimiento> establecimientos = establecimientoRepository.todos().stream().filter(x->x.getEstaActivo()).toList();
     establecimientos.forEach(x->
         {
           x.setPertenece(comunidad.getEstablecimientosObservados().contains(x));

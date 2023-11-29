@@ -18,9 +18,11 @@ public class ComunidadRepository implements WithSimplePersistenceUnit {
   }
 
   public void actualizar(Comunidad comunidad) {
-    entityManager().getTransaction().begin();
+
+    EntityTransaction transaction = entityManager().getTransaction();
+    transaction.begin();
     entityManager().merge(comunidad);
-    entityManager().getTransaction().commit();
+    transaction.commit();
 
   }
 
