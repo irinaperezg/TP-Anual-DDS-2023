@@ -39,18 +39,12 @@ public class Router {
 
       // BAJARSE DE UNA COMUNIDAD
       get("comunidades/baja/{comunidad_id}/{usuario_id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::delete, TipoRol.CONSUMIDOR);
-
+      get("comunidades/modificarTipoMiembro/{miembro_id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::modificarTipoMiembro, TipoRol.CONSUMIDOR);
 
       // UNIRSE A COMUNIDAD
       get("comunidades/sumar", ((ComunidadesController) FactoryController.controller("Comunidades"))::add, TipoRol.CONSUMIDOR);
       post("comunidades/sumar", ((ComunidadesController) FactoryController.controller("Comunidades"))::save, TipoRol.CONSUMIDOR);
 
-
-
-      // EDITAR EL TIPO DE MIEMBRO --> creo q el nombre de la ruta está mal, parece que fuese editar una comunidad pero
-      // mi idea es q el miembro elija si es afectado u observador FALTA
-      get("comunidades/{id}/editar", ((MiembrosController) FactoryController.controller("Miembros"))::edit);
-      post("comunidades/{id}/editar", ((MiembrosController) FactoryController.controller("Miembros"))::update);
 
       // LISTAR INCIDENTES
       get("incidentes", ((IncidentesController) FactoryController.controller("Incidentes"))::index, TipoRol.CONSUMIDOR);

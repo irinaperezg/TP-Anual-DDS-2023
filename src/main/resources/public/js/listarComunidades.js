@@ -2,16 +2,26 @@
 document.addEventListener('DOMContentLoaded', function () {
 // Selecciona el enlace de eliminación
 var eliminarComunidadLink = document.getElementById('eliminarComunidad');
+var cambiarTipoMiembroLink = document.getElementById('cambiarTipoMiembro');
+var tipoActualMiembro = document.getElementById('tipoActualMiembro').value;
 
-// Agrega un evento clic al enlace
+
+
 eliminarComunidadLink.addEventListener('click', function (event) {
-// Pregunta al usuario si realmente desea eliminar la comunidad
 var confirmacion = confirm('¿Estás seguro/a de que deseas eliminar esta comunidad?');
 
-// Si el usuario cancela la acción, detén el enlace
 if (!confirmacion) {
 event.preventDefault();
 }
 });
+
+cambiarTipoMiembroLink.addEventListener('click', function (event) {
+    var confirmacion = confirm('¿Estás seguro/a de que deseas cambiar tu rol '+ tipoActualMiembro + ' de esta comunidad?');
+
+    if (!confirmacion) {
+        event.preventDefault();
+    }
+});
+
 });
 

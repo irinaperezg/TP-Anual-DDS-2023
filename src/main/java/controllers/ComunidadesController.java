@@ -50,13 +50,12 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
     if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "ver_mis_comunidades")) {
       throw new AccessDeniedException();
     }
+    List<Miembro> miembros = miembroRepository.buscarMiembrosDeUsuario(usuario.getId()).stream().filter(x->x.getComunidad().getEstaActivo() && x.getEstaActivo()).toList();
 
-    List<Comunidad> comunidades = this.comunidadRepository.buscarComunidadesUsuario(usuario);
-    comunidades.stream().filter(x->x.getEstaActivo());
     Map<String, Object> model = new HashMap<>();
 
     model.put("usuario", usuario);
-    model.put("comunidades", comunidades);
+    model.put("miembros", miembros);
     // MENU
     TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
     List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
@@ -132,13 +131,12 @@ public void add (Context context) {
   List<Comunidad> comunidadesSinMiembro = new ArrayList<>();
   // Cargar los establecimientos y servicios para todas las comunidades
   for (Comunidad comunidad : todasComunidades) {
-    if (!miembroRepository.existePersonaEnComunidad(persona.getId(),comunidad.getId())){
+    if (!miembroRepository.existePersonaEnComunidad(persona.getId(),comunidad.getId()) && comunidad.getEstaActivo()){
       cargarEstablecimientosEnComunidad(comunidad.getId());
       cargarServiciosEnComunidad(comunidad.getId());
       comunidadesSinMiembro.add(comunidad);
     }
   }
-  comunidadesSinMiembro.stream().filter(x->x.getEstaActivo());
   List<ComunidadView> comunidadesView = new ArrayList<>();
 
   for (Comunidad comunidad : comunidadesSinMiembro) {
@@ -190,7 +188,6 @@ public void add (Context context) {
     Persona persona = this.personaRepository.buscarPorIDUsuario(usuarioId);
     Comunidad comunidad = comunidadRepository.buscarPorID(comunidadId);
 
-    // Deberías extender el método agregarPersonaAComunidad para que también acepte el tipo de miembro.
     Miembro miembro = comunidadRepository.agregarPersonaAComunidad(persona, comunidad, tipoMiembro);
     miembroRepository.registrar(miembro);
 
@@ -242,13 +239,13 @@ public void add (Context context) {
     Long usuarioId = Long.parseLong(context.pathParam("usuario_id"));
     Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
 
-    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "salir_de_comunidad")) {
+    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "ver_mis_comunidades")) {
       throw new AccessDeniedException();
     }
 
     Persona persona = personaRepository.buscarPorIDUsuario(usuarioId);
     Miembro miembro = miembroRepository.buscarMiembroPorPersonaId(persona.getId(), comunidadId);
-    miembroRepository.removeMiembro(miembro); // Implementa este método en la clase Comunidad
+    miembroRepository.removeMiembro(miembro);
     // MENU
 
     TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
@@ -429,5 +426,27 @@ public void add (Context context) {
 
     respuesta.put("mensaje", "Comunidad editada exitosamente");
     context.json(respuesta);
+  }
+
+  public void modificarTipoMiembro(Context context) {
+    Long miembroId = Long.parseLong(context.pathParam("miembro_id"));
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+    Miembro miembro = miembroRepository.buscarPorID(miembroId);
+    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "ver_mis_comunidades")) {
+      throw new AccessDeniedException();
+    }
+
+    miembroRepository.modificarTipo(miembro);
+    // MENU
+
+    TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
+    List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+    menus.forEach(m -> m.setActivo(m.getNombre().equals("Inicio")));
+    Map<String, Object> model = new HashMap<>();
+    model.put("menus", menus);
+    //
+    context.redirect("/comunidades"); // Redirige a la lista de comunidades u otra página
+
+
   }
 }

@@ -58,6 +58,7 @@ public class ComunidadRepository implements WithSimplePersistenceUnit {
     miembro.setComunidad(comunidad);
     miembro.setTipo(tipoMiembro);
     miembro.setEsAdministrador(false);
+    miembro.setEstaActivo(true);
     return miembro;
   }
 
