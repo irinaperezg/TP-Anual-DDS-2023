@@ -17,15 +17,15 @@
 <header>
     <div class="menu-container">
         <ul class="menu">
-        <li><a href="inicio.html">Inicio</a></li>
-        <li> <a href="perfilPersona.html"> Configuración </a></li>
-        <li class="paginaActual"><a href="listarIncidentes.html">Incidentes</a></li>
-        <li><a href="listarComunidades.html">Comunidades</a></li>
-        <li><a href="rankings.html">Ranking</a></li>
+        <li><a>Inicio</a></li>
+        <li> <a> Configuración </a></li>
+        <li class="paginaActual"><a>Incidentes</a></li>
+        <li><a>Comunidades</a></li>
+        <li><a>Ranking</a></li>
         </ul>
         <img src="img/logo.png" alt="logo-header">
     </div>
-    <a href="#" id="cerrarSesionLink">
+    <a id="cerrarSesionLink">
           <div class="cerrar-sesion-icon">
             <i class="fa-solid fa-arrow-right-from-bracket" style="color: #ff4db5;"></i>
           </div>
@@ -42,13 +42,9 @@
     </div>
 
     <div class="comunidad-selector-container">
-        <h2 id="comunidadSeleccionadaTexto">Todas las comunidades</h2>
+        <h2 id="comunidadSeleccionadaTexto">Incidentes</h2>
         <div class="comunidad-select-container">
             <select class="comunidad-selector">
-                <option value="todas" selected>Todas</option>
-                {% for comunidad in comunidades %}
-                    <option value="{% comunidad.nombre %}">{% comunidad.nombre %}</option>
-                {% endfor %}
             </select>
             <div class="uno linea-blanca"></div>
             <div class="dos linea-blanca"></div>
@@ -78,10 +74,9 @@
     {% endif %}
 </div>
 
-<a href="incidentes/crear" class="btn-add">+</a>
+<a class="btn-add">+</a>
 
 <script src="js/listarIncidentes.js"></script>
-<script src="js/cerrarSesion.js"></script>
 <script src="https://kit.fontawesome.com/a39dd266ae.js" crossorigin="anonymous"></script>
 
 </body>
