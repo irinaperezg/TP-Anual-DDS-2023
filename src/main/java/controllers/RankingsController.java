@@ -16,8 +16,14 @@ import models.repositorios.*;
 import server.utils.ICrudViewsHandler;
 import services.RankingsService;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static org.hibernate.type.LocalTimeType.FORMATTER;
 
 public class RankingsController extends Controller implements ICrudViewsHandler {
 
@@ -93,18 +99,8 @@ public class RankingsController extends Controller implements ICrudViewsHandler 
     InformeExportable informeExportable = new InformeExportable("Descripción del Informe", informe.procesoDatosEntrantes());
     ApachePDFBox pdfBox = new ApachePDFBox();
     String rutaCompleta = pdfBox.generarInforme(informeExportable);
+    String nombreArchivo = buscarArchivoUltimaSemana(rutaCompleta, id);
 
-// Encuentra el último índice del separador de directorio
-    int indiceUltimoSeparador = rutaCompleta.lastIndexOf('/');
-
-// Extrae solo el nombre del archivo
-    String nombreArchivo;
-    if (indiceUltimoSeparador >= 0) {
-      nombreArchivo = rutaCompleta.substring(indiceUltimoSeparador + 1);
-    } else {
-      // Si no se encuentra el separador, asume que la ruta completa es el nombre del archivo
-      nombreArchivo = rutaCompleta;
-    }
     model.put("nombreArchivo", nombreArchivo);
     menus.forEach(m -> m.setActivo(m.getNombre().equals("Rankings")));
     model.put("menus", menus);
@@ -117,6 +113,55 @@ public class RankingsController extends Controller implements ICrudViewsHandler 
     System.out.println("Ranking: " + ranking);
     context.result(entidades.get(0).getDenominacion());
     context.render("rankingPuntual.hbs", model);
+  }
+
+  private String buscarArchivoUltimaSemana(String rutaCompleta, String id) {
+    try {
+      // Extraer la fecha del nombre del archivo
+      String[] partes = rutaCompleta.split("/");
+      String nombreArchivo = partes[partes.length - 1];
+
+      SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+      Date fechaArchivo = formatter.parse(nombreArchivo.substring(0, 8));
+
+      // Obtener el inicio y fin de la semana
+      Calendar calendar = Calendar.getInstance();
+      calendar.setTime(fechaArchivo);
+      int weekYear = calendar.get(Calendar.WEEK_OF_YEAR);
+      int year = calendar.get(Calendar.YEAR);
+
+      // Filtro para archivos de la misma semana
+      FilenameFilter filter = (dir, name) -> {
+        try {
+          Date fecha = formatter.parse(nombreArchivo.substring(0, 8));
+          calendar.setTime(fecha);
+          return calendar.get(Calendar.WEEK_OF_YEAR) == weekYear && calendar.get(Calendar.YEAR) == year;
+        } catch (Exception e) {
+          return false;
+        }
+      };
+
+      // Listar archivos en el directorio
+      File dir = new File(Paths.get("/2023-tpa-mama-grupo-04/src/main/resources/public/exportados/").toUri());
+      File[] archivosSemana = dir.listFiles(filter);
+
+      if (archivosSemana != null && archivosSemana.length > 0) {
+        // Ordenar los archivos por fecha de modificación
+        Arrays.sort(archivosSemana, Comparator.comparingLong(File::lastModified));
+
+        // Lógica para seleccionar el archivo basado en el ID
+        String sufijo = id.equals("1") ? "PROMEDIO_CIERRE_INCIDENTES" : "MAYOR_CANTIDAD_INCIDENTES.pdf";
+        for (int i = archivosSemana.length - 1; i >= 0; i--) {
+          if (archivosSemana[i].getName().endsWith(sufijo)) {
+            return archivosSemana[i].getName();
+          }
+        }
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    return "No encontrado";
   }
 
   private Map<String, List<String>> convertirDatos(List<PosicionRanking> posiciones) {
