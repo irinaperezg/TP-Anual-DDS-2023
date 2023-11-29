@@ -2,6 +2,7 @@ package server.utils;
 
 import models.domain.apis.georef.ServicioGeoref;
 import models.domain.apis.georef.adapters.ServicioGeorefRetrofitAdapter;
+import models.domain.main.informes.CronGeneradorReportes;
 import models.domain.main.localizacion.Localidad;
 import models.domain.main.localizacion.Localizacion;
 import models.domain.main.localizacion.Provincia;
@@ -15,6 +16,7 @@ import models.repositorios.MenuRepository;
 import models.repositorios.PermisoRepository;
 import models.repositorios.RolRepository;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -45,6 +47,7 @@ public class Inicializador {
     inicializarMenus();
     inicializarPermisos();
     inicializarRoles();
+    cronRanking();
   }
 
   public List<Provincia> inicializarProvincias() {
@@ -171,4 +174,13 @@ public class Inicializador {
       permisoRepository.persistir(permisos);
     }
   }
+
+
+  public void cronRanking() {
+    CronGeneradorReportes cronGeneradorReportes = new CronGeneradorReportes();
+    cronGeneradorReportes.run();
+  }
+
+
+
 }
