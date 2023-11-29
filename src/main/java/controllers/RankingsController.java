@@ -92,8 +92,20 @@ public class RankingsController extends Controller implements ICrudViewsHandler 
     List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
     InformeExportable informeExportable = new InformeExportable("Descripción del Informe", informe.procesoDatosEntrantes());
     ApachePDFBox pdfBox = new ApachePDFBox();
-    String rutaArchivo = pdfBox.generarInforme(informeExportable);
-    model.put("rutaDescarga", rutaArchivo);
+    String rutaCompleta = pdfBox.generarInforme(informeExportable);
+
+// Encuentra el último índice del separador de directorio
+    int indiceUltimoSeparador = rutaCompleta.lastIndexOf('/');
+
+// Extrae solo el nombre del archivo
+    String nombreArchivo;
+    if (indiceUltimoSeparador >= 0) {
+      nombreArchivo = rutaCompleta.substring(indiceUltimoSeparador + 1);
+    } else {
+      // Si no se encuentra el separador, asume que la ruta completa es el nombre del archivo
+      nombreArchivo = rutaCompleta;
+    }
+    model.put("nombreArchivo", nombreArchivo);
     menus.forEach(m -> m.setActivo(m.getNombre().equals("Rankings")));
     model.put("menus", menus);
     //
