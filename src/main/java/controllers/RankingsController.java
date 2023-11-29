@@ -1,8 +1,12 @@
 package controllers;
 import io.javalin.http.Context;
 import models.domain.main.entidades.Entidad;
+import models.domain.main.exportar.ApachePDFBox;
+import models.domain.main.exportar.Informe;
+import models.domain.main.informes.PosicionRanking;
 import models.domain.main.informes.rankings.CantidadIncidentesReportados;
 import models.domain.main.informes.rankings.GradoImpactoProblematicas;
+import models.domain.main.informes.rankings.InformeExportable;
 import models.domain.main.informes.rankings.PromedioCierre;
 import models.domain.usuarios.Comunidad;
 import models.domain.usuarios.Usuario;
@@ -13,10 +17,7 @@ import server.utils.ICrudViewsHandler;
 import services.RankingsService;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class RankingsController extends Controller implements ICrudViewsHandler {
 
@@ -68,18 +69,19 @@ public class RankingsController extends Controller implements ICrudViewsHandler 
     String descripcion = "";
     List<Entidad> entidades = this.entidadRepository.todos();
     String id = context.pathParam("id");
-
+    List<PosicionRanking> posicionesRanking = this.promedioCierre.elaborarRanking(entidades);
+    Informe informe = new Informe(posicionesRanking);
     switch(id) {
       case "1":
-        ranking = this.rankingsService.pasarRankingAString(this.promedioCierre.elaborarRanking(entidades));
+        ranking = this.rankingsService.pasarRankingAString(posicionesRanking);
         descripcion = "Entidades con mayor promedio de tiempo de cierre de incidentes";
         break;
       case "2":
-        ranking = this.rankingsService.pasarRankingAString(this.cantidadIncidentesReportados.elaborarRanking(entidades));
+        ranking = this.rankingsService.pasarRankingAString(posicionesRanking);
         descripcion = "Entidades con mayor cantidad de incidentes reportados en la semana";
         break;
       case "3":
-        //ranking = this.rankingsService.pasarRankingAString(this.gradoImpactoProblematicas.elaborarRanking(entidades));
+        //ranking = this.rankingsService.pasarRankingAString(posicionesRanking);
         ranking = new ArrayList<>();
         descripcion = "Incidentes con mayor grado de impacto de las problemáticas";
         break;
@@ -88,6 +90,10 @@ public class RankingsController extends Controller implements ICrudViewsHandler 
     Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
     TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
     List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+    InformeExportable informeExportable = new InformeExportable("Descripción del Informe", informe.procesoDatosEntrantes());
+    ApachePDFBox pdfBox = new ApachePDFBox();
+    String rutaArchivo = pdfBox.generarInforme(informeExportable);
+    model.put("rutaDescarga", rutaArchivo);
     menus.forEach(m -> m.setActivo(m.getNombre().equals("Rankings")));
     model.put("menus", menus);
     //
@@ -100,6 +106,25 @@ public class RankingsController extends Controller implements ICrudViewsHandler 
     context.result(entidades.get(0).getDenominacion());
     context.render("rankingPuntual.hbs", model);
   }
+
+  private Map<String, List<String>> convertirDatos(List<PosicionRanking> posiciones) {
+    Map<String, List<String>> datos = new HashMap<>();
+    int posicion = 1; // Para llevar la cuenta de la posición en el ranking
+
+    for (PosicionRanking entrada : posiciones) {
+      // Suponiendo que PosicionRanking tiene métodos getEntidad() y getPuntaje()
+      String nombreEntidad = entrada.getEntidad().getDenominacion();
+      String tipoEntidad = entrada.getEntidad().getTipo().getTipoEntidad();
+      String puntaje = String.valueOf(entrada.getPuntaje());
+
+      List<String> detalles = Arrays.asList(String.valueOf(posicion), nombreEntidad, tipoEntidad, puntaje);
+      datos.put(String.valueOf(posicion), detalles);
+      posicion++;
+    }
+
+    return datos;
+  }
+
 
   // NADA
   public void create (Context context){

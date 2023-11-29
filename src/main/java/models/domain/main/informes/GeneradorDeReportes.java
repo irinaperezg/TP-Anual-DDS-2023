@@ -29,7 +29,7 @@ public class GeneradorDeReportes {
         String ruta = null;
         for (String nombre_reporte : nombre_reportes) {
             List<PosicionRanking> posiciones = this.generarReporte(entidadPreestadora.getEntidades(), nombre_reporte);
-            Reporte reporte = new Reporte(nombre_reporte, entidadPreestadora, this.ordernar(posiciones));
+            Reporte reporte = new Reporte(nombre_reporte, entidadPreestadora, this.ordenar(posiciones));
             String path = exportador.exportar(reporte);
             reporte.setPath(path);
             reporte.setDownload(Config.DOWNLOAD + reporte.getNombre_archivo());
@@ -39,7 +39,7 @@ public class GeneradorDeReportes {
         return reportes;
     }
 
-    public List<PosicionRanking> ordernar(List<PosicionRanking> posiciones)
+    public List<PosicionRanking> ordenar(List<PosicionRanking> posiciones)
     {
         return posiciones.stream()
                     .sorted((c1, c2) -> Integer.compare(c1.getPuntaje(), c2.getPuntaje()))

@@ -46,9 +46,21 @@
          </ol>
      </div>
 
+    <a href="../../../{{rutaDescarga}}" data-rutadescarga="{{rutaDescarga}}" id="linkDescarga" download>
+        <button class="btn-descargar">Descargar Reporte</button>
+    </a>
 
 
 </div>
+
+<script>
+    window.onload = function() {
+        var linkDescarga = document.getElementById('linkDescarga');
+        var rutaCompleta = linkDescarga.getAttribute('data-rutadescarga');
+        var nombreArchivo = rutaCompleta.split('/').pop();
+        linkDescarga.setAttribute('download', nombreArchivo);
+    };
+</script>
 <script src="../js/cerrarSesion.js"></script>
 <script src="https://kit.fontawesome.com/a39dd266ae.js" crossorigin="anonymous"></script>
 </body>
