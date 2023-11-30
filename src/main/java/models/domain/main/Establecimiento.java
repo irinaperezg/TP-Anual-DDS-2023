@@ -37,7 +37,7 @@ public class Establecimiento {
   @JoinColumn(name = "localidad_id", referencedColumnName = "id")
   private Localidad localidad = null;
 
-  @Column(name="estaActivo", columnDefinition = "TEXT")
+  @Column(name="estaActivo")
   private Boolean estaActivo;
 
   @Getter
