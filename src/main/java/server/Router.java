@@ -9,6 +9,9 @@ public class Router {
 
   public static void init() {
     Server.app().routes(() -> {
+      // Redirección de la raíz a /login
+      get("/", ((LoginController) FactoryController.controller("Login"))::redirect);
+
       // LOGIN
       get("login", ((LoginController) FactoryController.controller("Login"))::index);
       post("login", ((LoginController) FactoryController.controller("Login"))::validar);

@@ -5,6 +5,7 @@ import models.domain.usuarios.Usuario;
 import models.repositorios.PersonaRepository;
 import models.repositorios.UsuarioRepository;
 import models.validadorDeContrasenias.ValidadorDeContrasenia;
+import org.jetbrains.annotations.NotNull;
 import server.utils.ICrudViewsHandler;
 
 import java.io.IOException;
@@ -103,4 +104,7 @@ public class LoginController extends Controller implements ICrudViewsHandler {
 
   }
 
+  public void redirect(Context context) {
+    context.redirect("/login");
+  }
 }
