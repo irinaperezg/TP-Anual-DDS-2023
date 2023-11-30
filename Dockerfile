@@ -10,7 +10,7 @@ RUN mvn clean package assembly:single -DskipTests
 # Package stage
 #
 FROM openjdk:17-jdk-slim
-COPY --from=build /target/ejercicio-1.0-SNAPSHOT.jar tp-anual.jar
+COPY --from=build /target/ejercicio-1.0-SNAPSHOT-jar-with-dependencies.jar tp-anual.jar
 # ENV PORT=8080
 EXPOSE 8080
-CMD ["java","-jar","tp-anual.jar","server.App"]
+CMD ["java","-classpath","tp-anual.jar","server.App"]
