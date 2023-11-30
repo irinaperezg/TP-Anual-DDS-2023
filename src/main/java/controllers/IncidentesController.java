@@ -60,7 +60,7 @@ public class IncidentesController extends Controller implements ICrudViewsHandle
     if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "sumar_a_comunidad")) {
       throw new AccessDeniedException();
     }
-    List<Comunidad> comunidades = this.comunidadRepository.buscarComunidadesUsuario(usuario);
+    List<Comunidad> comunidades = this.comunidadRepository.buscarComunidadesUsuario(usuario).stream().filter(x->x.getEstaActivo()).toList();
     List<Incidente> incidentes = new ArrayList<>();
 
     for (Comunidad comunidad : comunidades) {

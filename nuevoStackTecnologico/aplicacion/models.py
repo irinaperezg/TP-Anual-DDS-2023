@@ -1,18 +1,18 @@
 from django.db import models
 
-class PrestacionDeServicio(models.Model):
-    servicio = ForeignKey(Servicio)
-    establecimiento = ForeignKey(Establecimiento)
-
 class Servicio(models.Model):
     descripcion = models.TextField()
+
+class Entidad(models.Model):
+    denominacion = models.TextField()
 
 class Establecimiento(models.Model):
     denominacion = models.TextField()
     entidad = models.ForeignKey(Entidad)
 
-class Entidad(models.Model):
-    denominacion = models.TextField()
+class PrestacionDeServicio(models.Model):
+    servicio = models.ForeignKey(Servicio)
+    establecimiento = models.ForeignKey(Establecimiento)
 
 class Incidente(models.Model):
     observaciones = models.TextField()
