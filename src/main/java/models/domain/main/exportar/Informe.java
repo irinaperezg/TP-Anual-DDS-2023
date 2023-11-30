@@ -8,7 +8,7 @@ import java.util.*;
 
 import static com.itextpdf.text.pdf.XfaXpathConstructor.XdpPackage.Config;
 
-public class Informe implements Exportable {
+public class Informe  {
 
     public Map<String, List<String>> datos = new HashMap<>();
 
@@ -20,7 +20,6 @@ public class Informe implements Exportable {
         this.posiciones = posiciones;
     }
 
-    @Override
     public Map<String, List<String>> getDatos() {
         return datos;
     }

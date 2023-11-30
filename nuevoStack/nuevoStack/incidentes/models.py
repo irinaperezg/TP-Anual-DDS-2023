@@ -29,7 +29,7 @@ class AsociadosServiciosComunidad(models.Model):
 class Comunidad(models.Model):
     id = models.BigAutoField(primary_key=True)
     descripcion = models.CharField(max_length=255, blank=True, null=True)
-    estaactivo = models.TextField(db_column='estaActivo', blank=True, null=True)  # Field name made lowercase.
+    estaactivo = models.TextField(db_column='estaActivo', blank=True, null=True)
     nombre = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
@@ -50,11 +50,11 @@ class Delegado(models.Model):
 class Entidad(models.Model):
     id = models.BigAutoField(primary_key=True)
     denominacion = models.TextField(blank=True, null=True)
-    estaactivo = models.TextField(db_column='estaActivo', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
-    tipoentidad = models.CharField(db_column='tipoEntidad', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    tipoestablecimiento = models.CharField(db_column='tipoEstablecimiento', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    estaactivo = models.TextField(db_column='estaActivo', blank=True, null=True)  
+    tipoentidad = models.CharField(db_column='tipoEntidad', max_length=255, blank=True, null=True) 
+    tipoestablecimiento = models.CharField(db_column='tipoEstablecimiento', max_length=255, blank=True, null=True) 
     entidad_prestadora_id = models.BigIntegerField(blank=True, null=True)
-    pertenece = models.TextField(blank=True, null=True)  # This field type is a guess.
+    pertenece = models.TextField(blank=True, null=True)  
 
     class Meta:
         managed = False
@@ -66,7 +66,7 @@ class EntidadPrestadora(models.Model):
     denominacion = models.TextField(blank=True, null=True)
     delegado_id = models.BigIntegerField(blank=True, null=True)
     organismo_de_control_id = models.BigIntegerField(blank=True, null=True)
-    pertenece = models.TextField(blank=True, null=True)  # This field type is a guess.
+    pertenece = models.TextField(blank=True, null=True) 
 
     class Meta:
         managed = False
@@ -85,9 +85,10 @@ class EntidadesXOrganismo(models.Model):
 class Establecimiento(models.Model):
     id = models.BigAutoField(primary_key=True)
     denominacion = models.TextField(blank=True, null=True)
-    estaactivo = models.TextField(db_column='estaActivo', blank=True, null=True)  # Field name made lowercase.
-    pertenece = models.TextField(blank=True, null=True)  # This field type is a guess.
-    entidad_id = models.BigIntegerField(blank=True, null=True)
+    estaactivo = models.TextField(db_column='estaActivo', blank=True, null=True)
+    pertenece = models.TextField(blank=True, null=True) 
+    #entidad_id = models.BigIntegerField(blank=True, null=True)
+    entidad = models.ForeignKey(Entidad, on_delete=models.SET_NULL, blank=True, null=True)
     localidad_id = models.BigIntegerField(blank=True, null=True)
 
     class Meta:
@@ -102,19 +103,6 @@ class Horariodenotificacion(models.Model):
     class Meta:
         managed = False
         db_table = 'horariodenotificacion'
-
-
-class Incidente(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    abierto = models.IntegerField(blank=True, null=True)
-    denominacion = models.TextField(blank=True, null=True)
-    fechaapertura = models.DateTimeField(db_column='fechaApertura', blank=True, null=True)  # Field name made lowercase.
-    fechacierre = models.DateTimeField(db_column='fechaCierre', blank=True, null=True)  # Field name made lowercase.
-    observaciones = models.TextField(blank=True, null=True)
-    comunidad_id = models.BigIntegerField(blank=True, null=True)
-    creador_id = models.BigIntegerField(blank=True, null=True)
-    prestacion_de_servicio_id = models.BigIntegerField(blank=True, null=True)
-
     class Meta:
         managed = False
         db_table = 'incidente'
@@ -124,7 +112,7 @@ class Localidad(models.Model):
     id = models.BigIntegerField(primary_key=True)
     nombre_localidad = models.CharField(max_length=255, blank=True, null=True)
     localizacion_id = models.BigIntegerField(blank=True, null=True)
-    pertenece = models.TextField(blank=True, null=True)  # This field type is a guess.
+    pertenece = models.TextField(blank=True, null=True) 
 
     class Meta:
         managed = False
@@ -144,7 +132,7 @@ class Localizacion(models.Model):
 
 class Menu(models.Model):
     id = models.BigAutoField(primary_key=True)
-    activo = models.TextField(blank=True, null=True)  # This field type is a guess.
+    activo = models.TextField(blank=True, null=True) 
     link = models.CharField(max_length=255, blank=True, null=True)
     nombre = models.CharField(max_length=255, blank=True, null=True)
     tipo = models.CharField(max_length=255, blank=True, null=True)
@@ -156,7 +144,7 @@ class Menu(models.Model):
 
 class Miembro(models.Model):
     id = models.BigAutoField(primary_key=True)
-    es_administrador = models.TextField(blank=True, null=True)  # This field type is a guess.
+    es_administrador = models.TextField(blank=True, null=True) 
     tipo = models.CharField(max_length=255, blank=True, null=True)
     comunidad_id = models.BigIntegerField(blank=True, null=True)
     persona_id = models.BigIntegerField(blank=True, null=True)
@@ -169,8 +157,8 @@ class Miembro(models.Model):
 class Notificacion(models.Model):
     id = models.BigAutoField(primary_key=True)
     estado = models.CharField(max_length=255, blank=True, null=True)
-    fechaaperturaincidente = models.DateTimeField(db_column='fechaAperturaIncidente', blank=True, null=True)  # Field name made lowercase.
-    fechacierreincidente = models.DateTimeField(db_column='fechaCierreIncidente', blank=True, null=True)  # Field name made lowercase.
+    fechaaperturaincidente = models.DateTimeField(db_column='fechaAperturaIncidente', blank=True, null=True)  
+    fechacierreincidente = models.DateTimeField(db_column='fechaCierreIncidente', blank=True, null=True)  
     mensaje = models.CharField(max_length=255, blank=True, null=True)
     persona_id = models.BigIntegerField(blank=True, null=True)
 
@@ -192,7 +180,7 @@ class Organismodecontrol(models.Model):
 class Permiso(models.Model):
     id = models.BigAutoField(primary_key=True)
     nombre = models.CharField(max_length=255, blank=True, null=True)
-    nombreinterno = models.CharField(db_column='nombreInterno', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    nombreinterno = models.CharField(db_column='nombreInterno', max_length=255, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -213,15 +201,45 @@ class Persona(models.Model):
         db_table = 'persona'
 
 
+class Servicio(models.Model):
+    tipo = models.CharField(max_length=31)
+    id = models.BigAutoField(primary_key=True)
+    descripcion = models.CharField(max_length=255, blank=True, null=True)
+    pertenece = models.TextField(blank=True, null=True)  # This field type is a guess.
+    organismo_de_control_id = models.BigIntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'servicio'
+
 class Prestaciondeservicio(models.Model):
     id = models.BigAutoField(primary_key=True)
     estaactivo = models.TextField(db_column='estaActivo', blank=True, null=True)  # Field name made lowercase.
-    establecimiento_id = models.BigIntegerField(blank=True, null=True)
-    servicio_id = models.BigIntegerField(blank=True, null=True)
+    #establecimiento_id = models.BigIntegerField(blank=True, null=True)
+    #servicio_id = models.BigIntegerField(blank=True, null=True)
+    establecimiento = models.ForeignKey(Establecimiento, on_delete=models.SET_NULL, blank=True, null=True)
+    servicio = models.ForeignKey(Servicio, on_delete=models.SET_NULL, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'prestaciondeservicio'
+
+class Incidente(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    abierto = models.IntegerField(blank=True, null=True)
+    denominacion = models.TextField(blank=True, null=True)
+    fechaapertura = models.DateTimeField(db_column='fechaApertura', blank=True, null=True)  # Field name made lowercase.
+    fechacierre = models.DateTimeField(db_column='fechaCierre', blank=True, null=True)  # Field name made lowercase.
+    observaciones = models.TextField(blank=True, null=True)
+    comunidad_id = models.BigIntegerField(blank=True, null=True)
+    creador_id = models.BigIntegerField(blank=True, null=True)
+    #prestacion_de_servicio_id = models.BigIntegerField(blank=True, null=True)
+    prestacion_de_servicio = models.ForeignKey(Prestaciondeservicio, on_delete=models.SET_NULL, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'incidente'
+
 
 
 class Provincia(models.Model):
@@ -251,19 +269,6 @@ class RolPermiso(models.Model):
         managed = False
         db_table = 'rol_permiso'
         unique_together = (('rol_id', 'permisos_id'),)
-
-
-class Servicio(models.Model):
-    tipo = models.CharField(max_length=31)
-    id = models.BigAutoField(primary_key=True)
-    descripcion = models.CharField(max_length=255, blank=True, null=True)
-    pertenece = models.TextField(blank=True, null=True)  # This field type is a guess.
-    organismo_de_control_id = models.BigIntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'servicio'
-
 
 class ServicioCompuesto(models.Model):
     servicio_compuesto_id = models.BigIntegerField()
