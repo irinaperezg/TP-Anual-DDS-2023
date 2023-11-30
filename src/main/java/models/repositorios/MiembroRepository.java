@@ -58,12 +58,20 @@ public class MiembroRepository implements WithSimplePersistenceUnit {
   public void removeMiembro(Miembro miembro) {
     EntityTransaction tx = entityManager().getTransaction();
     tx.begin();
-    Miembro managedMiembro = entityManager().merge(miembro);
-    entityManager().remove(managedMiembro);
+    miembro.desactivar();
+    entityManager().merge(miembro);
     tx.commit();
   }
 
   public boolean existePersonaEnComunidad(Long idPersona, Long idComunidad) {
     return buscarMiembroPorPersonaId(idPersona, idComunidad) != null;
+  }
+
+  public void modificarTipo(Miembro miembro) {
+    EntityTransaction tx = entityManager().getTransaction();
+    tx.begin();
+    miembro.modificarTipoMiembro();
+    entityManager().merge(miembro);
+    tx.commit();
   }
 }

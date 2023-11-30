@@ -27,9 +27,13 @@ public class Miembro {
   @Column(name = "es_administrador")
   private Boolean esAdministrador;
 
+  @Column(name = "estaActivo")
+  private Boolean estaActivo;
+
   public Miembro(Persona persona, Comunidad comunidad) {
     this.setPersona(persona);
     this.setComunidad(comunidad);
+    this.estaActivo=true;
   }
 
   public Miembro() {
@@ -39,5 +43,9 @@ public class Miembro {
   public void modificarTipoMiembro () {
     if(tipo == TipoMiembro.OBSERVADOR) setTipo(TipoMiembro.AFECTADO);
     else setTipo(TipoMiembro.OBSERVADOR);
+  }
+
+  public void desactivar () {
+    this.estaActivo = false;
   }
 }

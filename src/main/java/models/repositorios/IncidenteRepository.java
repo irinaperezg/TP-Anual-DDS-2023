@@ -47,30 +47,12 @@ public class IncidenteRepository implements WithSimplePersistenceUnit {
   //TODO: buscarIncidentesDeTodasLasComunidades
   //public List<Incidente> buscarIncidentesDeTodasLasComunidades (Long comunidadId)
 
-  public void cerrarIncidente(Long id) {
-    EntityManager em = entityManager(); // Ensure that you have a properly configured EntityManager
-    EntityTransaction transaction = em.getTransaction();
+  public void cerrarIncidente(Incidente incidente) {
+    incidente.cerrar();
+    entityManager().getTransaction().begin();
+    entityManager().merge(incidente);
+    entityManager().getTransaction().commit();
 
-    try {
-      transaction.begin();
-
-      Incidente incidente = em.find(Incidente.class, id); // Load the incidente by its ID
-      if (incidente != null) {
-        incidente.setAbierto(false);
-        incidente.setFechaCierre(LocalDateTime.now()); // Set the current timestamp
-
-        em.merge(incidente); // Update the incidente entity in the database
-      }
-
-      transaction.commit(); // Commit the transaction
-    } catch (Exception e) {
-      if (transaction != null && transaction.isActive()) {
-        transaction.rollback(); // Rollback the transaction in case of an exception
-      }
-      e.printStackTrace(); // Log or handle the exception
-    } finally {
-      em.close(); // Close the EntityManager when done
-    }
   }
 
   public void borrarTodos() {

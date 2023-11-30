@@ -2,9 +2,10 @@
 <html lang="es">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/estilogeneral.css">
-    <link rel="stylesheet" href="css/crearIncidente.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/estiloGeneral.css">
+    <link rel="stylesheet" href="../css/crearIncidente.css">
+    <link rel="icon" href="../img/favicon.png" type="image/png">
     <meta charset="utf-8">
     <title>Nuevo Incidente</title>
 </head>
@@ -14,16 +15,16 @@
 <!-- HEADER -->
 <header>
     <div class="menu-container">
-      <ul class="menu">
-         {{#each menus}}
-             {{#if this.activo}}
-                 <li class="paginaActual"><a href="{{this.link}}"> {{this.nombre}} </a></li>
-             {{else}}
-                 <li><a href="{{this.link}}"> {{this.nombre}} </a></li>
-             {{/if}}
-         {{/each}}
-      </ul>
-            <img src="img/logo.png" alt="logo-header">
+        <ul class="menu">
+            {{#each menus}}
+                {{#if this.activo}}
+                    <li class="paginaActual"><a href="{{this.link}}"> {{this.nombre}} </a></li>
+                {{else}}
+                    <li><a href="{{this.link}}"> {{this.nombre}} </a></li>
+                {{/if}}
+            {{/each}}
+        </ul>
+        <img src="../img/logo.png" alt="logo-header">
     </div>
     <a href="#" id="cerrarSesionLink">
           <div class="cerrar-sesion-icon">
@@ -36,12 +37,8 @@
 
         <div class="servicio-selector-container">
             <select class="prestacion-selector">
-                {{#each comunidades}}
-                    {{#each this.establecimientosObservados}}
-                        {{#each this.prestaciones}}
-                            <option class="prestacion-option" value="{{this.id}}" data-comunidad={{../../id}}>{{this.servicio.descripcion}} en {{this.establecimiento.denominacion}}</option>
-                        {{/each}}
-                    {{/each}}
+                {{#each prestaciones}}
+                    <option class="prestacion-option" value="{{this.id}}" data-establecimiento={{this.establecimiento.id}}> {{this.servicio.descripcion}} en {{this.establecimiento.denominacion}}</option>
                 {{/each}}
             </select>
         </div>
@@ -58,6 +55,16 @@
                 <div class="dos linea-blanca"></div>
             </div>
         </div>
+
+        {{#each comunidades}}
+            {{#each this.establecimientosObservados}}
+                <div
+                    class="establecimientos-de-comunidad"
+                    data-establecimiento="{{this.id}}"
+                    data-comunidad="{{../id}}"
+                ></div>
+            {{/each}}
+        {{/each}}
     </div>
 
     <div class="separador"></div>
@@ -66,17 +73,17 @@
 
             <h3>Nuevo incidente</h3>
             <div class="form">
-                <input type="text" id="denominacion" name="denominacion" placeholder="Denominación" required>
-
+                <input type="text" id="denominacion" name="denominacion" placeholder="Denominacion" required>
+                <br>
                 <label for="observaciones">Observaciones</label>
-                <textarea id="observaciones" name="observaciones" required></textarea>
+                <textarea style="font-family: 'Cabin'" id="observaciones" name="observaciones" required></textarea>
 
                 <button id="botonCrear">Publicar Incidente</button>
             </div>
     </div>
 
 <script src="../js/crearIncidente.js"></script>
-<script src="js/cerrarSesion.js"></script>
+<script src="../js/cerrarSesion.js"></script>
 <script src="https://kit.fontawesome.com/a39dd266ae.js" crossorigin="anonymous"></script>
 
 </body>

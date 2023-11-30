@@ -31,6 +31,8 @@ public class EntidadPrestadora {
     @ManyToOne
     @JoinColumn(name = "delegado_id", referencedColumnName = "id")
     private Delegado delegado;
+    @Setter
+    private Boolean pertenece = false;
 
     public EntidadPrestadora(String denominacion, Delegado delegado) {
         this.denominacion = denominacion;

@@ -33,6 +33,7 @@ import server.utils.ICrudViewsHandler;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -131,6 +132,7 @@ public class AdministrarController  extends Controller implements ICrudViewsHand
       throw new AccessDeniedException();
     }
     List<Establecimiento> establecimientos = establecimientoRepository.todos();
+    establecimientos.stream().filter(x->x.getEstaActivo());
     Map<String, Object> model = new HashMap<>();
     model.put("usuario", usuario);
     model.put("establecimientos", establecimientos);
@@ -149,8 +151,8 @@ public class AdministrarController  extends Controller implements ICrudViewsHand
     if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "administrar_recursos")) {
       throw new AccessDeniedException();
     }
-    List<Localidad> localidades = localizacionRepository.todasLasLocalidades();
-    List<Entidad> entidades = entidadRepository.todos();
+    List<Localidad> localidades = localizacionRepository.todasLasLocalidades().stream().sorted(Comparator.comparing(Localidad::getNombre)).toList();
+    List<Entidad> entidades = entidadRepository.todos().stream().filter(x->x.getEstaActivo()).toList();
     Map<String, Object> model = new HashMap<>();
     model.put("usuario", usuario);
     model.put("localidades", localidades);
@@ -241,6 +243,7 @@ public class AdministrarController  extends Controller implements ICrudViewsHand
       throw new AccessDeniedException();
     }
     List<Entidad> entidades = entidadRepository.todos();
+    entidades.stream().filter(x->x.getEstaActivo());
     Map<String, Object> model = new HashMap<>();
     model.put("usuario", usuario);
     model.put("entidades", entidades);
@@ -329,7 +332,8 @@ public class AdministrarController  extends Controller implements ICrudViewsHand
     if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "administrar_recursos")) {
       throw new AccessDeniedException();
     }
-    List<PrestacionDeServicio> prestacionesDeServicios = prestacionDeServicioRepository.todos();
+    List<PrestacionDeServicio> prestacionesDeServicios = prestacionDeServicioRepository.todos().stream().filter(x->x.getEstaActivo()).toList();
+
     Map<String, Object> model = new HashMap<>();
     model.put("usuario", usuario);
     model.put("prestacionesDeServicios", prestacionesDeServicios);
@@ -349,7 +353,7 @@ public class AdministrarController  extends Controller implements ICrudViewsHand
       throw new AccessDeniedException();
     }
 
-    List<Establecimiento> establecimientos = establecimientoRepository.todos();
+    List<Establecimiento> establecimientos = establecimientoRepository.todos().stream().filter(x->x.getEstaActivo()).toList();
     List<Servicio> servicios = servicioRepository.todos();
     Map<String, Object> model = new HashMap<>();
     model.put("usuario", usuario);
@@ -575,7 +579,7 @@ public class AdministrarController  extends Controller implements ICrudViewsHand
     if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "administrar_recursos")) {
       throw new AccessDeniedException();
     }
-    List<Establecimiento> establecimientos = establecimientoRepository.todos();
+    List<Establecimiento> establecimientos = establecimientoRepository.todos().stream().filter(x->x.getEstaActivo()).toList();
     establecimientos.forEach(x->
         {
           x.setPertenece(prestacion.getEstablecimiento().equals(x));
@@ -624,6 +628,133 @@ public class AdministrarController  extends Controller implements ICrudViewsHand
     respuesta.put("mensaje", "Prestación de Servicio guardada exitosamente");
     context.json(respuesta);
   }
+
+
+  public void editarEnti(Context context) {
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+    Long entidad_id = Long.parseLong(context.pathParam("entidad_id"));
+    Entidad entidad = entidadRepository.buscarPorID(entidad_id);
+
+    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "administrar_recursos")) {
+      throw new AccessDeniedException();
+    }
+
+    List<EntidadPrestadora> entidadesPrestadoras = entidadPrestadoraRepository.todos();
+    entidadesPrestadoras.forEach(x->
+        {
+          x.setPertenece(entidad.getEntidadPrestadora().equals(x));
+        }
+    );
+    Map<String, Object> model = new HashMap<>();
+    model.put("usuario", usuario);
+    model.put("entidadesPrestadoras", entidadesPrestadoras);
+    model.put("entidad", entidad);
+    // MENU
+    TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
+    List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+    menus.forEach(m -> m.setActivo(m.getNombre().equals("Administrar")));
+    model.put("menus", menus);
+    //
+    context.render("editarEntidad.hbs", model);
+  }
+
+  public void guardarEditEnti(Context context) {
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+    Long entidad_id = Long.parseLong(context.pathParam("entidad_id"));
+    Entidad entidad = entidadRepository.buscarPorID(entidad_id);
+
+    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "administrar_recursos")) {
+      throw new AccessDeniedException();
+    }
+
+    JsonEntidad data = context.bodyAsClass(JsonEntidad.class);
+
+    String denominacion = data.getDenominacion() ;
+    String tipoEntidad = data.getTipoEntidad() ;
+    String tipoEstablecimiento = data.getTipoEstablecimiento();
+    Long entidadPrestadoraId = data.getEntidadPrestadoraId();
+
+
+    EntidadPrestadora entidadPrestadora = entidadPrestadoraRepository.buscarPorID(entidadPrestadoraId);
+    TipoEntidad tipoEntidadClase = new TipoEntidad(tipoEntidad, tipoEstablecimiento);
+
+    entidad.editar(tipoEntidadClase, denominacion, entidadPrestadora);
+    entidadRepository.actualizar(entidad);
+
+    Map<String, String> respuesta = new HashMap<>();
+
+    respuesta.put("mensaje", "Entidad guardada exitosamente");
+    context.json(respuesta);
+  }
+
+
+  public void editarEsta(Context context) {
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+    Long establecimiento_id = Long.parseLong(context.pathParam("establecimiento_id"));
+    Establecimiento establecimiento = establecimientoRepository.buscarPorID(establecimiento_id);
+
+    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "administrar_recursos")) {
+      throw new AccessDeniedException();
+    }
+    List<Localidad> localidades = localizacionRepository.todasLasLocalidades();
+    List<Entidad> entidades = entidadRepository.todos().stream().filter(x->x.getEstaActivo()).toList();
+
+    localidades.forEach(x->
+        {
+          x.setPertenece(establecimiento.getLocalidad().equals(x));
+        }
+    );
+    Entidad e = establecimiento.getEntidad();
+    entidades.forEach(x->
+        {
+          x.setPertenece(e.equals(x));
+        }
+    );
+    entidades.stream().filter(x->x.getEstaActivo());
+
+    Map<String, Object> model = new HashMap<>();
+    model.put("usuario", usuario);
+    model.put("localidades", localidades);
+    model.put("entidades", entidades);
+    model.put("establecimiento", establecimiento);
+
+    // MENU
+    TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
+    List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
+    menus.forEach(m -> m.setActivo(m.getNombre().equals("Administrar")));
+    model.put("menus", menus);
+    //
+    context.render("editarEstablecimiento.hbs", model);
+  }
+
+  public void guardarEditEsta(Context context) {
+    Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
+    Long establecimiento_id = Long.parseLong(context.pathParam("establecimiento_id"));
+    Establecimiento establecimiento = establecimientoRepository.buscarPorID(establecimiento_id);
+
+    if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "administrar_recursos")) {
+      throw new AccessDeniedException();
+    }
+
+    JsonEstablecimiento data = context.bodyAsClass(JsonEstablecimiento.class);
+
+    // Ahora 'data' contiene tus datos del JSON
+    String denominacion = data.getDenominacion();
+    Long entidad_id = data.getEntidad();
+    Long localidad_id = data.getLocalidad();
+
+    Localidad localidad = localizacionRepository.buscarLocalidadPorId(localidad_id);
+    Entidad entidad = entidadRepository.buscarPorID(entidad_id);
+
+    establecimiento.editar(denominacion, entidad, localidad);
+    establecimientoRepository.actualizar(establecimiento);
+
+    Map<String, String> respuesta = new HashMap<>();
+
+    respuesta.put("mensaje", "Establecimiento guardado exitosamente");
+    context.json(respuesta);
+  }
+
 
 
 

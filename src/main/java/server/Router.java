@@ -9,6 +9,9 @@ public class Router {
 
   public static void init() {
     Server.app().routes(() -> {
+      // Redirección de la raíz a /login
+      get("/", ((LoginController) FactoryController.controller("Login"))::redirect);
+
       // LOGIN
       get("login", ((LoginController) FactoryController.controller("Login"))::index);
       post("login", ((LoginController) FactoryController.controller("Login"))::validar);
@@ -39,18 +42,12 @@ public class Router {
 
       // BAJARSE DE UNA COMUNIDAD
       get("comunidades/baja/{comunidad_id}/{usuario_id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::delete, TipoRol.CONSUMIDOR);
-
+      get("comunidades/modificarTipoMiembro/{miembro_id}", ((ComunidadesController) FactoryController.controller("Comunidades"))::modificarTipoMiembro, TipoRol.CONSUMIDOR);
 
       // UNIRSE A COMUNIDAD
       get("comunidades/sumar", ((ComunidadesController) FactoryController.controller("Comunidades"))::add, TipoRol.CONSUMIDOR);
       post("comunidades/sumar", ((ComunidadesController) FactoryController.controller("Comunidades"))::save, TipoRol.CONSUMIDOR);
 
-
-
-      // EDITAR EL TIPO DE MIEMBRO --> creo q el nombre de la ruta está mal, parece que fuese editar una comunidad pero
-      // mi idea es q el miembro elija si es afectado u observador FALTA
-      get("comunidades/{id}/editar", ((MiembrosController) FactoryController.controller("Miembros"))::edit);
-      post("comunidades/{id}/editar", ((MiembrosController) FactoryController.controller("Miembros"))::update);
 
       // LISTAR INCIDENTES
       get("incidentes", ((IncidentesController) FactoryController.controller("Incidentes"))::index, TipoRol.CONSUMIDOR);
@@ -61,7 +58,9 @@ public class Router {
 
       // CIERRE DE INCIDENTE FALTA
       get("incidente/{id}/editar", ((IncidentesController) FactoryController.controller("Incidentes"))::edit);
-      post("incidente/{id}/editar", ((IncidentesController) FactoryController.controller("Incidentes"))::update);
+
+      get("incidentes/cerrar/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::update, TipoRol.CONSUMIDOR);
+
 
       // VER INCIDENTE PUNTUAL FALTA
       get("incidente/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::show);
@@ -103,6 +102,8 @@ public class Router {
       post("crear-establecimiento", ((AdministrarController) FactoryController.controller("Administrar"))::guardarEst, TipoRol.ADMINISTRADOR);
       get("todos-establecimientos/eliminarEstablecimiento/{establecimiento_id}", ((AdministrarController) FactoryController.controller("Administrar"))::deleteEstablecimiento, TipoRol.ADMINISTRADOR);
       get("ver-establecimiento/{establecimiento_id}", ((AdministrarController) FactoryController.controller("Administrar"))::verEnta, TipoRol.ADMINISTRADOR);
+      get("editar-establecimiento/{establecimiento_id}", ((AdministrarController) FactoryController.controller("Administrar"))::editarEsta, TipoRol.ADMINISTRADOR);
+      post("editar-establecimiento/{establecimiento_id}", ((AdministrarController) FactoryController.controller("Administrar"))::guardarEditEsta, TipoRol.ADMINISTRADOR);
 
 
       get("todos-incidentes", ((AdministrarController) FactoryController.controller("Administrar"))::indexIncidentes, TipoRol.ADMINISTRADOR);
@@ -112,9 +113,9 @@ public class Router {
       post("crear-entidad", ((AdministrarController) FactoryController.controller("Administrar"))::guardarEnt, TipoRol.ADMINISTRADOR);
       get("todas-entidades/eliminarEntidad/{entidad_id}", ((AdministrarController) FactoryController.controller("Administrar"))::deleteEntidad, TipoRol.ADMINISTRADOR);
       get("ver-entidad/{entidad_id}", ((AdministrarController) FactoryController.controller("Administrar"))::verEnti, TipoRol.ADMINISTRADOR);
+      get("editar-entidad/{entidad_id}", ((AdministrarController) FactoryController.controller("Administrar"))::editarEnti, TipoRol.ADMINISTRADOR);
+      post("editar-entidad/{entidad_id}", ((AdministrarController) FactoryController.controller("Administrar"))::guardarEditEnti, TipoRol.ADMINISTRADOR);
 
-      get("crear-administrador", ((AdministrarController) FactoryController.controller("Administrar"))::crearAdmin, TipoRol.ADMINISTRADOR);
-      post("crear-administrador", ((AdministrarController) FactoryController.controller("Administrar"))::guardarAdmin, TipoRol.ADMINISTRADOR);
 
       get("todas-prestaciones", ((AdministrarController) FactoryController.controller("Administrar"))::indexPrest, TipoRol.ADMINISTRADOR);
       get("crear-prestacion", ((AdministrarController) FactoryController.controller("Administrar"))::crearPrest, TipoRol.ADMINISTRADOR);
@@ -124,6 +125,8 @@ public class Router {
       get("editar-prestacion/{prestacion_id}", ((AdministrarController) FactoryController.controller("Administrar"))::editarPrest, TipoRol.ADMINISTRADOR);
       post("editar-prestacion/{prestacion_id}", ((AdministrarController) FactoryController.controller("Administrar"))::guardarEditPrest, TipoRol.ADMINISTRADOR);
 
+      get("crear-administrador", ((AdministrarController) FactoryController.controller("Administrar"))::crearAdmin, TipoRol.ADMINISTRADOR);
+      post("crear-administrador", ((AdministrarController) FactoryController.controller("Administrar"))::guardarAdmin, TipoRol.ADMINISTRADOR);
 
 
     });

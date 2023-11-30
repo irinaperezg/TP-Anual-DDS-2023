@@ -87,6 +87,34 @@ body {
     margin: 0px 0px 50px 0px;
 }
 
+.servicio-selector-container {
+    margin-top: 10px; /* Ajusta el margen según sea necesario */
+}
+
+/* Estilo para el select de prestaciones */
+.prestacion-selector {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+}
+
+.prestacion-selector:hover,
+.prestacion-selector:focus {
+    border-color: #007BFF; /* Cambia el color del borde al pasar el ratón o enfocar el elemento */
+}
+
+/* Estilo para las opciones del select de prestaciones */
+.prestacion-option {
+    padding: 10px;
+}
+
+
 /**/
 
 .form {

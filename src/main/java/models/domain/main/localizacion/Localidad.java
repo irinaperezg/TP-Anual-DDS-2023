@@ -4,6 +4,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+@Setter
 @Getter
 @Entity
 @Table(name = "localidad")
@@ -15,10 +16,12 @@ public class Localidad {
   @Column(name = "nombre_localidad")
   private String nombre;
 
-  @Setter
+
   @ManyToOne
   @JoinColumn(name = "localizacion_id")
   private Localizacion localizacion;
+
+  private Boolean pertenece;
 
   public Localidad(String nombre, Localizacion localizacion) {
     this.nombre = nombre;
