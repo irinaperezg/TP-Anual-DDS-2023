@@ -33,6 +33,7 @@ import server.utils.ICrudViewsHandler;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -150,7 +151,7 @@ public class AdministrarController  extends Controller implements ICrudViewsHand
     if(usuario == null || !rolRepository.tienePermiso(usuario.getRol().getId(), "administrar_recursos")) {
       throw new AccessDeniedException();
     }
-    List<Localidad> localidades = localizacionRepository.todasLasLocalidades();
+    List<Localidad> localidades = localizacionRepository.todasLasLocalidades().stream().sorted(Comparator.comparing(Localidad::getNombre)).toList();
     List<Entidad> entidades = entidadRepository.todos().stream().filter(x->x.getEstaActivo()).toList();
     Map<String, Object> model = new HashMap<>();
     model.put("usuario", usuario);
