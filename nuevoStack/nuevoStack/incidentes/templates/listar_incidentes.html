@@ -1,12 +1,15 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/header.css">
-        <link rel="stylesheet" href="css/estiloGeneral.css">
-        <link rel="stylesheet" href="css/listarIncidentes.css">
-        <link rel="icon" href="img/favicon.png" type="image/png">
+    
+        <link rel="stylesheet" href='{% static "css/header.css" %}'>
+        <link rel="stylesheet" href='{% static "css/estiloGeneral.css" %}'>
+        <link rel="stylesheet" href='{% static "css/listarIncidentes.css" %}'>
+
+        <link rel="icon" href='{%static "img/favicon.png" %}' type="image/png">
         <title>Listado de Incidentes</title>
     </head>
     
@@ -23,7 +26,8 @@
         <li><a>Comunidades</a></li>
         <li><a>Ranking</a></li>
         </ul>
-        <img src="img/logo.png" alt="logo-header">
+        <img src='{% static "img/logo.png" %}' alt="logo-header">
+
     </div>
     <a id="cerrarSesionLink">
           <div class="cerrar-sesion-icon">
@@ -57,18 +61,19 @@
 <div class="seccion-tarjetas">
     {% if incidentes %}
         {% for incidente in incidentes %}
-            <div class = "incidente" data-comunidad="{% incidente.comunidad.nombre %}">
-                 Denominación: <span class="denominacion">{% incidente.denominacion %}</span><br>
-                 Prestación: <span class="prestacion"> {% incidente.prestacion.servicio.descripcion %} en {% incidente.prestacion.establecimiento.denominacion %}
-                    de {% incidente.prestacion.establecimiento.entidad.denominacion %} </span><br>
-                 Horario de publicación: <span class="fechaApertura">{% incidente.fechaApertura %}</span><br>
-                 Observaciones: <span class="observaciones">{% incidente.observaciones %}</span><br>
+            <div class = "incidente" >
+                 Denominación: <span class="denominacion">{{ incidente.denominacion }}</span><br>
+                 Prestación: <span class="prestacion"> {{ incidente.prestacion.servicio.descripcion }} en {{ incidente.prestacion.establecimiento.denominacion }}
+                    de {{ incidente.prestacion.establecimiento.entidad.denominacion }} </span><br>
+                 Horario de publicación: <span class="fechaApertura">{{ incidente.fechaApertura }}</span><br>
+                 Observaciones: <span class="observaciones">{{ incidente.observaciones }}</span><br>
+
                  {% if incidente.abierto %}
                     Estado: <span class="estado">ABIERTO</span>
                  {% else %}
                     Estado: <span class="estado">CERRADO</span>
                 {% endif %}
-                 <button class="btn-close" data-incidente-id="{% incidente.id %}">X</button>
+                 <button class="btn-close">X</button>
             </div>
         {% endfor %}
     {% endif %}
@@ -76,7 +81,9 @@
 
 <a class="btn-add">+</a>
 
-<script src="js/listarIncidentes.js"></script>
+
+<script src='{% static "js/listarIncidentes.js" %}'> </script> 
+
 <script src="https://kit.fontawesome.com/a39dd266ae.js" crossorigin="anonymous"></script>
 
 </body>
