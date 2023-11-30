@@ -91,7 +91,7 @@ body {
 .incidente {
     background-color: #E5E5E5;
     border: 2px solid #B5B5B5;
-    color: #B5B5B5;
+    color: #7E7B7B;
     padding: 20px;
     border-radius: 20px;
     position: relative;
@@ -114,11 +114,7 @@ body {
 }
 
 .incidente .btn-close:hover {
-    background-color: #0CC0DF; /* Un celeste un poco más oscuro al pasar el mouse. */
-}
-
-.incidente .denominacion, .incidente .prestacion {
-    color: #0CC0DF; /* Color celeste para "XXXX" de Denominación y Prestación. */
+    background-color: #067386; /* Un celeste un poco más oscuro al pasar el mouse. */
 }
 
 /* Estilos para el contenedor de las tarjetas usando CSS Grid */
@@ -127,6 +123,7 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px 50px;
     margin: 0px 75px 0px 75px;
+    color: 7E7B7B
 }
 
 
