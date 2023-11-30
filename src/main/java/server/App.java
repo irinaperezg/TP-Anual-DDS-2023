@@ -1,7 +1,7 @@
 package server;
 
-import server.utils.Inicializador;
 
+import server.utils.Inicializador;
 import java.io.IOException;
 
 public class App {
@@ -13,4 +13,3 @@ public class App {
     inicializador.inicializar();
   }
 
-}
