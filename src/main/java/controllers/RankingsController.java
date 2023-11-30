@@ -98,10 +98,10 @@ public class RankingsController extends Controller implements ICrudViewsHandler 
     List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
     InformeExportable informeExportable = new InformeExportable("Descripción del Informe", informe.procesoDatosEntrantes());
     ApachePDFBox pdfBox = new ApachePDFBox();
-    String rutaCompleta = pdfBox.generarInforme(informeExportable);
-    String nombreArchivo = buscarArchivoUltimaSemana(rutaCompleta, id);
+    //String rutaCompleta = pdfBox.generarInforme(informeExportable);
+    //String nombreArchivo = buscarArchivoUltimaSemana(rutaCompleta, id);
 
-    model.put("nombreArchivo", nombreArchivo);
+    //model.put("nombreArchivo", nombreArchivo);
     menus.forEach(m -> m.setActivo(m.getNombre().equals("Rankings")));
     model.put("menus", menus);
     //
@@ -143,6 +143,7 @@ public class RankingsController extends Controller implements ICrudViewsHandler 
 
       // Listar archivos en el directorio
       File dir = new File(Paths.get("/2023-tpa-mama-grupo-04/src/main/resources/public/exportados/").toUri());
+
       File[] archivosSemana = dir.listFiles(filter);
 
       if (archivosSemana != null && archivosSemana.length > 0) {
