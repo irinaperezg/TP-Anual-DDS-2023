@@ -55,7 +55,9 @@ public class Router {
 
       // CIERRE DE INCIDENTE FALTA
       get("incidente/{id}/editar", ((IncidentesController) FactoryController.controller("Incidentes"))::edit);
-      post("incidente/{id}/editar", ((IncidentesController) FactoryController.controller("Incidentes"))::update);
+
+      get("incidentes/cerrar/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::update, TipoRol.CONSUMIDOR);
+
 
       // VER INCIDENTE PUNTUAL FALTA
       get("incidente/{id}", ((IncidentesController) FactoryController.controller("Incidentes"))::show);

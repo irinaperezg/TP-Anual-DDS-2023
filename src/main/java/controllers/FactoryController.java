@@ -15,7 +15,7 @@ public class FactoryController extends Controller{
     Object controller = null;
     switch (nombre) {
       case "Incidentes": controller = new IncidentesController(new IncidenteRepository(), new UsuarioRepository(),
-          new ComunidadRepository(), new ServicioRepository(), new RolRepository(), new MenuRepository()); break;
+          new ComunidadRepository(), new ServicioRepository(), new RolRepository(), new MenuRepository(), new MiembroRepository(), new PersonaRepository(), new PrestacionDeServicioRepository()); break;
       case "Comunidades": controller = new ComunidadesController(new ComunidadRepository(), new UsuarioRepository(), new MiembroRepository(), new PersonaRepository(), new EstablecimientoRepository(),
           new ServicioRepository(), new RolRepository(), new MenuRepository()); break;
       case "Usuarios": controller = new UsuariosController(new UsuarioRepository(), new PersonaRepository(), new ValidadorDeContrasenia(), new RolRepository(), new MenuRepository()); break;

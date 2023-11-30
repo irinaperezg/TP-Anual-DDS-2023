@@ -113,14 +113,7 @@ selectComunidad.addEventListener("change", () => {
     mostrarIncidentes();
 });
 
-const buttonsClose = document.querySelectorAll(".btn-close");
 
-buttonsClose.forEach(button => {
-    button.addEventListener("click", () => {
-        const incidenteId = obtenerIncidenteIdDesdeBoton(button);
-        cerrarIncidente(incidenteId);
-    });
-});
 
 function obtenerIncidenteIdDesdeBoton(button) {
     // Obtiene el valor del atributo data-incidente-id del botón
@@ -145,3 +138,11 @@ function cerrarIncidente(incidenteId) {
             console.error("Error en la solicitud POST:", error);
         });
 }
+
+eliminarIncidente.addEventListener('click', function (event) {
+    var confirmacion = confirm('¿Estás seguro/a de que deseas cerrar este incidente?');
+
+    if (!confirmacion) {
+        event.preventDefault();
+    }
+});
