@@ -12,9 +12,11 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+const atras = document.getElementById('atrasLink')
 
-document.getElementById('atrasLink').addEventListener('click', function() {
-    // Navegar hacia atrás en la historia del navegador
-    window.history.back();
-});
-
+if(atras) {
+    atras.addEventListener('click', function() {
+        // Navegar hacia atrás en la historia del navegador
+        window.history.back();
+    });
+}

@@ -18,7 +18,12 @@ public class ComunidadRepository implements WithSimplePersistenceUnit {
   }
 
   public void actualizar(Comunidad comunidad) {
+
+    EntityTransaction transaction = entityManager().getTransaction();
+    transaction.begin();
     entityManager().merge(comunidad);
+    transaction.commit();
+
   }
 
   public List<Comunidad> todos() {
@@ -53,15 +58,13 @@ public class ComunidadRepository implements WithSimplePersistenceUnit {
     miembro.setComunidad(comunidad);
     miembro.setTipo(tipoMiembro);
     miembro.setEsAdministrador(false);
+    miembro.setEstaActivo(true);
     return miembro;
   }
 
   public void remove(Comunidad comunidad) {
-    EntityTransaction tx = entityManager().getTransaction();
-    tx.begin();
-    Comunidad managedComunidad = entityManager().merge(comunidad);
-    entityManager().remove(managedComunidad);
-    tx.commit();
+    comunidad.setEstaActivo(false);
+    actualizar(comunidad);
   }
 
 }

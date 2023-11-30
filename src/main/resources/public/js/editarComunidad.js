@@ -1,5 +1,7 @@
 function guardarComunidad() {
     // Obtener valores del formulario
+    const comunidadId = document.getElementById('comunidadId').value;
+
     const nombre = document.getElementById('nombre').value;
     const descripcion = document.getElementById('descripcion').value;
 
@@ -27,9 +29,10 @@ function guardarComunidad() {
             servicios: opcionesSeleccionadasServicio,
             establecimientos: opcionesSeleccionadasEstablecimiento,
         };
+        const url = '/editar-comunidad/' + comunidadId;
 
         // Realizar solicitud POST al servidor sin manejar la respuesta
-        fetch('/crear-comunidad', {
+        fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

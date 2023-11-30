@@ -88,4 +88,9 @@ public class  PrestacionDeServicio {
   public boolean disponibleParaComunidad(Comunidad comunidad) {
     return incidentes.stream().noneMatch(incidente -> incidente.getComunidad().equals(comunidad) && incidente.isAbierto());
   }
+
+  public void editar(Establecimiento establecimiento, Servicio servicio) {
+    this.establecimiento = establecimiento;
+    this.servicio = servicio;
+  }
 }
