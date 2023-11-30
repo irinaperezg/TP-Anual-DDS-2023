@@ -99,7 +99,7 @@ public class ComunidadesController extends Controller implements ICrudViewsHandl
       throw new AccessDeniedException();
     }
 
-    List<Establecimiento> establecimientos = establecimientoRepository.todos().stream().filter(x->Boolean.TRUE.equals(x.getEstaActivo())).toList();
+    List<Establecimiento> establecimientos = establecimientoRepository.todos().stream().filter(x->"true".equals(String.valueOf(x.getEstaActivo()))).toList();
     List<Servicio> servicios = servicioRepository.todos();
     Map<String, Object> model = new HashMap<>();
     model.put("usuario", usuario);
