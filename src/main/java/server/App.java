@@ -12,4 +12,5 @@ public class App {
     Inicializador inicializador = new Inicializador();
     inicializador.inicializar();
   }
+}
 
