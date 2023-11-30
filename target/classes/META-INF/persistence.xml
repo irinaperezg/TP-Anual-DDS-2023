@@ -30,7 +30,7 @@
             <property name="hibernate.connection.username" value="tp_anual_user" />
             <property name="hibernate.connection.password" value="5srVjE3IPoymxaPOgK7ZaHFkeNYQXiMH" />
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
 
         </properties>
 
