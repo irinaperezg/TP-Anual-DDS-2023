@@ -82,13 +82,20 @@ function mostrarPrestaciones() {
 
     if(selectComunidad.options.length > 0) {
         const comunidadSeleccionada = selectComunidad.options[selectComunidad.selectedIndex].value;
-        const prestacionesAMostrar = prestaciones.filter((prestacion, index, self) => {
-            // Filtrar por establecimiento_id y evitar duplicados usando Set
-            return (
-                establecimientosSeleccionados.includes(prestacion.establecimiento_id) &&
-                index === self.findIndex((p) => p.establecimiento_id === prestacion.establecimiento_id)
+        const prestacionesAMostrar = new Array();
+
+        for (const p of prestaciones) {
+            const existePrestacion = prestacionesAMostrar.some(
+                (existingP) => existingP.id === p.id
             );
-        });
+
+            if (
+                establecimientosSeleccionados.includes(p.establecimiento_id) &&
+                !existePrestacion
+            ) {
+                prestacionesAMostrar.push(p);
+            }
+        }
 
         for(const prestacionAMostrar of prestacionesAMostrar) {
             const option = document.createElement('option');
