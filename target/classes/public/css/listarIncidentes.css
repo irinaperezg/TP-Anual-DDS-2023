@@ -120,7 +120,7 @@ body {
 }
 
 .incidente .denominacion, .incidente .prestacion {
-    color: #B5B5B5; /* Color celeste para "XXXX" de Denominación y Prestación. */
+    color: #7E7B7B;
 }
 
 /* Estilos para el contenedor de las tarjetas usando CSS Grid */

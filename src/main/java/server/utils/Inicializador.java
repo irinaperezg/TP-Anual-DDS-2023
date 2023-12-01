@@ -48,9 +48,10 @@ public class Inicializador {
     inicializarMenus();
     inicializarPermisos();
     inicializarRoles();
-    cronSugerenciaCierreIncidente();
+    String currentDirectory = System.getProperty("user.dir");
+    System.out.println("El directorio actual es: " + currentDirectory);
     cronRanking();
-
+    //cronSugerenciaCierreIncidente();
   }
 
   public List<Provincia> inicializarProvincias() {
@@ -181,7 +182,7 @@ public class Inicializador {
 
   public void cronRanking() {
     CronGeneradorReportes cronGeneradorReportes = new CronGeneradorReportes();
-    cronGeneradorReportes.run();
+    //cronGeneradorReportes.run();
   }
 
   public void cronSugerenciaCierreIncidente() {

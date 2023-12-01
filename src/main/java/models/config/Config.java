@@ -8,7 +8,7 @@ public class Config {
   private static final Properties prop = new Properties();
   private static Config instancia;
 
-  public static final String RUTA_EXPORTACION = "2023-tpa-mama-grupo-04/src/main//resources/public/exportados/";
+  public static final String RUTA_EXPORTACION = "src/main/resources/public/exportados/";
 
   public static final Integer TIEMPO_NOTIFICACIONES = 21600000;
   public static final Integer TIEMPO_REPORTES = 604800000;

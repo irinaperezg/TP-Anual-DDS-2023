@@ -3,8 +3,10 @@ package models.domain.main.informes;
 import models.config.Config;
 import models.domain.main.EntidadPrestadora;
 import models.domain.main.entidades.Entidad;
+import models.domain.main.exportar.ApachePDFBox;
 import models.domain.main.exportar.EstrategiaExportacionPDF;
 import models.domain.main.exportar.Exportador;
+import models.domain.main.informes.rankings.InformeExportable;
 import models.domain.main.informes.rankings.Ranking;
 import models.domain.main.informes.rankings.Reporte;
 
@@ -22,9 +24,15 @@ public class GeneradorDeReportes {
         this.estrategiaExportacion = estrategiaExportacion;
     }
 
-    public List<Reporte> generadorSemanalDeReportes(EntidadPrestadora entidadPreestadora) throws Exception {
+    public String generadorSemanalDeReportes(InformeExportable informe) throws Exception {
+        ApachePDFBox pdfBox = new ApachePDFBox();
+       String rutaCompleta = pdfBox.generarInforme(informe);
+       return rutaCompleta;
+    }
+
+    /*public List<Reporte> generadorSemanalDeReportes(EntidadPrestadora entidadPreestadora) throws Exception {
         Exportador exportador = this.exportador();
-        List<String> nombre_reportes = Arrays.asList(/*"MAYOR_GRADO_IMPACTO",*/ "MAYOR_CANTIDAD_INCIDENTES", "PROMEDIO_CIERRE_INCIDENTES");
+        List<String> nombre_reportes = Arrays.asList("MAYOR_GRADO_IMPACTO", "MAYOR_CANTIDAD_INCIDENTES", "PROMEDIO_CIERRE_INCIDENTES");
         List<Reporte> reportes = new ArrayList<>();
         String ruta = null;
         for (String nombre_reporte : nombre_reportes) {
@@ -37,7 +45,8 @@ public class GeneradorDeReportes {
             reportes.add(reporte);
         }
         return reportes;
-    }
+    }*/
+
 
     public List<PosicionRanking> ordenar(List<PosicionRanking> posiciones)
     {

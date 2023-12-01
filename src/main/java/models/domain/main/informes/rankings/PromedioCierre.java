@@ -63,7 +63,7 @@ public class PromedioCierre implements Ranking {
             if (fechaApertura.isAfter(inicioSemana) && fechaApertura.isBefore(finSemana)) {
               if (!incidente.isAbierto()){ // Me fijo solo en los incidentes resueltos
                 LocalDateTime fechaCierre = incidente.getFechaCierre();
-                long tiempoCierre = ChronoUnit.HOURS.between(fechaApertura, fechaCierre);
+                long tiempoCierre = ChronoUnit.MINUTES.between(fechaApertura, fechaCierre);
                 tiempoTotalCierre += tiempoCierre;
                 cantidadIncidentes++;
               }

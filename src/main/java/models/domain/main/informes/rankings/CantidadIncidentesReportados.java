@@ -5,6 +5,7 @@ import models.domain.main.incidentes.Incidente;
 import models.domain.main.informes.PosicionRanking;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -21,7 +22,11 @@ public class CantidadIncidentesReportados implements Ranking {
       PosicionRanking posicionRanking = new PosicionRanking(cantidad, entidad);
       posiciones.add(posicionRanking);
     }
-
+    posiciones.sort(new Comparator<PosicionRanking>() {
+      public int compare(PosicionRanking o1, PosicionRanking o2) {
+        return Integer.compare(o2.getPuntaje(), o1.getPuntaje());
+      }
+    });
     return posiciones;
   }
 

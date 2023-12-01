@@ -75,15 +75,13 @@ public class RankingsController extends Controller implements ICrudViewsHandler 
     String descripcion = "";
     List<Entidad> entidades = this.entidadRepository.todos();
     String id = context.pathParam("id");
-    List<PosicionRanking> posicionesRanking = this.promedioCierre.elaborarRanking(entidades);
-    Informe informe = new Informe(posicionesRanking);
     switch(id) {
       case "1":
-        ranking = this.rankingsService.pasarRankingAString(posicionesRanking);
+        ranking = this.rankingsService.pasarRankingAString(this.promedioCierre.elaborarRanking(entidades));
         descripcion = "Entidades con mayor promedio de tiempo de cierre de incidentes";
         break;
       case "2":
-        ranking = this.rankingsService.pasarRankingAString(posicionesRanking);
+        ranking = this.rankingsService.pasarRankingAString(this.cantidadIncidentesReportados.elaborarRanking(entidades));
         descripcion = "Entidades con mayor cantidad de incidentes reportados en la semana";
         break;
       case "3":
@@ -96,7 +94,7 @@ public class RankingsController extends Controller implements ICrudViewsHandler 
     Usuario usuario = this.usuarioRepository.buscarPorID(context.sessionAttribute("usuario_id"));
     TipoRol tipoRol = this.rolRepository.buscarTipoRol(usuario.getRol().getId());
     List<Menu> menus = menuRepository.hacerListaMenu(tipoRol);
-    InformeExportable informeExportable = new InformeExportable("Descripción del Informe", informe.procesoDatosEntrantes());
+    //InformeExportable informeExportable = new InformeExportable("Descripción del Informe", informe.procesoDatosEntrantes());
     ApachePDFBox pdfBox = new ApachePDFBox();
     //String rutaCompleta = pdfBox.generarInforme(informeExportable);
     //String nombreArchivo = buscarArchivoUltimaSemana(rutaCompleta, id);
