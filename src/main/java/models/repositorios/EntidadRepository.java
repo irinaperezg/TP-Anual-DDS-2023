@@ -35,7 +35,7 @@ public class EntidadRepository implements WithSimplePersistenceUnit {
   public List<Entidad> todos() {
     try {
       return entityManager()
-              .createQuery("SELECT e FROM Entidad e WHERE e.estaActivo = 1", Entidad.class)
+              .createQuery("SELECT e FROM Entidad e WHERE e.estaActivo = true", Entidad.class)
               .getResultList();
     } catch (Exception e) {
       e.printStackTrace();
