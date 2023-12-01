@@ -49,7 +49,7 @@ public class Inicializador {
     inicializarPermisos();
     inicializarRoles();
     cronSugerenciaCierreIncidente();
-    //cronRanking();
+    cronRanking();
 
   }
 
