@@ -42,9 +42,9 @@ public class Inicializador {
 
   public void inicializar() throws IOException {
     //this.localizacionRepository.cargarTodo();
-    List<Provincia> provincias = this.inicializarProvincias();
-    List<Localizacion> localizaciones = this.inicializarLocalizaciones(provincias);
-    this.inicializarLocalidades(localizaciones);
+    //List<Provincia> provincias = this.inicializarProvincias();
+    //List<Localizacion> localizaciones = this.inicializarLocalizaciones(provincias);
+    //this.inicializarLocalidades(localizaciones);
     inicializarMenus();
     inicializarPermisos();
     inicializarRoles();

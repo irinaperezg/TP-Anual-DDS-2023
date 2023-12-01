@@ -28,8 +28,7 @@ public class InformeExportable implements Exportable {
     @Transient
     private Map<String, List<String>> datos;
 
-    public InformeExportable(String descripcion, Informe informe) {
-        this.datos = informe.procesoDatosEntrantes();
+    public InformeExportable(String descripcion, Informe informe) {this.datos = informe.procesoDatosEntrantes();
         this.descripcion = descripcion;
     }
 
@@ -38,13 +37,8 @@ public class InformeExportable implements Exportable {
     }
 
     @Override
-    public Map<String, List<String>> getDatos() {
-        return null;
-    }
-
-    @Override
     public String descripcion() {
-        return null;
+        return descripcion;
     }
 
     @Override

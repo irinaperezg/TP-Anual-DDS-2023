@@ -32,7 +32,7 @@ public class ApachePDFBox implements PDFAdapter {
 
       cont.endText();
       cont.close();
-      doc.save(rutaCompletaDelArchivo(exportable));
+      doc.save(this.rutaCompletaDelArchivo(exportable));
       doc.close();
     } catch (IOException e) {
       e.printStackTrace();
