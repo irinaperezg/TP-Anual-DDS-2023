@@ -82,7 +82,13 @@ function mostrarPrestaciones() {
 
     if(selectComunidad.options.length > 0) {
         const comunidadSeleccionada = selectComunidad.options[selectComunidad.selectedIndex].value;
-        const prestacionesAMostrar = prestaciones.filter(prestacion => establecimientosSeleccionados.includes(prestacion.establecimiento_id));
+        const prestacionesAMostrar = prestaciones.filter((prestacion, index, self) => {
+            // Filtrar por establecimiento_id y evitar duplicados usando Set
+            return (
+                establecimientosSeleccionados.includes(prestacion.establecimiento_id) &&
+                index === self.findIndex((p) => p.establecimiento_id === prestacion.establecimiento_id)
+            );
+        });
 
         for(const prestacionAMostrar of prestacionesAMostrar) {
             const option = document.createElement('option');
