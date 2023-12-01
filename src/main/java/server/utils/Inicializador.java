@@ -2,6 +2,7 @@ package server.utils;
 
 import models.domain.apis.georef.ServicioGeoref;
 import models.domain.apis.georef.adapters.ServicioGeorefRetrofitAdapter;
+import models.domain.main.incidentes.CronSugerenciaRevisionIncidente;
 import models.domain.main.informes.CronGeneradorReportes;
 import models.domain.main.localizacion.Localidad;
 import models.domain.main.localizacion.Localizacion;
@@ -47,7 +48,9 @@ public class Inicializador {
     inicializarMenus();
     inicializarPermisos();
     inicializarRoles();
-    cronRanking();
+    cronSugerenciaCierreIncidente();
+    //cronRanking();
+
   }
 
   public List<Provincia> inicializarProvincias() {
@@ -180,6 +183,12 @@ public class Inicializador {
     CronGeneradorReportes cronGeneradorReportes = new CronGeneradorReportes();
     cronGeneradorReportes.run();
   }
+
+  public void cronSugerenciaCierreIncidente() {
+    CronSugerenciaRevisionIncidente cronSugerenciaRevisionIncidente = new CronSugerenciaRevisionIncidente();
+    cronSugerenciaRevisionIncidente.run();
+  }
+
 
 
 

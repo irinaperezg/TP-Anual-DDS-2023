@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/estiloGeneral.css">
     <link rel="stylesheet" href="css/listarComunidades.css">
+    <link rel="stylesheet" href="css/listados.css">
     <meta charset="utf-8">
     <link rel="icon" href="img/favicon.png" type="image/png">
     <title>Listado de Comunidades</title>
@@ -36,10 +37,12 @@
 <div>
     <h1 class="titulosMedianos">  {{usuario.nombre}}</h1>
 </div>
-{{#each comunidades}}
-<div class = "comunidad">
-    <h2 class = "letraComunidad">{{this.nombre}}</h2>
-    <a href="/comunidades/baja/{{this.id}}/{{usuario.id}}" class="bajaComunidad" id="eliminarComunidad">&#10006;</a>
+{{#each miembros}}
+<div class = "listado">
+    <h2 class = "letraListado">{{this.comunidad.nombre}}</h2>
+    <a href="/comunidades/baja/{{this.comunidad.id}}/{{usuario.id}}" class="bajaComunidad" id="eliminarComunidad">&#10006;</a>
+    <a href="/comunidades/modificarTipoMiembro/{{this.id}}"class="fa-solid fa-code-compare" id="cambiarTipoMiembro" style="color: #ff4db5;"></a>
+    <input type="hidden" id="tipoActualMiembro" value="{{this.tipo}}">
 </div>
 {{/each}}
 

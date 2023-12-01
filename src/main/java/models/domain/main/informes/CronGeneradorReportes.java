@@ -19,7 +19,7 @@ public class CronGeneradorReportes extends TimerTask {
 
     public CronGeneradorReportes() {
         Timer t = new Timer();
-        t.scheduleAtFixedRate(this, 0, Config.TIEMPO);
+        t.scheduleAtFixedRate(this, 0, Config.TIEMPO_REPORTES);
     }
 
     @Override

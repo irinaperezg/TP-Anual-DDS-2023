@@ -48,21 +48,24 @@
 <div>
     <h1 class="titulosChicos">Establecimiento</h1>
 </div>
-
-    <div class="listado">
-        <h2 class="letraListado">{{prestacion.establecimiento.denominacion}}</h2>
-    </div>
+    {{#if prestacion.establecimiento.estaActivo}}
+     <div class="listado">
+             <h2 class="letraListado">{{prestacion.establecimiento.denominacion}}</h2>
+     </div>
+    {{/if}}
 
 <div>
     <h1 class="titulosChicos">Servicio</h1>
 </div>
 
 
-    <div class="listado">
-        <h2 class="letraListado">{{prestacion.servicio.descripcion}}</h2>
-    </div>
+     <div class="listado">
+             <h2 class="letraListado">{{prestacion.servicio.descripcion}}</h2>
+     </div>
 
-<a href="/editar-comunidad/{{comunidad.id}}" class="botonEditarComunidad">Editar</a>
+
+
+<a href="/editar-prestacion/{{prestacion.id}}" class="botonEditarComunidad">Editar</a>
 
 <script src="../js/cerrarSesion.js"></script>
 <script src="https://kit.fontawesome.com/a39dd266ae.js" crossorigin="anonymous"></script>

@@ -49,9 +49,12 @@
 <div>
     <h1 class="titulosChicos">Entidad</h1>
 </div>
-    <div class="listado">
-        <h2 class="letraListado">{{establecimiento.entidad.denominacion}}</h2>
-    </div>
+    {{#if this.estaActivo}}
+     <div class="listado">
+             <h2 class="letraListado">{{establecimiento.entidad.denominacion}}</h2>
+     </div>
+    {{/if}}
+
 <div>
     <h1 class="titulosChicos">Localidad</h1>
 </div>

@@ -1,7 +1,7 @@
 function guardarComunidad() {
     // Obtener valores del formulario
     const nombre = document.getElementById('nombre').value;
-    const denominacion = document.getElementById('denominacion').value;
+    const descripcion = document.getElementById('descripcion').value;
 
     const selectServicio = document.getElementById('servicio');
     const opcionesSeleccionadasServicio = Array.from(selectServicio.selectedOptions).map(option => option.value);
@@ -23,7 +23,7 @@ function guardarComunidad() {
     if (confirmacion) {
         const datos = {
             nombre: nombre,
-            denominacion: denominacion,
+            denominacion: descripcion,
             servicios: opcionesSeleccionadasServicio,
             establecimientos: opcionesSeleccionadasEstablecimiento,
         };

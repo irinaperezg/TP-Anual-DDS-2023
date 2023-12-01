@@ -8,7 +8,7 @@ import models.domain.usuarios.Persona;
 public class NotificacionCuandoSucedeIncidente implements FrecuenciaNotificacion {
 
   public void gestionarInicidente(Persona persona, Incidente incidente) {
-    Notificacion notificacion = new Notificacion(persona, incidente);
+    Notificacion notificacion = new Notificacion(persona, incidente, false);
     Notificador.obtenerInstancia().enviarNotificacion(notificacion);
   }
 

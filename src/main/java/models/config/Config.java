@@ -9,7 +9,9 @@ public class Config {
   private static Config instancia;
 
   public static final String RUTA_EXPORTACION = "2023-tpa-mama-grupo-04/src/main//resources/public/exportados/";
-  public static final Integer TIEMPO = 604800000;
+
+  public static final Integer TIEMPO_NOTIFICACIONES = 21600000;
+  public static final Integer TIEMPO_REPORTES = 604800000;
   public static final String DOWNLOAD = "2023-tpa-mama-grupo-04/descargas/";
   //Esto cuando tengan que descargar, la ruta es /public/descargas/*nombre archivo pdf* (suponiendo que hagan una carpeta descargas para guardar los pdf)
 

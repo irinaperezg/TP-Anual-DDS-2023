@@ -79,12 +79,6 @@ public class  PrestacionDeServicio {
     notificarAMiembros(incidente);
   }
 
-  public void solicitarRevisionDeIncidenteA(Persona persona, Incidente incidente) {
-    Notificacion notificacion = new Notificacion(persona, incidente);
-    notificacion.setMensaje("Por favor, revise el estado del servicio " + servicio.getDescripcion() + " en " + establecimiento.getDenominacion());
-    Notificador.obtenerInstancia().enviarNotificacion(notificacion);
-  }
-
   public boolean disponibleParaComunidad(Comunidad comunidad) {
     return incidentes.stream().noneMatch(incidente -> incidente.getComunidad().equals(comunidad) && incidente.isAbierto());
   }

@@ -91,7 +91,7 @@ body {
 .incidente {
     background-color: #E5E5E5;
     border: 2px solid #B5B5B5;
-    color: #B5B5B5;
+    color: #7E7B7B;
     padding: 20px;
     border-radius: 20px;
     position: relative;
@@ -110,15 +110,17 @@ body {
     right: 10px;
     cursor: pointer;
     padding: 5px;
-    border-radius: 35%;
+    border-radius: 50%; /* Cambiado a 50% para un círculo, puedes ajustar según tus preferencias */
+    text-align: center; /* Añadido para centrar el texto horizontalmente */
+    line-height: 1.5; /* Añadido para centrar el texto verticalmente */
 }
 
 .incidente .btn-close:hover {
-    background-color: #0CC0DF; /* Un celeste un poco más oscuro al pasar el mouse. */
+    background-color: #0AAAC8;
 }
 
 .incidente .denominacion, .incidente .prestacion {
-    color: #0CC0DF; /* Color celeste para "XXXX" de Denominación y Prestación. */
+    color: #B5B5B5; /* Color celeste para "XXXX" de Denominación y Prestación. */
 }
 
 /* Estilos para el contenedor de las tarjetas usando CSS Grid */
