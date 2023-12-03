@@ -2,6 +2,8 @@ package models.validadorDeContrasenias.validaciones;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -26,22 +28,23 @@ public class NoEsComun implements Validacion {
 
   public void procesarArchivoDeContrasenasComunes() {
     if (contraseniasComunes.isEmpty()) {
-
       String archivo10kContrasenias = Config.obtenerInstancia().obtenerDelConfig("archivo10kContrasenias");
 
-      try {
-
-        File file = new File(archivo10kContrasenias);
-        Scanner myReader = new Scanner(file);
+      // Usa getResourceAsStream para leer el archivo como un recurso del classpath
+      try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(archivo10kContrasenias)) {
+        if (inputStream == null) {
+          // Si el inputStream es null, el archivo no se encontró en el classpath
+          throw new FileNotFoundException("No se pudo encontrar el archivo " + archivo10kContrasenias);
+        }
+        Scanner myReader = new Scanner(inputStream);
 
         while (myReader.hasNextLine()) {
           String data = myReader.nextLine();
           contraseniasComunes.add(data);
         }
-
-        myReader.close();
-      } catch (FileNotFoundException e) {
-        System.out.println("No se pudo encontrar el archivo" + archivo10kContrasenias);
+        // No es necesario cerrar el Scanner aquí ya que está dentro de un try-with-resources
+      } catch (IOException e) {
+        System.out.println("No se pudo encontrar el archivo " + archivo10kContrasenias);
         e.printStackTrace();
       }
     }

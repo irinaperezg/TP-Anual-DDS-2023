@@ -91,7 +91,7 @@ body {
 .incidente {
     background-color: #E5E5E5;
     border: 2px solid #B5B5B5;
-    color: #B5B5B5;
+    color: #7E7B7B;
     padding: 20px;
     border-radius: 20px;
     position: relative;
@@ -120,7 +120,7 @@ body {
 }
 
 .incidente .denominacion, .incidente .prestacion {
-    color: #B5B5B5; /* Color celeste para "XXXX" de Denominación y Prestación. */
+    color: #7E7B7B;
 }
 
 /* Estilos para el contenedor de las tarjetas usando CSS Grid */

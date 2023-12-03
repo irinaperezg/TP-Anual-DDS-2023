@@ -113,7 +113,7 @@ public class UsuariosController extends Controller implements ICrudViewsHandler 
         Map<String, Object> model = new HashMap<>();
         model.put("usuario", usuario);
         model.put("menus", menus);
-        //TODO ver que se ponga correctamente el nombre del usuario
+
 
         context.render("inicio.hbs", model);
     }

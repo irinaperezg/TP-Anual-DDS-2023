@@ -2,6 +2,8 @@ package server.utils;
 
 import models.domain.apis.georef.ServicioGeoref;
 import models.domain.apis.georef.adapters.ServicioGeorefRetrofitAdapter;
+import models.domain.main.incidentes.CronSugerenciaRevisionIncidente;
+import models.domain.main.informes.CronGeneradorReportes;
 import models.domain.main.localizacion.Localidad;
 import models.domain.main.localizacion.Localizacion;
 import models.domain.main.localizacion.Provincia;
@@ -15,6 +17,7 @@ import models.repositorios.MenuRepository;
 import models.repositorios.PermisoRepository;
 import models.repositorios.RolRepository;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -39,12 +42,16 @@ public class Inicializador {
 
   public void inicializar() throws IOException {
     //this.localizacionRepository.cargarTodo();
-    List<Provincia> provincias = this.inicializarProvincias();
-    List<Localizacion> localizaciones = this.inicializarLocalizaciones(provincias);
-    this.inicializarLocalidades(localizaciones);
+    //List<Provincia> provincias = this.inicializarProvincias();
+    //List<Localizacion> localizaciones = this.inicializarLocalizaciones(provincias);
+    //this.inicializarLocalidades(localizaciones);
     inicializarMenus();
     inicializarPermisos();
     inicializarRoles();
+    String currentDirectory = System.getProperty("user.dir");
+    System.out.println("El directorio actual es: " + currentDirectory);
+    cronRanking();
+    //cronSugerenciaCierreIncidente();
   }
 
   public List<Provincia> inicializarProvincias() {
@@ -171,4 +178,19 @@ public class Inicializador {
       permisoRepository.persistir(permisos);
     }
   }
+
+
+  public void cronRanking() {
+    CronGeneradorReportes cronGeneradorReportes = new CronGeneradorReportes();
+    //cronGeneradorReportes.run();
+  }
+
+  public void cronSugerenciaCierreIncidente() {
+    CronSugerenciaRevisionIncidente cronSugerenciaRevisionIncidente = new CronSugerenciaRevisionIncidente();
+    cronSugerenciaRevisionIncidente.run();
+  }
+
+
+
+
 }

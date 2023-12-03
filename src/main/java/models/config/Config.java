@@ -8,7 +8,12 @@ public class Config {
   private static final Properties prop = new Properties();
   private static Config instancia;
 
-  public static final String RUTA_EXPORTACION = "tmp/";
+  public static final String RUTA_EXPORTACION = "src/main/resources/public/exportados/";
+
+  public static final Integer TIEMPO_NOTIFICACIONES = 21600000;
+  public static final Integer TIEMPO_REPORTES = 604800000;
+  public static final String DOWNLOAD = "2023-tpa-mama-grupo-04/descargas/";
+  //Esto cuando tengan que descargar, la ruta es /public/descargas/*nombre archivo pdf* (suponiendo que hagan una carpeta descargas para guardar los pdf)
 
   private Config() { //porque es un Singleton
   }

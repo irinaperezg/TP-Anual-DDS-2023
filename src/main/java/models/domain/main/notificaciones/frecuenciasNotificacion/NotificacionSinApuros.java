@@ -18,7 +18,7 @@ public class NotificacionSinApuros implements Job, FrecuenciaNotificacion {
   static List<Notificacion> notificaciones = new ArrayList<>();
 
   public void gestionarInicidente(Persona persona, Incidente incidente) {
-    Notificacion notificacion = new Notificacion(persona, incidente);
+    Notificacion notificacion = new Notificacion(persona, incidente, false);
     notificaciones.add(notificacion);
   }
 

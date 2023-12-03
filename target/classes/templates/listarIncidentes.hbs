@@ -68,10 +68,13 @@
                  Observaciones: <span class="observaciones">{{this.observaciones}}</span><br>
                  {{#if this.abierto}}
                     Estado: <span class="estado">ABIERTO</span>
+                    <a class="btn-close" href="/incidentes/cerrar/{{this.id}}">X</a>
                  {{else}}
                     Estado: <span class="estado">CERRADO</span>
                  {{/if}}
+
                  <a class="btn-close" href="/incidentes/cerrar/{{this.id}}">X</a>
+
             </div>
         {{/each}}
     {{/if}}

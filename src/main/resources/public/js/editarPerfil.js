@@ -1,4 +1,5 @@
-function Localidad(nombre, provincia_id) {
+function Localidad(id, nombre, provincia_id) {
+    this.id = id;
     this.nombre = nombre;
     this.provincia_id = provincia_id;
 }
@@ -8,7 +9,7 @@ function leerLocalidades() {
     const localidadesLeidas = [];
 
     for (const opcion of selectLocalidad.options) {
-        const localidad = new Localidad(opcion.text, opcion.getAttribute("data-provincia"));
+        const localidad = new Localidad(opcion.value, opcion.text, opcion.getAttribute("data-provincia"));
         localidadesLeidas.push(localidad);
     }
 
@@ -16,6 +17,8 @@ function leerLocalidades() {
 }
 
 let localidades = []
+const selectProvincia = document.querySelector("#provincia_select");
+
 
 document.addEventListener('DOMContentLoaded', function() {
     localidades = leerLocalidades();
@@ -28,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Localidad seleccionada:', this.text);
     });
 
-    const selectProvincia = document.querySelector("#provincia_select");
 
     selectProvincia.addEventListener("change", () => {
         cargarLocalidades(selectProvincia.value);
@@ -36,7 +38,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
+selectProvincia.addEventListener("change", () => {
+    cargarLocalidades(selectProvincia.value);
+});
+
+
 function cargarLocalidades(provincia_id) {
+    console.log(localidades);
     const localidadesAMostrar = localidades.filter(localidad => esDeProvincia(provincia_id, localidad));
 
     const selectLocalidad = document.querySelector("#localidad_select");
@@ -45,7 +53,7 @@ function cargarLocalidades(provincia_id) {
     for (const localidadAMostrar of localidadesAMostrar) {
         var opcion = document.createElement("option");
         opcion.value = localidadAMostrar.id;
-        opcion.text = localidadAMostrar.nombre;
+        opcion.textContent = localidadAMostrar.nombre;
         selectLocalidad.appendChild(opcion);
     }
 }
@@ -53,10 +61,6 @@ function cargarLocalidades(provincia_id) {
 function esDeProvincia(provincia_id, localidad) {
     return provincia_id === localidad.provincia_id
 }
-
-
-
-
 
 document.addEventListener('DOMContentLoaded', function() {
     const preferenciaMedioNotificacion = "{{persona.preferenciaMedioNotificacion}}";
@@ -214,11 +218,11 @@ function toggleBotones() {
 
 function ocultarElementos() {
     const parrafo = document.getElementById('parrafo');
-    const guardarButton = document.querySelector('.botonsote');
+    const guardarButton = document.querySelector('#botonGuardar');
     const addHorariosButton = document.querySelector('.add-btn');
 
     parrafo.style.display = 'none';
-    guardarButton.style.display = 'none';
+    //guardarButton.style.display = 'none';
     addHorariosButton.style.display = 'none';
 }
 

@@ -2,6 +2,7 @@ package models.domain.main.incidentes;
 
 import models.domain.converter.LocalDateTimeAttributeConverter;
 import models.domain.main.PrestacionDeServicio;
+import models.domain.main.localizacion.Localidad;
 import models.domain.usuarios.Comunidad;
 import models.domain.usuarios.Miembro;
 import lombok.Getter;
@@ -115,6 +116,10 @@ public class Incidente {
   @Override
   public int hashCode() {
     return Objects.hash(denominacion, comunidad);
+  }
+
+  public Localidad getLocalidad() {
+    return this.prestacion.getEstablecimiento().getLocalidad();
   }
 
 }

@@ -27,7 +27,7 @@ public class EntidadRepository implements WithSimplePersistenceUnit {
     entityManager().getTransaction().commit();
   }
 
-  public void remove (Entidad entidad) {
+  public void remove(Entidad entidad) {
     entidad.setEstaActivo(false);
     actualizar(entidad);
   }
@@ -35,15 +35,12 @@ public class EntidadRepository implements WithSimplePersistenceUnit {
   public List<Entidad> todos() {
     try {
       return entityManager()
-              .createQuery("from Entidad", Entidad.class) // Asegúrate de incluir la clase Delegado si estás usando JPA TypedQuery
+              .createQuery("SELECT e FROM Entidad e WHERE e.estaActivo = true", Entidad.class)
               .getResultList();
     } catch (Exception e) {
-      e.printStackTrace(); // Imprime la pila de la excepción para diagnóstico
-      // Aquí podrías también registrar la excepción o realizar otras acciones de manejo de errores
-      return new ArrayList<>(); // Devuelve una lista vacía o maneja el error como consideres apropiado
+      e.printStackTrace();
+      return new ArrayList<>();
     }
   }
-
-
 
 }

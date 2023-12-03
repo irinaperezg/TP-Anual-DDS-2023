@@ -7,16 +7,18 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-
+import java.time.LocalDateTime;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-
-import static com.itextpdf.text.pdf.XfaXpathConstructor.XdpPackage.Config;
+import java.time.format.DateTimeFormatter;
 
 public class ApachePDFBox implements PDFAdapter {
 
-  public String generarInforme(Exportable exportable, String nombreDeArchivo) {
+  private String nombreDeArchivo;
+
+  public String generarInforme(Exportable exportable) {
+    this.nombreDeArchivo = exportable.descripcion();
     PDDocument doc = new PDDocument();
     PDPage myPage = new PDPage();
     doc.addPage(myPage);
@@ -30,22 +32,35 @@ public class ApachePDFBox implements PDFAdapter {
 
       cont.endText();
       cont.close();
-      doc.save(rutaCompletaDelArchivo(nombreDeArchivo));
+      doc.save(this.rutaCompletaDelArchivo(exportable));
       doc.close();
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return this.rutaCompletaDelArchivo(nombreDeArchivo);
+    return this.rutaCompletaDelArchivo(exportable);
   }
 
-  private String rutaCompletaDelArchivo(String nombreDeArchivo){
-    return models.config.Config.RUTA_EXPORTACION + nombreDeArchivo + ".pdf";
+  private String rutaCompletaDelArchivo(Exportable exportable){
+
+    return models.config.Config.RUTA_EXPORTACION + this.nombre_archivo(exportable);
   }
 
+  public String nombre_archivo(Exportable exportable)
+  {
+    String fechaHoraActual = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+    String nombre = fechaHoraActual + "_" + this.nombreDeArchivo + ".pdf";
+    exportable.setNombre(nombre);
+    return nombre;
+  }
   private void agregarDatos(PDPageContentStream pagina, Map<String, List<String>> datos) throws IOException {
     for (Map.Entry<String, List<String>> entry : datos.entrySet()) {
       pagina.newLine();
-      String datosDeLaFila = entry.getKey() + ": " + entry.getValue().toString();
+      String posicion = entry.getValue().get(0);
+      String nombre = entry.getValue().get(1);
+      String puntaje = entry.getValue().get(2);
+
+      String datosDeLaFila = posicion + "   " + nombre + "   " + puntaje;
+
       pagina.showText(datosDeLaFila);
     }
   }

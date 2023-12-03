@@ -33,6 +33,20 @@ public class PromedioCierre implements Ranking {
       posiciones.add(posicion);
     }
 
+    posiciones.sort(new Comparator<PosicionRanking>() {
+      public int compare(PosicionRanking o1, PosicionRanking o2) {
+          // Coloca todos los elementos con puntaje 0 al final
+          if (o1.getPuntaje() == 0 && o2.getPuntaje() != 0) {
+              return 1; // o1 es mayor ya que queremos que vaya al final
+          } else if (o1.getPuntaje() != 0 && o2.getPuntaje() == 0) {
+              return -1; // o1 es menor ya que no queremos que vaya al final
+          }
+
+          // Ordena de menor a mayor si ninguno tiene puntaje 0
+          return Integer.compare(o1.getPuntaje(), o2.getPuntaje());
+      }
+    });
+
 
     return posiciones;
   }
@@ -63,7 +77,7 @@ public class PromedioCierre implements Ranking {
             if (fechaApertura.isAfter(inicioSemana) && fechaApertura.isBefore(finSemana)) {
               if (!incidente.isAbierto()){ // Me fijo solo en los incidentes resueltos
                 LocalDateTime fechaCierre = incidente.getFechaCierre();
-                long tiempoCierre = ChronoUnit.HOURS.between(fechaApertura, fechaCierre);
+                long tiempoCierre = ChronoUnit.SECONDS.between(fechaApertura, fechaCierre);
                 tiempoTotalCierre += tiempoCierre;
                 cantidadIncidentes++;
               }
