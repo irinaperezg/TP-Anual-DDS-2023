@@ -48,7 +48,7 @@
 <div>
     <h1 class="titulosChicos">Establecimiento</h1>
 </div>
-    {{#if this.estaActivo}}
+    {{#if prestacion.establecimiento.estaActivo}}
      <div class="listado">
              <h2 class="letraListado">{{prestacion.establecimiento.denominacion}}</h2>
      </div>
@@ -58,11 +58,11 @@
     <h1 class="titulosChicos">Servicio</h1>
 </div>
 
-    {{#if this.estaActivo}}
+
      <div class="listado">
              <h2 class="letraListado">{{prestacion.servicio.descripcion}}</h2>
      </div>
-    {{/if}}
+
 
 
 <a href="/editar-prestacion/{{prestacion.id}}" class="botonEditarComunidad">Editar</a>
