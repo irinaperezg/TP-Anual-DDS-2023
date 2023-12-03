@@ -1,4 +1,5 @@
-function Incidente(denominacion, prestacion, fechaApertura, observaciones, estado, comunidad) {
+function Incidente(id, denominacion, prestacion, fechaApertura, observaciones, estado, comunidad) {
+    this.id = id;
     this.denominacion = denominacion;
     this.prestacion = prestacion;
     this.fechaApertura = fechaApertura;
@@ -28,8 +29,9 @@ function leerIncidentes() {
         const estado = estadoElement.textContent.trim();
 
         const comunidad = incidenteDiv.getAttribute("data-comunidad");
+        const id = incidenteDiv.getAttribute("data-incidente-id")
 
-        const incidente = new Incidente(denominacion, prestacion, fechaApertura, observaciones, estado, comunidad);
+        const incidente = new Incidente(id, denominacion, prestacion, fechaApertura, observaciones, estado, comunidad);
         incidentesLeidos.push(incidente);
     }
 
@@ -66,9 +68,10 @@ function mostrarIncidentes() {
         const estado = document.createElement("span");
         estado.textContent = "Estado: " + incidente.estado
 
-        const btnCerrar = document.createElement("button");
+        const btnCerrar = document.createElement("a");
         btnCerrar.classList.add("btn-close");
         btnCerrar.textContent = "X";
+        btnCerrar.setAttribute("href", `/incidentes/cerrar/${incidente.id}`);
 
         tarjeta.appendChild(document.createTextNode("Denominación: "));
         tarjeta.appendChild(denominacion);
@@ -86,6 +89,8 @@ function mostrarIncidentes() {
 
         seccionTarjetas.appendChild(tarjeta);
     }
+
+    crearEventsListenersClose()
 }
 
 function hayQueMostrar(incidente) {
@@ -113,35 +118,22 @@ selectComunidad.addEventListener("change", () => {
     mostrarIncidentes();
 });
 
-const buttonsClose = document.querySelectorAll(".btn-close");
+function crearEventsListenersClose() {
+    const btnsCerrarIncidente = document.querySelectorAll(".btn-close")
 
-buttonsClose.forEach(button => {
-    button.addEventListener("click", () => {
-        const incidenteId = obtenerIncidenteIdDesdeBoton(button);
-        cerrarIncidente(incidenteId);
-    });
-});
+    btnsCerrarIncidente.forEach(btnCerrarIncidente => {
+        btnCerrarIncidente.addEventListener('click', function (event) {
+            const confirmacion = confirm('¿Estás seguro/a de que deseas cerrar este incidente?');
 
-function obtenerIncidenteIdDesdeBoton(button) {
-    // Obtiene el valor del atributo data-incidente-id del botón
-    const incidenteId = button.getAttribute("data-incidente-id");
-    // Asegúrate de que el valor no sea nulo y sea válido antes de devolverlo
-    if (incidenteId !== null && incidenteId !== "") {
-        return incidenteId;
-    } else {
-        // En caso de que el atributo no esté definido o sea inválido
-        console.error("El atributo data-incidente-id no está definido o es inválido en el botón.");
-        return null; // O maneja el error de la manera que consideres adecuada
-    }
-    console
-}
-
-function cerrarIncidente(incidenteId) {
-    fetch(`incidente/${incidenteId}/cerrar`, {
-        method: "POST",
-        // Puedes agregar otros encabezados o datos en el cuerpo de la solicitud si es necesario
-    })
-        .catch(error => {
-            console.error("Error en la solicitud POST:", error);
+            if (!confirmacion) {
+                event.preventDefault();
+            }
         });
+    })
 }
+
+crearEventsListenersClose()
+
+
+
+

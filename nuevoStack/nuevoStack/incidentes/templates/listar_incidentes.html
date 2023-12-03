@@ -59,9 +59,9 @@
 <div class="seccion-tarjetas">
     {% if incidentes %}
         {% for incidente in incidentes %}
-            <div style = "color: #7E7B7B;"class = "incidente" >
-                 Denominación: <span>{{ incidente.denominacion }}</span><br>
-                 Prestación: <span> {{ incidente.prestacion_de_servicio.servicio.descripcion }} en {{ incidente.prestacion_de_servicio.establecimiento.denominacion }}
+            <div class = "incidente" >
+                 Denominación: <span  class="denominacion">{{ incidente.denominacion }}</span><br>
+                 Prestación: <span class="prestacion"> {{ incidente.prestacion_de_servicio.servicio.descripcion }} en {{ incidente.prestacion_de_servicio.establecimiento.denominacion }}
                  de {{ incidente.prestacion_de_servicio.establecimiento.entidad.denominacion }} </span><br>
                  Fecha de publicación: <span class="fechaApertura">{{ incidente.fechaapertura }}</span><br>
                  Observaciones: <span class="observaciones">{{ incidente.observaciones }}</span><br>
